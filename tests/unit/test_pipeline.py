@@ -1,4 +1,5 @@
 import csv
+import gzip
 import json
 
 from src.processing.pipeline import transform
@@ -14,3 +15,20 @@ def test_pipeline_is_deterministic_and_reports_quality(tmp_path):
     assert first["quality"]["invalid_records"] == 2
     with (tmp_path / "out/acted_in.csv").open() as f: assert len(list(csv.DictReader(f))) == 1
 
+
+def test_pipeline_stream_joins_imdb_ratings_by_exact_id(tmp_path):
+    source = tmp_path / "raw.json"
+    source.write_text(json.dumps({"movies": [
+        {"tmdb_id": 1, "imdb_id": "tt1", "title": "A", "actors": [], "directors": [], "genres": [], "keywords": [], "studios": []},
+        {"tmdb_id": 2, "imdb_id": "tt2", "title": "B", "rating": 7.1, "actors": [], "directors": [], "genres": [], "keywords": [], "studios": []}]}))
+    imdb = tmp_path / "title.ratings.tsv.gz"
+    with gzip.open(imdb, "wt", encoding="utf-8", newline="") as stream:
+        stream.write("tconst\taverageRating\tnumVotes\n")
+        stream.write("tt1\t8.8\t12345\n")
+        stream.write("tt999\t9.9\t1\n")
+    manifest = transform(source, tmp_path / "out", imdb)
+    with (tmp_path / "out/movies.csv").open() as stream:
+        rows = list(csv.DictReader(stream))
+    assert rows[0]["imdb_rating"] == "8.8" and rows[0]["imdb_votes"] == "12345"
+    assert rows[1]["rating"] == "7.1" and rows[1]["imdb_rating"] == ""
+    assert manifest["imdb"]["matched_ratings"] == 1

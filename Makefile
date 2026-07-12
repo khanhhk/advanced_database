@@ -16,7 +16,7 @@ BENCH_ITERATIONS ?= 100
 BENCH_SCALES ?= 5,100,1000,5000
 
 .DEFAULT_GOAL := help
-.PHONY: help setup test data run experiments stop clean _env _neo4j _load
+.PHONY: help setup test imdb-data data run experiments stop clean clean-imdb-raw _env _neo4j _load
 
 help: ## Hiển thị các workflow cần dùng
 	@awk 'BEGIN {FS = ":.*## "; printf "Movie Knowledge Graph workflows:\n\n"} /^[a-zA-Z0-9_-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -44,9 +44,12 @@ test: setup _neo4j ## Chạy toàn bộ test và kiểm tra tính toàn vẹn pr
 	$(PY) -m compileall -q src experiments tests
 	sha256sum -c .agents/memory/SOURCES.sha256
 
-data: setup ## Thu thập và chuẩn hóa DATA_COUNT phim từ TMDB
+imdb-data: setup ## Tải duy nhất IMDb ratings dạng nén, bỏ qua nếu đã hợp lệ
+	$(PY) -m src.ingestion.download_imdb
+
+data: setup imdb-data ## Thu thập TMDB, lọc IMDb ratings và chuẩn hóa dữ liệu
 	$(PY) -m src.ingestion.collect_tmdb --count $(DATA_COUNT)
-	$(PY) -m src.processing.pipeline --input data/raw/tmdb_movies.json --output data/processed
+	$(PY) -m src.processing.pipeline --input data/raw/tmdb_movies.json --output data/processed --imdb-ratings data/raw/imdb/title.ratings.tsv.gz
 	@echo "Dataset ready in data/processed (see manifest.json)."
 
 _load: setup _neo4j
@@ -64,6 +67,9 @@ experiments: setup ## Sinh QA evaluation, benchmark và RDF export
 
 stop: ## Dừng ứng dụng Docker/Neo4j nhưng giữ data volume
 	docker compose down
+
+clean-imdb-raw: ## Xóa IMDb raw; processed data vẫn được giữ
+	rm -f data/raw/imdb/title.ratings.tsv.gz data/raw/imdb/title.ratings.tsv.gz.metadata.json
 
 clean: ## Xóa cache/build artifacts, giữ toàn bộ raw và processed data
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +

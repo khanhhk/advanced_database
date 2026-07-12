@@ -19,6 +19,8 @@ QUERIES = {
       SET n.imdb_id=r.imdb_id,n.title=r.title,n.release_date=r.release_date,
       n.runtime=CASE WHEN r.runtime='' THEN null ELSE toInteger(r.runtime) END,
       n.rating=CASE WHEN r.rating='' THEN null ELSE toFloat(r.rating) END,
+      n.imdb_rating=CASE WHEN r.imdb_rating='' THEN null ELSE toFloat(r.imdb_rating) END,
+      n.imdb_votes=CASE WHEN r.imdb_votes='' THEN null ELSE toInteger(r.imdb_votes) END,
       n.popularity=CASE WHEN r.popularity='' THEN null ELSE toFloat(r.popularity) END,n.overview=r.overview,n.source='tmdb'""",
     "people": "UNWIND $rows AS r MERGE (n:Person {person_id:r.person_id}) SET n.name=r.name,n.source=r.source",
     "genres": "UNWIND $rows AS r MERGE (n:Genre {genre_id:r.genre_id}) SET n.name=r.name,n.source=r.source",

@@ -47,7 +47,7 @@ subset is exported as RDF/Turtle for OWL/SPARQL comparison.
 ## Domain model
 
 Important properties include `Movie(tmdb_id, imdb_id, title, release_date,
-runtime, rating, popularity, overview)`, `Person(tmdb_id, imdb_id, name,
+runtime, rating, imdb_rating, imdb_votes, popularity, overview)`, `Person(tmdb_id, imdb_id, name,
 birthday)`, `Genre(genre_id, name)`, `Keyword(keyword_id, name)`, and
 `Studio(company_id, name, country)`. `ACTED_IN` carries `character` and
 `cast_order`.
@@ -77,6 +77,14 @@ through the fixed parameterized Cypher catalog and computes recommendation
 similarity in the database. TMDB collection supports `--count 2000..5000`, using
 immutable page/movie caches. Synthetic memory benchmarks must be labeled with
 backend and movie count and must not be reported as Neo4j performance.
+
+IMDb integration (updated 2026-07-12) is deliberately storage-bounded: TMDB
+remains the graph source, while only compressed `title.ratings.tsv.gz` is
+downloaded. The pipeline streams it without extraction, exact-joins the small
+set of TMDB `imdb_id` values, and stores `imdb_rating`/`imdb_votes` separately
+from TMDB `rating`. It never loads complete IMDb data into memory or Neo4j.
+Checksums and match counts are recorded for provenance; ignored raw IMDb data
+may be deleted after processing.
 
 ## Quality and evaluation
 

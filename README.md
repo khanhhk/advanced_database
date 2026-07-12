@@ -18,7 +18,8 @@ Không cần tự activate virtual environment: Makefile luôn gọi executable 
 ```bash
 make setup             # tạo .env + .venv + cài và kiểm tra dependencies
 make test              # toàn bộ test, gồm cả integration Neo4j
-make data              # thu thập + chuẩn hóa 2.000 phim
+make data              # thu thập TMDB + IMDb ratings và chuẩn hóa 2.000 phim
+make imdb-data         # chỉ tải IMDb title.ratings.tsv.gz
 make run               # dựng Neo4j + import data + chạy API/UI
 make experiments
 make stop
@@ -61,7 +62,7 @@ Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và lu�
 
 ## Dữ liệu ngoài
 
-Đặt `TMDB_API_KEY` trong `.env`; `TMDBClient` cache nguyên response vào `data/raw/tmdb`. Raw data và secret được loại khỏi Git. IMDb TSV hoặc TSV.GZ có thể đọc bằng `src.ingestion.imdb_loader.load_tsv`.
+Đặt `TMDB_API_KEY` trong `.env`; `TMDBClient` cache nguyên response vào `data/raw/tmdb`. Raw data và secret được loại khỏi Git. Pipeline chỉ tải `title.ratings.tsv.gz` của IMDb, đọc streaming trực tiếp từ gzip và giữ các dòng khớp chính xác với `imdb_id` của phim TMDB. Không giải nén hay nạp toàn bộ IMDb vào RAM/Neo4j. `Movie.rating` giữ rating TMDB; `Movie.imdb_rating` và `Movie.imdb_votes` giữ dữ liệu IMDb riêng. Dùng `make clean-imdb-raw` khi cần giải phóng file nén sau khi đã xử lý.
 
 ## Cấu trúc đầu ra và tái lập
 

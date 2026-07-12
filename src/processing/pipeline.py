@@ -9,6 +9,8 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+from src.ingestion.imdb_loader import load_tsv
+
 from .clean import clean_movie, normalize_name
 
 NODE_FILES = ("movies", "people", "genres", "keywords", "studios")
@@ -27,7 +29,23 @@ def _write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
         writer.writerows(rows)
 
 
-def transform(source: Path, output_dir: Path) -> dict:
+def _imdb_ratings(path: Path | None, wanted_ids: set[str]) -> dict[str, dict]:
+    if not path:
+        return {}
+    if not path.is_file():
+        raise FileNotFoundError(f"IMDb ratings file not found: {path}")
+    found = {}
+    for row in load_tsv(path):
+        imdb_id = row.get("tconst")
+        if imdb_id in wanted_ids:
+            found[imdb_id] = {"imdb_rating": float(row["averageRating"]),
+                              "imdb_votes": int(row["numVotes"])}
+            if len(found) == len(wanted_ids):
+                break
+    return found
+
+
+def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = None) -> dict:
     """Create normalized node/edge tables plus a reproducible quality manifest."""
     raw = json.loads(source.read_text(encoding="utf-8"))
     records = raw.get("movies", raw) if isinstance(raw, dict) else raw
@@ -66,9 +84,13 @@ def transform(source: Path, output_dir: Path) -> dict:
                 entities[plural][entity_id] = {id_name: entity_id, "name": name, "source": "tmdb"}
                 edges[edge_name].append({"tmdb_id": movie_id, id_name: entity_id, "source": "tmdb"})
 
+    wanted_imdb_ids = {m["imdb_id"] for m in movies if m.get("imdb_id")}
+    ratings = _imdb_ratings(imdb_ratings_path, wanted_imdb_ids)
+    for movie in movies:
+        movie.update(ratings.get(movie.get("imdb_id"), {"imdb_rating": None, "imdb_votes": None}))
     node_rows = {"movies": movies, **{key: list(values.values()) for key, values in entities.items()}}
     node_fields = {
-        "movies": ["tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "popularity", "overview"],
+        "movies": ["tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "imdb_rating", "imdb_votes", "popularity", "overview"],
         "people": ["person_id", "name", "source"], "genres": ["genre_id", "name", "source"],
         "keywords": ["keyword_id", "name", "source"], "studios": ["company_id", "name", "source"],
     }
@@ -82,6 +104,10 @@ def transform(source: Path, output_dir: Path) -> dict:
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(), "source": str(source),
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "imdb": {"source": str(imdb_ratings_path) if imdb_ratings_path else None,
+                 "source_sha256": hashlib.sha256(imdb_ratings_path.read_bytes()).hexdigest() if imdb_ratings_path else None,
+                 "tmdb_movies_with_imdb_id": len(wanted_imdb_ids), "matched_ratings": len(ratings),
+                 "match_method": "exact_imdb_id"},
         "counts": {**{k: len(v) for k, v in node_rows.items()}, **{k: len(edges[k]) for k in EDGE_FILES}},
         "quality": {"input_records": len(records), "valid_movies": len(movies), "invalid_records": len(invalid),
                     "duplicate_movie_rate": sum(x["reason"] == "duplicate_tmdb_id" for x in invalid) / max(len(records), 1),
@@ -97,5 +123,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Normalize movie JSON into graph node/edge CSV files")
     parser.add_argument("--input", type=Path, default=Path("data/raw/tmdb_movies.json"))
     parser.add_argument("--output", type=Path, default=Path("data/processed"))
+    parser.add_argument("--imdb-ratings", type=Path)
     args = parser.parse_args()
-    print(json.dumps(transform(args.input, args.output), ensure_ascii=False, indent=2))
+    print(json.dumps(transform(args.input, args.output, args.imdb_ratings), ensure_ascii=False, indent=2))
