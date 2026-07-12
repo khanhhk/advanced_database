@@ -1,37 +1,27 @@
 <!doctype html>
 <html lang="vi">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Movie Knowledge Graph</title><link rel="stylesheet" href="/static/style.css?v=1.3"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Movie Knowledge Graph</title><link rel="stylesheet" href="/static/style.css?v=1.5"></head>
 <body><main>
-  <header><p>ADVANCED DATABASE</p><h1>Movie Knowledge Graph</h1><span>Tìm kiếm, hỏi đáp và khám phá phim bằng Knowledge Graph</span></header>
+  <header><p>ADVANCED DATABASE</p><h1>Movie Knowledge Graph</h1></header>
 
   <nav class="tabs" aria-label="Chức năng">
     <button class="tab active" data-panel="chatPanel">Hỏi đáp</button>
-    <button class="tab" data-panel="searchPanel">Tìm phim theo mô tả</button>
     <button class="tab" data-panel="recommendPanel">Gợi ý phim tương tự</button>
   </nav>
 
   <section id="chatPanel" class="panel active">
-    <div class="section-heading"><div><span class="eyebrow">KNOWLEDGE GRAPH QA</span><h2>Trò chuyện với dữ liệu phim</h2></div><button id="clearChat" class="secondary" type="button">Xóa hội thoại</button></div>
-    <p class="help">Bạn có thể hỏi nhiều câu liên tiếp. Ví dụ: “Phim nào do Christopher Nolan đạo diễn?” hoặc “Ai đóng trong phim Inception?”</p>
+    <div class="section-heading"><div><span class="eyebrow">KNOWLEDGE GRAPH QA</span></div><button id="clearChat" class="secondary" type="button">Xóa hội thoại</button></div>
     <div id="chatHistory" class="chat-history" aria-live="polite"><div class="message assistant">Xin chào! Hãy hỏi tôi về phim, diễn viên, đạo diễn, thể loại hoặc mối liên hệ giữa họ.</div></div>
     <form id="askForm" class="composer"><input id="questionInput" placeholder="Nhập câu hỏi tiếp theo…" autocomplete="off" required><button type="submit">Gửi</button></form>
   </section>
 
-  <section id="searchPanel" class="panel" hidden>
-    <span class="eyebrow">SEMANTIC SEARCH</span><h2>Tìm phim bằng mô tả tự nhiên</h2>
-    <p class="help">Mô tả nội dung bạn muốn xem; hệ thống hiểu cả từ khóa tiếng Việt và lọc thể loại/rating.</p>
-    <form id="searchForm" class="stack-form"><label for="searchInput">Bạn muốn xem phim như thế nào?</label><div class="form-row"><input id="searchInput" value="phim khoa học viễn tưởng về không gian rating trên 7" required><button type="submit">Tìm phim</button></div></form>
-    <div id="searchStatus" class="status" aria-live="polite"></div><div id="searchResults" class="results-grid"></div>
-  </section>
-
   <section id="recommendPanel" class="panel" hidden>
-    <span class="eyebrow">EXPLAINABLE RECOMMENDATION</span><h2>Khám phá phim tương tự</h2>
-    <p class="help">Mã phim là ID TMDB. Ví dụ <strong>27205 là Inception</strong>. “Số kết quả” là số phim bạn muốn nhận.</p>
+    <span class="eyebrow">IDF-WEIGHTED GRAPH SIMILARITY</span>
     <form id="recommendForm" class="stack-form">
-      <div class="form-grid"><label>Mã phim TMDB<input id="movieIdInput" type="number" value="27205" min="1" required></label><label>Số kết quả<input id="topKInput" type="number" value="5" min="1" max="20" required></label><label>Cách xếp hạng<select id="methodInput"><option value="overlap">Khuyến nghị — quan hệ chung</option><option value="weighted_jaccard">Cân bằng quy mô metadata</option><option value="hybrid">Thử nghiệm — graph + nội dung</option></select></label></div>
-      <p id="methodHelp" class="hint">Ưu tiên phim có nhiều đạo diễn, diễn viên, thể loại và từ khóa chung.</p><button type="submit">Tạo danh sách gợi ý</button>
+      <div class="form-grid"><label class="movie-picker">Tên phim<input id="movieNameInput" type="search" placeholder="Nhập tên phim…" autocomplete="off" aria-autocomplete="list" aria-controls="movieSuggestions" required><input id="movieIdInput" type="hidden"><div id="movieSuggestions" class="suggestions" role="listbox" hidden></div></label><label>Số kết quả<input id="topKInput" type="number" value="5" min="1" max="20" required></label></div>
+      <button type="submit">Tạo danh sách gợi ý</button>
     </form>
     <div id="recommendStatus" class="status" aria-live="polite"></div><div id="recommendResults" class="results-grid"></div>
   </section>
 
-</main><script src="/static/app.js?v=1.3"></script></body></html>
+</main><script src="/static/app.js?v=1.8"></script></body></html>

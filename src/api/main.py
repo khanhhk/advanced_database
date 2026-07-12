@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from src.config import get_settings
 from src.kg.repository import Neo4jRepository
-from src.models import AskRequest, AskResponse, RecommendRequest, Recommendation, SearchRequest, SearchResult
+from src.models import AskRequest, AskResponse, RecommendRequest, Recommendation
 
 
 def create_repository():
@@ -51,20 +51,9 @@ def ask(payload: AskRequest, request: Request):
 @app.post("/recommend", response_model=list[Recommendation])
 def recommendations(payload: RecommendRequest, request: Request):
     try:
-        return request.app.state.repository.recommend(payload.movie_id, payload.top_k, payload.method)
+        return request.app.state.repository.recommend(payload.movie_id, payload.top_k)
     except KeyError as exc:
         raise HTTPException(404, detail=f"Movie {payload.movie_id} not found") from exc
-
-
-@app.post("/search", response_model=list[SearchResult])
-def semantic_search(payload: SearchRequest, request: Request):
-    try:
-        from src.semantic.query_parser import parse_filters
-        inferred_genre, inferred_rating = parse_filters(payload.query)
-        return request.app.state.repository.semantic_search(payload.query, payload.top_k,
-            payload.genre or inferred_genre, payload.min_rating if payload.min_rating is not None else inferred_rating)
-    except RuntimeError as exc:
-        raise HTTPException(503, detail=str(exc)) from exc
 
 
 @app.get("/entities/search")

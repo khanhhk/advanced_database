@@ -114,7 +114,7 @@ movie-knowledge-graph/
 
 ### Giai đoạn 8 — Recommendation
 
-- Cài đặt weighted overlap baseline.
+- Cài đặt IDF-weighted graph similarity, ưu tiên quan hệ chung hiếm và trả evidence theo từng loại quan hệ.
 - Thử weighted Jaccard.
 - Trả danh sách shared actors/directors/genres/keywords.
 - Benchmark và chọn công thức cuối cùng dựa trên thực nghiệm.
@@ -235,4 +235,3 @@ Các lệnh ingestion và processing nên tách riêng để demo không cần g
 - Mỗi fact cần truy được nguồn hoặc cách suy diễn.
 - Thí nghiệm phải lưu được cấu hình và kết quả.
 - Seed dataset phải đủ nhỏ để chạy demo nhanh.
-

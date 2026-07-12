@@ -26,7 +26,7 @@ def test_import_is_idempotent(tmp_path):
     try:
         text, intent, evidence = repository.answer("Những phim nào do Christopher Nolan đạo diễn?")
         assert intent == "movies_by_director" and "Inception" in text and evidence
-        recommendations = repository.recommend(27205, 3, "weighted_jaccard")
+        recommendations = repository.recommend(27205, 3)
         assert recommendations and all(item.explanation for item in recommendations)
     finally:
         repository.run("MATCH (n) DETACH DELETE n")

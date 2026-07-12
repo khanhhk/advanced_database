@@ -61,7 +61,7 @@ manifest, Neo4j validation và artifact thực nghiệm cuối.
 - MVP và extension.
 - TMDB là nguồn graph chính; IMDb Ratings là nguồn enrichment.
 - Chỉ top-20 cast; Award/Wikidata, LLM-to-Cypher tự do và multimodal ngoài MVP;
-  vector retrieval và controlled GraphRAG là extension đã triển khai.
+  vector retrieval và controlled GraphRAG nằm ngoài phạm vi.
 - Nêu trạng thái dataset tại thời điểm nộp.
 
 ### 1.6. Đóng góp
@@ -113,7 +113,7 @@ hình luôn tốt hơn.
 ### 2.7. Knowledge-based recommendation
 
 - Content/graph neighborhood similarity.
-- Weighted overlap và weighted Jaccard.
+- IDF-weighted graph similarity là phương pháp recommendation duy nhất.
 - Explainability qua shared entities/evidence path.
 
 ### 2.8. Chỉ số đánh giá
@@ -134,7 +134,7 @@ hình luôn tốt hơn.
 
 ### 3.3. Graph-based recommender liên quan
 
-- Neighborhood, path-based explanation, embedding-based extension.
+- Neighborhood và path-based explanation.
 
 ### 3.4. Khoảng trống và vị trí của đề tài
 
@@ -289,14 +289,15 @@ hình luôn tốt hơn.
 
 ### 8.2. QA service
 
-- 8 intent và regex normalization tiếng Việt.
+- LLM Question Planner tạo Query Plan có schema; 9 intent regex là fallback.
+- Entity linking, whitelist compiler và Cypher tham số hóa; LLM không sinh Cypher.
 - Slot extraction, candidate search, exact/fuzzy linking, confidence.
 - Catalog Cypher, answer formatting, evidence và latency.
 - Failure behavior: unknown intent, entity not found, ambiguity.
 
 ### 8.3. Recommendation service
 
-- Công thức overlap và weighted Jaccard.
+- Công thức IDF-weighted graph similarity và trọng số theo loại quan hệ.
 - Query graph-native; top-K và deterministic tie-break.
 - Explanation từ shared directors/actors/genres/keywords.
 
@@ -357,18 +358,10 @@ hình luôn tốt hơn.
 ### 9.8. Recommendation
 
 - Relevance-label protocol hoặc manual review có rubric.
-- P@K, NDCG@K, explanation coverage; so sánh overlap/Jaccard.
+- P@K, NDCG@K và explanation coverage cho IDF-weighted graph similarity.
 - Với 20 case silver, K=10: P@10=0,64; NDCG@10=0,699; explanation coverage=1,00.
-- Bổ sung ablation Neo4j thật: overlap 0,67/0,723; weighted Jaccard
-  0,64/0,699; hybrid 0,59/0,657 theo P@10/NDCG@10. Thảo luận vì sao rubric
-  thiên graph và không tuyên bố hybrid tốt hơn khi bằng chứng chưa hỗ trợ.
-
-### 9.8a. Semantic retrieval
-
-- Corpus silver 10 truy vấn tiếng Việt có relevant movie IDs.
-- Recall@10=0,80; MRR=0,492 sau bilingual concept expansion.
-- Phân tích ba nhóm lỗi: cross-lingual wording, overview thiếu và popular-data drift.
-- Case study Inception với explanation path.
+- IDF-weighted graph similarity trên Neo4j thật đạt P@10 0,70 và NDCG@10 0,748
+  trên 20 case silver; nêu rõ quy mô và không coi silver corpus là gold label.
 
 ### 9.9. Hiệu năng và scalability
 
@@ -409,7 +402,7 @@ hình luôn tốt hơn.
 
 - Hoàn thiện corpus/evaluation và Neo4j benchmark trước.
 - Sau đó mới mở rộng Wikidata/Award, robust entity resolution, full-text search,
-  LLM-to-Cypher có guardrail, vector/GraphRAG và embeddings.
+  LLM-to-Cypher có guardrail và GraphRAG.
 
 ## Tài liệu tham khảo
 

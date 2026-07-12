@@ -53,7 +53,7 @@ Mục tiêu đo được:
 1. Pipeline TMDB + IMDb tái lập được.
 2. Neo4j graph có constraint, stable ID và validation.
 3. Ít nhất 10 Cypher query, gồm multi-hop và shortest path.
-4. QA theo 8 intent và recommendation có explanation.
+4. QA theo 9 intent và recommendation có explanation.
 5. Thiết kế evaluation cho data quality, QA, reasoning và recommendation.
 
 ## Slide 5 — Phạm vi và ranh giới (35 giây)
@@ -61,8 +61,8 @@ Mục tiêu đo được:
 - MVP: Movie, Person, Genre, Keyword, Studio và 5 quan hệ gốc.
 - Quan hệ suy diễn: `CO_STARRED_WITH`.
 - TMDB là graph source; IMDb chỉ enrichment rating/votes bằng exact ID.
-- Ngoài phạm vi: Award/Wikidata, LLM-to-Cypher tự do và multimodal; vector search và controlled GraphRAG đã được triển khai,
-  embeddings.
+- Ngoài phạm vi: Award/Wikidata, LLM-to-Cypher tự do, multimodal, vector search
+  và GraphRAG.
 - Nêu dataset hiện tại 2.000 phim; dải mục tiêu của đề tài là 2.000–5.000.
 
 ## Slide 6 — Vì sao Knowledge Graph/Neo4j? (45 giây)
@@ -166,18 +166,18 @@ A -[:CO_STARRED_WITH {movie_count, evidence_movie_ids, derived:true}]-> B
 ## Slide 15 — Hệ hỏi–đáp (55 giây)
 
 ```text
-Question → Intent/Slots → Entity linking → Whitelisted Cypher
+Question → LLM Query Plan → Entity linking → Safe Cypher compiler
          → Neo4j → Answer + evidence + latency
 ```
 
-- 8 intent được hỗ trợ.
+- 9 intent deterministic được dùng làm fallback khi chưa cấu hình LLM.
 - Ví dụ typo `Cristopher Nolan` → canonical `Christopher Nolan`.
 - Response minh họa gồm intent, answer, entity-link confidence và evidence.
-- Nêu giới hạn: rule/regex intent, chưa phải open-domain NLP.
+- Nêu giới hạn: chỉ truy vấn schema whitelist, không phải open-domain QA.
 
 ## Slide 16 — Recommendation có giải thích (60 giây)
 
-- Hai phương pháp: weighted overlap và weighted Jaccard.
+- Một phương pháp: IDF-weighted graph similarity, ưu tiên đặc trưng chung hiếm.
 - Trọng số: director 3.0, actor 2.0, genre 1.5, keyword 1.0.
 - Weighted Jaccard giảm thiên lệch về movie có nhiều metadata/cast.
 - Query tính trong Neo4j, không tải toàn graph về Python.
@@ -219,9 +219,8 @@ Ma trận metric:
   recommendation không chứa expected movie.
 - Không đưa benchmark synthetic thành kết luận Neo4j.
 - Gắn chữ `silver`, không diễn giải metric là human evaluation độc lập.
-- Semantic search silver: Recall@10=0,80, MRR=0,492 trên 10 query.
-- Recommendation ablation: overlap P@10=0,67/NDCG=0,723; Jaccard
-  0,64/0,699; hybrid 0,59/0,657. Vì vậy overlap là default, hybrid là thử nghiệm.
+- Recommendation IDF-weighted trên Neo4j thật: P@10=0,70 và NDCG@10=0,748
+  trên 20 case silver; kết quả baseline cũ chỉ là lịch sử thiết kế.
 
 ## Slide 20 — Demo end-to-end (60–90 giây trong slide, 4 phút tổng demo)
 

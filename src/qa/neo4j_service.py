@@ -1,37 +1,32 @@
 """Graph-native QA using a fixed catalog of parameterized Cypher queries."""
 
+from src.config import get_settings
 from src.kg.query_catalog import QUERIES
 from src.qa.entity_linker import link
 from src.qa.intents import detect_intent
+from src.qa.planner import configured_planner
+from src.qa.query_compiler import compile_plan
 
 SLOT_TYPES = {"director": "Person", "person": "Person", "person1": "Person",
               "person2": "Person", "movie": "Movie"}
 
 
 def answer(question: str, repository) -> tuple[str, str, list[dict]]:
+    planner = configured_planner(get_settings())
+    if planner:
+        try:
+            return _answer_from_plan(question, repository, planner)
+        except (ValueError, KeyError):
+            pass
     intent, slots = detect_intent(question)
     if intent == "unknown":
-        try:
-            from src.semantic.query_parser import parse_filters
-            genre, min_rating = parse_filters(question)
-            items = repository.semantic_search(question, 5, genre, min_rating)
-        except (RuntimeError, AttributeError):
-            items = []
-        if items:
-            evidence = [item.model_dump() for item in items]
-            return "Các phim phù hợp về ngữ nghĩa: " + ", ".join(item.title for item in items), "semantic_search", evidence
-        return "Xin lỗi, tôi chưa hiểu câu hỏi. Hãy hỏi theo đạo diễn, diễn viên, thể loại, đường liên hệ hoặc mô tả phim cần tìm.", intent, []
-    if "genre" in slots:
-        from src.semantic.query_parser import parse_filters
-        canonical_genre, _ = parse_filters(question)
-        if canonical_genre:
-            slots["genre"] = canonical_genre
+        return "Xin lỗi, tôi chưa hiểu câu hỏi. Hãy hỏi theo đạo diễn, diễn viên, thể loại hoặc đường liên hệ.", intent, []
     slots, links = _link_slots(repository, slots)
     if intent == "similar_movies":
         rows = repository.run(QUERIES["resolve_movie"], movie=slots["movie"])
         if not rows:
             return "Không tìm thấy phim.", intent, []
-        items = repository.recommend(rows[0]["movie_id"], 5, "overlap")
+        items = repository.recommend(rows[0]["movie_id"], 5)
         evidence = [x.model_dump() for x in items]
         if links: evidence.insert(0, {"entity_links": links})
         return "Phim tương tự: " + ", ".join(x.title for x in items), intent, evidence
@@ -40,14 +35,55 @@ def answer(question: str, repository) -> tuple[str, str, list[dict]]:
     rows = repository.run(QUERIES[intent], **params)
     evidence = [_serializable(row) for row in rows]
     if links: evidence.insert(0, {"entity_links": links})
-    if intent in {"movies_by_director", "common_movies", "movies_by_genre_rating"}:
-        return _list("Các phim tìm thấy" if intent == "movies_by_director" else "Phim đóng chung" if intent == "common_movies" else "Các phim phù hợp", rows, "title"), intent, evidence
+    if intent in {"movies_by_director", "movies_by_person", "common_movies", "movies_by_genre_rating"}:
+        prefix = ("Các phim có sự tham gia của người này" if intent == "movies_by_person" else
+                  "Các phim tìm thấy" if intent == "movies_by_director" else
+                  "Phim đóng chung" if intent == "common_movies" else "Các phim phù hợp")
+        return _list(prefix, rows, "title"), intent, evidence
     if intent == "actors_in_movie": return _list("Các diễn viên", rows, "name"), intent, evidence
     if intent == "co_stars": return _list("Các bạn diễn", rows, "name"), intent, evidence
     if intent == "directors_by_genre": return _list("Các đạo diễn", rows, "name"), intent, evidence
     if intent == "shortest_path":
         return ("Đường liên hệ: " + " → ".join(rows[0]["labels"]) if rows else "Không tìm thấy đường liên hệ."), intent, evidence
     return "Không tìm thấy kết quả.", intent, evidence
+
+
+def _answer_from_plan(question, repository, planner):
+    plan = planner.plan(question)
+    if plan.confidence < .6 or plan.clarification:
+        return plan.clarification or "Bạn có thể nói rõ hơn yêu cầu của mình không?", "clarification", []
+    links = []
+    for entity in plan.entities:
+        candidates = repository.search_entities(entity.name, 20)
+        linked = link(entity.name, candidates, entity.type)
+        if not linked and entity.type in {"Genre", "Keyword", "Studio"}:
+            rows = repository.run(
+                f"MATCH (n:{entity.type}) WHERE toLower(n.name) CONTAINS toLower($name) "
+                "RETURN coalesce(n.genre_id,n.keyword_id,n.company_id,n.name) AS id,n.name AS name "
+                "LIMIT 20", name=entity.name)
+            linked = link(entity.name, [{**row, "type": entity.type} for row in rows], entity.type)
+        if not linked:
+            return f"Không tìm thấy {entity.name} trong Knowledge Graph.", "entity_not_found", []
+        links.append({"input": entity.name, "entity_id": linked.entity_id,
+                      "canonical_name": linked.canonical_name, "entity_type": linked.entity_type,
+                      "confidence": linked.confidence})
+        entity.name = linked.canonical_name
+    compiled = compile_plan(plan)
+    rows = repository.run(compiled.cypher, **compiled.parameters)
+    if plan.operation == "recommend":
+        if not rows: return "Không tìm thấy phim.", "recommend", [{"entity_links": links}] if links else []
+        items = repository.recommend(rows[0]["movie_id"], plan.limit)
+        evidence = [item.model_dump() for item in items]
+        if links: evidence.insert(0, {"entity_links": links})
+        return _list("Phim tương tự", [item.model_dump() for item in items], "title"), "recommend", evidence
+    evidence = [_serializable(row) for row in rows]
+    if links: evidence.insert(0, {"entity_links": links})
+    if not rows: return "Không tìm thấy kết quả.", plan.operation, evidence
+    if plan.operation == "path":
+        return "Đường liên hệ: " + " → ".join(rows[0]["labels"]), "path", evidence
+    key = "title" if "title" in rows[0] else "name"
+    prefix = "Các phim tìm thấy" if key == "title" else "Các kết quả tìm thấy"
+    return _list(prefix, rows, key), plan.operation, evidence
 
 
 def _list(prefix, rows, key):

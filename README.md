@@ -19,7 +19,6 @@ Không cần tự activate virtual environment: Makefile luôn gọi executable 
 make setup             # tạo .env + .venv + cài và kiểm tra dependencies
 make test              # toàn bộ test, gồm cả integration Neo4j
 make data              # thu thập TMDB + IMDb ratings và chuẩn hóa 2.000 phim
-make semantic-index    # cài local embedding, tạo full-text/vector index
 make imdb-data         # chỉ tải IMDb title.ratings.tsv.gz
 make run               # dựng Neo4j + import data + chạy API/UI
 make experiments
@@ -29,18 +28,16 @@ make stop
 Swagger UI: `http://localhost:8000/docs`.
 Web demo: `http://localhost:8000/`.
 
-Giao diện gồm ba tab: hội thoại Knowledge Graph nhiều lượt, tìm phim bằng mô tả
-tự nhiên và gợi ý phim có giải thích. Recommendation UI giải thích rõ TMDB ID,
-số kết quả và cho phép so sánh overlap/Jaccard/hybrid; người dùng thông thường
-nên giữ lựa chọn “Khuyến nghị — quan hệ chung”.
+Giao diện gồm hai tab: hội thoại Knowledge Graph nhiều lượt và gợi ý phim có
+giải thích. Recommendation UI cho phép tìm/chọn phim
+theo tên và năm phát hành; TMDB ID chỉ được lưu nội bộ. Hệ thống dùng duy nhất
+IDF-weighted graph similarity.
 
 ```bash
 curl -X POST http://localhost:8000/ask -H 'Content-Type: application/json' \
   -d '{"question":"Những phim nào do Christopher Nolan đạo diễn?"}'
 curl -X POST http://localhost:8000/recommend -H 'Content-Type: application/json' \
   -d '{"movie_id":27205,"top_k":3}'
-curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' \
-  -d '{"query":"phim khoa học viễn tưởng về không gian rating trên 7","top_k":5}'
 ```
 
 ## Pipeline dữ liệu và Neo4j
@@ -65,30 +62,48 @@ Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và lu�
 - `GET /health`
 - `GET /stats`
 - `GET /entities/search?q=nolan`
-- `POST /search` — multilingual vector retrieval kết hợp genre/rating filter trên graph.
-- `POST /ask` — 8 intent: phim theo đạo diễn, cast, phim chung, genre/rating, co-star, director/genre, shortest path, similar movie.
-- `POST /recommend` — mặc định `overlap`; hỗ trợ `weighted_jaccard` và `hybrid` thử nghiệm.
+- `POST /ask` — 9 intent, gồm tìm phim của một người mà không cần biết trước họ là diễn viên hay đạo diễn.
+- `POST /recommend` — IDF-weighted graph similarity có giải thích.
 
-## Semantic search, hybrid QA và recommendation
+## Hỏi đáp và recommendation
 
-`make semantic-index` dùng FastEmbed với mô hình multilingual chạy cục bộ để
-embedding `title + overview + genres + keywords` của 2.000 phim thành vector 384
-chiều. Neo4j lưu vector index `movie_embedding` và full-text indexes
-`movie_text`/`entity_names`; nội dung phim không được gửi tới API embedding ngoài.
-
-QA giữ catalog Cypher tham số hóa cho 8 intent. Entity linker ưu tiên full-text
-candidate rồi fuzzy rerank; câu ngoài catalog chuyển sang semantic retrieval có
-evidence thay vì trả lỗi ngay. Đây là controlled hybrid GraphRAG, chưa bật
-LLM-to-Cypher tự do. Recommendation hybrid thử nghiệm kết hợp 75% weighted graph Jaccard,
-20% cosine nội dung và 5% rating có vote-confidence, đồng thời trả riêng từng
-score và metadata chung để giải thích. Ablation silver hiện cho thấy overlap
-tốt hơn hybrid, nên production default vẫn là overlap; không chọn công nghệ mới
-chỉ vì mới. Các candidate thiếu overview/vote bị giới hạn.
+QA ưu tiên dùng một LLM làm Question Planner: câu hỏi tự nhiên được chuyển thành
+Query Plan JSON, kiểm tra bằng Pydantic, liên kết thực thể rồi biên dịch thành
+Cypher tham số hóa từ whitelist. LLM không viết Cypher và không tự trả lời.
+Parser 9 intent được giữ làm fallback khi chưa cấu hình LLM. Recommendation dùng
+trọng số IDF để giảm ảnh hưởng của quan
+hệ quá phổ biến và ưu tiên đặc trưng chung hiếm, có tính phân biệt. Điểm của mỗi
+đặc trưng chung là `type_weight * (1 + ln((N+1)/(df+1)))`; kết quả trả lại chính
+các đạo diễn, diễn viên, keyword, thể loại và studio chung làm bằng chứng. Đây là
+phương pháp graph-native duy nhất của API. Trên 20 case silver chạy với Neo4j
+thật, phương pháp đạt P@10 `0,70` và NDCG@10 `0,748`.
 
 `make run` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
-dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn,
-số Movie và embedding coverage. Graph/index chỉ dựng lại khi các giá trị này
-thay đổi. `pip check` vẫn chạy nhanh nhưng không tải hoặc cài package.
+dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn
+và số Movie. Graph chỉ dựng lại khi các giá trị này thay đổi. `pip check` vẫn
+chạy nhanh nhưng không tải hoặc cài package.
+
+Để bật Question Planner, đặt các biến sau trong `.env` rồi chạy lại `make run`:
+
+```dotenv
+LLM_API_KEY=local
+LLM_BASE_URL=http://127.0.0.1:8001/v1
+LLM_MODEL=Qwen/Qwen3-8B-AWQ
+LLM_TIMEOUT=60
+```
+
+Endpoint phải tương thích `POST /chat/completions` và JSON response format. Nếu
+không có `LLM_API_KEY` hoặc `LLM_MODEL`, QA vẫn chạy bằng parser deterministic.
+
+GPU runtime được tách khỏi `.venv` của ứng dụng. Trên RTX 3060 12 GB:
+
+```bash
+make llm-setup  # chạy một lần; cài vLLM 0.25.0 trong .venv-llm
+make llm-run    # phục vụ Qwen3-8B-AWQ tại 127.0.0.1:8001
+```
+
+Giữ terminal model hoạt động rồi chạy `make run` ở terminal khác. Lệnh dùng
+native sampler vì máy chỉ có NVIDIA driver, không yêu cầu CUDA toolkit/nvcc.
 
 ## Dữ liệu ngoài
 
@@ -104,7 +119,7 @@ thay đổi. `pip check` vẫn chạy nhanh nhưng không tải hoặc cài pack
 
 Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset lớn và API key không được commit theo yêu cầu của đề tài.
 
-`/ask` chạy catalog Cypher cố định có tham số và `/recommend` tính độ tương đồng
+`/ask` chạy Query Plan compiler hoặc catalog fallback có tham số và `/recommend` tính độ tương đồng
 trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repository chỉ
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 

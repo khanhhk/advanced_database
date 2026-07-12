@@ -60,22 +60,34 @@ plus representative SPARQL equivalents.
 
 ## Applications
 
-`POST /ask` follows: intent detection → slot extraction → entity linking → a
-whitelisted parameterized Cypher template → answer plus evidence. The current
-project advertises 8 intents. Never concatenate user input into Cypher.
+`POST /ask` optionally uses a configured LLM only as a constrained question
+planner: natural language → validated `QueryPlan` JSON → entity linking → a
+whitelist Cypher compiler → answer plus graph evidence. The LLM never writes
+Cypher or answers from its own knowledge. Without LLM configuration, the current
+9-intent deterministic parser remains the runtime fallback, including
+role-agnostic lookup of movies associated with a person. Never concatenate user
+input into Cypher.
 
-`POST /recommend` exposes experimental hybrid ranking: 75% weighted graph Jaccard,
-20% multilingual overview/metadata cosine similarity, and 5% vote-confident
-quality. Silver ablation currently favors overlap, so overlap remains the default
-and Jaccard/hybrid are explicit alternatives. `POST /search` performs multilingual
-vector retrieval plus deterministic Vietnamese genre/rating filters and graph
-evidence. Supporting endpoints are `/health`, `/stats`, and `/entities/search`.
-The web UI is a three-tab interface: persistent multi-turn-style QA history
-(each turn remains stateless at the backend), semantic movie search, and
-explainable recommendation. Forms use explicit DOM selectors/listeners rather
+Local planner runtime (updated 2026-07-13): `Qwen/Qwen3-8B-AWQ` is served by
+vLLM 0.25.0 on an RTX 3060 12 GB at `127.0.0.1:8001`. It uses a 4,096-token
+context, 0.85 GPU-memory utilization and native sampling via
+`VLLM_USE_FLASHINFER_SAMPLER=0`, avoiding a system CUDA toolkit/nvcc dependency.
+The isolated `.venv-llm` is prepared with `make llm-setup`; `make llm-run`
+starts the server. Pydantic JSON Schema is passed as constrained output, and
+`/no_think` keeps the planner concise.
+
+`POST /recommend` uses one explainable IDF-weighted graph similarity ranker. A
+shared feature contributes `type_weight * (1 + ln((N+1)/(df+1)))`, so common
+features are discounted and rare director, actor, keyword, genre, or studio
+connections contribute more. Supporting endpoints are `/health`, `/stats`, and
+`/entities/search`.
+The web UI is a two-tab interface: persistent multi-turn-style QA history
+(each turn remains stateless at the backend) and explainable recommendation.
+Forms use explicit DOM selectors/listeners rather
 than browser-generated ID globals; responses render as messages/cards with
-human labels instead of raw JSON. Recommendation inputs explain TMDB movie ID,
-result count and ranking choices, with overlap presented as the recommended mode.
+human labels instead of raw JSON. Recommendation uses movie-title autocomplete
+with release year for disambiguation; the selected TMDB ID remains internal.
+There is no end-user ranking-method selector.
 
 Implemented backend boundary (updated 2026-07-12): the application runs only
 against real TMDB data imported into Neo4j. There is no runtime seed fallback;
@@ -99,12 +111,9 @@ name hashes accepted only for old fixtures/raw caches; `ACTED_IN` retains
 character and cast order. Genre, keyword, and studio source IDs are preserved as
 well. QA entity slots are linked to canonical Movie/Person entities before
 parameterized Cypher execution, and link confidence is returned as evidence.
-Full-text entity candidates now precede fuzzy reranking. Unknown QA intents route
-to semantic retrieval, while the eight known intents remain fixed parameterized
-Cypher templates; unrestricted LLM-to-Cypher is deliberately not enabled.
-FastEmbed runs `paraphrase-multilingual-MiniLM-L12-v2` locally and Neo4j stores
-384-dimensional embeddings in `movie_embedding`; `movie_text` and `entity_names`
-are full-text indexes. The reproducible workflow is `make semantic-index`.
+Full-text entity candidates now precede fuzzy reranking. The eight known intents
+remain fixed parameterized Cypher templates; unrestricted LLM-to-Cypher is
+deliberately not enabled.
 Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
 an explicit relevance rubric. Their metrics may be reported only as silver
@@ -128,15 +137,13 @@ recommendation P@10 is 0.64, NDCG@10 is 0.699, and explanation coverage is 1.00.
 The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
 question at 2,000 movies; intent medians range 2.34–110.65 ms and p95 ranges
 3.83–126.20 ms. This single-scale result is not a scalability claim.
-The semantic extension pins FastEmbed 0.8.0, records a source/model/pooling
-manifest and reuses embeddings only when both the manifest and graph coverage
-match. On 10 silver Vietnamese retrieval queries, bilingual concept expansion
-reaches Recall@10 0.80 and MRR 0.492. Real-Neo4j recommendation ablation on 20
-silver cases gives overlap P@10/NDCG@10 0.67/0.723, weighted Jaccard 0.64/0.699,
-and hybrid 0.59/0.657; therefore overlap remains the production default.
+On 20 silver cases against real Neo4j, the
+IDF-weighted production ranker reaches P@10 0.70 and NDCG@10 0.748. Historical
+results were overlap 0.67/0.723, weighted Jaccard 0.64/0.699, and hybrid
+0.59/0.657; these remain design history rather than end-user alternatives.
 Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
-while `runtime_manifest.json` plus live Movie/embedding counts decide whether
-import or indexing is required. Normal `make run` reuses graph and embeddings.
+while `runtime_manifest.json` plus the live Movie count decide whether import is
+required. Normal `make run` reuses the graph.
 
 ## Source synthesis
 

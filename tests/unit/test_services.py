@@ -19,5 +19,5 @@ def test_director_qa():
 def test_recommendation_explains_score():
     results = recommend(MOVIES, 27205, 2)
     assert results[0].score > 0
-    assert results[0].explanation.startswith("Tương đồng qua")
+    assert results[0].explanation.startswith("Cùng đạo diễn là")
     assert any("Christopher Nolan" in r.shared_directors for r in results)

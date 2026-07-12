@@ -7,6 +7,12 @@ def answer(question: str, movies: list[dict]) -> tuple[str, str, list[dict]]:
     if intent == "movies_by_director":
         found = [m for m in movies if _has(m["directors"], slots["director"])]
         return _movies(found, "Các phim tìm thấy"), intent, _movie_evidence(found, "DIRECTED")
+    if intent == "movies_by_person":
+        found = [m for m in movies if _has(m["actors"], slots["person"]) or _has(m["directors"], slots["person"])]
+        evidence = [{"movie_id": m["tmdb_id"], "title": m["title"],
+                     "relationship": "ACTED_IN" if _has(m["actors"], slots["person"]) else "DIRECTED",
+                     "source": "tmdb"} for m in found]
+        return _movies(found, "Các phim có sự tham gia của người này"), intent, evidence
     if intent == "actors_in_movie":
         movie = _find_movie(movies, slots["movie"])
         evidence = [{"person": a, "movie_id": movie["tmdb_id"], "relationship": "ACTED_IN", "source": "tmdb"} for a in movie["actors"]] if movie else []

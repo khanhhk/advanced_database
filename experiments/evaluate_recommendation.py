@@ -11,7 +11,7 @@ def evaluate(repository, cases: list[dict], k: int = 10) -> dict:
     details = []
     for case in cases:
         relevant = set(case["relevant_movie_ids"])
-        predicted = repository.recommend(case["movie_id"], k, "weighted_jaccard")
+        predicted = repository.recommend(case["movie_id"], k)
         ids = [item.movie_id for item in predicted]
         hits = [movie_id in relevant for movie_id in ids]
         dcg = sum(hit / math.log2(index + 2) for index, hit in enumerate(hits))
