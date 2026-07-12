@@ -12,7 +12,7 @@ from src.processing.pipeline import transform
 @pytest.mark.neo4j
 @pytest.mark.skipif(not os.getenv("RUN_NEO4J_TESTS"), reason="set RUN_NEO4J_TESTS=1 with Neo4j running")
 def test_import_is_idempotent(tmp_path):
-    transform(Path("data/samples/movies.json"), tmp_path)
+    transform(Path("tests/fixtures/movies.json"), tmp_path)
     first = load(tmp_path); second = load(tmp_path)
     assert first == second and second["valid"]
     settings = get_settings()

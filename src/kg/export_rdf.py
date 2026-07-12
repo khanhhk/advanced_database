@@ -29,7 +29,6 @@ def export(source: Path, destination: Path) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=Path, default=Path("data/samples/movies.json"))
+    parser.add_argument("--input", type=Path, default=Path("data/raw/tmdb_movies.json"))
     parser.add_argument("--output", type=Path, default=Path("data/processed/movies.ttl"))
     args = parser.parse_args(); export(args.input, args.output)
-

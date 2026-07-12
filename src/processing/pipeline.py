@@ -95,8 +95,7 @@ def transform(source: Path, output_dir: Path) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Normalize movie JSON into graph node/edge CSV files")
-    parser.add_argument("--input", type=Path, default=Path("data/samples/movies.json"))
+    parser.add_argument("--input", type=Path, default=Path("data/raw/tmdb_movies.json"))
     parser.add_argument("--output", type=Path, default=Path("data/processed"))
     args = parser.parse_args()
     print(json.dumps(transform(args.input, args.output), ensure_ascii=False, indent=2))
-

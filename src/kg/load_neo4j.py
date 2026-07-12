@@ -70,11 +70,10 @@ def load(processed_dir: Path, batch_size: int = 500, run_reasoning: bool = True)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--processed-dir", type=Path, default=Path("data/processed"))
-    parser.add_argument("--source", type=Path, default=Path("data/samples/movies.json"))
+    parser.add_argument("--source", type=Path, default=Path("data/raw/tmdb_movies.json"))
     parser.add_argument("--batch-size", type=int, default=500)
     parser.add_argument("--skip-transform", action="store_true")
     parser.add_argument("--skip-reasoning", action="store_true")
     args = parser.parse_args()
     if not args.skip_transform: transform(args.source, args.processed_dir)
     print(json.dumps(load(args.processed_dir, args.batch_size, not args.skip_reasoning), indent=2))
-

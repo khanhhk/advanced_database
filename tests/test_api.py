@@ -10,7 +10,7 @@ from pathlib import Path
 
 def test_api_end_to_end():
     request = SimpleNamespace(app=SimpleNamespace(state=SimpleNamespace(
-        repository=MemoryRepository(Path("data/samples/movies.json")))))
+        repository=MemoryRepository(Path("tests/fixtures/movies.json")))))
     assert health(request) == {"status": "ok"}
     response = ask(AskRequest(question="Những phim nào do Christopher Nolan đạo diễn?"), request)
     assert response.intent == "movies_by_director"

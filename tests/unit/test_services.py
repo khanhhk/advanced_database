@@ -6,7 +6,7 @@ from src.qa.service import answer
 from src.recommendation.service import recommend
 
 
-MOVIES = json.loads(Path("data/samples/movies.json").read_text())["movies"]
+MOVIES = json.loads(Path("tests/fixtures/movies.json").read_text())["movies"]
 
 
 def test_director_qa():
@@ -21,4 +21,3 @@ def test_recommendation_explains_score():
     assert results[0].score > 0
     assert results[0].explanation.startswith("Tương đồng qua")
     assert any("Christopher Nolan" in r.shared_directors for r in results)
-

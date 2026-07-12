@@ -5,7 +5,7 @@ from src.qa.service import answer
 
 
 def test_question_dataset_reaches_required_accuracy():
-    movies = json.loads(Path("data/samples/movies.json").read_text())["movies"]
+    movies = json.loads(Path("tests/fixtures/movies.json").read_text())["movies"]
     cases = json.loads(Path("tests/test_questions.json").read_text())
     correct = 0
     for case in cases:

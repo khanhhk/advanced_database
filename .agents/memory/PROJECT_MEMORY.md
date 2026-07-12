@@ -70,13 +70,13 @@ explanation. Starting weighted overlap is approximately director 3.0, actor
 bias toward movies with large casts. Supporting endpoints are `/health`,
 `/stats`, and `/entities/search`.
 
-Implemented backend boundary (2026-07-12): the memory repository supports the
-five-movie offline demo, while the Neo4j repository executes QA through the
-fixed parameterized Cypher catalog and computes recommendation similarity in
-Neo4j. API services must not call `movies()` to materialize the full production
-graph. TMDB collection supports `--count 2000..5000`, using immutable page/movie
-caches. Synthetic memory benchmarks must be labeled with backend and movie
-count and must not be reported as Neo4j performance.
+Implemented backend boundary (updated 2026-07-12): the application runs only
+against real TMDB data imported into Neo4j. There is no runtime seed fallback;
+small deterministic data exists only under `tests/fixtures`. Neo4j executes QA
+through the fixed parameterized Cypher catalog and computes recommendation
+similarity in the database. TMDB collection supports `--count 2000..5000`, using
+immutable page/movie caches. Synthetic memory benchmarks must be labeled with
+backend and movie count and must not be reported as Neo4j performance.
 
 ## Quality and evaluation
 

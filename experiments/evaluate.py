@@ -8,8 +8,8 @@ from pathlib import Path
 from src.kg.repository import MemoryRepository
 
 
-def evaluate(seed: Path, questions: Path) -> dict:
-    repository = MemoryRepository(seed)
+def evaluate(input_path: Path, questions: Path) -> dict:
+    repository = MemoryRepository(input_path)
     cases = json.loads(questions.read_text(encoding="utf-8")); details = []
     for case in cases:
         text, intent, evidence = repository.answer(case["question"])
@@ -22,8 +22,8 @@ def evaluate(seed: Path, questions: Path) -> dict:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(); parser.add_argument("--seed", type=Path, default=Path("data/samples/movies.json"))
+    parser = argparse.ArgumentParser(); parser.add_argument("--input", type=Path, default=Path("data/raw/tmdb_movies.json"))
     parser.add_argument("--questions", type=Path, default=Path("tests/test_questions.json"))
     parser.add_argument("--output", type=Path, default=Path("experiments/results/qa.json")); args = parser.parse_args()
-    result = evaluate(args.seed, args.questions); args.output.parent.mkdir(parents=True, exist_ok=True)
+    result = evaluate(args.input, args.questions); args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"); print(json.dumps(result, ensure_ascii=False, indent=2))

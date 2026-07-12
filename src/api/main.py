@@ -6,15 +6,13 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from src.config import get_settings
-from src.kg.repository import MemoryRepository, Neo4jRepository
+from src.kg.repository import Neo4jRepository
 from src.models import AskRequest, AskResponse, RecommendRequest, Recommendation
 
 
 def create_repository():
     settings = get_settings()
-    if settings.kg_backend.casefold() == "neo4j":
-        return Neo4jRepository(settings.neo4j_uri, settings.neo4j_user, settings.neo4j_password, settings.neo4j_database)
-    return MemoryRepository(settings.seed_file)
+    return Neo4jRepository(settings.neo4j_uri, settings.neo4j_user, settings.neo4j_password, settings.neo4j_database)
 
 
 @asynccontextmanager
