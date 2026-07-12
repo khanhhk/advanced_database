@@ -1,0 +1,11 @@
+backend,movie_count,intent,iterations,median_ms,p95_ms,stdev_ms
+neo4j,2000,movies_by_director,100,27.446,34.4192,4.5169
+neo4j,2000,actors_in_movie,100,22.7627,31.3076,4.0168
+neo4j,2000,common_movies,100,75.4308,85.9945,5.3886
+neo4j,2000,movies_by_genre_rating,100,2.3421,3.831,1.1311
+neo4j,2000,co_stars,100,32.982,42.8367,3.3182
+neo4j,2000,directors_by_genre,100,8.0762,13.4228,2.8559
+neo4j,2000,shortest_path,100,47.9245,57.5563,4.613
+neo4j,2000,similar_movies,100,110.6467,126.2018,6.6807
+neo4j,2000,movies_by_director,100,27.8664,37.4103,3.6639
+neo4j,2000,actors_in_movie,100,23.179,30.361,3.5524

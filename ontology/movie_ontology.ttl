@@ -13,4 +13,8 @@
 :producedBy a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Studio .
 :title a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:string .
 :rating a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:decimal .
-
+:imdbRating a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:decimal .
+:imdbVotes a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:integer .
+:tmdbId a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:range xsd:integer .
+:imdbId a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:range xsd:string .
+:name a owl:DatatypeProperty ; rdfs:range xsd:string .

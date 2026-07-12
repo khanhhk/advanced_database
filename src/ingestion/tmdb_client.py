@@ -33,7 +33,7 @@ class TMDBClient:
 
     def popular_ids(self, count: int) -> list[int]:
         """Discover a deterministic popularity-ordered set of movie IDs."""
-        ids, page = [], 1
+        ids, seen, page = [], set(), 1
         while len(ids) < count:
             path = self.cache_dir / f"popular-{page}.json"
             if path.exists():
@@ -46,6 +46,9 @@ class TMDBClient:
                 time.sleep(self.interval)
             page_ids = [item["id"] for item in data.get("results", []) if item.get("id")]
             if not page_ids: break
-            ids.extend(page_ids); page += 1
+            for movie_id in page_ids:
+                if movie_id not in seen:
+                    seen.add(movie_id); ids.append(movie_id)
+            page += 1
         if len(ids) < count: raise RuntimeError(f"TMDB returned only {len(ids)} movie IDs")
-        return list(dict.fromkeys(ids))[:count]
+        return ids[:count]

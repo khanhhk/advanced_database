@@ -1,23 +1,31 @@
 """Graph-native QA using a fixed catalog of parameterized Cypher queries."""
 
 from src.kg.query_catalog import QUERIES
+from src.qa.entity_linker import link
 from src.qa.intents import detect_intent
+
+SLOT_TYPES = {"director": "Person", "person": "Person", "person1": "Person",
+              "person2": "Person", "movie": "Movie"}
 
 
 def answer(question: str, repository) -> tuple[str, str, list[dict]]:
     intent, slots = detect_intent(question)
     if intent == "unknown":
         return "Xin lỗi, tôi chưa hiểu câu hỏi. Hãy hỏi theo đạo diễn, diễn viên, thể loại, đường liên hệ hoặc phim tương tự.", intent, []
+    slots, links = _link_slots(repository, slots)
     if intent == "similar_movies":
         rows = repository.run(QUERIES["resolve_movie"], movie=slots["movie"])
         if not rows:
             return "Không tìm thấy phim.", intent, []
         items = repository.recommend(rows[0]["movie_id"], 5, "weighted_jaccard")
-        return "Phim tương tự: " + ", ".join(x.title for x in items), intent, [x.model_dump() for x in items]
+        evidence = [x.model_dump() for x in items]
+        if links: evidence.insert(0, {"entity_links": links})
+        return "Phim tương tự: " + ", ".join(x.title for x in items), intent, evidence
 
     params = {key: (float(value) if key == "rating" else value) for key, value in slots.items()}
     rows = repository.run(QUERIES[intent], **params)
     evidence = [_serializable(row) for row in rows]
+    if links: evidence.insert(0, {"entity_links": links})
     if intent in {"movies_by_director", "common_movies", "movies_by_genre_rating"}:
         return _list("Các phim tìm thấy" if intent == "movies_by_director" else "Phim đóng chung" if intent == "common_movies" else "Các phim phù hợp", rows, "title"), intent, evidence
     if intent == "actors_in_movie": return _list("Các diễn viên", rows, "name"), intent, evidence
@@ -37,3 +45,20 @@ def _serializable(value):
     if isinstance(value, (list, tuple)): return [_serializable(item) for item in value]
     if hasattr(value, "iso_format"): return value.iso_format()
     return value
+
+
+def _link_slots(repository, slots):
+    if not hasattr(repository, "search_entities"):
+        return slots, []
+    resolved, evidence = dict(slots), []
+    for key, entity_type in SLOT_TYPES.items():
+        if key not in slots:
+            continue
+        candidates = repository.search_entities(slots[key], 20)
+        linked = link(slots[key], candidates, entity_type)
+        if linked:
+            resolved[key] = linked.canonical_name
+            evidence.append({"slot": key, "input": slots[key], "entity_id": linked.entity_id,
+                             "canonical_name": linked.canonical_name, "entity_type": linked.entity_type,
+                             "confidence": linked.confidence})
+    return resolved, evidence

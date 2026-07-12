@@ -14,3 +14,12 @@ def test_neo4j_qa_uses_parameterized_catalog_query():
     query, parameters = repository.calls[0]
     assert "$director" in query and "Christopher Nolan" not in query
     assert parameters == {"director": "christopher nolan"}
+
+
+def test_neo4j_qa_links_entity_to_canonical_name():
+    repository = FakeRepository([{"movie_id": 1, "title": "Inception", "relationship": "DIRECTED"}])
+    repository.search_entities = lambda query, limit: [
+        {"id": "tmdb:525", "name": "Christopher Nolan", "type": "Person"}]
+    _, _, evidence = answer("Những phim nào do Cristopher Nolan đạo diễn?", repository)
+    assert repository.calls[0][1] == {"director": "Christopher Nolan"}
+    assert evidence[0]["entity_links"][0]["confidence"] >= .7

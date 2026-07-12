@@ -1,16 +1,19 @@
 {
-  "generated_at": "2026-07-11T17:23:57.742164+00:00",
+  "generated_at": "2026-07-12T15:07:34.760977+00:00",
+  "backend": "memory",
+  "dataset_movie_count": 2000,
   "cases": 10,
-  "passed": 10,
-  "accuracy": 1.0,
+  "passed": 8,
+  "accuracy": 0.8,
+  "limitations": "Ten-question smoke test; not a reviewed production-quality QA corpus.",
   "details": [
     {
       "question": "Những phim nào do Christopher Nolan đạo diễn?",
       "intent": "movies_by_director",
       "contains": "Inception",
       "actual_intent": "movies_by_director",
-      "answer": "Các phim tìm thấy: Inception, Interstellar, The Dark Knight, The Dark Knight Rises",
-      "evidence_count": 4,
+      "answer": "Các phim tìm thấy: The Odyssey, Interstellar, Inception, The Dark Knight, Oppenheimer, Batman Begins, The Prestige, Memento, The Dark Knight Rises, Dunkirk, Tenet",
+      "evidence_count": 11,
       "passed": true
     },
     {
@@ -18,8 +21,8 @@
       "intent": "actors_in_movie",
       "contains": "Leonardo DiCaprio",
       "actual_intent": "actors_in_movie",
-      "answer": "Các diễn viên: Leonardo DiCaprio, Joseph Gordon-Levitt, Tom Hardy",
-      "evidence_count": 3,
+      "answer": "Các diễn viên: Leonardo DiCaprio, Joseph Gordon-Levitt, Ken Watanabe, Tom Hardy, Elliot Page, Dileep Rao, Cillian Murphy, Tom Berenger, Marion Cotillard, Pete Postlethwaite, Michael Caine, Lukas Haas, Talulah Riley, Tohoru Masamune, Taylor Geare, Claire Geare, Johnathan Geare, Yuji Okumoto, Earl Cameron, Ryan Hayward",
+      "evidence_count": 20,
       "passed": true
     },
     {
@@ -36,8 +39,8 @@
       "intent": "movies_by_genre_rating",
       "contains": "Pulp Fiction",
       "actual_intent": "movies_by_genre_rating",
-      "answer": "Các phim phù hợp: The Dark Knight, Pulp Fiction",
-      "evidence_count": 2,
+      "answer": "Các phim phù hợp: The Shawshank Redemption, The Punisher: One Last Kill, The Dark Knight, The Godfather, Pulp Fiction, The Green Mile, The Godfather Part II, GoodFellas, Se7en, The Wolf of Wall Street, Joker, Léon: The Professional, Scarface, Witness for the Prosecution, Memories of Murder, Once Upon a Time in America, Prisoners, Taxi Driver, City of God, A Clockwork Orange, The Departed, The Usual Suspects, Reservoir Dogs, PIPA, Kill Bill: The Whole Bloody Affair, Blind Justice, High and Low, Bound by Honor, Catch Cathy, False Prophet, Javier Oilpaint",
+      "evidence_count": 31,
       "passed": true
     },
     {
@@ -45,8 +48,8 @@
       "intent": "co_stars",
       "contains": "Christian Bale",
       "actual_intent": "co_stars",
-      "answer": "Các bạn diễn: Anne Hathaway, Christian Bale, Joseph Gordon-Levitt, Leonardo DiCaprio",
-      "evidence_count": 4,
+      "answer": "Các bạn diễn: Peggy Lu, Reid Scott, Cillian Murphy, Joseph Gordon-Levitt, Leonardo DiCaprio, Lukas Haas, Marion Cotillard, Michael Caine, Michelle Williams, Stephen Graham, Woody Harrelson, Abbey Lee, Aidan Gillen, Alanna Ubach, Aljaž Tepina, Alon Aboutboul, Amelia Young, Amrou Al-Kadhi, Andy Serkis, Aneurin Barnard, Angus Sampson, Anne Hathaway, Ariadne Joseph, Arthur Redcloud, Barry Keoghan, Beau Sargent, Ben Mendelsohn, Billy Howle, Brendan Fletcher, Brett Cullen, Brian Copeland, Brian Van Holt, Brooke Carter, Burn Gorman, Callum Blake, Charlie Hofheimer, Charlize Theron, Chiwetel Ejiofor, Chris O'Hara, Christian Bale, Christopher Rosamond, Claire Geare, Clark Backo, Constantin Balsan, Courtney Eaton, Cristo Fernández, Damien Bonnard, Daniel Sunjata, Dash McCloud, David Jones, Dean Ridge, Deen Brooksher, Dileep Rao, Domhnall Gleeson, Duane Howard, Earl Cameron, Elliot Page, Emilio Rivera, Eric Bana, Ewan McGregor, Ewen Bremner, Fabrice Adde, Fionn Whitehead, Forrest Goodluck, Gary Oldman, Gillian Jones, Grace Dove, Gregory Sporleder, Hala Finley, Harry Styles, Hugh Dancy, Hugh Keays-Byrne, Iota, Ivo Nandi, Jack Bandeira, Jack Brady, Jack Lowden, Jacob Tomuri, Jake Allyn, James Bloor, Jared Abrahamson, Jason Isaacs, Jennifer Hagan, Jenny Slate, John Howard, Johnathan Geare, Josh Hartnett, Josh Helman, Joshua Burge, Juno Temple, Ken Watanabe, Kenneth Branagh, Kristoffer Joner, Kurt Yue, Laurence Spellman, Lee Armstrong, Little Simz, Luke Thompson, Malcolm C. Murray, Mark Rylance, Matthew Marsden, Matthew Modine, McCaleb Burnett, Megan Gale, Melaw Nakehk'o, Melissa Jaffer, Melita Jurišić, Melora Walters, Michel Biel, Michelle Greenidge, Michelle Lee, Mikey Collins, Miranda Nolan, Morgan Freeman, Naomie Harris, Nathan Jones, Nestor Carbonell, Nicholas Hoult, Nick Julian, Nikolaj Coster-Waldau, Olumide Olorunfemi, Orlando Bloom, Otis Winston, Paul Anderson, Pete Postlethwaite, Rhys Ifans, Richard Carter, Riley Keough, Riz Ahmed, Rob Bowen, Robert Moloney, Ron Eldard, Rosie Huntington-Whiteley, Ryan Hayward, Sam Kennard, Sam Shepard, Scott Haze, Scroobius Pip, Sean Delaney, Sian Webber, Sope Aluko, Steven Ford, Stewart Alexander, Talulah Riley, Taylor Geare, Tohoru Masamune, Tom Berenger, Tom Glynn-Carney, Tom Guiry, Tom Sizemore, Tyson Wood, Vincent Leclerc, Wayne Péré, Will Poulter, William Fichtner, Yuji Okumoto, Zoë Kravitz, Željko Ivanek",
+      "evidence_count": 158,
       "passed": true
     },
     {
@@ -54,8 +57,8 @@
       "intent": "directors_by_genre",
       "contains": "Christopher Nolan",
       "actual_intent": "directors_by_genre",
-      "answer": "Các đạo diễn: Christopher Nolan",
-      "evidence_count": 1,
+      "answer": "Các đạo diễn: Christopher Nolan, Peter Jackson, Antoine Fuqua, Steven Spielberg, Zack Snyder, Anthony Russo, David Leitch, Guy Ritchie, James Cameron, James Gunn, Joe Russo, Ridley Scott, Chad Stahelski, Christopher McQuarrie, David Ayer, Doug Liman, Francis Lawrence, Gareth Edwards, Gore Verbinski, J.J. Abrams, Jeff Fowler, John McTiernan, Joseph Kosinski, Lana Wachowski, Luc Besson, Matthew Vaughn, Michael Bay, Roland Emmerich, Sam Raimi, Shane Black, Wes Ball, Adil El Arbi, Bilall Fallah, Brad Bird, Brett Ratner, Bryan Singer, Dan Trachtenberg, Edgar Wright, George Lucas, George Miller, James Mangold, James Wan, Jon Favreau, Jon Watts, Lilly Wachowski, Louis Leterrier, Peyton Reed, Quentin Tarantino, Ryan Coogler, Simon West, Stephen Chow, Stephen Sommers, Adam Wingard, Aditya Dhar, Alan Taylor, Alex Garland, Ang Lee, Ben Wheatley, Brad Peyton, Brandon Newbury, Brian De Palma, Chris McKay, Christopher Miller, Daniel Kwan, Daniel Scheinert, Dean DeBlois, Denis Villeneuve, Destin Daniel Cretton, Don Hall, Edward Zwick, Gary Ross, Haruo Sotozaki, Ilya Naishuller, Jake Kasdan, James McTeigue, Jennifer Yuh Nelson, Joachim Rønning, John Woo, Jon Turteltaub, Joss Whedon, MTJJ, Marc Forster, Marc Webb, Martin Campbell, McG, Mel Gibson, Neill Blomkamp, Olivier Megaton, Patrick Hughes, Patty Jenkins, Paul Verhoeven, Paul W. S. Anderson, Peter Ramsey, Phil Lord, Rian Johnson, Ric Roman Waugh, Rob Letterman, Robert Rodriguez, Ruben Fleischer, Rupert Wyatt, S. S. Rajamouli, Sam Hargrave, Sam Mendes, Shawn Levy, Simon Cellan Jones, Simon McQuoid, Steven Caple Jr., Taika Waititi, Takashi Yamazaki, Tim Burton, Tim Miller, Timur Bekmambetov, William Kaufman, Yao Hung-i, Yeon Sang-ho, Zhang Yimou, Aaron Nee, Aaron Schneider, Abhiraj Minawala, Abhishek Nama, Adam Nee, Adrian Grünberg, Adrien Piquet-Gauthier, Ahmed Khan, Akira Kurosawa, Alan Mak Siu-Fai, Alessandro Carloni, Alex Kurtzman, Alex Proyas, Alexandre de La Patellière, Alfonso Cuarón, Ali Abbas Zafar, Andrew Bernstein, Andrew Davis, Andrew Lau Wai-Keung, Andrew Niccol, Andrew Stanton, Andy Muschietti, Andy Serkis, Anna Boden, Art Camacho, Ashley Miller, Ashton Chen, Austina Babelytė, Aziz M. Osman, B. V. Nandini Reddy, Baltasar Kormákur, Barry Sonnenfeld, Baylor Way, Benjamin Brewer, Bibo Bergeron, Bill Milling, Bob Persichetti, Bong Joon Ho, Brad Anderson, Bryan Fuller, Buchi Babu Sana, Cal Brunker, Can Ulkay, Carlos López Estrada, Cary Joji Fukunaga, Cate Shortland, Chaminda Jayasooriya, Chava Cartas, Chiang Jui-chih, Chloé Zhao, Chris Columbus, Chris Huo, Chris Miller, Chris Renaud, Chris Williams, Clif Prowse, Clint Eastwood, Cláudio Torres, Connor Pike, Craig Gillespie, Craig Zobel, D.J. Caruso, Daisuke Gotô, Daniel Louback, David F. Sandberg, David Leland, David Mackenzie, Dennis Gansel, Derek Hui Wang-Yu, Derek Lee, Derrick Borte, Donovan Marsh, Eli Roth, Espen Sandberg, F. Gary Gray, Feliks Lipiński, Fernando Di Leo, Francesco Lucente, Franklin J. Schaffner, Frant Gwo, Gabriel Faria, Gary Fleder, Gary Goddard, George P. Cosmatos, Gerard Johnstone, Greta Čirkaitė, Gu Jie, Guillermo del Toro, Harald Zwart, Harrison Dallman, Harsh Gogi, Haruka Kamatani, Harutoshi Fukui, Hayao Miyazaki, Hsin Yen, Huang Yi, Iain Softley, Irvin Kershner, Isaac Florentine, J.C. Chandor, Jacob Schwarz, Jake Schreier, Jalmari Helander, James Bamford, James D.R. Hickox, James Hawes, James Mark, James Nunn, Jan de Bont, Jaume Collet-Serra, Jean-Pierre Jeunet, Jeannot Szwarc, Jeff Tremaine, Jeremy Zag, Jesse V. Johnson, Jessie Barr, Jiao Zi, Joaquim Dos Santos, Joe Carnahan, Joe Dante, Joe Johnston, Joel Schumacher, John Mackenzie, John Milius, John Stevenson, Johnny Crash, Johnny Martin, Jon M. Chu, Jonathan Entwistle, Jonathan Hensleigh, Jonathan Liebesman, Jordan Vogt-Roberts, Jorma Taccone, Juan Carlos Fresnadillo, Julius Onah, Jun Violet, Juno Mak, Justin Chadwick, Justin K. Thompson, Justin Nesbitt, Justin Price, Kam Ka-wai, Kanzo Matsuura, Kathryn Bigelow, Katsuhiro Otomo, Kelly Marcel, Kemp Powers, Kenji Tanigaki, Kenneth Branagh, Kevin Michael Murphy, Kirill Sokolov, Kyle Balda, Larry Yang, Lau Kar-leung, Lauren Montgomery, Lee Cheol-ha, Lee Isaac Chung, Lee Lik-Chi, Lee Min-woo, Lee Sang-yong, Lee Won-tae, Len Wiseman, Li Liming, Liubomyr Levytskyi, Louis Mandylor, Ludovic Colbeau-Justin, Luis Zonenberg, Luke Greenfield, Luke LaFontaine, Luke Sparke, M. Night Shyamalan, Mamoru Oshii, Manish Gupta, Mark Osborne, Martin Bourboulon, Masaki Kobayashi, Matt Reeves, Matt Shakman, Matthieu Delaporte, Michael Dougherty, Michael Mann, Michael Sarnoski, Mike Ehrenkranz, Mike Mitchell, Monroe Robertson, Na Hong-jin, Naomichi Yamato, Nate Tranell, Nathanaël Guedj, Nawell Madani, Neil Burger, Nia DaCosta, Nikhil Nagesh Bhat, Niki Caro, Noam Murro, Noriyuki Abe, Oliver Stone, Orçun Poyraz, Otto Bathurst, Park Gyu-tae, Park Hoon-jung, Patrick Alessandrin, Paul Greengrass, Paula Burokaitė, Peter Berg, Peter Farrelly, Phil Johnston, Pierre Coffin, Pierre Morel, Pierre Perifel, Prem, Pål Øie, Qin Pengfei, R. Ellis Frazier, RJ Balaji, Raja Collins, Rajkumar Santoshi, Reinaldo Marcus Green, Rich Moore, Richard Donner, Richard Marquand, River Sampson, Roar Uthaug, Rob Cohen, Rob Marshall, Robert Eggers, Robert Schwentke, Robert Stromberg, Rodney Rothman, Rodrigo Valdes, Ron Howard, Rudy Barros, Rugilė Žukauskaitė, Rupert Sanders, Ryan Fleck, Ryoo Seung-wan, Sandra Sciberras, Scott Derrickson, Scott Waugh, Seth Gordon, Shane Acker, Shigeyuki Miya, Shinji Higuchi, Shiv Rawail, Shota Goshozono, Shunsuke Nakashige, Sidharta Tata, Stanley Tong Gwai-Lai, Stefano Sollima, Stephen Norrington, Steven S. DeKnight, Subash K Raj, Sunghoo Park, Sylvester Stallone, Takahiro Hasui, Tatsuya Yoshihara, Taweewat Wantha, Ted Kotcheff, Terence Young, Tibor Tasi, Tim Story, Timo Tjahjanto, Todor Chapkanov, Tom McGrath, Tomomi Kamiya, Tony Scott, Travis Knight, Trevor Calverley, Tyler Atkins, Uwe Boll, Vicky Jenson, Vicky Jewson, Vinči Vogue Anžlovar, Wolfgang Petersen, Wu Jing, Yang Bingjia, Yasuomi Umetsu, Yohei Kameyama, Yuen Woo-ping, Ángel Manuel Soto",
+      "evidence_count": 396,
       "passed": true
     },
     {
@@ -63,26 +66,26 @@
       "intent": "shortest_path",
       "contains": "Tom Hardy",
       "actual_intent": "shortest_path",
-      "answer": "Đường liên hệ: Leonardo DiCaprio → Inception → Tom Hardy → The Dark Knight Rises → Christian Bale",
+      "answer": "Đường liên hệ: Leonardo DiCaprio → Inception → Joseph Gordon-Levitt → The Dark Knight Rises → Christian Bale",
       "evidence_count": 2,
-      "passed": true
+      "passed": false
     },
     {
       "question": "Phim tương tự Inception?",
       "intent": "similar_movies",
       "contains": "Interstellar",
       "actual_intent": "similar_movies",
-      "answer": "Phim tương tự: The Dark Knight Rises, Interstellar, The Dark Knight",
-      "evidence_count": 3,
-      "passed": true
+      "answer": "Phim tương tự: The Dark Knight Rises, Batman Begins, Tenet, Dunkirk, The Dark Knight",
+      "evidence_count": 5,
+      "passed": false
     },
     {
       "question": "Các phim do Quentin Tarantino đạo diễn?",
       "intent": "movies_by_director",
       "contains": "Pulp Fiction",
       "actual_intent": "movies_by_director",
-      "answer": "Các phim tìm thấy: Pulp Fiction",
-      "evidence_count": 1,
+      "answer": "Các phim tìm thấy: Pulp Fiction, Inglourious Basterds, Django Unchained, Once Upon a Time... in Hollywood, Kill Bill: Vol. 1, Reservoir Dogs, Kill Bill: The Whole Bloody Affair, Kill Bill: Vol. 2, The Hateful Eight",
+      "evidence_count": 9,
       "passed": true
     },
     {
@@ -90,8 +93,8 @@
       "intent": "actors_in_movie",
       "contains": "Anne Hathaway",
       "actual_intent": "actors_in_movie",
-      "answer": "Các diễn viên: Matthew McConaughey, Anne Hathaway",
-      "evidence_count": 2,
+      "answer": "Các diễn viên: Matthew McConaughey, Anne Hathaway, Michael Caine, Jessica Chastain, Casey Affleck, Wes Bentley, Topher Grace, Mackenzie Foy, Ellen Burstyn, John Lithgow, Bill Irwin, David Gyasi, Timothée Chalamet, Matt Damon, Josh Stewart, Leah Cairns, Liam Dickinson, Francis X. McCarthy, William Devane, Andrew Borba",
+      "evidence_count": 20,
       "passed": true
     }
   ]

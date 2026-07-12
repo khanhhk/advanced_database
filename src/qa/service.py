@@ -2,6 +2,7 @@ from .intents import detect_intent
 
 
 def answer(question: str, movies: list[dict]) -> tuple[str, str, list[dict]]:
+    movies = [_name_view(movie) for movie in movies]
     intent, slots = detect_intent(question)
     if intent == "movies_by_director":
         found = [m for m in movies if _has(m["directors"], slots["director"])]
@@ -45,6 +46,11 @@ def answer(question: str, movies: list[dict]) -> tuple[str, str, list[dict]]:
 
 
 def _has(values, needle): return any(needle.casefold() in value.casefold() for value in values)
+def _name_view(movie):
+    result = dict(movie)
+    for key in ("actors", "directors", "genres", "keywords", "studios"):
+        result[key] = [value.get("name", "") if isinstance(value, dict) else value for value in movie.get(key, [])]
+    return result
 def _find_movie(movies, name): return next((m for m in movies if name.casefold() in m["title"].casefold()), None)
 def _movies(items, prefix): return f"{prefix}: " + ", ".join(m["title"] for m in items) if items else "Không tìm thấy kết quả."
 def _movie_evidence(items, relation): return [{"movie_id": m["tmdb_id"], "title": m["title"], "relationship": relation, "source": "tmdb"} for m in items]
@@ -72,4 +78,3 @@ def _path_evidence(movies, source, target):
 def _shortest_path(movies, source, target):
     path = _path_evidence(movies, source, target)
     return "Đường liên hệ: " + " → ".join([path[0]["from"]] + [f'{e["movie"]} → {e["to"]}' for e in path]) if path else "Không tìm thấy đường liên hệ."
-

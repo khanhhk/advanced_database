@@ -1,0 +1,3827 @@
+[
+  {
+    "case_id": "er-001",
+    "left": {
+      "id": "mention:0",
+      "name": "Oh Gyenog-hwa",
+      "tmdb_id": 2749940
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:2749940",
+        "tmdb_id": 2749940,
+        "name": "Oh Gyeong-hwa"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2749940",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-002",
+    "left": {
+      "id": "mention:1",
+      "name": "Christain Manon"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1451740",
+        "tmdb_id": 1451740,
+        "name": "Christian Manon"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1451740",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-003",
+    "left": {
+      "id": "mention:2",
+      "name": "Guy Carelton",
+      "tmdb_id": 2347302
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:2347302",
+        "tmdb_id": 2347302,
+        "name": "Guy Carleton"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2347302",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-004",
+    "left": {
+      "id": "mention:3",
+      "name": "Chandracuhr Karnik"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-005",
+    "left": {
+      "id": "mention:4",
+      "name": "Supachai aNkboon",
+      "tmdb_id": 1650856
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1650856",
+        "tmdb_id": 1650856,
+        "name": "Supachai Nakboon"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1650856",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-006",
+    "left": {
+      "id": "mention:5",
+      "name": "Mark Trtoter"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1828103",
+        "tmdb_id": 1828103,
+        "name": "Mark Trotter"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1828103",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-007",
+    "left": {
+      "id": "mention:6",
+      "name": "Ah iR",
+      "tmdb_id": 1629943
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1629943",
+        "tmdb_id": 1629943,
+        "name": "Ah Ri"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1629943",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-008",
+    "left": {
+      "id": "mention:7",
+      "name": "Zoha Rhaman"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-009",
+    "left": {
+      "id": "mention:8",
+      "name": "Phyllsi Smith",
+      "tmdb_id": 169200
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:169200",
+        "tmdb_id": 169200,
+        "name": "Phyllis Smith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:169200",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-010",
+    "left": {
+      "id": "mention:9",
+      "name": "Stu Nhaan"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:16543",
+        "tmdb_id": 16543,
+        "name": "Stu Nahan"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:16543",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-011",
+    "left": {
+      "id": "mention:10",
+      "name": "Brett Lapyerouse",
+      "tmdb_id": 1370661
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1370661",
+        "tmdb_id": 1370661,
+        "name": "Brett Lapeyrouse"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1370661",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-012",
+    "left": {
+      "id": "mention:11",
+      "name": "Marias Mell"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-013",
+    "left": {
+      "id": "mention:12",
+      "name": "Saboor aShak",
+      "tmdb_id": 4264155
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:4264155",
+        "tmdb_id": 4264155,
+        "name": "Saboor Sahak"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:4264155",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-014",
+    "left": {
+      "id": "mention:13",
+      "name": "Gino Cafraelli"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1179643",
+        "tmdb_id": 1179643,
+        "name": "Gino Cafarelli"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1179643",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-015",
+    "left": {
+      "id": "mention:14",
+      "name": "Pilar Psacual",
+      "tmdb_id": 3654066
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:3654066",
+        "tmdb_id": 3654066,
+        "name": "Pilar Pascual"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3654066",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-016",
+    "left": {
+      "id": "mention:15",
+      "name": "Anuchit oSngsri"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-017",
+    "left": {
+      "id": "mention:16",
+      "name": "Niko Vragas",
+      "tmdb_id": 3782649
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3782649",
+        "tmdb_id": 3782649,
+        "name": "Niko Vargas"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3782649",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-018",
+    "left": {
+      "id": "mention:17",
+      "name": "Yan-Kay Crytsal Lowe"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:58393",
+        "tmdb_id": 58393,
+        "name": "Yan-Kay Crystal Lowe"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:58393",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-019",
+    "left": {
+      "id": "mention:18",
+      "name": "Iraklii Maurashvili",
+      "tmdb_id": 2812009
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:2812009",
+        "tmdb_id": 2812009,
+        "name": "Iraklii Maruashvili"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2812009",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-020",
+    "left": {
+      "id": "mention:19",
+      "name": "Yuki Aammi"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-021",
+    "left": {
+      "id": "mention:20",
+      "name": "William Presotn Robertson",
+      "tmdb_id": 565196
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:565196",
+        "tmdb_id": 565196,
+        "name": "William Preston Robertson"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:565196",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-022",
+    "left": {
+      "id": "mention:21",
+      "name": "Claudiu Tarndafir"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:31639",
+        "tmdb_id": 31639,
+        "name": "Claudiu Trandafir"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:31639",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-023",
+    "left": {
+      "id": "mention:22",
+      "name": "Anna Kaatrina",
+      "tmdb_id": 27570
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:27570",
+        "tmdb_id": 27570,
+        "name": "Anna Katarina"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:27570",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-024",
+    "left": {
+      "id": "mention:23",
+      "name": "Meera aNir"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-025",
+    "left": {
+      "id": "mention:24",
+      "name": "Noah Csaas",
+      "tmdb_id": 4105608
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:4105608",
+        "tmdb_id": 4105608,
+        "name": "Noah Casas"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:4105608",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-026",
+    "left": {
+      "id": "mention:25",
+      "name": "Joel Kloker"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:3313442",
+        "tmdb_id": 3313442,
+        "name": "Joel Kolker"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3313442",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-027",
+    "left": {
+      "id": "mention:26",
+      "name": "Christain Olsen",
+      "tmdb_id": 6195464
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:6195464",
+        "tmdb_id": 6195464,
+        "name": "Christian Olsen"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:6195464",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-028",
+    "left": {
+      "id": "mention:27",
+      "name": "Steve Hraris"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-029",
+    "left": {
+      "id": "mention:28",
+      "name": "Ben Tunrer",
+      "tmdb_id": 1261071
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1261071",
+        "tmdb_id": 1261071,
+        "name": "Ben Turner"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1261071",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-030",
+    "left": {
+      "id": "mention:29",
+      "name": "Billy Buidnich"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3313154",
+        "tmdb_id": 3313154,
+        "name": "Billy Budinich"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3313154",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-031",
+    "left": {
+      "id": "mention:30",
+      "name": "Anabel rGaetz",
+      "tmdb_id": 1945796
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1945796",
+        "tmdb_id": 1945796,
+        "name": "Anabel Graetz"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1945796",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-032",
+    "left": {
+      "id": "mention:31",
+      "name": "Silas Crason"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-033",
+    "left": {
+      "id": "mention:32",
+      "name": "Ramnoa",
+      "tmdb_id": 6094035
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:6094035",
+        "tmdb_id": 6094035,
+        "name": "Ramona"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:6094035",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-034",
+    "left": {
+      "id": "mention:33",
+      "name": "Kim Byoeng-ok"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:77182",
+        "tmdb_id": 77182,
+        "name": "Kim Byeong-ok"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:77182",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-035",
+    "left": {
+      "id": "mention:34",
+      "name": "Edoardo eD Marte",
+      "tmdb_id": 5494442
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:5494442",
+        "tmdb_id": 5494442,
+        "name": "Edoardo De Marte"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:5494442",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-036",
+    "left": {
+      "id": "mention:35",
+      "name": "Jason Truner"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-037",
+    "left": {
+      "id": "mention:36",
+      "name": "Cameo dAele",
+      "tmdb_id": 3228980
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:3228980",
+        "tmdb_id": 3228980,
+        "name": "Cameo Adele"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3228980",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-038",
+    "left": {
+      "id": "mention:37",
+      "title": "The nOe"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:739277",
+        "tmdb_id": 739277,
+        "title": "A Lustful Night"
+      },
+      {
+        "id": "tmdb:6844",
+        "tmdb_id": 6844,
+        "title": "The Ten Commandments"
+      },
+      {
+        "id": "tmdb:870028",
+        "tmdb_id": 870028,
+        "title": "The Accountant²"
+      },
+      {
+        "id": "tmdb:1655538",
+        "tmdb_id": 1655538,
+        "title": "The One"
+      },
+      {
+        "id": "tmdb:28178",
+        "tmdb_id": 28178,
+        "title": "Hachi: A Dog's Tale"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1655538",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-039",
+    "left": {
+      "id": "mention:38",
+      "name": "Milton cShorr",
+      "tmdb_id": 1988045
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1988045",
+        "tmdb_id": 1988045,
+        "name": "Milton Schorr"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1988045",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-040",
+    "left": {
+      "id": "mention:39",
+      "name": "Luka Preos"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-041",
+    "left": {
+      "id": "mention:40",
+      "name": "Beth Fwoler",
+      "tmdb_id": 171182
+    },
+    "candidates": [
+      {
+        "id": "tmdb:171182",
+        "tmdb_id": 171182,
+        "name": "Beth Fowler"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:171182",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-042",
+    "left": {
+      "id": "mention:41",
+      "name": "Kate Kennedy"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:2486590",
+        "tmdb_id": 2486590,
+        "name": "Kate Kennedy"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2486590",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-043",
+    "left": {
+      "id": "mention:42",
+      "name": "Dino Festcher",
+      "tmdb_id": 1743500
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1743500",
+        "tmdb_id": 1743500,
+        "name": "Dino Fetscher"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1743500",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-044",
+    "left": {
+      "id": "mention:43",
+      "title": "Your Heart Wlil Be Broken"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6844",
+        "tmdb_id": 6844,
+        "title": "The Ten Commandments"
+      },
+      {
+        "id": "tmdb:739277",
+        "tmdb_id": 739277,
+        "title": "A Lustful Night"
+      },
+      {
+        "id": "tmdb:28178",
+        "tmdb_id": 28178,
+        "title": "Hachi: A Dog's Tale"
+      },
+      {
+        "id": "tmdb:870028",
+        "tmdb_id": 870028,
+        "title": "The Accountant²"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-045",
+    "left": {
+      "id": "mention:44",
+      "name": "Cristeal Alonzo",
+      "tmdb_id": 1374727
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1374727",
+        "tmdb_id": 1374727,
+        "name": "Cristela Alonzo"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1374727",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-046",
+    "left": {
+      "id": "mention:45",
+      "name": "Krittapas Lesrvananont"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:5760560",
+        "tmdb_id": 5760560,
+        "name": "Krittapas Lersvananont"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:5760560",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-047",
+    "left": {
+      "id": "mention:46",
+      "name": "Jonathna Scarfe",
+      "tmdb_id": 152831
+    },
+    "candidates": [
+      {
+        "id": "tmdb:152831",
+        "tmdb_id": 152831,
+        "name": "Jonathan Scarfe"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:152831",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-048",
+    "left": {
+      "id": "mention:47",
+      "name": "Clemenec Poesy"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-049",
+    "left": {
+      "id": "mention:48",
+      "name": "Yana Shecvhenko",
+      "tmdb_id": 3636257
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3636257",
+        "tmdb_id": 3636257,
+        "name": "Yana Shevchenko"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3636257",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-050",
+    "left": {
+      "id": "mention:49",
+      "title": "One Gram fo Life"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1592768",
+        "tmdb_id": 1592768,
+        "title": "One Gram of Life"
+      },
+      {
+        "id": "tmdb:6844",
+        "tmdb_id": 6844,
+        "title": "The Ten Commandments"
+      },
+      {
+        "id": "tmdb:870028",
+        "tmdb_id": 870028,
+        "title": "The Accountant²"
+      },
+      {
+        "id": "tmdb:739277",
+        "tmdb_id": 739277,
+        "title": "A Lustful Night"
+      },
+      {
+        "id": "tmdb:28178",
+        "tmdb_id": 28178,
+        "title": "Hachi: A Dog's Tale"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1592768",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-051",
+    "left": {
+      "id": "mention:50",
+      "name": "Sienna aVnce",
+      "tmdb_id": 6310313
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:6310313",
+        "tmdb_id": 6310313,
+        "name": "Sienna Vance"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:6310313",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-052",
+    "left": {
+      "id": "mention:51",
+      "name": "Stuart oCwan"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-053",
+    "left": {
+      "id": "mention:52",
+      "name": "Maurizoi Arena",
+      "tmdb_id": 131306
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:131306",
+        "tmdb_id": 131306,
+        "name": "Maurizio Arena"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:131306",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-054",
+    "left": {
+      "id": "mention:53",
+      "name": "Scott MaAcrthur"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:209087",
+        "tmdb_id": 209087,
+        "name": "Scott MacArthur"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:209087",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-055",
+    "left": {
+      "id": "mention:54",
+      "name": "Antje rTaue",
+      "tmdb_id": 43202
+    },
+    "candidates": [
+      {
+        "id": "tmdb:43202",
+        "tmdb_id": 43202,
+        "name": "Antje Traue"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:43202",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-056",
+    "left": {
+      "id": "mention:55",
+      "name": "Anthony sEcobar"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-057",
+    "left": {
+      "id": "mention:56",
+      "name": "Nathan Willcocks",
+      "tmdb_id": 1320144
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1320144",
+        "tmdb_id": 1320144,
+        "name": "Nathan Willcocks"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1320144",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-058",
+    "left": {
+      "id": "mention:57",
+      "name": "Seth Gbael"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:38888",
+        "tmdb_id": 38888,
+        "name": "Seth Gabel"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:38888",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-059",
+    "left": {
+      "id": "mention:58",
+      "name": "Greenogblin21",
+      "tmdb_id": 5875048
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5875048",
+        "tmdb_id": 5875048,
+        "name": "Greengoblin21"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:5875048",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-060",
+    "left": {
+      "id": "mention:59",
+      "name": "Bill Paetrson"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-061",
+    "left": {
+      "id": "mention:60",
+      "name": "Lee E. Schafrstein",
+      "tmdb_id": 4095228
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:4095228",
+        "tmdb_id": 4095228,
+        "name": "Lee E. Scharfstein"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:4095228",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-062",
+    "left": {
+      "id": "mention:61",
+      "name": "Leo Heller"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1809458",
+        "tmdb_id": 1809458,
+        "name": "Leo Heller"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1809458",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-063",
+    "left": {
+      "id": "mention:62",
+      "name": "Jalil Lsepert",
+      "tmdb_id": 72327
+    },
+    "candidates": [
+      {
+        "id": "tmdb:72327",
+        "tmdb_id": 72327,
+        "name": "Jalil Lespert"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:72327",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-064",
+    "left": {
+      "id": "mention:63",
+      "name": "Tony Feilds"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-065",
+    "left": {
+      "id": "mention:64",
+      "name": "Andy Sathl",
+      "tmdb_id": 21083
+    },
+    "candidates": [
+      {
+        "id": "tmdb:21083",
+        "tmdb_id": 21083,
+        "name": "Andy Stahl"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:21083",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-066",
+    "left": {
+      "id": "mention:65",
+      "name": "Amanda Bardshaw"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3204240",
+        "tmdb_id": 3204240,
+        "name": "Amanda Bradshaw"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3204240",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-067",
+    "left": {
+      "id": "mention:66",
+      "name": "Georgia Bilzzard",
+      "tmdb_id": 1909074
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1909074",
+        "tmdb_id": 1909074,
+        "name": "Georgia Blizzard"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1909074",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-068",
+    "left": {
+      "id": "mention:67",
+      "name": "Daniel Mnahaes"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-069",
+    "left": {
+      "id": "mention:68",
+      "name": "Redin Kignsley",
+      "tmdb_id": 2860067
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:2860067",
+        "tmdb_id": 2860067,
+        "name": "Redin Kingsley"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2860067",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-070",
+    "left": {
+      "id": "mention:69",
+      "name": "Daniel eNlson"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:2881089",
+        "tmdb_id": 2881089,
+        "name": "Daniel Nelson"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2881089",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-071",
+    "left": {
+      "id": "mention:70",
+      "name": "Nick Mairnos",
+      "tmdb_id": 1632527
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1632527",
+        "tmdb_id": 1632527,
+        "name": "Nick Marinos"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1632527",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-072",
+    "left": {
+      "id": "mention:71",
+      "name": "Joseph eKarns"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-073",
+    "left": {
+      "id": "mention:72",
+      "name": "Vincnet Gil",
+      "tmdb_id": 141381
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:141381",
+        "tmdb_id": 141381,
+        "name": "Vincent Gil"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:141381",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-074",
+    "left": {
+      "id": "mention:73",
+      "name": "Cyrille Miaresse"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:2637475",
+        "tmdb_id": 2637475,
+        "name": "Cyrille Mairesse"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2637475",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-075",
+    "left": {
+      "id": "mention:74",
+      "name": "Kate Asfhield",
+      "tmdb_id": 11110
+    },
+    "candidates": [
+      {
+        "id": "tmdb:11110",
+        "tmdb_id": 11110,
+        "name": "Kate Ashfield"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:11110",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-076",
+    "left": {
+      "id": "mention:75",
+      "name": "W. Earl rBown"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-077",
+    "left": {
+      "id": "mention:76",
+      "name": "Gregoyr Pekar",
+      "tmdb_id": 496263
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:496263",
+        "tmdb_id": 496263,
+        "name": "Gregory Pekar"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:496263",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-078",
+    "left": {
+      "id": "mention:77",
+      "name": "Emily Prekins"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:64914",
+        "tmdb_id": 64914,
+        "name": "Emily Perkins"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:64914",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-079",
+    "left": {
+      "id": "mention:78",
+      "name": "Dolorse Drake",
+      "tmdb_id": 126223
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:126223",
+        "tmdb_id": 126223,
+        "name": "Dolores Drake"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:126223",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-080",
+    "left": {
+      "id": "mention:79",
+      "name": "Dibyendu Bhtatacharya"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-081",
+    "left": {
+      "id": "mention:80",
+      "name": "Vicente Tuotilmondo",
+      "tmdb_id": 5570043
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:5570043",
+        "tmdb_id": 5570043,
+        "name": "Vicente Tutoilmondo"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:5570043",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-082",
+    "left": {
+      "id": "mention:81",
+      "title": "Hippo's Rveenge"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6844",
+        "tmdb_id": 6844,
+        "title": "The Ten Commandments"
+      },
+      {
+        "id": "tmdb:28178",
+        "tmdb_id": 28178,
+        "title": "Hachi: A Dog's Tale"
+      },
+      {
+        "id": "tmdb:739277",
+        "tmdb_id": 739277,
+        "title": "A Lustful Night"
+      },
+      {
+        "id": "tmdb:870028",
+        "tmdb_id": 870028,
+        "title": "The Accountant²"
+      },
+      {
+        "id": "tmdb:1540365",
+        "tmdb_id": 1540365,
+        "title": "Hippo's Revenge"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1540365",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-083",
+    "left": {
+      "id": "mention:82",
+      "name": "Weroniak Rosati",
+      "tmdb_id": 235492
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:235492",
+        "tmdb_id": 235492,
+        "name": "Weronika Rosati"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:235492",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-084",
+    "left": {
+      "id": "mention:83",
+      "name": "Aleksanrd Oblasov"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-085",
+    "left": {
+      "id": "mention:84",
+      "name": "Fabriec Josso",
+      "tmdb_id": 592458
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:592458",
+        "tmdb_id": 592458,
+        "name": "Fabrice Josso"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:592458",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-086",
+    "left": {
+      "id": "mention:85",
+      "name": "Gamini Jyaalath"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:3119574",
+        "tmdb_id": 3119574,
+        "name": "Gamini Jayalath"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:3119574",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-087",
+    "left": {
+      "id": "mention:86",
+      "name": "Judi Beceher",
+      "tmdb_id": 167755
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:167755",
+        "tmdb_id": 167755,
+        "name": "Judi Beecher"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:167755",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-088",
+    "left": {
+      "id": "mention:87",
+      "name": "Jusitn Wu"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-089",
+    "left": {
+      "id": "mention:88",
+      "name": "David nKell",
+      "tmdb_id": 41253
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:41253",
+        "tmdb_id": 41253,
+        "name": "David Knell"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:41253",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-090",
+    "left": {
+      "id": "mention:89",
+      "name": "LuLu Ebleing"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:981049",
+        "tmdb_id": 981049,
+        "name": "LuLu Ebeling"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:981049",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-091",
+    "left": {
+      "id": "mention:90",
+      "name": "Senaka Ediirsinghe",
+      "tmdb_id": 5440311
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:5440311",
+        "tmdb_id": 5440311,
+        "name": "Senaka Edirisinghe"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:5440311",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-092",
+    "left": {
+      "id": "mention:91",
+      "name": "Bridgte Regan"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-093",
+    "left": {
+      "id": "mention:92",
+      "name": "Carl Brsesler",
+      "tmdb_id": 56166
+    },
+    "candidates": [
+      {
+        "id": "tmdb:56166",
+        "tmdb_id": 56166,
+        "name": "Carl Bressler"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:56166",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-094",
+    "left": {
+      "id": "mention:93",
+      "name": "America eFrrera"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:59174",
+        "tmdb_id": 59174,
+        "name": "America Ferrera"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:59174",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-095",
+    "left": {
+      "id": "mention:94",
+      "name": "Thibautl Vincon",
+      "tmdb_id": 56286
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:56286",
+        "tmdb_id": 56286,
+        "name": "Thibault Vinçon"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:56286",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-096",
+    "left": {
+      "id": "mention:95",
+      "name": "Bentley oCoper"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-097",
+    "left": {
+      "id": "mention:96",
+      "name": "Doug Nihcolas",
+      "tmdb_id": 1370757
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1370757",
+        "tmdb_id": 1370757,
+        "name": "Doug Nicholas"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:1370757",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-098",
+    "left": {
+      "id": "mention:97",
+      "name": "Jana Sadnler"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:2686984",
+        "tmdb_id": 2686984,
+        "name": "Jana Sandler"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2686984",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-099",
+    "left": {
+      "id": "mention:98",
+      "name": "Michael Pihlippou",
+      "tmdb_id": 2070452
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:2070452",
+        "tmdb_id": 2070452,
+        "name": "Michael Philippou"
+      },
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": true,
+    "expected_id": "tmdb:2070452",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-100",
+    "left": {
+      "id": "mention:99",
+      "name": "Monica Etsrada"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1502368",
+        "tmdb_id": 1502368,
+        "name": "Mark K. Xulu"
+      },
+      {
+        "id": "tmdb:3379721",
+        "tmdb_id": 3379721,
+        "name": "Pragya Nagra"
+      },
+      {
+        "id": "tmdb:1343069",
+        "tmdb_id": 1343069,
+        "name": "Satyajith"
+      },
+      {
+        "id": "tmdb:81364",
+        "tmdb_id": 81364,
+        "name": "Olivia Munn"
+      }
+    ],
+    "threshold": 85,
+    "is_match": false,
+    "expected_id": null,
+    "label_source": "target excluded from candidate set",
+    "review_status": "silver-auto"
+  }
+]

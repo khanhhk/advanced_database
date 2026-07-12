@@ -19,6 +19,10 @@ class GraphRepository(Protocol):
 class MemoryRepository:
     def __init__(self, seed_file: Path):
         self.data = json.loads(seed_file.read_text(encoding="utf-8"))
+        for movie in self.data["movies"]:
+            for key in ("actors", "directors", "genres", "keywords", "studios"):
+                movie[key] = [value.get("name", "") if isinstance(value, dict) else value
+                              for value in movie.get(key, [])]
 
     def health(self) -> bool:
         return True
@@ -84,9 +88,14 @@ class Neo4jRepository:
                     for r in session.run(query)]
 
     def search_entities(self, query: str, limit: int = 10) -> list[dict]:
-        cypher = """MATCH (n) WHERE (n:Movie OR n:Person) AND toLower(coalesce(n.title,n.name)) CONTAINS toLower($q)
+        cypher = """WITH [token IN split(toLower($q),' ') WHERE size(token)>=3] AS tokens
+        MATCH (n) WHERE (n:Movie OR n:Person) AND
+        (toLower(coalesce(n.title,n.name)) CONTAINS toLower($q) OR
+         any(token IN tokens WHERE toLower(coalesce(n.title,n.name)) CONTAINS token))
         RETURN coalesce(n.tmdb_id,n.name) AS id, coalesce(n.title,n.name) AS name,
-        CASE WHEN n:Movie THEN 'Movie' ELSE 'Person' END AS type LIMIT $limit"""
+        CASE WHEN n:Movie THEN 'Movie' ELSE 'Person' END AS type
+        ORDER BY CASE WHEN toLower(coalesce(n.title,n.name))=toLower($q) THEN 0 ELSE 1 END,
+        size(coalesce(n.title,n.name)) LIMIT $limit"""
         with self.driver.session(database=self.database) as session:
             return [dict(r) for r in session.run(cypher, q=query, limit=limit)]
 

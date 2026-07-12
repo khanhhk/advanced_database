@@ -18,7 +18,8 @@ def evaluate(input_path: Path, questions: Path) -> dict:
     passed = sum(x["passed"] for x in details)
     return {"generated_at": datetime.now(timezone.utc).isoformat(), "backend": "memory",
             "dataset_movie_count": repository.stats()["nodes"]["Movie"], "cases": len(cases), "passed": passed,
-            "accuracy": passed / len(cases) if cases else 0, "limitations": "Seed smoke test; not a production-quality evaluation corpus.", "details": details}
+            "accuracy": passed / len(cases) if cases else 0,
+            "limitations": "Ten-question smoke test; not a reviewed production-quality QA corpus.", "details": details}
 
 
 if __name__ == "__main__":

@@ -86,6 +86,17 @@ from TMDB `rating`. It never loads complete IMDb data into memory or Neo4j.
 Checksums and match counts are recorded for provenance; ignored raw IMDb data
 may be deleted after processing.
 
+TMDB collection now preserves source IDs and credit metadata instead of reducing
+credits to names. Processed people prefer `person_id=tmdb:<id>`, with legacy
+name hashes accepted only for old fixtures/raw caches; `ACTED_IN` retains
+character and cast order. Genre, keyword, and studio source IDs are preserved as
+well. QA entity slots are linked to canonical Movie/Person entities before
+parameterized Cypher execution, and link confidence is returned as evidence.
+Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
+negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
+an explicit relevance rubric. Their metrics may be reported only as silver
+evaluation until an independent reviewer and adjudication are recorded.
+
 ## Quality and evaluation
 
 Measure entity-resolution precision/recall/F1 on about 100 labeled pairs; data
@@ -95,6 +106,15 @@ facts; QA accuracy on 20–30 questions; recommendation relevance (Precision@K,
 NDCG@K or documented manual review); and the fraction of recommendations with
 an evidence path. Store configurations and CSV/JSON results so experiments are
 reproducible.
+
+Current reproducible evidence (2026-07-12): the corpus has 2,000 movies and the
+loaded graph validates at 36,574 nodes/337,822 relationships with zero structural
+violations. Exact IMDb ratings match 1,677 of 1,785 movies carrying an IMDb ID.
+Silver entity-resolution P/R/F1 is 1.00; silver co-star precision is 1.00;
+recommendation P@10 is 0.64, NDCG@10 is 0.699, and explanation coverage is 1.00.
+The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
+question at 2,000 movies; intent medians range 2.34–110.65 ms and p95 ranges
+3.83–126.20 ms. This single-scale result is not a scalability claim.
 
 ## Source synthesis
 

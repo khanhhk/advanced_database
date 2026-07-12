@@ -13,6 +13,7 @@ def _similarity(source: dict, candidate: dict, method: str) -> tuple[float, dict
 
 
 def recommend(movies: list[dict], movie_id: int, top_k: int = 10, method: str = "overlap") -> list[Recommendation]:
+    movies = [_name_view(movie) for movie in movies]
     source = next((m for m in movies if m["tmdb_id"] == movie_id), None)
     if not source: raise KeyError(movie_id)
     results = []
@@ -26,3 +27,10 @@ def recommend(movies: list[dict], movie_id: int, top_k: int = 10, method: str = 
             shared_directors=shared["directors"], shared_actors=shared["actors"], shared_genres=shared["genres"],
             shared_keywords=shared["keywords"], explanation="Tương đồng qua " + "; ".join(reasons)))
     return sorted(results, key=lambda r: (-r.score, r.title))[:top_k]
+
+
+def _name_view(movie):
+    result = dict(movie)
+    for key in WEIGHTS:
+        result[key] = [value.get("name", "") if isinstance(value, dict) else value for value in movie.get(key, [])]
+    return result

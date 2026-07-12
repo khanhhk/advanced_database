@@ -15,11 +15,16 @@ def normalize_response(item: dict) -> dict:
         "tmdb_id": item["id"], "imdb_id": item.get("external_ids", {}).get("imdb_id"),
         "title": item.get("title"), "release_date": item.get("release_date"), "runtime": item.get("runtime"),
         "rating": item.get("vote_average"), "popularity": item.get("popularity"), "overview": item.get("overview"),
-        "directors": [p["name"] for p in crew if p.get("job") == "Director"],
-        "actors": [p["name"] for p in item.get("credits", {}).get("cast", [])[:20]],
-        "genres": [x["name"] for x in item.get("genres", [])],
-        "keywords": [x["name"] for x in item.get("keywords", {}).get("keywords", [])],
-        "studios": [x["name"] for x in item.get("production_companies", [])],
+        "directors": [{"tmdb_id": p["id"], "name": p["name"]}
+                      for p in crew if p.get("job") == "Director" and p.get("id") and p.get("name")],
+        "actors": [{"tmdb_id": p["id"], "name": p["name"], "character": p.get("character") or "",
+                    "cast_order": p.get("order")}
+                   for p in item.get("credits", {}).get("cast", [])[:20] if p.get("id") and p.get("name")],
+        "genres": [{"genre_id": x["id"], "name": x["name"]} for x in item.get("genres", [])],
+        "keywords": [{"keyword_id": x["id"], "name": x["name"]}
+                     for x in item.get("keywords", {}).get("keywords", [])],
+        "studios": [{"company_id": x["id"], "name": x["name"], "country": x.get("origin_country") or ""}
+                    for x in item.get("production_companies", [])],
         "source": "tmdb", "collected_at": datetime.now(timezone.utc).isoformat(),
     }
 

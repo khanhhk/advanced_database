@@ -16,7 +16,7 @@ BENCH_ITERATIONS ?= 100
 BENCH_SCALES ?= 5,100,1000,5000
 
 .DEFAULT_GOAL := help
-.PHONY: help setup test imdb-data data run experiments stop clean clean-imdb-raw _env _neo4j _load
+.PHONY: help setup test imdb-data data run experiments evaluation-corpora neo4j-benchmark stop clean clean-imdb-raw _env _neo4j _load
 
 help: ## Hiển thị các workflow cần dùng
 	@awk 'BEGIN {FS = ":.*## "; printf "Movie Knowledge Graph workflows:\n\n"} /^[a-zA-Z0-9_-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -54,7 +54,7 @@ data: setup imdb-data ## Thu thập TMDB, lọc IMDb ratings và chuẩn hóa d�
 
 _load: setup _neo4j
 	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
-	$(PY) -m src.kg.load_neo4j --processed-dir data/processed --skip-transform
+	$(PY) -m src.kg.load_neo4j --processed-dir data/processed --skip-transform --replace
 
 run: _load ## Dựng Neo4j, import data và chạy ứng dụng
 	$(UVICORN) src.api.main:app --reload --host $(API_HOST) --port $(API_PORT)
@@ -64,6 +64,15 @@ experiments: setup ## Sinh QA evaluation, benchmark và RDF export
 	$(PY) experiments/evaluate.py
 	$(PY) experiments/benchmark_queries.py --iterations $(BENCH_ITERATIONS) --scales $(BENCH_SCALES)
 	$(PY) -m src.kg.export_rdf
+
+evaluation-corpora: setup ## Sinh các corpus silver có evidence để review độc lập
+	$(PY) experiments/build_review_corpora.py
+	$(PY) experiments/evaluate_entity_resolution.py experiments/labels/entity_resolution.json > experiments/results/entity_resolution.json
+	$(PY) experiments/evaluate_reasoning.py experiments/labels/reasoning.json > experiments/results/reasoning.json
+	$(PY) experiments/evaluate_recommendation.py experiments/labels/recommendation.json --input data/raw/tmdb_movies.json > experiments/results/recommendation.json
+
+neo4j-benchmark: setup _neo4j ## Benchmark end-to-end trên Neo4j thật, 100 lần/query mặc định
+	$(PY) experiments/benchmark_neo4j.py --iterations $(BENCH_ITERATIONS)
 
 stop: ## Dừng ứng dụng Docker/Neo4j nhưng giữ data volume
 	docker compose down

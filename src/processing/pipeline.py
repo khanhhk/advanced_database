@@ -22,6 +22,15 @@ def _stable_id(prefix: str, value: str) -> str:
     return f"{prefix}:{digest}"
 
 
+def _entity(value, id_key: str, prefix: str) -> tuple[str, str, dict]:
+    """Accept legacy names and source-rich objects while preferring source IDs."""
+    item = value if isinstance(value, dict) else {"name": value}
+    name = normalize_name(item.get("name"))
+    source_id = item.get(id_key)
+    entity_id = f"tmdb:{source_id}" if source_id not in (None, "") else _stable_id(prefix, name)
+    return entity_id, name, item
+
+
 def _write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
     with path.open("w", encoding="utf-8", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields)
@@ -67,21 +76,30 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
         seen_movies.add(movie_id)
         movies.append({key: movie.get(key) for key in
                        ("tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "popularity", "overview")})
-        for name in movie.get("actors", []):
-            name = normalize_name(name); person_id = _stable_id("person", name)
-            entities["people"][person_id] = {"person_id": person_id, "name": name, "source": "tmdb"}
+        for value in movie.get("actors", []):
+            person_id, name, item = _entity(value, "tmdb_id", "person")
+            if not name: continue
+            entities["people"][person_id] = {"person_id": person_id, "tmdb_id": item.get("tmdb_id"),
+                                               "imdb_id": item.get("imdb_id"), "name": name, "source": "tmdb"}
             edges["acted_in"].append({"person_id": person_id, "tmdb_id": movie_id,
-                                       "character": "", "cast_order": "", "source": "tmdb"})
-        for name in movie.get("directors", []):
-            name = normalize_name(name); person_id = _stable_id("person", name)
-            entities["people"][person_id] = {"person_id": person_id, "name": name, "source": "tmdb"}
+                                       "character": item.get("character") or "",
+                                       "cast_order": item.get("cast_order") if item.get("cast_order") is not None else "",
+                                       "source": "tmdb"})
+        for value in movie.get("directors", []):
+            person_id, name, item = _entity(value, "tmdb_id", "person")
+            if not name: continue
+            entities["people"][person_id] = {"person_id": person_id, "tmdb_id": item.get("tmdb_id"),
+                                               "imdb_id": item.get("imdb_id"), "name": name, "source": "tmdb"}
             edges["directed"].append({"person_id": person_id, "tmdb_id": movie_id, "source": "tmdb"})
         for plural, edge_name, id_name, prefix in (("genres", "has_genre", "genre_id", "genre"),
                                                     ("keywords", "has_keyword", "keyword_id", "keyword"),
                                                     ("studios", "produced_by", "company_id", "studio")):
-            for name in movie.get(plural, []):
-                name = normalize_name(name); entity_id = _stable_id(prefix, name)
-                entities[plural][entity_id] = {id_name: entity_id, "name": name, "source": "tmdb"}
+            for value in movie.get(plural, []):
+                entity_id, name, item = _entity(value, id_name, prefix)
+                if not name: continue
+                row = {id_name: entity_id, "name": name, "source": "tmdb"}
+                if plural == "studios": row["country"] = item.get("country") or ""
+                entities[plural][entity_id] = row
                 edges[edge_name].append({"tmdb_id": movie_id, id_name: entity_id, "source": "tmdb"})
 
     wanted_imdb_ids = {m["imdb_id"] for m in movies if m.get("imdb_id")}
@@ -91,8 +109,8 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
     node_rows = {"movies": movies, **{key: list(values.values()) for key, values in entities.items()}}
     node_fields = {
         "movies": ["tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "imdb_rating", "imdb_votes", "popularity", "overview"],
-        "people": ["person_id", "name", "source"], "genres": ["genre_id", "name", "source"],
-        "keywords": ["keyword_id", "name", "source"], "studios": ["company_id", "name", "source"],
+        "people": ["person_id", "tmdb_id", "imdb_id", "name", "source"], "genres": ["genre_id", "name", "source"],
+        "keywords": ["keyword_id", "name", "source"], "studios": ["company_id", "name", "country", "source"],
     }
     edge_fields = {"acted_in": ["person_id", "tmdb_id", "character", "cast_order", "source"],
                    "directed": ["person_id", "tmdb_id", "source"],

@@ -78,7 +78,19 @@ Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset
 trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repository chỉ
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 
-`experiments/results/qa.json` là smoke test trên seed nhỏ, không phải đánh giá
-production. Benchmark memory được gắn nhãn `memory-synthetic` và ghi rõ
-`movie_count`; benchmark Neo4j và các chỉ số entity resolution/recommendation
-cần được sinh trên corpus gán nhãn trước khi đưa vào báo cáo cuối.
+`experiments/results/qa.json` là smoke test 10 câu trên corpus TMDB hiện có,
+không phải đánh giá production. Benchmark memory được gắn nhãn
+`memory-synthetic` và ghi rõ
+`movie_count`. Corpus hiện có đúng 2.000 phim. Benchmark end-to-end Neo4j thật
+được lưu tại `experiments/results/neo4j_benchmark.csv` (100 lần/câu, một warm-up)
+và cấu hình tại file `.metadata.json` tương ứng.
+
+TMDB credits được giữ dưới dạng object có source ID; `Person.person_id` ưu tiên
+`tmdb:<id>` thay vì hash tên, và `ACTED_IN` giữ `character`/`cast_order`. QA
+Neo4j liên kết slot phim/người về tên canonical trước khi chạy catalog Cypher và
+đưa confidence vào evidence. Các evaluator có sẵn tại
+`experiments/evaluate_entity_resolution.py`, `evaluate_reasoning.py` và
+`evaluate_recommendation.py`; schema corpus review nằm tại
+`experiments/labels/README.md`. `make evaluation-corpora` sinh bộ silver có
+evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases).
+Phải gọi đúng là silver evaluation cho đến khi có reviewer độc lập.
