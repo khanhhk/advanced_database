@@ -1,5 +1,10 @@
 # Dàn ý chi tiết slide bảo vệ
 
+Khi dựng slide, dùng narrative và claim discipline trong
+`REPORT_SLIDE_SOURCE_GUIDE.md`; lấy sơ đồ từ
+`movie_knowledge_graph_flow.drawio` và phần diễn giải từ
+`ARCHITECTURE_EXPLAINED.md`.
+
 Phiên bản mục tiêu: **22 slide / 15–20 phút**. Mạch kể chuyện chính: bài toán
 đa nguồn → mô hình tri thức → pipeline tái lập → truy vấn/suy diễn → hai ứng
 dụng giải thích được → bằng chứng thực nghiệm → giới hạn trung thực.

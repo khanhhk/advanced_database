@@ -1,8 +1,7 @@
 # Movie Knowledge Graph — project memory
 
-Last reviewed: 2026-07-12. This briefing summarizes all 5 PPTX files, the DOCX
-brief, and all 6 Markdown files currently present (the request mentioned 5 MD
-files, but the repository contains `README.md` plus 5 under `docs/`).
+Last reviewed: 2026-07-13. This briefing summarizes the original Office sources,
+the project Markdown documents and the current implementation artifacts.
 
 ## Mission and thesis
 
@@ -180,6 +179,18 @@ authoritative full-fidelity sources for report/slide reconstruction.
 - Root `README.md`: current runnable interface and commands; prefer it over old
   planning prose when describing implemented behavior.
 - `docs/README.md`: index and precedence guidance for the planning documents.
+- `docs/TECHNICAL_DOCUMENTATION.md`: current end-to-end technical reference for
+  architecture, data, graph schema, QA/LLM, recommendation, API, operations,
+  security, testing and evaluation.
+- `docs/movie_knowledge_graph_flow.drawio`: editable current-architecture flow.
+- `docs/ARCHITECTURE_EXPLAINED.md`: block-by-block and request-path explanation
+  of the draw.io architecture.
+- `docs/DESIGN_DECISIONS.md`: rationale, trade-offs and rejected alternatives for
+  the implemented technology and architecture choices.
+- `docs/QWEN_VLLM_DEPLOYMENT.md`: reproducible GPU/vLLM/Qwen setup and
+  troubleshooting runbook.
+- `docs/REPORT_SLIDE_SOURCE_GUIDE.md`: claim-to-evidence and narrative mapping for
+  future report and slide production.
 
 ## Working rules and precedence
 
@@ -191,3 +202,5 @@ motivation; they do not override repository behavior.
 Keep raw external data and secrets out of Git. Preserve immutable raw inputs,
 checksums/manifests for processed outputs, demo independence from network APIs,
 and the ability to reproduce tests and experiments from documented commands.
+For draw.io work, use the repository-local skill at
+`.agents/skills/drawio/SKILL.md`; `AGENTS.md` makes this discovery rule explicit.

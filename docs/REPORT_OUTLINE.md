@@ -1,5 +1,9 @@
 # Dàn ý chi tiết báo cáo cuối khóa
 
+Nguồn triển khai cho từng chương: `TECHNICAL_DOCUMENTATION.md`,
+`ARCHITECTURE_EXPLAINED.md`, `DESIGN_DECISIONS.md`, `QWEN_VLLM_DEPLOYMENT.md`
+và bảng ánh xạ claim/evidence trong `REPORT_SLIDE_SOURCE_GUIDE.md`.
+
 Độ dài mục tiêu: **40–55 trang nội dung chính**, chưa tính phụ lục. Báo cáo phải
 phân biệt rõ: thiết kế dự kiến, chức năng đã triển khai, kết quả đã đo và phần còn
 chờ đánh giá. Source code/config/test là căn cứ cho hiện trạng; số liệu lấy từ

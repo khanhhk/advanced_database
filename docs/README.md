@@ -8,6 +8,12 @@
 2. [Kế hoạch triển khai code](CODE_PLAN.md)
 3. [Dàn ý báo cáo](REPORT_OUTLINE.md)
 4. [Dàn ý slide bảo vệ](SLIDE_OUTLINE.md)
+5. [Tài liệu kỹ thuật theo hiện trạng](TECHNICAL_DOCUMENTATION.md)
+6. [Sơ đồ flow kỹ thuật](movie_knowledge_graph_flow.drawio)
+7. [Giải thích từng block và flow kiến trúc](ARCHITECTURE_EXPLAINED.md)
+8. [Quyết định thiết kế và lý do lựa chọn](DESIGN_DECISIONS.md)
+9. [Runbook dựng Qwen3-8B-AWQ với vLLM](QWEN_VLLM_DEPLOYMENT.md)
+10. [Guide nguồn nội dung cho report và slide](REPORT_SLIDE_SOURCE_GUIDE.md)
 
 ## Tên đề tài đề xuất
 
