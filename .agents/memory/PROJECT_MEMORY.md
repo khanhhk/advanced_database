@@ -64,11 +64,18 @@ plus representative SPARQL equivalents.
 whitelisted parameterized Cypher template → answer plus evidence. The current
 project advertises 8 intents. Never concatenate user input into Cypher.
 
-`POST /recommend` ranks graph-neighbor movies and returns shared metadata as an
-explanation. Starting weighted overlap is approximately director 3.0, actor
-2.0, genre 1.5, keyword 1.0; weighted Jaccard should also be evaluated to avoid
-bias toward movies with large casts. Supporting endpoints are `/health`,
-`/stats`, and `/entities/search`.
+`POST /recommend` exposes experimental hybrid ranking: 75% weighted graph Jaccard,
+20% multilingual overview/metadata cosine similarity, and 5% vote-confident
+quality. Silver ablation currently favors overlap, so overlap remains the default
+and Jaccard/hybrid are explicit alternatives. `POST /search` performs multilingual
+vector retrieval plus deterministic Vietnamese genre/rating filters and graph
+evidence. Supporting endpoints are `/health`, `/stats`, and `/entities/search`.
+The web UI is a three-tab interface: persistent multi-turn-style QA history
+(each turn remains stateless at the backend), semantic movie search, and
+explainable recommendation. Forms use explicit DOM selectors/listeners rather
+than browser-generated ID globals; responses render as messages/cards with
+human labels instead of raw JSON. Recommendation inputs explain TMDB movie ID,
+result count and ranking choices, with overlap presented as the recommended mode.
 
 Implemented backend boundary (updated 2026-07-12): the application runs only
 against real TMDB data imported into Neo4j. There is no runtime seed fallback;
@@ -92,6 +99,12 @@ name hashes accepted only for old fixtures/raw caches; `ACTED_IN` retains
 character and cast order. Genre, keyword, and studio source IDs are preserved as
 well. QA entity slots are linked to canonical Movie/Person entities before
 parameterized Cypher execution, and link confidence is returned as evidence.
+Full-text entity candidates now precede fuzzy reranking. Unknown QA intents route
+to semantic retrieval, while the eight known intents remain fixed parameterized
+Cypher templates; unrestricted LLM-to-Cypher is deliberately not enabled.
+FastEmbed runs `paraphrase-multilingual-MiniLM-L12-v2` locally and Neo4j stores
+384-dimensional embeddings in `movie_embedding`; `movie_text` and `entity_names`
+are full-text indexes. The reproducible workflow is `make semantic-index`.
 Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
 an explicit relevance rubric. Their metrics may be reported only as silver
@@ -115,6 +128,15 @@ recommendation P@10 is 0.64, NDCG@10 is 0.699, and explanation coverage is 1.00.
 The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
 question at 2,000 movies; intent medians range 2.34–110.65 ms and p95 ranges
 3.83–126.20 ms. This single-scale result is not a scalability claim.
+The semantic extension pins FastEmbed 0.8.0, records a source/model/pooling
+manifest and reuses embeddings only when both the manifest and graph coverage
+match. On 10 silver Vietnamese retrieval queries, bilingual concept expansion
+reaches Recall@10 0.80 and MRR 0.492. Real-Neo4j recommendation ablation on 20
+silver cases gives overlap P@10/NDCG@10 0.67/0.723, weighted Jaccard 0.64/0.699,
+and hybrid 0.59/0.657; therefore overlap remains the production default.
+Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
+while `runtime_manifest.json` plus live Movie/embedding counts decide whether
+import or indexing is required. Normal `make run` reuses graph and embeddings.
 
 ## Source synthesis
 

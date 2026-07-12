@@ -1,0 +1,12 @@
+[
+  {"query":"phim khoa học viễn tưởng về giấc mơ", "genre":"Science Fiction", "relevant_movie_ids":[27205]},
+  {"query":"phim du hành vũ trụ và hố đen", "genre":"Science Fiction", "relevant_movie_ids":[157336, 62]},
+  {"query":"người máy từ tương lai", "genre":"Science Fiction", "relevant_movie_ids":[218, 280]},
+  {"query":"công viên có khủng long", "genre":"Adventure", "relevant_movie_ids":[329]},
+  {"query":"thế giới ảo do máy móc kiểm soát", "genre":"Science Fiction", "relevant_movie_ids":[603]},
+  {"query":"siêu anh hùng người nhện đa vũ trụ", "genre":"Animation", "relevant_movie_ids":[324857, 569094]},
+  {"query":"người ngoài hành tinh săn con người", "genre":"Science Fiction", "relevant_movie_ids":[106, 348]},
+  {"query":"chiến tranh giữa các vì sao", "genre":"Science Fiction", "relevant_movie_ids":[11, 1891]},
+  {"query":"robot dọn rác cô độc", "genre":"Animation", "relevant_movie_ids":[10681]},
+  {"query":"thám hiểm sao hỏa", "genre":"Science Fiction", "relevant_movie_ids":[286217]}
+]

@@ -19,6 +19,7 @@ Không cần tự activate virtual environment: Makefile luôn gọi executable 
 make setup             # tạo .env + .venv + cài và kiểm tra dependencies
 make test              # toàn bộ test, gồm cả integration Neo4j
 make data              # thu thập TMDB + IMDb ratings và chuẩn hóa 2.000 phim
+make semantic-index    # cài local embedding, tạo full-text/vector index
 make imdb-data         # chỉ tải IMDb title.ratings.tsv.gz
 make run               # dựng Neo4j + import data + chạy API/UI
 make experiments
@@ -28,11 +29,18 @@ make stop
 Swagger UI: `http://localhost:8000/docs`.
 Web demo: `http://localhost:8000/`.
 
+Giao diện gồm ba tab: hội thoại Knowledge Graph nhiều lượt, tìm phim bằng mô tả
+tự nhiên và gợi ý phim có giải thích. Recommendation UI giải thích rõ TMDB ID,
+số kết quả và cho phép so sánh overlap/Jaccard/hybrid; người dùng thông thường
+nên giữ lựa chọn “Khuyến nghị — quan hệ chung”.
+
 ```bash
 curl -X POST http://localhost:8000/ask -H 'Content-Type: application/json' \
   -d '{"question":"Những phim nào do Christopher Nolan đạo diễn?"}'
 curl -X POST http://localhost:8000/recommend -H 'Content-Type: application/json' \
   -d '{"movie_id":27205,"top_k":3}'
+curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' \
+  -d '{"query":"phim khoa học viễn tưởng về không gian rating trên 7","top_k":5}'
 ```
 
 ## Pipeline dữ liệu và Neo4j
@@ -57,8 +65,30 @@ Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và lu�
 - `GET /health`
 - `GET /stats`
 - `GET /entities/search?q=nolan`
+- `POST /search` — multilingual vector retrieval kết hợp genre/rating filter trên graph.
 - `POST /ask` — 8 intent: phim theo đạo diễn, cast, phim chung, genre/rating, co-star, director/genre, shortest path, similar movie.
-- `POST /recommend` — `weighted_jaccard` hoặc `overlap`, trả score và metadata chung.
+- `POST /recommend` — mặc định `overlap`; hỗ trợ `weighted_jaccard` và `hybrid` thử nghiệm.
+
+## Semantic search, hybrid QA và recommendation
+
+`make semantic-index` dùng FastEmbed với mô hình multilingual chạy cục bộ để
+embedding `title + overview + genres + keywords` của 2.000 phim thành vector 384
+chiều. Neo4j lưu vector index `movie_embedding` và full-text indexes
+`movie_text`/`entity_names`; nội dung phim không được gửi tới API embedding ngoài.
+
+QA giữ catalog Cypher tham số hóa cho 8 intent. Entity linker ưu tiên full-text
+candidate rồi fuzzy rerank; câu ngoài catalog chuyển sang semantic retrieval có
+evidence thay vì trả lỗi ngay. Đây là controlled hybrid GraphRAG, chưa bật
+LLM-to-Cypher tự do. Recommendation hybrid thử nghiệm kết hợp 75% weighted graph Jaccard,
+20% cosine nội dung và 5% rating có vote-confidence, đồng thời trả riêng từng
+score và metadata chung để giải thích. Ablation silver hiện cho thấy overlap
+tốt hơn hybrid, nên production default vẫn là overlap; không chọn công nghệ mới
+chỉ vì mới. Các candidate thiếu overview/vote bị giới hạn.
+
+`make run` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
+dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn,
+số Movie và embedding coverage. Graph/index chỉ dựng lại khi các giá trị này
+thay đổi. `pip check` vẫn chạy nhanh nhưng không tải hoặc cài package.
 
 ## Dữ liệu ngoài
 

@@ -60,7 +60,8 @@ manifest, Neo4j validation và artifact thực nghiệm cuối.
 
 - MVP và extension.
 - TMDB là nguồn graph chính; IMDb Ratings là nguồn enrichment.
-- Chỉ top-20 cast; Award/Wikidata/LLM/vector/GraphRAG ngoài MVP.
+- Chỉ top-20 cast; Award/Wikidata, LLM-to-Cypher tự do và multimodal ngoài MVP;
+  vector retrieval và controlled GraphRAG là extension đã triển khai.
 - Nêu trạng thái dataset tại thời điểm nộp.
 
 ### 1.6. Đóng góp
@@ -358,6 +359,15 @@ hình luôn tốt hơn.
 - Relevance-label protocol hoặc manual review có rubric.
 - P@K, NDCG@K, explanation coverage; so sánh overlap/Jaccard.
 - Với 20 case silver, K=10: P@10=0,64; NDCG@10=0,699; explanation coverage=1,00.
+- Bổ sung ablation Neo4j thật: overlap 0,67/0,723; weighted Jaccard
+  0,64/0,699; hybrid 0,59/0,657 theo P@10/NDCG@10. Thảo luận vì sao rubric
+  thiên graph và không tuyên bố hybrid tốt hơn khi bằng chứng chưa hỗ trợ.
+
+### 9.8a. Semantic retrieval
+
+- Corpus silver 10 truy vấn tiếng Việt có relevant movie IDs.
+- Recall@10=0,80; MRR=0,492 sau bilingual concept expansion.
+- Phân tích ba nhóm lỗi: cross-lingual wording, overview thiếu và popular-data drift.
 - Case study Inception với explanation path.
 
 ### 9.9. Hiệu năng và scalability

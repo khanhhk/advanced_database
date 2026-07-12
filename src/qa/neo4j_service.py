@@ -11,13 +11,27 @@ SLOT_TYPES = {"director": "Person", "person": "Person", "person1": "Person",
 def answer(question: str, repository) -> tuple[str, str, list[dict]]:
     intent, slots = detect_intent(question)
     if intent == "unknown":
-        return "Xin lỗi, tôi chưa hiểu câu hỏi. Hãy hỏi theo đạo diễn, diễn viên, thể loại, đường liên hệ hoặc phim tương tự.", intent, []
+        try:
+            from src.semantic.query_parser import parse_filters
+            genre, min_rating = parse_filters(question)
+            items = repository.semantic_search(question, 5, genre, min_rating)
+        except (RuntimeError, AttributeError):
+            items = []
+        if items:
+            evidence = [item.model_dump() for item in items]
+            return "Các phim phù hợp về ngữ nghĩa: " + ", ".join(item.title for item in items), "semantic_search", evidence
+        return "Xin lỗi, tôi chưa hiểu câu hỏi. Hãy hỏi theo đạo diễn, diễn viên, thể loại, đường liên hệ hoặc mô tả phim cần tìm.", intent, []
+    if "genre" in slots:
+        from src.semantic.query_parser import parse_filters
+        canonical_genre, _ = parse_filters(question)
+        if canonical_genre:
+            slots["genre"] = canonical_genre
     slots, links = _link_slots(repository, slots)
     if intent == "similar_movies":
         rows = repository.run(QUERIES["resolve_movie"], movie=slots["movie"])
         if not rows:
             return "Không tìm thấy phim.", intent, []
-        items = repository.recommend(rows[0]["movie_id"], 5, "weighted_jaccard")
+        items = repository.recommend(rows[0]["movie_id"], 5, "overlap")
         evidence = [x.model_dump() for x in items]
         if links: evidence.insert(0, {"entity_links": links})
         return "Phim tương tự: " + ", ".join(x.title for x in items), intent, evidence

@@ -8,6 +8,7 @@ PIP := $(BIN)/pip
 UVICORN := $(BIN)/uvicorn
 PYTEST := $(BIN)/pytest
 INSTALL_STAMP := $(VENV)/.installed
+SEMANTIC_STAMP := $(VENV)/.semantic-installed
 
 DATA_COUNT ?= 2000
 API_HOST ?= 127.0.0.1
@@ -16,7 +17,7 @@ BENCH_ITERATIONS ?= 100
 BENCH_SCALES ?= 5,100,1000,5000
 
 .DEFAULT_GOAL := help
-.PHONY: help setup test imdb-data data run experiments evaluation-corpora neo4j-benchmark stop clean clean-imdb-raw _env _neo4j _load
+.PHONY: help setup setup-semantic test imdb-data data semantic-index runtime-prepare run experiments evaluation-corpora neo4j-benchmark stop clean clean-imdb-raw _env _neo4j _load
 
 help: ## Hiển thị các workflow cần dùng
 	@awk 'BEGIN {FS = ":.*## "; printf "Movie Knowledge Graph workflows:\n\n"} /^[a-zA-Z0-9_-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -35,6 +36,12 @@ _env:
 setup: _env $(INSTALL_STAMP) ## Khởi tạo .env, Python environment và toàn bộ thư viện
 	@$(PIP) check
 	@echo "Setup complete. Set TMDB_API_KEY in .env before running 'make data'."
+
+$(SEMANTIC_STAMP): pyproject.toml $(INSTALL_STAMP)
+	$(PIP) install -e '.[semantic]'
+	@touch $(SEMANTIC_STAMP)
+
+setup-semantic: setup $(SEMANTIC_STAMP) ## Cài local multilingual embedding runtime một lần
 
 _neo4j:
 	docker compose up -d --wait neo4j
@@ -56,7 +63,14 @@ _load: setup _neo4j
 	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
 	$(PY) -m src.kg.load_neo4j --processed-dir data/processed --skip-transform --replace
 
-run: _load ## Dựng Neo4j, import data và chạy ứng dụng
+semantic-index: setup-semantic _neo4j ## Embedding phim và tạo full-text/vector index
+	$(PY) -m src.semantic.index_movies
+
+runtime-prepare: setup-semantic _neo4j ## Chỉ import/index khi dataset hoặc graph thay đổi
+	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
+	$(PY) -m src.runtime.prepare
+
+run: runtime-prepare ## Kiểm tra runtime rồi chạy ứng dụng, không cài/import lại vô ích
 	$(UVICORN) src.api.main:app --reload --host $(API_HOST) --port $(API_PORT)
 
 experiments: setup ## Sinh QA evaluation, benchmark và RDF export
@@ -64,6 +78,8 @@ experiments: setup ## Sinh QA evaluation, benchmark và RDF export
 	$(PY) experiments/evaluate.py
 	$(PY) experiments/benchmark_queries.py --iterations $(BENCH_ITERATIONS) --scales $(BENCH_SCALES)
 	$(PY) -m src.kg.export_rdf
+	$(PY) experiments/evaluate_semantic_search.py
+	$(PY) experiments/evaluate_recommendation_neo4j.py
 
 evaluation-corpora: setup ## Sinh các corpus silver có evidence để review độc lập
 	$(PY) experiments/build_review_corpora.py

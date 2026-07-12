@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     neo4j_user: str = "neo4j"
     neo4j_password: str = "change-me"
     neo4j_database: str = "neo4j"
+    embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 

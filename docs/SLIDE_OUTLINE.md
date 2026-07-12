@@ -61,7 +61,7 @@ Mục tiêu đo được:
 - MVP: Movie, Person, Genre, Keyword, Studio và 5 quan hệ gốc.
 - Quan hệ suy diễn: `CO_STARRED_WITH`.
 - TMDB là graph source; IMDb chỉ enrichment rating/votes bằng exact ID.
-- Ngoài phạm vi: Award/Wikidata, LLM-to-Cypher, vector search, GraphRAG,
+- Ngoài phạm vi: Award/Wikidata, LLM-to-Cypher tự do và multimodal; vector search và controlled GraphRAG đã được triển khai,
   embeddings.
 - Nêu dataset hiện tại 2.000 phim; dải mục tiêu của đề tài là 2.000–5.000.
 
@@ -219,6 +219,9 @@ Ma trận metric:
   recommendation không chứa expected movie.
 - Không đưa benchmark synthetic thành kết luận Neo4j.
 - Gắn chữ `silver`, không diễn giải metric là human evaluation độc lập.
+- Semantic search silver: Recall@10=0,80, MRR=0,492 trên 10 query.
+- Recommendation ablation: overlap P@10=0,67/NDCG=0,723; Jaccard
+  0,64/0,699; hybrid 0,59/0,657. Vì vậy overlap là default, hybrid là thử nghiệm.
 
 ## Slide 20 — Demo end-to-end (60–90 giây trong slide, 4 phút tổng demo)
 

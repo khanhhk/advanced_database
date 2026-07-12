@@ -1,0 +1,26 @@
+{
+  "backend": "neo4j",
+  "results": [
+    {
+      "method": "overlap",
+      "cases": 20,
+      "k": 10,
+      "precision_at_k": 0.6699999999999999,
+      "ndcg_at_k": 0.7231694887321751
+    },
+    {
+      "method": "weighted_jaccard",
+      "cases": 20,
+      "k": 10,
+      "precision_at_k": 0.6399999999999999,
+      "ndcg_at_k": 0.6992471026392655
+    },
+    {
+      "method": "hybrid",
+      "cases": 20,
+      "k": 10,
+      "precision_at_k": 0.59,
+      "ndcg_at_k": 0.6565268567583797
+    }
+  ]
+}

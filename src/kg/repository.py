@@ -14,6 +14,7 @@ class GraphRepository(Protocol):
     def stats(self) -> dict: ...
     def answer(self, question: str) -> tuple[str, str, list[dict]]: ...
     def recommend(self, movie_id: int, top_k: int, method: str) -> list[Recommendation]: ...
+    def semantic_search(self, query: str, top_k: int = 10, genre: str | None = None, min_rating: float | None = None) -> list: ...
 
 
 class MemoryRepository:
@@ -57,7 +58,23 @@ class MemoryRepository:
         return answer_from_movies(question, self.movies())
 
     def recommend(self, movie_id: int, top_k: int = 10, method: str = "weighted_jaccard") -> list[Recommendation]:
-        return recommend_from_movies(self.movies(), movie_id, top_k, method)
+        # The deterministic fixture backend has no embeddings; hybrid degrades
+        # explicitly to its graph component for tests and offline evaluation.
+        return recommend_from_movies(self.movies(), movie_id, top_k,
+                                     "weighted_jaccard" if method == "hybrid" else method)
+
+    def semantic_search(self, query: str, top_k: int = 10, genre: str | None = None, min_rating: float | None = None):
+        from src.models import SearchResult
+        terms = {x for x in query.casefold().split() if len(x) > 2}
+        rows = []
+        for movie in self.movies():
+            if genre and genre.casefold() not in {x.casefold() for x in movie["genres"]}: continue
+            if min_rating is not None and float(movie.get("rating") or 0) < min_rating: continue
+            haystack = " ".join([movie["title"], movie.get("overview", ""), *movie["genres"], *movie["keywords"]]).casefold()
+            score = sum(term in haystack for term in terms) / max(len(terms), 1)
+            if score: rows.append(SearchResult(movie_id=movie["tmdb_id"], title=movie["title"], score=score,
+                rating=movie.get("rating"), genres=movie["genres"], explanation="Khớp từ khóa/ngữ nghĩa trong metadata phim"))
+        return sorted(rows, key=lambda x: (-x.score, x.title))[:top_k]
 
 
 class Neo4jRepository:
@@ -88,6 +105,16 @@ class Neo4jRepository:
                     for r in session.run(query)]
 
     def search_entities(self, query: str, limit: int = 10) -> list[dict]:
+        fulltext = """CALL db.index.fulltext.queryNodes('entity_names', $q, {limit:$limit}) YIELD node, score
+        WHERE node:Movie OR node:Person
+        RETURN coalesce(node.tmdb_id,node.name) AS id,coalesce(node.title,node.name) AS name,
+        CASE WHEN node:Movie THEN 'Movie' ELSE 'Person' END AS type,score ORDER BY score DESC LIMIT $limit"""
+        try:
+            with self.driver.session(database=self.database) as session:
+                rows = [dict(r) for r in session.run(fulltext, q=query.replace('"', ''), limit=limit)]
+            if rows: return rows
+        except Exception:
+            pass
         cypher = """WITH [token IN split(toLower($q),' ') WHERE size(token)>=3] AS tokens
         MATCH (n) WHERE (n:Movie OR n:Person) AND
         (toLower(coalesce(n.title,n.name)) CONTAINS toLower($q) OR
@@ -98,6 +125,28 @@ class Neo4jRepository:
         size(coalesce(n.title,n.name)) LIMIT $limit"""
         with self.driver.session(database=self.database) as session:
             return [dict(r) for r in session.run(cypher, q=query, limit=limit)]
+
+    def semantic_search(self, query: str, top_k: int = 10, genre: str | None = None, min_rating: float | None = None):
+        from src.models import SearchResult
+        from src.semantic.embeddings import embed
+        from src.semantic.query_parser import expand_query
+        vector = embed([expand_query(query)])[0]
+        cypher = """CALL db.index.vector.queryNodes('movie_embedding', $candidate_k, $embedding) YIELD node, score AS semantic_score
+        OPTIONAL MATCH (node)-[:HAS_GENRE]->(g:Genre)
+        WITH node,semantic_score,collect(DISTINCT g.name) AS genres,
+          CASE WHEN coalesce(node.imdb_votes,0) <= 0 THEN 0.0
+               ELSE (coalesce(node.imdb_rating,node.rating,0.0)/10.0) *
+                    (log10(toFloat(node.imdb_votes)+1.0)/7.0) END AS confidence
+        WHERE ($genre IS NULL OR any(x IN genres WHERE toLower(x)=toLower($genre)))
+          AND ($min_rating IS NULL OR coalesce(node.imdb_rating,node.rating,0.0) >= $min_rating)
+          AND size(coalesce(node.overview,'')) >= 30
+        WITH node,genres,semantic_score,confidence,0.85*semantic_score+0.15*confidence AS score
+        RETURN node.tmdb_id AS movie_id,node.title AS title,score,semantic_score,confidence,
+          coalesce(node.imdb_rating,node.rating) AS rating,genres ORDER BY score DESC LIMIT $top_k"""
+        rows = self.run(cypher, embedding=vector, candidate_k=max(top_k * 5, 50), top_k=top_k,
+                        genre=genre, min_rating=min_rating)
+        return [SearchResult(**row, explanation=f"Vector cosine={row['semantic_score']:.3f}; confidence={row['confidence']:.3f}; " +
+                (f"thể loại {genre}; " if genre else "") + "lọc trực tiếp trên Knowledge Graph") for row in rows]
 
     def stats(self) -> dict:
         with self.driver.session(database=self.database) as session:
