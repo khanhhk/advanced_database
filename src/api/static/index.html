@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Movie Knowledge Graph</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main>
+  <header><p>ADVANCED DATABASE</p><h1>Movie Knowledge Graph</h1><span>Hỏi đáp và gợi ý phim có bằng chứng giải thích</span></header>
+  <section class="grid">
+    <article><h2>Hỏi Knowledge Graph</h2><form id="ask"><input id="question" value="Những phim nào do Christopher Nolan đạo diễn?" required><button>Hỏi</button></form><pre id="answer">Nhập câu hỏi để bắt đầu.</pre></article>
+    <article><h2>Gợi ý phim</h2><form id="recommend"><input id="movie" type="number" value="27205" required><input id="topk" type="number" value="3" min="1" max="20"><button>Gợi ý</button></form><div id="recommendations"></div></article>
+  </section>
+  <section class="stats"><h2>Thống kê graph</h2><div id="stats">Đang tải…</div></section>
+</main>
+<script src="/static/app.js"></script>
+</body></html>

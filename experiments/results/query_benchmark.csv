@@ -1,0 +1,11 @@
+intent,iterations,median_ms,p95_ms,stdev_ms
+movies_by_director,100,0.0083,0.0117,0.0213
+actors_in_movie,100,0.0061,0.0073,0.0111
+common_movies,100,0.0078,0.0088,0.001
+movies_by_genre_rating,100,0.0085,0.0091,0.01
+co_stars,100,0.0109,0.0117,0.0089
+directors_by_genre,100,0.0117,0.0126,0.0079
+shortest_path,100,0.0355,0.0378,0.0149
+similar_movies,100,0.0321,0.0432,6.9135
+movies_by_director,100,0.0073,0.0086,0.0015
+actors_in_movie,100,0.0056,0.0061,0.0008

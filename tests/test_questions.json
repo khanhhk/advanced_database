@@ -1,0 +1,13 @@
+[
+  {"question":"Những phim nào do Christopher Nolan đạo diễn?","intent":"movies_by_director","contains":"Inception"},
+  {"question":"Diễn viên nào đóng trong phim Inception?","intent":"actors_in_movie","contains":"Leonardo DiCaprio"},
+  {"question":"Phim chung của Christian Bale và Tom Hardy?","intent":"common_movies","contains":"The Dark Knight Rises"},
+  {"question":"Phim Crime có rating trên 8?","intent":"movies_by_genre_rating","contains":"Pulp Fiction"},
+  {"question":"Ai từng đóng chung với Tom Hardy?","intent":"co_stars","contains":"Christian Bale"},
+  {"question":"Đạo diễn nào thường làm phim thể loại Action?","intent":"directors_by_genre","contains":"Christopher Nolan"},
+  {"question":"Đường liên hệ giữa Leonardo DiCaprio và Christian Bale?","intent":"shortest_path","contains":"Tom Hardy"},
+  {"question":"Phim tương tự Inception?","intent":"similar_movies","contains":"Interstellar"},
+  {"question":"Các phim do Quentin Tarantino đạo diễn?","intent":"movies_by_director","contains":"Pulp Fiction"},
+  {"question":"Ai tham gia phim Interstellar?","intent":"actors_in_movie","contains":"Anne Hathaway"}
+]
+

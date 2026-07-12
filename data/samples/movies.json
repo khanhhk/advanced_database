@@ -1,0 +1,10 @@
+{
+  "movies": [
+    {"tmdb_id": 27205, "imdb_id": "tt1375666", "title": "Inception", "release_date": "2010-07-15", "rating": 8.4, "directors": ["Christopher Nolan"], "actors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Tom Hardy"], "genres": ["Action", "Science Fiction", "Adventure"], "keywords": ["dream", "heist", "subconscious"], "studios": ["Warner Bros."]},
+    {"tmdb_id": 157336, "imdb_id": "tt0816692", "title": "Interstellar", "release_date": "2014-11-05", "rating": 8.5, "directors": ["Christopher Nolan"], "actors": ["Matthew McConaughey", "Anne Hathaway"], "genres": ["Adventure", "Drama", "Science Fiction"], "keywords": ["space", "time", "family"], "studios": ["Warner Bros."]},
+    {"tmdb_id": 155, "imdb_id": "tt0468569", "title": "The Dark Knight", "release_date": "2008-07-16", "rating": 8.5, "directors": ["Christopher Nolan"], "actors": ["Christian Bale", "Heath Ledger", "Gary Oldman"], "genres": ["Drama", "Action", "Crime"], "keywords": ["hero", "crime", "vigilante"], "studios": ["Warner Bros."]},
+    {"tmdb_id": 49026, "imdb_id": "tt1345836", "title": "The Dark Knight Rises", "release_date": "2012-07-17", "rating": 7.8, "directors": ["Christopher Nolan"], "actors": ["Christian Bale", "Tom Hardy", "Anne Hathaway"], "genres": ["Action", "Crime", "Drama"], "keywords": ["hero", "vigilante"], "studios": ["Warner Bros."]},
+    {"tmdb_id": 680, "imdb_id": "tt0110912", "title": "Pulp Fiction", "release_date": "1994-09-10", "rating": 8.5, "directors": ["Quentin Tarantino"], "actors": ["John Travolta", "Samuel L. Jackson", "Uma Thurman"], "genres": ["Thriller", "Crime"], "keywords": ["crime", "nonlinear"], "studios": ["Miramax"]}
+  ]
+}
+

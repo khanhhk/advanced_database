@@ -1,0 +1,7 @@
+batch_size: 500
+cast_limit: 20
+request_timeout_seconds: 20
+request_interval_seconds: 0.25
+raw_dir: data/raw
+processed_dir: data/processed
+

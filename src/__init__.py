@@ -1,0 +1,2 @@
+"""Movie Knowledge Graph application."""
+

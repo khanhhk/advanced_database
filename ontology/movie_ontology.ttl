@@ -1,0 +1,16 @@
+@prefix : <https://example.org/movie-kg/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MovieOntology a owl:Ontology .
+:Movie a owl:Class . :Person a owl:Class . :Genre a owl:Class .
+:Keyword a owl:Class . :Studio a owl:Class .
+:actedIn a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Movie .
+:directed a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Movie .
+:hasGenre a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Genre .
+:hasKeyword a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Keyword .
+:producedBy a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Studio .
+:title a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:string .
+:rating a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:decimal .
+

@@ -1,0 +1,10 @@
+PREFIX : <https://example.org/movie-kg/>
+# Movies by director
+SELECT ?movie ?title WHERE { ?director :directed ?movie . ?movie :title ?title . FILTER(CONTAINS(LCASE(STR(?director)), LCASE(?name))) }
+
+# Actors in a movie
+SELECT ?actor WHERE { ?actor :actedIn ?movie . ?movie :title ?title . FILTER(?title = ?movieTitle) }
+
+# Movies sharing a genre
+SELECT ?other ?genre WHERE { ?movie :hasGenre ?genre . ?other :hasGenre ?genre . FILTER(?movie != ?other) }
+

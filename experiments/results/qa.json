@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-07-11T17:23:57.742164+00:00",
+  "cases": 10,
+  "passed": 10,
+  "accuracy": 1.0,
+  "details": [
+    {
+      "question": "Những phim nào do Christopher Nolan đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Inception",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: Inception, Interstellar, The Dark Knight, The Dark Knight Rises",
+      "evidence_count": 4,
+      "passed": true
+    },
+    {
+      "question": "Diễn viên nào đóng trong phim Inception?",
+      "intent": "actors_in_movie",
+      "contains": "Leonardo DiCaprio",
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: Leonardo DiCaprio, Joseph Gordon-Levitt, Tom Hardy",
+      "evidence_count": 3,
+      "passed": true
+    },
+    {
+      "question": "Phim chung của Christian Bale và Tom Hardy?",
+      "intent": "common_movies",
+      "contains": "The Dark Knight Rises",
+      "actual_intent": "common_movies",
+      "answer": "Phim đóng chung: The Dark Knight Rises",
+      "evidence_count": 1,
+      "passed": true
+    },
+    {
+      "question": "Phim Crime có rating trên 8?",
+      "intent": "movies_by_genre_rating",
+      "contains": "Pulp Fiction",
+      "actual_intent": "movies_by_genre_rating",
+      "answer": "Các phim phù hợp: The Dark Knight, Pulp Fiction",
+      "evidence_count": 2,
+      "passed": true
+    },
+    {
+      "question": "Ai từng đóng chung với Tom Hardy?",
+      "intent": "co_stars",
+      "contains": "Christian Bale",
+      "actual_intent": "co_stars",
+      "answer": "Các bạn diễn: Anne Hathaway, Christian Bale, Joseph Gordon-Levitt, Leonardo DiCaprio",
+      "evidence_count": 4,
+      "passed": true
+    },
+    {
+      "question": "Đạo diễn nào thường làm phim thể loại Action?",
+      "intent": "directors_by_genre",
+      "contains": "Christopher Nolan",
+      "actual_intent": "directors_by_genre",
+      "answer": "Các đạo diễn: Christopher Nolan",
+      "evidence_count": 1,
+      "passed": true
+    },
+    {
+      "question": "Đường liên hệ giữa Leonardo DiCaprio và Christian Bale?",
+      "intent": "shortest_path",
+      "contains": "Tom Hardy",
+      "actual_intent": "shortest_path",
+      "answer": "Đường liên hệ: Leonardo DiCaprio → Inception → Tom Hardy → The Dark Knight Rises → Christian Bale",
+      "evidence_count": 2,
+      "passed": true
+    },
+    {
+      "question": "Phim tương tự Inception?",
+      "intent": "similar_movies",
+      "contains": "Interstellar",
+      "actual_intent": "similar_movies",
+      "answer": "Phim tương tự: The Dark Knight Rises, Interstellar, The Dark Knight",
+      "evidence_count": 3,
+      "passed": true
+    },
+    {
+      "question": "Các phim do Quentin Tarantino đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Pulp Fiction",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: Pulp Fiction",
+      "evidence_count": 1,
+      "passed": true
+    },
+    {
+      "question": "Ai tham gia phim Interstellar?",
+      "intent": "actors_in_movie",
+      "contains": "Anne Hathaway",
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: Matthew McConaughey, Anne Hathaway",
+      "evidence_count": 2,
+      "passed": true
+    }
+  ]
+}

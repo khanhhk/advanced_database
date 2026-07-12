@@ -1,0 +1,29 @@
+from __future__ import annotations
+
+import argparse
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+from src.kg.repository import MemoryRepository
+
+
+def evaluate(seed: Path, questions: Path) -> dict:
+    repository = MemoryRepository(seed)
+    cases = json.loads(questions.read_text(encoding="utf-8")); details = []
+    for case in cases:
+        text, intent, evidence = repository.answer(case["question"])
+        passed = intent == case["intent"] and case["contains"].casefold() in text.casefold()
+        details.append({**case, "actual_intent": intent, "answer": text, "evidence_count": len(evidence), "passed": passed})
+    passed = sum(x["passed"] for x in details)
+    return {"generated_at": datetime.now(timezone.utc).isoformat(), "backend": "memory",
+            "dataset_movie_count": repository.stats()["nodes"]["Movie"], "cases": len(cases), "passed": passed,
+            "accuracy": passed / len(cases) if cases else 0, "limitations": "Seed smoke test; not a production-quality evaluation corpus.", "details": details}
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(); parser.add_argument("--seed", type=Path, default=Path("data/samples/movies.json"))
+    parser.add_argument("--questions", type=Path, default=Path("tests/test_questions.json"))
+    parser.add_argument("--output", type=Path, default=Path("experiments/results/qa.json")); args = parser.parse_args()
+    result = evaluate(args.seed, args.questions); args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"); print(json.dumps(result, ensure_ascii=False, indent=2))
