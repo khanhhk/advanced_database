@@ -97,8 +97,9 @@ against real TMDB data imported into Neo4j. There is no runtime seed fallback;
 small deterministic data exists only under `tests/fixtures`. Neo4j executes QA
 through the fixed parameterized Cypher catalog and computes recommendation
 similarity in the database. TMDB collection supports `--count 2000..5000`, using
-immutable page/movie caches. Synthetic memory benchmarks must be labeled with
-backend and movie count and must not be reported as Neo4j performance.
+immutable page/movie caches. Evaluation and benchmark claims use production
+Neo4j; the former synthetic memory benchmark was removed to keep one
+authoritative performance path.
 
 IMDb integration (updated 2026-07-12) is deliberately storage-bounded: TMDB
 remains the graph source, while only compressed `title.ratings.tsv.gz` is
@@ -188,8 +189,6 @@ authoritative full-fidelity sources for report/slide reconstruction.
   taxonomy versus ontology, RDF/RDFS/OWL/SPARQL, Protégé and reasoners, semantic
   web/linked data and applications in search, health, commerce, AI, recommenders,
   IoT and enterprise knowledge graphs.
-- `docs/PROJECT_PLAN.md`: canonical project scope, model, architecture, work
-  packages, nine-week schedule, demo, evaluation, risks and deliverables.
 - `docs/CODE_PLAN.md`: repository layout, implementation order, API/query/test
   requirements and engineering quality rules.
 - `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
@@ -210,18 +209,11 @@ authoritative full-fidelity sources for report/slide reconstruction.
 - Root `README.md`: current runnable interface and commands; prefer it over old
   planning prose when describing implemented behavior.
 - `docs/README.md`: index and precedence guidance for the planning documents.
-- `docs/TECHNICAL_DOCUMENTATION.md`: current end-to-end technical reference for
-  architecture, data, graph schema, QA/LLM, recommendation, API, operations,
-  security, testing and evaluation.
 - `docs/movie_knowledge_graph_flow.drawio`: editable current-architecture flow.
 - `docs/ARCHITECTURE_EXPLAINED.md`: block-by-block and request-path explanation
   of the draw.io architecture.
-- `docs/DESIGN_DECISIONS.md`: rationale, trade-offs and rejected alternatives for
-  the implemented technology and architecture choices.
 - `docs/QWEN_VLLM_DEPLOYMENT.md`: reproducible GPU/vLLM/Qwen setup and
   troubleshooting runbook.
-- `docs/REPORT_SLIDE_SOURCE_GUIDE.md`: claim-to-evidence and narrative mapping for
-  future report and slide production.
 - `docs/CHECKLIST_TRACEABILITY.md`: A-level release gate mapping each grading
   criterion to code/evidence and the future report/slide; source Office files are
   references, not submission deliverables.
@@ -229,8 +221,8 @@ authoritative full-fidelity sources for report/slide reconstruction.
 ## Working rules and precedence
 
 For facts about what runs today: source code/tests/configuration, then root
-`README.md`. For intended scope and academic deliverables: `PROJECT_PLAN.md`,
-the DOCX brief, then report/slide outlines. The lecture decks explain theory and
+`README.md`. For intended scope and academic deliverables: the DOCX brief, then
+report/slide outlines. The lecture decks explain theory and
 motivation; they do not override repository behavior.
 
 Keep raw external data and secrets out of Git. Preserve immutable raw inputs,

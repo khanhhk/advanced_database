@@ -4,9 +4,9 @@ Bản thảo nội dung chính được triển khai tại `docs/REPORT_DRAFT.md
 giữ vai trò quality checklist/cấu trúc; `REPORT_DRAFT.md` là nguồn văn bản để
 biên tập và xuất báo cáo cuối.
 
-Nguồn triển khai cho từng chương: `TECHNICAL_DOCUMENTATION.md`,
-`ARCHITECTURE_EXPLAINED.md`, `DESIGN_DECISIONS.md`, `QWEN_VLLM_DEPLOYMENT.md`
-và bảng ánh xạ claim/evidence trong `REPORT_SLIDE_SOURCE_GUIDE.md`.
+Nguồn triển khai cho từng chương: code/README theo hiện trạng,
+`ARCHITECTURE_EXPLAINED.md`, `QWEN_VLLM_DEPLOYMENT.md` và các artifact đo trong
+`experiments/results/`.
 
 Độ dài mục tiêu: **40–55 trang nội dung chính**, chưa tính phụ lục. Báo cáo phải
 phân biệt rõ: thiết kế dự kiến, chức năng đã triển khai, kết quả đã đo và phần còn
@@ -332,7 +332,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 ### 8.1. FastAPI và repository boundary
 
 - Lifespan, Neo4j repository, Pydantic models, static UI.
-- Memory repository chỉ dành cho test/benchmark synthetic.
+- Memory repository chỉ dành cho unit test, không phải backend đánh giá.
 
 ### 8.2. QA service
 
@@ -417,7 +417,6 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Median/p95/stdev, ≥100 iterations/query, warm/cold cache ghi rõ.
 - Neo4j 5.26.28 ở 2.000 phim, một warm-up và 100 lần/câu: median theo intent
   2,34–110,65 ms; p95 3,83–126,20 ms.
-- Synthetic memory benchmark để kiểm tra CPU scaling, không so ngang Neo4j.
 - Shortest-path outlier/error analysis.
 - Baseline quan hệ phải chạy trên cùng snapshot/máy với các truy vấn tương đương;
   không dùng khác engine/cache policy để kết luận Neo4j “nhanh hơn”.
@@ -533,7 +532,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - [ ] Hoàn thành corpus nhãn và reviewer protocol cho metric được báo cáo.
 - [ ] Chạy benchmark Neo4j thật với cấu hình/iterations rõ ràng.
 - [ ] Số liệu report = slide = manifest/result artifacts.
-- [ ] Không gọi smoke test hoặc synthetic benchmark là production result.
+- [ ] Chỉ dùng QA và benchmark chạy trên production Neo4j cho claim chính.
 - [ ] Ontology mở được, RDF parse được, mọi Cypher/SPARQL đã chạy kiểm tra.
 - [ ] Semantic materialization sinh report conforms và có before/after count.
 - [ ] Survey đạt quota nguồn, literature matrix và mọi citation resolve được.

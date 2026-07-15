@@ -1,4 +1,0 @@
-namespace: https://example.org/movie-kg/
-classes: [Movie, Person, Genre, Keyword, Studio]
-relationships: [ACTED_IN, DIRECTED, HAS_GENRE, HAS_KEYWORD, PRODUCED_BY, CO_STARRED_WITH]
-

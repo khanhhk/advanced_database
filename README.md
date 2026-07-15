@@ -121,7 +121,7 @@ native sampler vì máy chỉ có NVIDIA driver, không yêu cầu CUDA toolkit/
 - `data/raw`: response bất biến từ nguồn.
 - `data/processed`: CSV node/edge cùng `manifest.json` chứa checksum, counts và quality metrics.
 - `cypher`: constraint, query catalog và reasoning rule.
-- `ontology` / `sparql`: ontology OWL/Turtle và query semantic tương đương.
+- `ontology` / `sparql`: ontology Turtle chuẩn duy nhất và query semantic tương đương.
 - `experiments/results`: kết quả QA và benchmark có thể sinh lại bằng các lệnh trên.
 
 Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset lớn và API key không được commit theo yêu cầu của đề tài.
@@ -130,12 +130,10 @@ Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset
 trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repository chỉ
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 
-`experiments/results/qa.json` là smoke test 10 câu trên corpus TMDB hiện có,
-không phải đánh giá production. Benchmark memory được gắn nhãn
-`memory-synthetic` và ghi rõ
-`movie_count`. Corpus hiện có đúng 2.000 phim. Benchmark end-to-end Neo4j thật
-được lưu tại `experiments/results/neo4j_benchmark.csv` (100 lần/câu, một warm-up)
-và cấu hình tại file `.metadata.json` tương ứng.
+QA được đánh giá trực tiếp trên Neo4j production tại
+`experiments/results/qa_neo4j.json`. Corpus hiện có đúng 2.000 phim. Benchmark
+end-to-end Neo4j thật được lưu tại `experiments/results/neo4j_benchmark.csv`
+(100 lần/câu, một warm-up) và cấu hình tại file `.metadata.json` tương ứng.
 
 TMDB credits được giữ dưới dạng object có source ID; `Person.person_id` ưu tiên
 `tmdb:<id>` thay vì hash tên, và `ACTED_IN` giữ `character`/`cast_order`. QA

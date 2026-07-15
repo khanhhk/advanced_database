@@ -818,9 +818,8 @@ trong graph và contribution xác định.
 ## 9.1. Nguyên tắc báo cáo
 
 Mọi kết quả phải gắn với backend, movie count, corpus type, K, iteration và cấu
-hình. Smoke test không gọi là production accuracy. Silver corpus không gọi là
-gold/human-reviewed trước khi review gate qua. Memory-synthetic benchmark không
-được dùng thay cho Neo4j performance.
+hình. Silver corpus không gọi là gold/human-reviewed trước khi review gate qua.
+QA và performance claims chỉ lấy từ production Neo4j artifacts.
 
 ## 9.2. Dataset và graph
 
@@ -991,8 +990,7 @@ trên chính các case đó.
 
 Similar-movie chậm nhất gợi ý cần inspect query plan, cardinality và index; nhưng
 index không giúp mọi traversal. Cần đo cold/warm cache riêng, nhiều scale thật và
-ghi concurrency trước khi tối ưu. Không dùng synthetic memory result để dự đoán
-Neo4j production latency.
+ghi concurrency trước khi tối ưu.
 
 # Chương 10. Kết luận và hướng phát triển
 

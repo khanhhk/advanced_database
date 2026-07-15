@@ -14,11 +14,9 @@ DATA_COUNT ?= 2000
 API_HOST ?= 127.0.0.1
 API_PORT ?= 8000
 BENCH_ITERATIONS ?= 100
-BENCH_SCALES ?= 5,100,1000,5000
-SYNTHETIC_BENCH_ITERATIONS ?= 10
 
 .DEFAULT_GOAL := help
-.PHONY: help setup llm-setup llm-run test imdb-data data neo4j-snapshot runtime-prepare run experiments semantic-reasoning sparql-check evidence-summary evaluation-corpora review-gate neo4j-benchmark relational-benchmark stop clean clean-imdb-raw _env _neo4j _neo4j-test _load
+.PHONY: help setup llm-setup llm-run test imdb-data data runtime-prepare run experiments semantic-reasoning sparql-check evidence-summary evaluation-corpora review-gate neo4j-benchmark relational-benchmark stop clean clean-imdb-raw _env _neo4j _neo4j-test _load
 
 help: ## Hiển thị các workflow cần dùng
 	@awk 'BEGIN {FS = ":.*## "; printf "Movie Knowledge Graph workflows:\n\n"} /^[a-zA-Z0-9_-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -65,10 +63,6 @@ data: setup imdb-data ## Thu thập TMDB, lọc IMDb ratings và chuẩn hóa d�
 	$(PY) -m src.processing.pipeline --input data/raw/tmdb_movies.json --output data/processed --imdb-ratings data/raw/imdb/title.ratings.tsv.gz
 	@echo "Dataset ready in data/processed (see manifest.json)."
 
-neo4j-snapshot: setup _neo4j ## Xuất snapshot thí nghiệm từ graph hiện có, không gọi API
-	$(PY) experiments/export_neo4j_snapshot.py
-	$(PY) -m src.processing.pipeline --input data/interim/neo4j_snapshot.json --output data/processed
-
 _load: setup _neo4j
 	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
 	$(PY) -m src.kg.load_neo4j --processed-dir data/processed --skip-transform --replace
@@ -82,9 +76,7 @@ run: runtime-prepare ## Kiểm tra runtime rồi chạy ứng dụng, không cà
 
 experiments: setup _neo4j ## Sinh QA evaluation, benchmark và RDF export
 	@test -f data/raw/tmdb_movies.json || { echo "No real dataset found. Run: make data"; exit 1; }
-	$(PY) experiments/evaluate.py
 	$(PY) experiments/evaluate_qa_neo4j.py
-	$(PY) experiments/benchmark_queries.py --iterations $(SYNTHETIC_BENCH_ITERATIONS) --scales $(BENCH_SCALES)
 	$(PY) -m src.kg.export_rdf
 	$(PY) -m src.kg.semantic_reasoning
 	$(PY) experiments/evaluate_recommendation_neo4j.py

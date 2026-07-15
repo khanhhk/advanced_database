@@ -8,16 +8,12 @@ movie-knowledge-graph/
 ├── .env.example
 ├── docker-compose.yml
 ├── pyproject.toml
-├── configs/
-│   ├── pipeline.yaml
-│   └── ontology.yaml
 ├── data/
 │   ├── raw/
 │   ├── interim/
 │   ├── processed/
 │   └── samples/
 ├── ontology/
-│   ├── movie_ontology.owl
 │   └── movie_ontology.ttl
 ├── cypher/
 │   ├── constraints.cypher
@@ -49,10 +45,13 @@ movie-knowledge-graph/
 │   ├── integration/
 │   └── test_questions.json
 ├── experiments/
-│   ├── benchmark_queries.py
-│   └── evaluate.py
-├── report/
-└── slides/
+│   ├── benchmark_neo4j.py
+│   ├── benchmark_relational.py
+│   ├── evaluate_qa_neo4j.py
+│   ├── evaluate_entity_resolution.py
+│   ├── evaluate_reasoning.py
+│   └── evaluate_recommendation_neo4j.py
+└── report_latex/
 ```
 
 ## 2. Thứ tự triển khai

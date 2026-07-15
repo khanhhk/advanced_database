@@ -4,17 +4,13 @@
 
 ## Danh sách tài liệu
 
-1. [Kế hoạch tổng thể](PROJECT_PLAN.md)
-2. [Kế hoạch triển khai code](CODE_PLAN.md)
-3. [Dàn ý báo cáo](REPORT_OUTLINE.md)
-4. [Bản thảo báo cáo chính](REPORT_DRAFT.md)
-5. [Dàn ý slide bảo vệ](SLIDE_OUTLINE.md)
-6. [Tài liệu kỹ thuật theo hiện trạng](TECHNICAL_DOCUMENTATION.md)
-7. [Sơ đồ flow kỹ thuật](movie_knowledge_graph_flow.drawio)
-8. [Giải thích từng block và flow kiến trúc](ARCHITECTURE_EXPLAINED.md)
-9. [Quyết định thiết kế và lý do lựa chọn](DESIGN_DECISIONS.md)
-10. [Runbook dựng Qwen3-8B-AWQ với vLLM](QWEN_VLLM_DEPLOYMENT.md)
-11. [Guide nguồn nội dung cho report và slide](REPORT_SLIDE_SOURCE_GUIDE.md)
+1. [Kế hoạch triển khai code](CODE_PLAN.md)
+2. [Dàn ý báo cáo](REPORT_OUTLINE.md)
+3. [Bản thảo báo cáo chính](REPORT_DRAFT.md)
+4. [Dàn ý slide bảo vệ](SLIDE_OUTLINE.md)
+5. [Sơ đồ flow kỹ thuật](movie_knowledge_graph_flow.drawio)
+6. [Giải thích từng block và flow kiến trúc](ARCHITECTURE_EXPLAINED.md)
+7. [Runbook dựng Qwen3-8B-AWQ với vLLM](QWEN_VLLM_DEPLOYMENT.md)
 
 ## Tên đề tài đề xuất
 

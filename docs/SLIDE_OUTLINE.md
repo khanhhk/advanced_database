@@ -1,8 +1,7 @@
 # Dàn ý chi tiết slide bảo vệ
 
-Khi dựng slide, dùng narrative và claim discipline trong
-`REPORT_SLIDE_SOURCE_GUIDE.md`; lấy sơ đồ từ
-`movie_knowledge_graph_flow.drawio` và phần diễn giải từ
+Khi dựng slide, lấy claim/số liệu từ report và `experiments/results/`; lấy sơ đồ
+từ `movie_knowledge_graph_flow.drawio` và phần diễn giải từ
 `ARCHITECTURE_EXPLAINED.md`.
 
 Phiên bản mục tiêu: **24 slide / 15–20 phút**. Mạch kể chuyện chính: bài toán
@@ -14,9 +13,8 @@ dụng giải thích được → bằng chứng thực nghiệm → giới hạ
 - Chỉ dùng số liệu lấy từ `data/processed/manifest.json`, Neo4j validation và
   `experiments/results/` tại lần chạy cuối.
 - Hiện có đúng 2.000 phim, đạt mốc tối thiểu của MVP.
-- QA 8/10 chỉ là smoke test 10 câu, không gọi là accuracy production.
-- Benchmark hiện là `memory-synthetic`, 10 iterations; không gọi là hiệu năng
-  Neo4j và không dùng làm kết luận cuối.
+- QA production chạy trực tiếp trên Neo4j và phải lấy số từ `qa_neo4j.json`.
+- Chỉ dùng benchmark Neo4j thật và SQLite cùng snapshot/máy/protocol.
 - Entity resolution, reasoning precision, Precision@K và NDCG@K để ô
   `CHỜ ĐÁNH GIÁ` cho tới khi có corpus review.
 
@@ -229,7 +227,6 @@ Ma trận metric:
   p95 3,83–126,20 ms; cấu hình máy nằm trong metadata.
 - Hai case smoke fail cần giải thích: shortest path có nhiều đáp án hợp lệ; top-5
   recommendation không chứa expected movie.
-- Không đưa benchmark synthetic thành kết luận Neo4j.
 - Gắn chữ `silver`, không diễn giải metric là human evaluation độc lập.
 - Recommendation IDF-weighted trên Neo4j thật: P@10=0,70 và NDCG@10=0,748
   trên 20 case silver; kết quả baseline cũ chỉ là lịch sử thiết kế.
