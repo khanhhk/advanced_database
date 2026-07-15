@@ -1,0 +1,14 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Kết luận và hướng phát triển}
+
+Đề tài đã xây dựng một Movie Knowledge Graph đầu cuối từ thu thập dữ liệu đến hai
+ứng dụng. Neo4j phục vụ operational traversal; RDF/OWL cung cấp semantic standards
+view. Stable ID, provenance, safe query compiler, evidence-backed inference và
+explainable recommendation giúp kết quả không chỉ chạy được mà còn kiểm tra được.
+
+Hạn chế chính nằm ở coverage dữ liệu, chất lượng nhãn độc lập, phạm vi QA và quy
+mô benchmark. Thứ tự phát triển hợp lý là: hoàn thành human review/adjudication;
+xây QA corpus lớn hơn; benchmark nhiều snapshot thật; cải thiện ambiguity handling;
+sau đó mới mở rộng Wikidata/Award, temporal graph, vector retrieval, GraphRAG hoặc
+graph embedding. Mọi mở rộng phải giữ nguyên nguyên tắc: model lập kế hoạch,
+compiler kiểm soát execution, graph cung cấp fact và evidence.

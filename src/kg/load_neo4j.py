@@ -59,8 +59,20 @@ def validate(session) -> dict:
       (n:Studio AND (n.company_id IS NULL OR n.name IS NULL)) RETURN count(n) AS n""").single()["n"]
     result["invalid_relationship_types"] = session.run("""MATCH ()-[r]->() WHERE NOT type(r) IN
       ['ACTED_IN','DIRECTED','HAS_GENRE','HAS_KEYWORD','PRODUCED_BY','CO_STARRED_WITH'] RETURN count(r) AS n""").single()["n"]
+    result["invalid_relationship_endpoints"] = session.run("""MATCH (a)-[r]->(b) WHERE
+      (type(r)='ACTED_IN' AND NOT (a:Person AND b:Movie)) OR
+      (type(r)='DIRECTED' AND NOT (a:Person AND b:Movie)) OR
+      (type(r)='HAS_GENRE' AND NOT (a:Movie AND b:Genre)) OR
+      (type(r)='HAS_KEYWORD' AND NOT (a:Movie AND b:Keyword)) OR
+      (type(r)='PRODUCED_BY' AND NOT (a:Movie AND b:Studio)) OR
+      (type(r)='CO_STARRED_WITH' AND NOT (a:Person AND b:Person))
+      RETURN count(r) AS n""").single()["n"]
+    result["unsupported_derived_facts"] = session.run("""MATCH (a:Person)-[r:CO_STARRED_WITH]->(b:Person)
+      WHERE NOT EXISTS { MATCH (a)-[:ACTED_IN]->(:Movie)<-[:ACTED_IN]-(b) }
+      RETURN count(r) AS n""").single()["n"]
     result["valid"] = all(result[key] == 0 for key in
-                          ("orphan_movies", "duplicate_stable_ids", "missing_required_properties", "invalid_relationship_types"))
+                          ("orphan_movies", "duplicate_stable_ids", "missing_required_properties",
+                           "invalid_relationship_types", "invalid_relationship_endpoints", "unsupported_derived_facts"))
     return result
 
 

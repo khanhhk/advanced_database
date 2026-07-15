@@ -10,4 +10,3 @@
   {"question":"Các phim do Quentin Tarantino đạo diễn?","intent":"movies_by_director","contains":"Pulp Fiction"},
   {"question":"Ai tham gia phim Interstellar?","intent":"actors_in_movie","contains":"Anne Hathaway"}
 ]
-

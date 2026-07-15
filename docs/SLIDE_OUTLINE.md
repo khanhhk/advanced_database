@@ -5,7 +5,7 @@ Khi dựng slide, dùng narrative và claim discipline trong
 `movie_knowledge_graph_flow.drawio` và phần diễn giải từ
 `ARCHITECTURE_EXPLAINED.md`.
 
-Phiên bản mục tiêu: **22 slide / 15–20 phút**. Mạch kể chuyện chính: bài toán
+Phiên bản mục tiêu: **24 slide / 15–20 phút**. Mạch kể chuyện chính: bài toán
 đa nguồn → mô hình tri thức → pipeline tái lập → truy vấn/suy diễn → hai ứng
 dụng giải thích được → bằng chứng thực nghiệm → giới hạn trung thực.
 
@@ -196,7 +196,14 @@ Question → LLM Query Plan → Entity linking → Safe Cypher compiler
 - Kết luận: RDF/OWL mạnh về interoperability/semantics; Neo4j thuận tiện cho
   traversal và ứng dụng operational.
 
-## Slide 18 — Thiết kế thực nghiệm (55 giây)
+## Slide 18 — Semantic reasoning chạy được (45 giây)
+
+- `actedIn` suy ra inverse `hasActor`; domain/range suy ra type; symmetric property.
+- Bảng triple trước/sau materialization và số violation semantic.
+- Phân biệt OWL-RL subset với rule nghiệp vụ `CO_STARRED_WITH` bằng Cypher.
+- Chỉ dùng số từ `semantic_reasoning.json` của lần chạy cuối.
+
+## Slide 19 — Thiết kế thực nghiệm (55 giây)
 
 Ma trận metric:
 
@@ -210,7 +217,7 @@ Ma trận metric:
 | Explainability | recommendation output | evidence coverage |
 | Performance | Neo4j thật, nhiều quy mô | median/p95/stdev |
 
-## Slide 19 — Kết quả hiện có và cách đọc (55 giây)
+## Slide 20 — Kết quả hiện có và cách đọc (55 giây)
 
 - Corpus/graph: 2.000 Movie; 36.574 node; 337.822 relationship; validation hợp lệ,
   orphan/duplicate/missing/invalid đều bằng 0.
@@ -227,7 +234,13 @@ Ma trận metric:
 - Recommendation IDF-weighted trên Neo4j thật: P@10=0,70 và NDCG@10=0,748
   trên 20 case silver; kết quả baseline cũ chỉ là lịch sử thiết kế.
 
-## Slide 20 — Demo end-to-end (60–90 giây trong slide, 4 phút tổng demo)
+## Slide 21 — Baseline, ablation và error analysis (50 giây)
+
+- Đặt Neo4j và relational baseline cạnh nhau chỉ khi cùng dataset/máy/cache policy.
+- Biểu đồ production IDF so với overlap/weighted-Jaccard/hybrid.
+- Nêu case thất bại QA/recommendation và nguyên nhân, không chỉ metric trung bình.
+
+## Slide 22 — Demo end-to-end (60–90 giây trong slide, 4 phút tổng demo)
 
 Kịch bản cố định:
 
@@ -237,9 +250,9 @@ Kịch bản cố định:
 4. Recommend từ Inception, mở explanation.
 5. Nếu đủ thời gian, mở Neo4j Browser xem subgraph.
 
-Chuẩn bị video dưới 3 phút và dữ liệu đã import; không gọi Internet lúc demo.
+Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; không gọi Internet lúc demo.
 
-## Slide 21 — Hạn chế, rủi ro và hướng phát triển (45 giây)
+## Slide 23 — Hạn chế, rủi ro và hướng phát triển (45 giây)
 
 - QA dựa trên template; ambiguity và nhiều đáp án đúng chưa được chấm tốt.
 - Corpus silver vẫn cần reviewer độc lập/adjudication để thành human labels.
@@ -248,7 +261,7 @@ Chuẩn bị video dưới 3 phút và dữ liệu đã import; không gọi Int
 - Hướng sau MVP: Wikidata/Award, full-text/fuzzy index tốt hơn, LLM-to-Cypher có
   guardrail, vector search/GraphRAG, graph embedding.
 
-## Slide 22 — Kết luận (35 giây)
+## Slide 24 — Kết luận (35 giây)
 
 - Đã xây được pipeline đa nguồn có provenance và stable identity.
 - Graph hỗ trợ traversal, materialized inference, QA và recommendation giải thích được.
@@ -262,8 +275,9 @@ Chuẩn bị video dưới 3 phút và dữ liệu đã import; không gọi Int
 | Bài toán, mục tiêu, phạm vi | 1–5 | 3 phút |
 | Thiết kế và pipeline | 6–12 | 5 phút |
 | Query, reasoning, ứng dụng | 13–17 | 4 phút |
-| Thực nghiệm và demo | 18–20 | 5 phút |
-| Hạn chế và kết luận | 21–22 | 2 phút |
+| Semantic, thực nghiệm và kết quả | 18–21 | 4 phút |
+| Demo | 22 | 3 phút |
+| Hạn chế và kết luận | 23–24 | 2 phút |
 
 ## Checklist trước khi đóng slide
 
@@ -271,6 +285,44 @@ Chuẩn bị video dưới 3 phút và dữ liệu đã import; không gọi Int
 - [ ] Chạy lại manifest, Neo4j validation và chụp số liệu cuối.
 - [ ] Hoàn thành corpus nhãn hoặc đánh dấu rõ metric còn pending.
 - [ ] Benchmark Neo4j thật, ít nhất 100 iterations/query nếu dùng trong kết luận.
+- [ ] Relational baseline chạy cùng snapshot/máy/cache policy hoặc bỏ claim so sánh hiệu năng.
+- [ ] Semantic report có before/after triple count và zero unexplained violation.
+- [ ] Mọi slide là artifact của dự án; không dùng slide bài giảng trong `docs/sources/` làm deliverable.
+- [ ] Rehearsal 3 lần đạt 15–20 phút; lưu timing theo từng section và chuẩn bị bộ câu hỏi phản biện.
 - [ ] Mọi biểu đồ có backend, movie count, cấu hình máy và ngày chạy.
-- [ ] Demo không phụ thuộc TMDB/IMDb network.
+- [ ] Demo không phụ thuộc TMDB/IMDb network; không bắt buộc ảnh chụp hoặc video.
 - [ ] Report, slide và API dùng cùng thuật ngữ/schema/số liệu.
+
+## Backup slide không tính vào 24 slide chính
+
+### B1 — QueryPlan và guardrail
+
+- JSON Schema rút gọn; operation/target/entity/filter whitelist.
+- Một ví dụ question → plan → parameterized Cypher; chỉ rõ user value không nằm
+  trong query string.
+
+### B2 — Ontology và entailment chi tiết
+
+- Domain/range, `inverseOf`, symmetric và functional/disjoint axioms.
+- Lệnh `make semantic-reasoning && make sparql-check`; before/after/violations.
+
+### B3 — CRUD và import idempotency
+
+- Create/read/update/delete đều parameterized; public API read-only.
+- Integration test chạy hai lần import và so counts/validation.
+
+### B4 — Evaluation validity
+
+- Silver vs human-reviewed; schema reviewer/adjudication và `make review-gate`.
+- Giải thích vì sao metric 1,00 không đồng nghĩa production accuracy.
+
+### B5 — Benchmark protocol
+
+- Same snapshot/machine/warm-up/iterations; Neo4j và SQLite query mapping.
+- Không kết luận scalability hoặc graph luôn nhanh hơn relational.
+
+### B6 — Bộ câu hỏi phản biện nhanh
+
+- Vì sao KG/Neo4j? Vì sao không LLM-to-Cypher? Đây có phải OWL reasoning đầy đủ?
+- Score recommendation nghĩa là gì? Model chết ra sao? Tên trùng xử lý thế nào?
+- Mỗi câu trả lời 20–30 giây; nội dung chi tiết lấy từ Phụ lục G của report outline.

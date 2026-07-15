@@ -1,119 +1,118 @@
 [
   {
     "case_id": "rec-001",
-    "movie_id": 1011985,
-    "movie_title": "Kung Fu Panda 4",
+    "movie_id": 404368,
+    "movie_title": "Ralph Breaks the Internet",
     "relevant_movie_ids": [
-      980431,
-      502356,
-      545611,
-      508947,
-      9502,
-      512200,
-      566525,
-      10192,
-      49444,
-      810
+      1241982,
+      269149,
+      109445,
+      330457,
+      82690,
+      8355,
+      893723,
+      277834,
+      39513,
+      1139087
     ],
     "evidence": {
-      "980431": {
+      "1241982": {
         "shared_genres": [
-          "Action",
           "Adventure",
           "Animation",
-          "Fantasy"
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "269149": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 2
+      },
+      "109445": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Family"
         ],
         "shared_directors": 0,
         "shared_actors": 3
       },
-      "502356": {
+      "330457": {
         "shared_genres": [
           "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "545611": {
-        "shared_genres": [
-          "Action",
-          "Adventure"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "508947": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "9502": {
-        "shared_genres": [
-          "Action",
           "Animation",
           "Comedy",
           "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 5
+        "shared_actors": 3
       },
-      "512200": {
-        "shared_genres": [
-          "Adventure",
-          "Comedy",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "566525": {
-        "shared_genres": [
-          "Action",
-          "Adventure",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "10192": {
+      "82690": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
-          "Family",
-          "Fantasy"
+          "Family"
         ],
         "shared_directors": 1,
-        "shared_actors": 0
+        "shared_actors": 6
       },
-      "49444": {
+      "8355": {
         "shared_genres": [
-          "Action",
+          "Adventure",
           "Animation",
           "Comedy",
           "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 5
+        "shared_actors": 2
       },
-      "810": {
+      "893723": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
           "Family",
-          "Fantasy"
+          "Science Fiction"
         ],
         "shared_directors": 0,
         "shared_actors": 2
+      },
+      "277834": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "39513": {
+        "shared_genres": [
+          "Adventure",
+          "Comedy",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "1139087": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 3
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
@@ -121,156 +120,21 @@
   },
   {
     "case_id": "rec-002",
-    "movie_id": 315162,
-    "movie_title": "Puss in Boots: The Last Wish",
-    "relevant_movie_ids": [
-      808,
-      809,
-      953,
-      497698,
-      1465063,
-      10192,
-      421892,
-      810,
-      529203,
-      417859
-    ],
-    "evidence": {
-      "808": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "809": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "953": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "497698": {
-        "shared_genres": [
-          "Adventure"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "1465063": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 1
-      },
-      "10192": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "421892": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "810": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "529203": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 2
-      },
-      "417859": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 4
-      }
-    },
-    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
-    "review_status": "silver-auto"
-  },
-  {
-    "case_id": "rec-003",
     "movie_id": 808,
     "movie_title": "Shrek",
     "relevant_movie_ids": [
-      315162,
       411,
       809,
       953,
-      270946,
       80321,
-      10192,
+      270946,
       421892,
+      10192,
+      10527,
       810,
-      10527
+      10555
     ],
     "evidence": {
-      "315162": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
       "411": {
         "shared_genres": [
           "Adventure",
@@ -300,16 +164,6 @@
         "shared_directors": 0,
         "shared_actors": 4
       },
-      "270946": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
       "80321": {
         "shared_genres": [
           "Adventure",
@@ -320,16 +174,15 @@
         "shared_directors": 0,
         "shared_actors": 3
       },
-      "10192": {
+      "270946": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
-          "Family",
-          "Fantasy"
+          "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 5
+        "shared_actors": 3
       },
       "421892": {
         "shared_genres": [
@@ -342,7 +195,7 @@
         "shared_directors": 0,
         "shared_actors": 6
       },
-      "810": {
+      "10192": {
         "shared_genres": [
           "Adventure",
           "Animation",
@@ -362,112 +215,20 @@
         ],
         "shared_directors": 0,
         "shared_actors": 3
-      }
-    },
-    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
-    "review_status": "silver-auto"
-  },
-  {
-    "case_id": "rec-004",
-    "movie_id": 177572,
-    "movie_title": "Big Hero 6",
-    "relevant_movie_ids": [
-      269149,
-      109445,
-      330457,
-      38365,
-      378236,
-      82690,
-      527774,
-      877269,
-      2048,
-      13053
-    ],
-    "evidence": {
-      "269149": {
+      },
+      "810": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
-          "Family"
+          "Family",
+          "Fantasy"
         ],
         "shared_directors": 0,
-        "shared_actors": 2
+        "shared_actors": 5
       },
-      "109445": {
+      "10555": {
         "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "330457": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "38365": {
-        "shared_genres": [
-          "Comedy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "378236": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "82690": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "527774": {
-        "shared_genres": [
-          "Action",
-          "Adventure",
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 1
-      },
-      "877269": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 3
-      },
-      "2048": {
-        "shared_genres": [
-          "Action"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "13053": {
-        "shared_genres": [
-          "Adventure",
           "Animation",
           "Comedy",
           "Family"
@@ -480,128 +241,121 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-005",
-    "movie_id": 502356,
-    "movie_title": "The Super Mario Bros. Movie",
+    "case_id": "rec-003",
+    "movie_id": 812,
+    "movie_title": "Aladdin",
     "relevant_movie_ids": [
-      1315772,
-      1226863,
-      438148,
-      1011985,
-      9502,
-      420818,
-      137106,
-      940551,
-      49444,
-      140300
+      862,
+      585,
+      8587,
+      10674,
+      10198,
+      277834,
+      11970,
+      10386,
+      13313,
+      9016
     ],
     "evidence": {
-      "1315772": {
+      "862": {
         "shared_genres": [
           "Adventure",
           "Animation",
-          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "585": {
+        "shared_genres": [
+          "Animation",
           "Family",
           "Fantasy"
         ],
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "1226863": {
+      "8587": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "10674": {
         "shared_genres": [
           "Adventure",
           "Animation",
-          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "10198": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Fantasy",
+          "Romance"
+        ],
+        "shared_directors": 2,
+        "shared_actors": 2
+      },
+      "277834": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 2,
+        "shared_actors": 0
+      },
+      "11970": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Family",
+          "Fantasy",
+          "Romance"
+        ],
+        "shared_directors": 2,
+        "shared_actors": 0
+      },
+      "10386": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "13313": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Fantasy",
+          "Romance"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      },
+      "9016": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
           "Family",
           "Fantasy"
         ],
         "shared_directors": 2,
-        "shared_actors": 9
-      },
-      "438148": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "1011985": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "9502": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "420818": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "137106": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "940551": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "49444": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "140300": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
+        "shared_actors": 3
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-006",
+    "case_id": "rec-004",
     "movie_id": 9016,
     "movie_title": "Treasure Planet",
     "relevant_movie_ids": [
@@ -609,12 +363,12 @@
       863,
       585,
       10681,
-      10198,
       11688,
       9487,
+      10198,
+      812,
       11544,
-      10144,
-      812
+      73723
     ],
     "evidence": {
       "862": {
@@ -652,15 +406,6 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "10198": {
-        "shared_genres": [
-          "Animation",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 2,
-        "shared_actors": 1
-      },
       "11688": {
         "shared_genres": [
           "Adventure",
@@ -680,23 +425,14 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "11544": {
-        "shared_genres": [
-          "Animation",
-          "Family",
-          "Science Fiction"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "10144": {
+      "10198": {
         "shared_genres": [
           "Animation",
           "Family",
           "Fantasy"
         ],
         "shared_directors": 2,
-        "shared_actors": 0
+        "shared_actors": 1
       },
       "812": {
         "shared_genres": [
@@ -707,26 +443,43 @@
         ],
         "shared_directors": 2,
         "shared_actors": 3
+      },
+      "11544": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 3
+      },
+      "73723": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-007",
+    "case_id": "rec-005",
     "movie_id": 11688,
     "movie_title": "The Emperor's New Groove",
     "relevant_movie_ids": [
       585,
       10681,
-      14160,
       211672,
       11544,
-      10144,
-      748783,
       73723,
+      748783,
       5559,
-      37135
+      10009,
+      10386,
+      9982
     ],
     "evidence": {
       "585": {
@@ -742,16 +495,6 @@
       "10681": {
         "shared_genres": [
           "Animation",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "14160": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
           "Family"
         ],
         "shared_directors": 0,
@@ -776,14 +519,13 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "10144": {
+      "73723": {
         "shared_genres": [
           "Animation",
-          "Family",
-          "Fantasy"
+          "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 2
+        "shared_actors": 3
       },
       "748783": {
         "shared_genres": [
@@ -795,14 +537,6 @@
         "shared_directors": 1,
         "shared_actors": 0
       },
-      "73723": {
-        "shared_genres": [
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
       "5559": {
         "shared_genres": [
           "Adventure",
@@ -813,21 +547,38 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "37135": {
+      "10009": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Family"
         ],
         "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "10386": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
         "shared_actors": 4
+      },
+      "9982": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-008",
+    "case_id": "rec-006",
     "movie_id": 137106,
     "movie_title": "The Lego Movie",
     "relevant_movie_ids": [
@@ -835,12 +586,12 @@
       1226863,
       502356,
       135397,
-      214756,
       1891,
+      214756,
       38055,
       8363,
       181812,
-      1893
+      1892
     ],
     "evidence": {
       "687163": {
@@ -879,17 +630,17 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "214756": {
+      "1891": {
         "shared_genres": [
-          "Comedy",
-          "Fantasy"
+          "Adventure"
         ],
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "1891": {
+      "214756": {
         "shared_genres": [
-          "Adventure"
+          "Comedy",
+          "Fantasy"
         ],
         "shared_directors": 0,
         "shared_actors": 2
@@ -917,7 +668,7 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "1893": {
+      "1892": {
         "shared_genres": [
           "Adventure"
         ],
@@ -929,20 +680,20 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-009",
+    "case_id": "rec-007",
     "movie_id": 809,
     "movie_title": "Shrek 2",
     "relevant_movie_ids": [
       808,
-      315162,
       411,
       953,
-      270946,
       80321,
-      10192,
+      270946,
       421892,
-      15512,
-      629542
+      10192,
+      629542,
+      10527,
+      15512
     ],
     "evidence": {
       "808": {
@@ -954,16 +705,6 @@
         ],
         "shared_directors": 1,
         "shared_actors": 8
-      },
-      "315162": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
       },
       "411": {
         "shared_genres": [
@@ -982,15 +723,6 @@
         "shared_directors": 0,
         "shared_actors": 5
       },
-      "270946": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 4
-      },
       "80321": {
         "shared_genres": [
           "Animation",
@@ -1000,15 +732,14 @@
         "shared_directors": 1,
         "shared_actors": 3
       },
-      "10192": {
+      "270946": {
         "shared_genres": [
           "Animation",
           "Comedy",
-          "Family",
-          "Fantasy"
+          "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 9
+        "shared_actors": 4
       },
       "421892": {
         "shared_genres": [
@@ -1020,13 +751,15 @@
         "shared_directors": 1,
         "shared_actors": 6
       },
-      "15512": {
+      "10192": {
         "shared_genres": [
           "Animation",
-          "Family"
+          "Comedy",
+          "Family",
+          "Fantasy"
         ],
-        "shared_directors": 1,
-        "shared_actors": 1
+        "shared_directors": 0,
+        "shared_actors": 9
       },
       "629542": {
         "shared_genres": [
@@ -1036,26 +769,43 @@
         ],
         "shared_directors": 0,
         "shared_actors": 2
+      },
+      "10527": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 3
+      },
+      "15512": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-010",
+    "case_id": "rec-008",
     "movie_id": 20352,
     "movie_title": "Despicable Me",
     "relevant_movie_ids": [
       1315772,
       438148,
       519182,
-      93456,
+      82690,
       211672,
       324852,
-      82690,
       73723,
       412117,
-      324849
+      324849,
+      6957
     ],
     "evidence": {
       "1315772": {
@@ -1088,15 +838,14 @@
         "shared_directors": 1,
         "shared_actors": 6
       },
-      "93456": {
+      "82690": {
         "shared_genres": [
           "Animation",
           "Comedy",
-          "Family",
-          "Science Fiction"
+          "Family"
         ],
-        "shared_directors": 2,
-        "shared_actors": 9
+        "shared_directors": 0,
+        "shared_actors": 2
       },
       "211672": {
         "shared_genres": [
@@ -1115,15 +864,6 @@
         ],
         "shared_directors": 1,
         "shared_actors": 7
-      },
-      "82690": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
       },
       "73723": {
         "shared_genres": [
@@ -1150,13 +890,20 @@
         ],
         "shared_directors": 0,
         "shared_actors": 2
+      },
+      "6957": {
+        "shared_genres": [
+          "Comedy"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-011",
+    "case_id": "rec-009",
     "movie_id": 1495,
     "movie_title": "Kingdom of Heaven",
     "relevant_movie_ids": [
@@ -1164,12 +911,12 @@
       120,
       855,
       98,
-      12444,
       652,
+      12444,
       286217,
       675,
       78,
-      12155
+      298618
     ],
     "evidence": {
       "11012": {
@@ -1205,18 +952,18 @@
         "shared_directors": 1,
         "shared_actors": 0
       },
-      "12444": {
-        "shared_genres": [
-          "Adventure"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
       "652": {
         "shared_genres": [
           "Action",
           "History",
           "War"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "12444": {
+        "shared_genres": [
+          "Adventure"
         ],
         "shared_directors": 0,
         "shared_actors": 2
@@ -1243,8 +990,9 @@
         "shared_directors": 1,
         "shared_actors": 0
       },
-      "12155": {
+      "298618": {
         "shared_genres": [
+          "Action",
           "Adventure"
         ],
         "shared_directors": 0,
@@ -1255,20 +1003,20 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-012",
+    "case_id": "rec-010",
     "movie_id": 38055,
     "movie_title": "Megamind",
     "relevant_movie_ids": [
       953,
       9502,
-      270946,
       80321,
+      270946,
       137106,
-      15512,
       10527,
+      15512,
       140300,
-      417859,
-      459151
+      459151,
+      1263337
     ],
     "evidence": {
       "953": {
@@ -1290,15 +1038,6 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "270946": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 4
-      },
       "80321": {
         "shared_genres": [
           "Animation",
@@ -1308,20 +1047,20 @@
         "shared_directors": 1,
         "shared_actors": 3
       },
-      "137106": {
+      "270946": {
         "shared_genres": [
           "Animation",
           "Comedy",
           "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 2
+        "shared_actors": 4
       },
-      "15512": {
+      "137106": {
         "shared_genres": [
           "Animation",
-          "Family",
-          "Science Fiction"
+          "Comedy",
+          "Family"
         ],
         "shared_directors": 0,
         "shared_actors": 2
@@ -1334,6 +1073,15 @@
         ],
         "shared_directors": 1,
         "shared_actors": 4
+      },
+      "15512": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       },
       "140300": {
         "shared_genres": [
@@ -1345,16 +1093,6 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "417859": {
-        "shared_genres": [
-          "Action",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
       "459151": {
         "shared_genres": [
           "Animation",
@@ -1363,29 +1101,73 @@
         ],
         "shared_directors": 1,
         "shared_actors": 1
+      },
+      "1263337": {
+        "shared_genres": [
+          "Action"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-013",
-    "movie_id": 417859,
-    "movie_title": "Puss in Boots",
+    "case_id": "rec-011",
+    "movie_id": 12222,
+    "movie_title": "Horton Hears a Who!",
     "relevant_movie_ids": [
-      808,
-      315162,
-      809,
-      953,
-      270946,
-      80321,
-      38055,
-      421892,
+      438148,
+      20352,
+      57800,
+      9502,
+      950,
+      8363,
+      11544,
+      137106,
       15512,
       810
     ],
     "evidence": {
-      "808": {
+      "438148": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "20352": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "57800": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      },
+      "9502": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "950": {
         "shared_genres": [
           "Adventure",
           "Animation",
@@ -1395,71 +1177,29 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "315162": {
+      "8363": {
+        "shared_genres": [
+          "Comedy"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "11544": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "137106": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 4
-      },
-      "809": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "953": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "270946": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "80321": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "38055": {
-        "shared_genres": [
-          "Action",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 3
-      },
-      "421892": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
+          "Family",
+          "Fantasy"
         ],
         "shared_directors": 0,
         "shared_actors": 2
@@ -1471,234 +1211,7 @@
           "Family"
         ],
         "shared_directors": 0,
-        "shared_actors": 4
-      },
-      "810": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 1
-      }
-    },
-    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
-    "review_status": "silver-auto"
-  },
-  {
-    "case_id": "rec-014",
-    "movie_id": 324852,
-    "movie_title": "Despicable Me 3",
-    "relevant_movie_ids": [
-      1315772,
-      1301421,
-      438148,
-      519182,
-      20352,
-      93456,
-      211672,
-      73723,
-      412117,
-      360920
-    ],
-    "evidence": {
-      "1315772": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 2
-      },
-      "1301421": {
-        "shared_genres": [
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 0
-      },
-      "438148": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 5
-      },
-      "519182": {
-        "shared_genres": [
-          "Action",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 6
-      },
-      "20352": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 7
-      },
-      "93456": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 7
-      },
-      "211672": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 2,
-        "shared_actors": 4
-      },
-      "73723": {
-        "shared_genres": [
-          "Animation",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "412117": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "360920": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      }
-    },
-    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
-    "review_status": "silver-auto"
-  },
-  {
-    "case_id": "rec-015",
-    "movie_id": 10192,
-    "movie_title": "Shrek Forever After",
-    "relevant_movie_ids": [
-      1084244,
-      808,
-      1011985,
-      315162,
-      809,
-      953,
-      421892,
-      629542,
-      810,
-      9757
-    ],
-    "evidence": {
-      "1084244": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "808": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 5
-      },
-      "1011985": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 0
-      },
-      "315162": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "809": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 9
-      },
-      "953": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "421892": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 4
-      },
-      "629542": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
+        "shared_actors": 3
       },
       "810": {
         "shared_genres": [
@@ -1709,13 +1222,6 @@
           "Fantasy"
         ],
         "shared_directors": 0,
-        "shared_actors": 10
-      },
-      "9757": {
-        "shared_genres": [
-          "Comedy"
-        ],
-        "shared_directors": 0,
         "shared_actors": 2
       }
     },
@@ -1723,20 +1229,20 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-016",
+    "case_id": "rec-012",
     "movie_id": 810,
     "movie_title": "Shrek the Third",
     "relevant_movie_ids": [
       808,
-      1011985,
-      315162,
       809,
       953,
       9502,
-      10192,
       421892,
+      10192,
       15512,
-      417859
+      1581,
+      52449,
+      12222
     ],
     "evidence": {
       "808": {
@@ -1749,28 +1255,6 @@
         ],
         "shared_directors": 0,
         "shared_actors": 5
-      },
-      "1011985": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
-      "315162": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
       },
       "809": {
         "shared_genres": [
@@ -1801,17 +1285,6 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "10192": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 10
-      },
       "421892": {
         "shared_genres": [
           "Adventure",
@@ -1823,6 +1296,17 @@
         "shared_directors": 0,
         "shared_actors": 4
       },
+      "10192": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 10
+      },
       "15512": {
         "shared_genres": [
           "Adventure",
@@ -1832,35 +1316,50 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "417859": {
+      "1581": {
+        "shared_genres": [
+          "Comedy"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "52449": {
+        "shared_genres": [
+          "Comedy"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "12222": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
-          "Family"
+          "Family",
+          "Fantasy"
         ],
-        "shared_directors": 1,
-        "shared_actors": 1
+        "shared_directors": 0,
+        "shared_actors": 2
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-017",
+    "case_id": "rec-013",
     "movie_id": 421892,
     "movie_title": "Shrek 5",
     "relevant_movie_ids": [
       808,
-      315162,
       809,
       953,
-      270946,
       80321,
+      270946,
       10192,
+      10527,
       15512,
       810,
-      10527
+      901362
     ],
     "evidence": {
       "808": {
@@ -1873,17 +1372,6 @@
         ],
         "shared_directors": 0,
         "shared_actors": 6
-      },
-      "315162": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family",
-          "Fantasy"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
       },
       "809": {
         "shared_genres": [
@@ -1905,16 +1393,6 @@
         "shared_directors": 0,
         "shared_actors": 3
       },
-      "270946": {
-        "shared_genres": [
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 0,
-        "shared_actors": 2
-      },
       "80321": {
         "shared_genres": [
           "Adventure",
@@ -1923,6 +1401,16 @@
           "Family"
         ],
         "shared_directors": 1,
+        "shared_actors": 2
+      },
+      "270946": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
         "shared_actors": 2
       },
       "10192": {
@@ -1935,6 +1423,16 @@
         ],
         "shared_directors": 0,
         "shared_actors": 4
+      },
+      "10527": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       },
       "15512": {
         "shared_genres": [
@@ -1956,11 +1454,232 @@
         "shared_directors": 0,
         "shared_actors": 4
       },
-      "10527": {
+      "901362": {
         "shared_genres": [
           "Adventure",
           "Animation",
           "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      }
+    },
+    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "rec-014",
+    "movie_id": 10386,
+    "movie_title": "The Iron Giant",
+    "relevant_movie_ids": [
+      585,
+      10681,
+      2062,
+      9806,
+      11688,
+      812,
+      11544,
+      73723,
+      13313,
+      9016
+    ],
+    "evidence": {
+      "585": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      },
+      "10681": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "2062": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      },
+      "9806": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "11688": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      },
+      "812": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "11544": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 3
+      },
+      "73723": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "13313": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      },
+      "9016": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      }
+    },
+    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "rec-015",
+    "movie_id": 862,
+    "movie_title": "Toy Story",
+    "relevant_movie_ids": [
+      1084244,
+      301528,
+      10193,
+      863,
+      585,
+      49013,
+      920,
+      9487,
+      812,
+      9016
+    ],
+    "evidence": {
+      "1084244": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 5
+      },
+      "301528": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 5
+      },
+      "10193": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 7
+      },
+      "863": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 11
+      },
+      "585": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "49013": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      },
+      "920": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "9487": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "812": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "9016": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
           "Family"
         ],
         "shared_directors": 0,
@@ -1971,19 +1690,19 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-018",
+    "case_id": "rec-016",
     "movie_id": 585,
     "movie_title": "Monsters, Inc.",
     "relevant_movie_ids": [
       1084244,
-      301528,
       862,
+      301528,
       10193,
       863,
       150540,
       10681,
-      14160,
       508442,
+      920,
       260514
     ],
     "evidence": {
@@ -1996,7 +1715,7 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "301528": {
+      "862": {
         "shared_genres": [
           "Animation",
           "Comedy",
@@ -2005,7 +1724,7 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "862": {
+      "301528": {
         "shared_genres": [
           "Animation",
           "Comedy",
@@ -2049,15 +1768,6 @@
         "shared_directors": 0,
         "shared_actors": 3
       },
-      "14160": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 3
-      },
       "508442": {
         "shared_genres": [
           "Animation",
@@ -2066,6 +1776,15 @@
         ],
         "shared_directors": 1,
         "shared_actors": 0
+      },
+      "920": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       },
       "260514": {
         "shared_genres": [
@@ -2080,7 +1799,7 @@
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-019",
+    "case_id": "rec-017",
     "movie_id": 49026,
     "movie_title": "The Dark Knight Rises",
     "relevant_movie_ids": [
@@ -2089,11 +1808,11 @@
       27205,
       155,
       350,
-      872585,
       272,
       1124,
-      77,
-      374720
+      374720,
+      577922,
+      75656
     ],
     "evidence": {
       "1368337": {
@@ -2133,13 +1852,6 @@
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "872585": {
-        "shared_genres": [
-          "Drama"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 0
-      },
       "272": {
         "shared_genres": [
           "Action",
@@ -2156,13 +1868,6 @@
         "shared_directors": 1,
         "shared_actors": 2
       },
-      "77": {
-        "shared_genres": [
-          "Thriller"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 0
-      },
       "374720": {
         "shared_genres": [
           "Action",
@@ -2170,13 +1875,29 @@
         ],
         "shared_directors": 1,
         "shared_actors": 1
+      },
+      "577922": {
+        "shared_genres": [
+          "Action",
+          "Thriller"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "75656": {
+        "shared_genres": [
+          "Crime",
+          "Thriller"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
       }
     },
     "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
     "review_status": "silver-auto"
   },
   {
-    "case_id": "rec-020",
+    "case_id": "rec-018",
     "movie_id": 269149,
     "movie_title": "Zootopia",
     "relevant_movie_ids": [
@@ -2185,11 +1906,11 @@
       177572,
       109445,
       38757,
-      568124,
       82690,
-      877269,
-      13053,
-      845781
+      568124,
+      845781,
+      404368,
+      1022796
     ],
     "evidence": {
       "1084242": {
@@ -2239,15 +1960,6 @@
         "shared_directors": 1,
         "shared_actors": 0
       },
-      "568124": {
-        "shared_genres": [
-          "Animation",
-          "Comedy",
-          "Family"
-        ],
-        "shared_directors": 1,
-        "shared_actors": 1
-      },
       "82690": {
         "shared_genres": [
           "Adventure",
@@ -2258,16 +1970,23 @@
         "shared_directors": 1,
         "shared_actors": 4
       },
-      "877269": {
+      "568124": {
         "shared_genres": [
-          "Adventure",
           "Animation",
+          "Comedy",
           "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "845781": {
+        "shared_genres": [
+          "Comedy"
         ],
         "shared_directors": 0,
         "shared_actors": 2
       },
-      "13053": {
+      "404368": {
         "shared_genres": [
           "Adventure",
           "Animation",
@@ -2275,11 +1994,232 @@
           "Family"
         ],
         "shared_directors": 1,
+        "shared_actors": 2
+      },
+      "1022796": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      }
+    },
+    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "rec-019",
+    "movie_id": 11544,
+    "movie_title": "Lilo & Stitch",
+    "relevant_movie_ids": [
+      585,
+      1184918,
+      1087192,
+      552524,
+      10191,
+      82702,
+      11688,
+      166428,
+      73723,
+      49519
+    ],
+    "evidence": {
+      "585": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 3
+      },
+      "1184918": {
+        "shared_genres": [
+          "Animation",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      },
+      "1087192": {
+        "shared_genres": [
+          "Family"
+        ],
+        "shared_directors": 1,
         "shared_actors": 0
       },
-      "845781": {
+      "552524": {
         "shared_genres": [
-          "Comedy"
+          "Comedy",
+          "Family",
+          "Science Fiction"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 4
+      },
+      "10191": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 2,
+        "shared_actors": 0
+      },
+      "82702": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      },
+      "11688": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "166428": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 0
+      },
+      "73723": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "49519": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 1,
+        "shared_actors": 1
+      }
+    },
+    "rubric": "shared genre AND (same director OR at least two shared top-20 actors)",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "rec-020",
+    "movie_id": 301528,
+    "movie_title": "Toy Story 4",
+    "relevant_movie_ids": [
+      1084244,
+      862,
+      10193,
+      863,
+      585,
+      10681,
+      920,
+      153518,
+      260514,
+      9487
+    ],
+    "evidence": {
+      "1084244": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 12
+      },
+      "862": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 5
+      },
+      "10193": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 8
+      },
+      "863": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 6
+      },
+      "585": {
+        "shared_genres": [
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "10681": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "920": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "153518": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "260514": {
+        "shared_genres": [
+          "Animation",
+          "Family"
+        ],
+        "shared_directors": 0,
+        "shared_actors": 2
+      },
+      "9487": {
+        "shared_genres": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family"
         ],
         "shared_directors": 0,
         "shared_actors": 2

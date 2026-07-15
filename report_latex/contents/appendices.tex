@@ -1,0 +1,158 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\section{Lệnh tái lập}
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+make setup
+make data DATA_COUNT=2000
+make run
+make test
+make experiments
+make semantic-reasoning
+make sparql-check
+make evaluation-corpora
+make neo4j-benchmark
+make relational-benchmark
+make evidence-summary
+\end{Verbatim}
+
+\section{Nguyên tắc phản biện}
+
+\begin{itemize}
+\item Không nói KG luôn nhanh hơn SQL.
+\item Không gọi Cypher rule là OWL reasoning.
+\item Không gọi silver corpus là gold/human evaluation.
+\item Không gọi item-to-item similarity là personalization hoặc xác suất yêu thích.
+\item Không nói Qwen trả lời; Qwen chỉ lập QueryPlan.
+\item Không gọi hệ thống open-domain QA.
+\item Không suy rộng benchmark 2.000 phim thành scalability result.
+\end{itemize}
+
+\section{Ma trận truy vết tiêu chí báo cáo}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
+\caption{Tổng hợp ma trận truy vết tiêu chí báo cáo}\label{tab:app-1} \\
+\hline
+\textbf{STT} & \textbf{Tiêu chí} & \textbf{Vị trí nội dung} & \textbf{Loại minh chứng} \\ \hline
+\endfirsthead\hline \textbf{STT} & \textbf{Tiêu chí} & \textbf{Vị trí nội dung} & \textbf{Loại minh chứng} \\ \hline\endhead
+1 & Bài toán, phạm vi, mục tiêu và lý do chọn KG & Chương 1; Mục 2.5 & lập luận và research question \\ \hline
+2 & Survey và công trình gần đây & Chương 3 & protocol, 8 công trình, synthesis table, research gap \\ \hline
+3 & So sánh mô hình thay thế & Mục 2.5; Chương 9 & bảng SQL/document/RDF/property graph và baseline \\ \hline
+4 & Biểu diễn tri thức/ngữ nghĩa & Mục 2.1–2.4; Chương 5 & ontology, triple/quad, namespace, OWA/CWA \\ \hline
+5 & Entailment và luật suy diễn & Mục 2.3; Chương 7 & semantic entailment và rule materialization \\ \hline
+6 & Chất lượng tri thức và entity resolution & Mục 2.6, 2.9; Chương 6, 9 & policy, coverage, structural/semantic validation \\ \hline
+7 & Công cụ, phiên bản và triển khai & Chương 6, 8; Phụ lục A & rationale, cấu hình và lệnh tái lập \\ \hline
+8 & Dataset, nguồn và tiền xử lý & Mục 6.2–6.10 & provenance, terms, sampling, manifest và checksum \\ \hline
+9 & Ontology/schema và mapping & Chương 5 & data dictionary và ánh xạ RDF–Neo4j \\ \hline
+10 & Cài đặt graph/reasoner & Mục 6.7; 7.2–7.6 & import order, materialization và validation \\ \hline
+11 & Ngôn ngữ truy vấn đặc thù & Mục 7.1, 7.4 & catalog Cypher/SPARQL và semantic path \\ \hline
+12 & CRUD và nghiệp vụ & Mục 4.4–4.5; 7.1 & competency question và thao tác tham số hóa \\ \hline
+13 & Inference-enabled query & Mục 7.2–7.6 & fact ẩn và evidence path \\ \hline
+14 & Tiêu chí đánh giá & Mục 2.8; Chương 9 & metric, protocol và validity \\ \hline
+15 & Benchmark, bảng, biểu đồ và baseline & Mục 9.2–9.7 & số liệu, protocol và placeholder hình evidence \\ \hline
+16 & Bàn luận, hạn chế và cải tiến & Mục 9.8–9.12; Chương 10 & error analysis và roadmap ưu tiên \\ \hline
+17 & Ứng dụng nghiệp vụ & Chương 4, 8 & stakeholder, QA/recommendation, API/UI và evidence \\ \hline
+18 & Chất lượng báo cáo & toàn bộ báo cáo & bố cục, hình/bảng, BibTeX và phụ lục truy vết \\ \hline
+\end{longtable}
+
+Các tiêu chí phụ thuộc chương trình chạy được phải được đối chiếu với artifact
+cuối; ma trận này chỉ bảo đảm người chấm tìm được nội dung và loại bằng chứng,
+không thay thế kết quả thực nghiệm.
+
+\section{Ngân hàng câu hỏi phản biện và trả lời}
+
+\subsection{D.1. Vì sao không dùng CSDL quan hệ?}
+
+CSDL quan hệ vẫn lưu được dữ liệu và là baseline hợp lệ. Neo4j được chọn vì
+workload chính là pattern nhiều bước, shortest path và dựng evidence từ quan hệ.
+Nếu workload chuyển thành giao dịch theo khóa hoặc aggregate cố định, hệ quan hệ
+có thể là lựa chọn đơn giản hơn. Báo cáo không tuyên bố graph luôn nhanh hơn SQL.
+
+\subsection{D.2. Vì sao cần đồng thời Neo4j và RDF/OWL?}
+
+Neo4j là operational store thuận tiện cho property trên edge và traversal của
+ứng dụng. RDF/OWL là standards view cho IRI, interoperability và entailment.
+Hai biểu diễn phục vụ hai mục tiêu; mapping ở Chương 5 chỉ rõ phần tương đương và
+phần mất mát như edge property cần reification/RDF-star.
+
+\subsection{D.3. Cypher rule có phải OWL reasoning không?}
+
+Không. \texttt{CO\_STARRED\_WITH} là luật nghiệp vụ closed-world được materialize từ hai
+edge \texttt{ACTED\_IN} và lưu evidence. Semantic materializer xử lý tập con RDFS/OWL-RL
+như domain, range, inverse và symmetric property. Báo cáo tách hai nhánh để không
+đánh đồng procedural rule với ontology entailment.
+
+\subsection{D.4. Tại sao không dùng tên làm khóa thực thể?}
+
+Tên có thể trùng, đổi hoặc khác cách viết. Stable source ID giữ identity và cho
+phép constraint. Fuzzy name chỉ dùng để liên kết truy vấn hoặc fallback có log;
+trường hợp mơ hồ bị từ chối thay vì merge tự động.
+
+\subsection{D.5. Vì sao rating TMDB và IMDb không gộp lại?}
+
+Hai nguồn có population, thời điểm cập nhật và số phiếu khác nhau. Gộp làm mất
+provenance. Hệ thống giữ hai thuộc tính và công khai chính sách \texttt{coalesce} khi
+một use case cần một giá trị ưu tiên.
+
+\subsection{D.6. Fact suy ra được kiểm chứng như thế nào?}
+
+Mỗi \texttt{CO\_STARRED\_WITH} giữ \texttt{movie\_count} và \texttt{evidence\_movie\_ids}. Validation kiểm
+tra phải tồn tại ít nhất một phim mà cả hai Person đều có \texttt{ACTED\_IN}; nếu tiền đề
+không còn, fact suy ra bị coi là không được hỗ trợ.
+
+\subsection{D.7. LLM có thể hallucinate Cypher hoặc câu trả lời không?}
+
+LLM không được phép viết Cypher hoặc trả lời từ kiến thức riêng. Nó chỉ sinh JSON
+theo \texttt{QueryPlan} schema. Entity linker ánh xạ slot, compiler whitelist sinh Cypher
+tham số hóa, Neo4j trả fact và evidence. Kế hoạch sai schema hoặc ngoài intent bị
+từ chối/fallback.
+
+\subsection{D.8. Recommendation có phải cá nhân hóa không?}
+
+Không. Đây là item-to-item similarity vì hệ thống không lưu user history/profile.
+Điểm là tổng đóng góp IDF-weighted của feature chung, không phải xác suất người
+dùng thích phim. Explanation faithful vì được tạo từ chính feature đã cộng điểm.
+
+\subsection{D.9. Vì sao metric silver cao chưa chứng minh hệ thống hoàn hảo?}
+
+Silver label được sinh từ quy tắc hoặc graph và có thể chia sẻ lỗi với hệ thống.
+Do đó P/R/F1 hoặc precision cao chủ yếu chứng minh consistency với corpus, chưa
+thay cho đánh giá gold độc lập. Báo cáo yêu cầu reviewer/adjudication trước khi
+nâng claim.
+
+\subsection{D.10. Benchmark hiện tại chứng minh điều gì?}
+
+Nó mô tả latency của workload, snapshot, máy và protocol đã nêu. Một warm-up và
+100 iteration hỗ trợ thống kê median/p95, nhưng một scale 2.000 phim không chứng
+minh scalability. So sánh SQLite chỉ hợp lệ khi cùng snapshot, máy và cache policy.
+
+\subsection{D.11. Những bias dữ liệu quan trọng nhất là gì?}
+
+Popular-page sampling thiên về phim phổ biến; cast limit làm mất vai phụ; IMDb
+match chỉ tồn tại khi TMDB có external ID; rating phản ánh nhóm người đã bình
+chọn. Vì vậy coverage và recommendation không được suy rộng sang toàn bộ điện
+ảnh hoặc mọi nhóm người dùng.
+
+\subsection{D.12. Đóng góp quan trọng nhất của đề tài là gì?}
+
+Đóng góp không nằm ở một thuật toán state-of-the-art mà ở workflow đầu cuối có
+claim discipline: identity/provenance rõ, hai standards view, suy diễn có evidence,
+execution surface của LLM được kiểm soát và evaluation phân biệt silver/gold.
+
+\subsection{D.13. Nếu có thêm thời gian, nên mở rộng gì trước?}
+
+Ưu tiên human review/adjudication, QA corpus lớn hơn và benchmark nhiều snapshot
+thật; sau đó mới mở rộng Wikidata/Award, temporal model, vector retrieval hoặc
+embedding. Thứ tự này cải thiện validity trước khi tăng độ phức tạp mô hình.
+
+\section{Checklist trước khi xuất bản PDF}
+
+\begin{itemize}
+\item Điền đủ thông tin hành chính trên trang bìa và kiểm tra tên học phần.
+\item Chạy lại toàn bộ thực nghiệm trên cùng snapshot rồi đồng bộ bảng số liệu.
+\item Thay placeholder bằng hình thật đúng tên file; kiểm tra caption và khả năng đọc.
+\item Kiểm tra danh mục hình, bảng, mục lục và số trang sau hai lần biên dịch.
+\item Xác nhận mọi citation xuất hiện trong bibliography và mọi nguồn đã dùng được trích dẫn.
+\item Kiểm tra bảng dài không tràn lề, code không vượt trang và hyperlink hoạt động.
+\item Ghi số trang minh chứng vào bản checklist sau khi PDF đã khóa trang.
+\item Không xóa phần limitation hoặc đổi silver result thành gold claim.
+\end{itemize}

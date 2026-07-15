@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Wireframe giao diện web hai chức năng" id="web_ui">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageWidth="1200" pageHeight="680">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="header" value="MOVIE KNOWLEDGE GRAPH&#10;Advanced Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ededed;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="1120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tabs" value="[ Hỏi đáp ]     [ Gợi ý phim tương tự ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbe8fa;strokeColor=#4c78a8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="1040" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="history" value="Trợ lý: Hãy hỏi về phim, diễn viên, đạo diễn…&#10;&#10;Bạn: Các phim của Christopher Nolan?&#10;&#10;Trợ lý: Danh sách kết quả + evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ededed;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="720" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="evidence" value="GRAPH EVIDENCE&#10;Entity link · Cypher intent&#10;Rows · latency" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="840" y="240" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="input" value="Nhập câu hỏi tiếp theo…                         [ Gửi ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="495" width="1040" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="active tab" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="tabs" target="history">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="expand" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="history" target="evidence">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

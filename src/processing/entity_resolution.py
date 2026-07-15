@@ -23,8 +23,10 @@ def resolve_entity(left: dict, candidates: list[dict], threshold: float = 90) ->
     scored = [(ratio(name, normalize_for_match(c.get("name") or c.get("title"))), c) for c in candidates]
     if not name or not scored:
         return None
-    score, candidate = max(scored, key=lambda item: item[0])
+    scored.sort(key=lambda item: item[0], reverse=True)
+    score, candidate = scored[0]
     if score < threshold:
         return None
+    if len(scored) > 1 and scored[1][0] == score:
+        return None
     return Match(str(left.get("id", "")), str(candidate.get("id", candidate.get("tmdb_id", ""))), score / 100, "fuzzy_name")
-

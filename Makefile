@@ -15,9 +15,10 @@ API_HOST ?= 127.0.0.1
 API_PORT ?= 8000
 BENCH_ITERATIONS ?= 100
 BENCH_SCALES ?= 5,100,1000,5000
+SYNTHETIC_BENCH_ITERATIONS ?= 10
 
 .DEFAULT_GOAL := help
-.PHONY: help setup llm-setup llm-run test imdb-data data runtime-prepare run experiments evaluation-corpora neo4j-benchmark stop clean clean-imdb-raw _env _neo4j _load
+.PHONY: help setup llm-setup llm-run test imdb-data data neo4j-snapshot runtime-prepare run experiments semantic-reasoning sparql-check evidence-summary evaluation-corpora review-gate neo4j-benchmark relational-benchmark stop clean clean-imdb-raw _env _neo4j _neo4j-test _load
 
 help: ## Hiển thị các workflow cần dùng
 	@awk 'BEGIN {FS = ":.*## "; printf "Movie Knowledge Graph workflows:\n\n"} /^[a-zA-Z0-9_-]+:.*## / {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -48,8 +49,11 @@ llm-run: ## Chạy Qwen3-8B-AWQ local tại cổng 8001 bằng GPU
 _neo4j:
 	docker compose up -d --wait neo4j
 
-test: setup _neo4j ## Chạy toàn bộ test và kiểm tra tính toàn vẹn project
-	RUN_NEO4J_TESTS=1 $(PYTEST) -q
+_neo4j-test:
+	docker compose --profile test up -d --wait neo4j-test
+
+test: setup _neo4j-test ## Chạy toàn bộ test, gồm integration trên Neo4j test riêng
+	RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 NEO4J_URI=bolt://localhost:7688 NEO4J_PASSWORD=test-password $(PYTEST) -q
 	$(PY) -m compileall -q src experiments tests
 	sha256sum -c .agents/memory/SOURCES.sha256
 
@@ -60,6 +64,10 @@ data: setup imdb-data ## Thu thập TMDB, lọc IMDb ratings và chuẩn hóa d�
 	$(PY) -m src.ingestion.collect_tmdb --count $(DATA_COUNT)
 	$(PY) -m src.processing.pipeline --input data/raw/tmdb_movies.json --output data/processed --imdb-ratings data/raw/imdb/title.ratings.tsv.gz
 	@echo "Dataset ready in data/processed (see manifest.json)."
+
+neo4j-snapshot: setup _neo4j ## Xuất snapshot thí nghiệm từ graph hiện có, không gọi API
+	$(PY) experiments/export_neo4j_snapshot.py
+	$(PY) -m src.processing.pipeline --input data/interim/neo4j_snapshot.json --output data/processed
 
 _load: setup _neo4j
 	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
@@ -72,12 +80,25 @@ runtime-prepare: setup _neo4j ## Chỉ import khi dataset hoặc graph thay đ�
 run: runtime-prepare ## Kiểm tra runtime rồi chạy ứng dụng, không cài/import lại vô ích
 	$(UVICORN) src.api.main:app --reload --host $(API_HOST) --port $(API_PORT)
 
-experiments: setup ## Sinh QA evaluation, benchmark và RDF export
+experiments: setup _neo4j ## Sinh QA evaluation, benchmark và RDF export
 	@test -f data/raw/tmdb_movies.json || { echo "No real dataset found. Run: make data"; exit 1; }
 	$(PY) experiments/evaluate.py
-	$(PY) experiments/benchmark_queries.py --iterations $(BENCH_ITERATIONS) --scales $(BENCH_SCALES)
+	$(PY) experiments/evaluate_qa_neo4j.py
+	$(PY) experiments/benchmark_queries.py --iterations $(SYNTHETIC_BENCH_ITERATIONS) --scales $(BENCH_SCALES)
 	$(PY) -m src.kg.export_rdf
+	$(PY) -m src.kg.semantic_reasoning
 	$(PY) experiments/evaluate_recommendation_neo4j.py
+
+semantic-reasoning: setup ## Materialize RDFS/OWL entailment và kiểm tra semantic consistency
+	@test -f data/processed/movies.ttl || { echo "No RDF export found. Run: make experiments"; exit 1; }
+	$(PY) -m src.kg.semantic_reasoning
+
+sparql-check: setup ## Parse và chạy đủ 10 SPARQL query trên RDF đã materialize
+	@test -f data/processed/movies.inferred.ttl || { echo "No inferred RDF found. Run: make semantic-reasoning"; exit 1; }
+	$(PY) -m src.kg.sparql_catalog
+
+evidence-summary: setup ## Sinh bảng Markdown/CSV và biểu đồ SVG từ result artifacts
+	$(PY) experiments/build_evidence_summary.py
 
 evaluation-corpora: setup ## Sinh các corpus silver có evidence để review độc lập
 	$(PY) experiments/build_review_corpora.py
@@ -85,8 +106,15 @@ evaluation-corpora: setup ## Sinh các corpus silver có evidence để review �
 	$(PY) experiments/evaluate_reasoning.py experiments/labels/reasoning.json > experiments/results/reasoning.json
 	$(PY) experiments/evaluate_recommendation.py experiments/labels/recommendation.json --input data/raw/tmdb_movies.json > experiments/results/recommendation.json
 
+review-gate: setup ## Chặn claim human-reviewed nếu metadata review chưa đầy đủ/độc lập
+	$(PY) experiments/validate_human_review.py experiments/labels/entity_resolution.json experiments/labels/reasoning.json experiments/labels/recommendation.json
+
 neo4j-benchmark: setup _neo4j ## Benchmark end-to-end trên Neo4j thật, 100 lần/query mặc định
 	$(PY) experiments/benchmark_neo4j.py --iterations $(BENCH_ITERATIONS)
+
+relational-benchmark: setup ## Baseline SQLite cùng processed snapshot cho query tương đương
+	@test -f data/processed/manifest.json || { echo "No real dataset found. Run: make data"; exit 1; }
+	$(PY) experiments/benchmark_relational.py --iterations $(BENCH_ITERATIONS)
 
 stop: ## Dừng ứng dụng Docker/Neo4j nhưng giữ data volume
 	docker compose down

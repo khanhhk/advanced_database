@@ -56,6 +56,13 @@ make experiments
 ```
 
 Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và luật `CO_STARRED_WITH` nằm trong `cypher/`; SPARQL mẫu nằm trong `sparql/`.
+Ontology có workflow entailment/validation chạy được (`make semantic-reasoning`),
+catalog gồm 10 SPARQL query và CRUD Cypher parameterized. `make evidence-summary`
+sinh bảng/biểu đồ từ result artifacts; `make relational-benchmark` tạo baseline
+SQLite trên đúng processed snapshot để đối chiếu có kiểm soát.
+`make sparql-check` chạy đủ catalog trên RDF đã materialize. CRUD hành chính có
+implementation tại `src/kg/crud.py` nhưng không mở ra public API. `make test`
+dùng Neo4j test riêng trên cổng 7688 và storage tạm, không reset graph demo.
 
 ## API
 
@@ -139,3 +146,5 @@ Neo4j liên kết slot phim/người về tên canonical trước khi chạy cat
 `experiments/labels/README.md`. `make evaluation-corpora` sinh bộ silver có
 evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases).
 Phải gọi đúng là silver evaluation cho đến khi có reviewer độc lập.
+Sau khi review, `make review-gate` kiểm tra reviewer độc lập, timestamp, decision,
+rubric version và adjudication note trước khi cho phép claim human-reviewed.

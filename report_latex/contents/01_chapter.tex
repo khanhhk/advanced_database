@@ -1,0 +1,99 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Giới thiệu}
+
+\section{Bối cảnh}
+\reportfigure{movie_kg_overview.pdf}{Khái quát miền dữ liệu Movie Knowledge Graph}{fig:movie-kg-overview}
+
+Một bộ phim không tồn tại như một bản ghi độc lập. Nó liên hệ nhiều–nhiều với
+diễn viên, đạo diễn, thể loại, từ khóa và hãng sản xuất. Một người có thể đồng
+thời là diễn viên và đạo diễn; hai diễn viên có thể đóng chung trong nhiều phim;
+một nhóm phim có thể liên hệ gián tiếp qua đạo diễn, cast hoặc chủ đề. Dữ liệu
+này lại nằm ở nhiều nguồn với định danh, mức đầy đủ và cách chấm điểm khác nhau.
+TMDB cung cấp metadata, credits, keywords và external ID, trong khi IMDb cung cấp
+rating và vote count độc lập.
+
+Các câu hỏi như “đường liên hệ giữa hai diễn viên là gì?”, “đạo diễn nào thường
+làm phim thuộc một thể loại?” hoặc “phim nào tương tự và vì sao?” không chỉ là
+lookup một bản ghi. Chúng yêu cầu duyệt nhiều quan hệ và giữ lại bằng chứng của
+đường duyệt. Knowledge Graph phù hợp với bài toán này vì thực thể và quan hệ được
+biểu diễn tường minh, còn câu hỏi nghiệp vụ có thể ánh xạ thành graph pattern.
+
+\section{Phát biểu bài toán}
+
+Đề tài xây dựng một biểu diễn thống nhất cho năm loại thực thể \texttt{Movie}, \texttt{Person},
+\texttt{Genre}, \texttt{Keyword} và \texttt{Studio}; tích hợp chính xác dữ liệu TMDB–IMDb; cung cấp
+truy vấn nhiều bước và suy diễn có thể kiểm chứng; đồng thời minh họa giá trị của
+graph thông qua hỏi–đáp và gợi ý phim có giải thích.
+
+Bài toán không chỉ là “đưa dữ liệu vào Neo4j”. Một hệ thống đạt yêu cầu phải giải
+quyết đồng thời:
+
+\begin{enumerate}
+\item Định danh: không dùng tên làm khóa vì tên có thể trùng hoặc thay đổi.
+\item Provenance: phân biệt rating TMDB và IMDb, truy vết fact gốc hoặc fact suy ra.
+\item Chất lượng: phát hiện bản ghi lỗi, duplicate, orphan và quan hệ sai kiểu/hướng.
+\item An toàn truy vấn: không ghép chuỗi người dùng vào Cypher.
+\item Tái lập: cache, checksum, manifest, cấu hình và kết quả đo phải kiểm chứng được.
+\item Trung thực thực nghiệm: phân biệt smoke test, silver evaluation và human review.
+\end{enumerate}
+
+\section{Câu hỏi nghiên cứu}
+
+\textbf{RQ chính:} Knowledge Graph có thể tích hợp dữ liệu phim đa nguồn, hỗ trợ truy
+vấn multi-hop và suy diễn, đồng thời tạo câu trả lời và gợi ý có bằng chứng như
+thế nào?
+
+Các câu hỏi phụ gồm:
+
+\begin{itemize}
+\item \textbf{RQ1:} Exact-ID enrichment và stable source ID bảo đảm identity/provenance đến mức nào?
+\item \textbf{RQ2:} Property Graph hỗ trợ các competency question đa bước ra sao?
+\item \textbf{RQ3:} Rule materialization và semantic entailment sinh tri thức mới như thế nào, và làm sao kiểm tra tri thức đó?
+\item \textbf{RQ4:} IDF-weighted graph similarity cung cấp recommendation và explanation như thế nào so với các phương pháp overlap khác?
+\item \textbf{RQ5:} Hệ thống có giới hạn gì về coverage, accuracy, validity và scalability?
+\end{itemize}
+
+\section{Mục tiêu}
+
+Mục tiêu tổng quát là xây dựng một Movie Knowledge Graph chạy được từ dữ liệu
+nguồn đến ứng dụng. Các mục tiêu kiểm chứng được là:
+
+\begin{itemize}
+\item Thu thập và chuẩn hóa 2.000–5.000 phim cùng thực thể liên quan.
+\item Bảo toàn source ID, provenance và metadata quan trọng trên node/edge.
+\item Nạp graph idempotent vào Neo4j, có constraint/index và validation.
+\item Xây ontology RDF/OWL, RDF export và ít nhất 10 SPARQL query.
+\item Xây ít nhất 10 Cypher query, gồm multi-hop, aggregation và shortest path.
+\item Materialize \texttt{CO\_STARRED\_WITH} với evidence và chạy semantic entailment.
+\item Cung cấp API/UI cho QA và explainable recommendation.
+\item Đánh giá data quality, entity resolution, reasoning, QA, recommendation và latency.
+\end{itemize}
+
+\section{Phạm vi}
+
+TMDB là nguồn graph chính; IMDb chỉ enrichment cho Movie bằng exact \texttt{imdb\_id}.
+Mỗi phim giữ tối đa 20 cast member nhằm giới hạn kích thước và thời gian thu thập.
+MVP không bao gồm Award/Wikidata, NLP trên overview, user-history personalization,
+vector search, embedding, GraphRAG hoặc LLM-to-Cypher tự do. Các thành phần này là
+hướng mở rộng, không được dùng để mô tả chức năng hiện có.
+
+\section{Đóng góp}
+
+Đóng góp của đề tài gồm:
+
+\begin{itemize}
+\item Pipeline đa nguồn storage-bounded và tái lập được.
+\item Chiến lược identity dựa trên stable source ID thay vì tên.
+\item Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
+\item Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
+\item QA có LLM planner nhưng execution surface được kiểm soát.
+\item Recommendation graph-native với explanation từ chính feature đóng góp.
+\item Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
+\end{itemize}
+
+\section{Cấu trúc báo cáo}
+
+Chương 2 trình bày cơ sở lý thuyết; Chương 3 tổng hợp công trình liên quan; Chương
+4 phân tích yêu cầu; Chương 5 mô tả ontology và graph schema; Chương 6 trình bày
+kiến trúc và pipeline; Chương 7 mô tả truy vấn/suy diễn; Chương 8 trình bày hai
+ứng dụng; Chương 9 báo cáo thực nghiệm; Chương 10 kết luận và hướng phát triển.

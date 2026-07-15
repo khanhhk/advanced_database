@@ -1,0 +1,13 @@
+{
+  "source_sha256": "eeeb7e27a2b7a6068d6bf6a776c164f83e881e865293c9774087e2905f62c800",
+  "status": "reused",
+  "nodes": 37349,
+  "relationships": 353915,
+  "orphan_movies": 0,
+  "duplicate_stable_ids": 0,
+  "missing_required_properties": 0,
+  "invalid_relationship_types": 0,
+  "invalid_relationship_endpoints": 0,
+  "unsupported_derived_facts": 0,
+  "valid": true
+}

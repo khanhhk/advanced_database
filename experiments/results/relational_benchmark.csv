@@ -1,0 +1,5 @@
+backend,intent,iterations,median_ms,p95_ms,stdev_ms
+sqlite,movies_by_director,100,1.0504125000000002,1.643834,0.16793077990330987
+sqlite,common_movies,100,12.0411355,13.070105,0.6981321766052044
+sqlite,movies_by_genre_rating,100,0.8136795,0.835101,0.011941943079227099
+sqlite,directors_by_genre,100,2.118795,2.198301,0.04433332962749811

@@ -1,0 +1,135 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Cơ sở lý thuyết}
+
+\section{Tri thức và Knowledge Graph}
+
+Dữ liệu là các giá trị thô; thông tin xuất hiện khi dữ liệu được đặt trong ngữ
+cảnh; tri thức thể hiện các thực thể, quan hệ và quy tắc cho phép giải thích hoặc
+suy ra điều mới. Trong Knowledge Graph, một fact được biểu diễn bằng quan hệ giữa
+các thực thể có định danh. Fact có thể là \textbf{asserted fact}, lấy trực tiếp từ nguồn,
+hoặc \textbf{derived fact}, sinh bởi luật và phải truy ngược được về tiền đề \cite{hogan2021knowledge}.
+
+\section{Ontology}
+
+Ontology là đặc tả hình thức cho một miền tri thức, gồm class, individual,
+object property, datatype property và axiom. Taxonomy chủ yếu biểu diễn phân cấp
+“is-a”, trong khi ontology còn mô tả domain/range, inverse, disjointness,
+cardinality và các ràng buộc ngữ nghĩa khác. Đề tài thiết kế ontology từ
+competency question: chỉ đưa class/property cần thiết để trả lời câu hỏi, tránh
+mở rộng schema không có dữ liệu hoặc use case.
+
+\section{RDF, RDFS, OWL và SPARQL}
+
+RDF biểu diễn phát biểu bằng triple \texttt{(subject, predicate, object)} \cite{w3c2014rdf}. Subject và
+predicate là IRI; object có thể là IRI hoặc literal. Một quad bổ sung graph name,
+cho phép tổ chức nhiều named graph trong một RDF dataset, hữu ích khi tách nguồn
+hoặc provenance. Namespace rút gọn IRI và giúp tránh xung đột định danh. Linked
+Data nhấn mạnh IRI ổn định, có thể tham chiếu và liên kết giữa các nguồn.
+
+RDFS cung cấp class, subclass, domain và range \cite{w3c2014rdfs}. OWL bổ sung inverse property,
+symmetric property, disjoint class, functional property và nhiều axiom mạnh hơn \cite{w3c2012owl}.
+Ontology vận hành theo Open World Assumption: thiếu một fact không có nghĩa fact
+đó sai. Vì vậy OWL reasoning và data validation là hai nhiệm vụ khác nhau. Đề tài
+materialize tập con RDFS/OWL-RL đã khai báo, đồng thời dùng validation đóng để
+kiểm tra functional conflict, disjoint type và required title.
+
+SPARQL truy vấn graph bằng basic graph pattern \cite{w3c2013sparql}. \texttt{OPTIONAL} xử lý thuộc tính có thể
+thiếu; \texttt{GROUP BY/COUNT} hỗ trợ aggregation; \texttt{ASK} kiểm tra sự tồn tại; \texttt{CONSTRUCT}
+tạo một graph kết quả. Catalog của đề tài bao phủ cả bốn dạng này và có query dùng
+inverse fact sau materialization.
+
+\section{Property Graph và Neo4j}
+
+Property Graph gồm node có label, relationship có type/hướng và property trên cả
+node lẫn relationship. Neo4j dùng Cypher để match graph pattern. Unique constraint
+bảo vệ stable key; index/full-text index tăng tốc lookup; transaction bảo đảm một
+batch import không ở trạng thái dở dang. Property trên \texttt{ACTED\_IN} như \texttt{character}
+và \texttt{cast\_order} là lý do thực dụng để chọn Property Graph làm operational store \cite{neo4j2026cypher}.
+
+\section{So sánh mô hình}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|}
+\caption{Tổng hợp so sánh mô hình}\label{tab:2-1} \\
+\hline
+\textbf{Khía cạnh} & \textbf{Quan hệ} & \textbf{Document} & \textbf{RDF/OWL} & \textbf{Property Graph} \\ \hline
+\endfirsthead\hline \textbf{Khía cạnh} & \textbf{Quan hệ} & \textbf{Document} & \textbf{RDF/OWL} & \textbf{Property Graph} \\ \hline\endhead
+Đơn vị & bảng/hàng/khóa & document/collection & triple/quad/IRI & node/edge/property \\ \hline
+Quan hệ nhiều–nhiều & bảng nối & nhúng hoặc tham chiếu & predicate & edge trực tiếp \\ \hline
+Chuẩn liên thông & SQL nhưng schema riêng & JSON/BSON, schema ứng dụng & W3C, cao & phụ thuộc engine \\ \hline
+Edge property & đặt ở bảng nối & lồng trong document & reification/RDF-star & trực tiếp \\ \hline
+Reasoning & logic ứng dụng & logic ứng dụng & RDFS/OWL reasoner & rule/procedure \\ \hline
+Traversal & JOIN/CTE đệ quy & lookup nhiều collection & graph pattern & graph-native pattern \\ \hline
+Phù hợp & OLTP, aggregate ổn định & aggregate tự chứa, schema linh hoạt & semantic integration & operational traversal \\ \hline
+\end{longtable}
+
+Không có mô hình luôn tốt hơn. CSDL quan hệ phù hợp giao dịch và báo cáo có
+schema ổn định; document store phù hợp khi một aggregate thường được đọc/ghi
+nguyên khối và ít quan hệ chéo; RDF phù hợp liên thông và semantics; Neo4j phù
+hợp traversal và ứng dụng graph. Đề tài không chọn document store vì cast,
+director, genre và keyword được dùng lại qua nhiều phim: nhúng gây lặp, còn tham
+chiếu lại đưa bài toán về nhiều phép lookup. Đề tài đo một SQLite baseline trên cùng snapshot thay vì dùng
+lập luận lý thuyết để tuyên bố Neo4j luôn nhanh hơn.
+
+Knowledge Graph cũng không nên được dùng chỉ vì dữ liệu “có quan hệ”. Nếu workload
+chủ yếu là transaction theo khóa, báo cáo tổng hợp cố định hoặc dữ liệu nhỏ với
+schema ổn định, CSDL quan hệ đơn giản hơn và có thể hiệu quả hơn. RDF/OWL chỉ đáng
+đổi chi phí khi interoperability, định danh toàn cục hoặc entailment là yêu cầu
+thật. Property Graph phù hợp đề tài vì competency question tập trung vào đường
+đi, neighborhood và bằng chứng trên quan hệ; lựa chọn này là workload-driven,
+không phải tuyên bố ưu thế phổ quát.
+
+\section{Entity resolution}
+
+Entity resolution xác định hai record có mô tả cùng thực thể hay không. Exact
+source ID có precision cao và được ưu tiên. Fuzzy matching chỉ là fallback, trả
+confidence và từ chối trường hợp hai candidate có top score bằng nhau. Precision,
+Recall và F1 được tính từ TP, FP, FN; accuracy riêng lẻ không phù hợp khi class
+phân bố lệch.
+
+\section{Recommendation dựa trên graph}
+
+Hai phim có thể tương tự vì chung đạo diễn, diễn viên, thể loại, từ khóa hoặc
+studio. Raw overlap thiên về phim có metadata dày và feature phổ biến. Đề tài dùng:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+contribution(feature) = type_weight × (1 + ln((N+1)/(df(feature)+1)))
+score(source,candidate) = tổng contribution của các feature chung
+\end{Verbatim}
+
+Trong đó \texttt{N} là số phim và \texttt{df} là số phim liên kết với feature. Feature hiếm có
+giá trị phân biệt cao hơn. Đây là item-to-item similarity, không phải xác suất
+yêu thích và không phải personalization theo người dùng.
+
+\section{Chỉ số đánh giá}
+
+\begin{itemize}
+\item Data quality: missing, duplicate, invalid edge, orphan và coverage.
+\item Entity resolution: Precision, Recall, F1.
+\item Reasoning: precision của fact suy ra và evidence coverage.
+\item QA: intent accuracy, answer correctness và evidence.
+\item Recommendation: Precision@K, DCG/NDCG@K, explanation coverage.
+\item Performance: median, p95 và standard deviation sau warm-up.
+\end{itemize}
+
+\section{Tính đúng, tính đầy đủ và tính nhất quán}
+
+Ba khái niệm này cần được phân biệt. \textbf{Tính đúng cấu trúc} trả lời liệu node/edge
+có tuân theo schema và constraint hay không. \textbf{Tính nhất quán ngữ nghĩa} trả lời
+liệu một individual có đồng thời thuộc hai class disjoint, hoặc một functional
+property có nhiều value xung đột hay không. \textbf{Tính đầy đủ} đo mức phủ của dữ liệu
+so với yêu cầu, chẳng hạn tỷ lệ phim có cast, director, genre hoặc IMDb rating.
+
+Zero structural violation không chứng minh graph phản ánh hoàn hảo thế giới thật.
+Một phim có thể thiếu cast do giới hạn nguồn nhưng vẫn hợp lệ về schema. Ngược
+lại, graph có coverage cao vẫn có thể merge sai hai người trùng tên. Vì vậy đề tài
+báo cáo đồng thời constraint/validation, coverage và sample review thay vì gộp
+tất cả thành một “quality score”.
+
+\section{Idempotency và reproducibility}
+
+Idempotency nghĩa là thực hiện cùng một import nhiều lần tạo cùng trạng thái logic,
+không nhân đôi node/edge. Reproducibility rộng hơn: người khác phải biết input,
+version, configuration, code path và protocol để tái tạo artifact/kết quả. \texttt{MERGE}
+giải quyết một phần idempotency; checksum, manifest, metadata máy và command
+workflow giải quyết reproducibility. Import có thể idempotent nhưng không tái lập
+nếu nguồn thay đổi mà không có snapshot/checksum.

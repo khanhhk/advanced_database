@@ -1,0 +1,121 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Thiết kế ontology và graph schema}
+
+\section{Các lớp và định danh}
+\reportfigure{ontology_diagram.pdf}{Sơ đồ lớp của ontology miền phim}{fig:ontology-diagram}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
+\caption{Tổng hợp các lớp và định danh}\label{tab:5-1} \\
+\hline
+\textbf{Class/label} & \textbf{Khóa} & \textbf{Thuộc tính chính} \\ \hline
+\endfirsthead\hline \textbf{Class/label} & \textbf{Khóa} & \textbf{Thuộc tính chính} \\ \hline\endhead
+Movie & \texttt{tmdb\_id} & imdb\_id, title, release\_date, runtime, rating, imdb\_rating, imdb\_votes, popularity, overview \\ \hline
+Person & \texttt{person\_id} & tmdb\_id, imdb\_id, name, source \\ \hline
+Genre & \texttt{genre\_id} & name, source \\ \hline
+Keyword & \texttt{keyword\_id} & name, source \\ \hline
+Studio & \texttt{company\_id} & name, country, source \\ \hline
+\end{longtable}
+
+Person dùng một label duy nhất vì một người có thể vừa đóng phim vừa đạo diễn.
+Vai trò được biểu diễn bởi relationship. Với dữ liệu mới, \texttt{person\_id=tmdb:<id>};
+hash tên chỉ là legacy fallback khi fixture/cache cũ không có source ID.
+
+\section{Relationship}
+\reportfigure{property_graph_schema.pdf}{Lược đồ node và relationship trong Neo4j}{fig:property-graph-schema}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
+\caption{Tổng hợp relationship (2)}\label{tab:5-2} \\
+\hline
+\textbf{Relationship} & \textbf{Hướng} & \textbf{Property} \\ \hline
+\endfirsthead\hline \textbf{Relationship} & \textbf{Hướng} & \textbf{Property} \\ \hline\endhead
+ACTED\_IN & Person → Movie & character, cast\_order, source \\ \hline
+DIRECTED & Person → Movie & source \\ \hline
+HAS\_GENRE & Movie → Genre & source \\ \hline
+HAS\_KEYWORD & Movie → Keyword & source \\ \hline
+PRODUCED\_BY & Movie → Studio & source \\ \hline
+CO\_STARRED\_WITH & Person → Person & movie\_count, evidence\_movie\_ids, derived \\ \hline
+\end{longtable}
+
+\section{Ontology RDF/OWL}
+
+Ontology khai báo năm class disjoint, object property với domain/range, inverse
+\texttt{actedIn/hasActor}, inverse \texttt{directed/directedBy}, symmetric \texttt{coStarredWith}, và
+functional \texttt{tmdbId/imdbId}. Datatype property mô tả title, ratings, votes và name.
+Functional property không đồng nghĩa global inverse-functional identity; stable
+URI vẫn được tạo từ source ID.
+
+\section{Ánh xạ RDF–Neo4j}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
+\caption{Tổng hợp ánh xạ rdf–neo4j (3)}\label{tab:5-3} \\
+\hline
+\textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline
+\endfirsthead\hline \textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline\endhead
+\texttt{(:Movie \{tmdb\_id\})} & \texttt{:movie/<id> a :Movie; :tmdbId ...} \\ \hline
+\texttt{(:Person)-[:ACTED\_IN]->(:Movie)} & \texttt{:person/... :actedIn :movie/...} \\ \hline
+\texttt{[:DIRECTED]} & \texttt{:directed} / inverse \texttt{:directedBy} \\ \hline
+edge property & cần reification/RDF-star nếu xuất đầy đủ \\ \hline
+constraint & ontology axiom + validation đóng \\ \hline
+\end{longtable}
+
+\section{Các quyết định mô hình hóa}
+
+\subsection{Một Person label thay vì Actor/Director}
+
+Nếu dùng hai label loại trừ nhau, người vừa diễn vừa đạo diễn phải duplicate node
+hoặc mang hai label không phản ánh role theo từng phim. Một \texttt{Person} và role trên
+relationship tránh hai vấn đề này. Query “phim của một người” có thể match
+\texttt{ACTED\_IN|DIRECTED}, còn query chuyên biệt vẫn chọn đúng type.
+
+\subsection{Source ID thay cho name}
+
+Tên không ổn định và không duy nhất. Source ID được dùng làm constraint key; name
+là thuộc tính hiển thị/tìm kiếm. Fuzzy matching chỉ liên kết input người dùng tới
+entity đã có, không thay stable identity trong storage.
+
+\subsection{Tách TMDB và IMDb rating}
+
+Hai rating có population và thời điểm cập nhật khác nhau. Gộp vào một property sẽ
+mất provenance. Vì vậy \texttt{rating}, \texttt{imdb\_rating}, \texttt{imdb\_votes} được giữ riêng. Khi
+QA cần một rating ưu tiên, compiler dùng \texttt{coalesce(imdb\_rating,rating)} theo quyết
+định công khai.
+
+\subsection{Materialize co-star}
+
+Co-star có thể tính tại query time nhưng được dùng thường xuyên và cần audit.
+Materialization lưu aggregate/evidence và minh họa derived fact. Chi phí là phải
+recompute sau authoritative import; runtime preparation xử lý phụ thuộc này.
+
+\section{Provenance}
+
+Provenance có ba mức. Mức source: node/edge gốc có \texttt{source=tmdb}, Movie giữ IMDb
+ID và ratings riêng. Mức snapshot: manifest giữ path/checksum/count và match
+method. Mức derivation: \texttt{CO\_STARRED\_WITH} giữ \texttt{derived}, count và supporting
+movie IDs. RDF export chưa dùng named graph đầy đủ cho từng nguồn; đây là giới
+hạn thay vì một claim provenance chuẩn hóa toàn diện.
+
+\section{Từ điển dữ liệu và quy tắc miền}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|}
+\caption{Tổng hợp từ điển dữ liệu và quy tắc miền (4)}\label{tab:5-4} \\
+\hline
+\textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và ý nghĩa} \\ \hline
+\endfirsthead\hline \textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và ý nghĩa} \\ \hline\endhead
+Movie.tmdb\_id & integer dương & có & TMDB & khóa ổn định, duy nhất trong Movie \\ \hline
+Movie.imdb\_id & chuỗi \texttt{tt...} & không & TMDB external ID & khóa nối chính xác sang IMDb \\ \hline
+Movie.title & Unicode string & có & TMDB & trim whitespace, không được rỗng \\ \hline
+Movie.release\_date & ISO date & không & TMDB & ngày phát hành, không phải valid-time của temporal KG \\ \hline
+Movie.rating & số 0–10 & không & TMDB & giữ riêng với IMDb rating \\ \hline
+Movie.imdb\_rating & số 0–10 & không & IMDb & chỉ ghi khi exact \texttt{imdb\_id} match \\ \hline
+Movie.imdb\_votes & integer không âm & không & IMDb & số phiếu tại snapshot thu thập \\ \hline
+Person.person\_id & source-qualified ID & có & TMDB/pipeline & identity key, không dùng tên làm khóa \\ \hline
+ACTED\_IN.character & string & không & TMDB credits & vai diễn được công bố ở nguồn \\ \hline
+ACTED\_IN.cast\_order & integer không âm & không & TMDB credits & thứ tự cast, không phải độ quan trọng tuyệt đối \\ \hline
+CO\_STARRED\_WITH.movie\_count & integer dương & có & luật & số phim chung hỗ trợ fact suy ra \\ \hline
+CO\_STARRED\_WITH.evidence\_movie\_ids & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
+\end{longtable}
+
+Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế
+kiểm tra dữ liệu đóng. Required field là yêu cầu của ứng dụng; functional và
+disjoint axiom là yêu cầu ngữ nghĩa; constraint Neo4j bảo vệ identity/storage.
+Ba lớp ràng buộc bổ sung cho nhau nhưng không được đánh đồng.

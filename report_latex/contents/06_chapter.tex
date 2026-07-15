@@ -1,0 +1,115 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Kiến trúc và pipeline dữ liệu}
+
+\section{Kiến trúc tổng thể}
+\reportfigure{system_architecture.pdf}{Kiến trúc tổng thể của hệ thống}{fig:system-architecture}
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+TMDB API/cache ─┐
+                ├→ clean/normalize/exact-ID enrich → CSV + manifest
+IMDb ratings.gz ┘                         ├→ Neo4j → QA/recommend → FastAPI/UI
+                                         └→ RDF → entailment → SPARQL
+\end{Verbatim}
+
+Qwen là service tùy chọn tại localhost, chỉ nhận câu hỏi và trả QueryPlan JSON.
+Neo4j luôn là nguồn dữ liệu/câu trả lời của runtime.
+
+\section{Thu thập TMDB}
+
+Collector duyệt popular pages đến khi đủ số movie ID duy nhất, sau đó tải detail,
+credits, keywords và external IDs theo TMDB API \cite{tmdb2026api}. Response được cache nguyên dạng; request có
+timeout, retry và interval. Cache giúp chạy lại không tiêu tốn API quota và giữ
+snapshot nguồn cho reproducibility.
+
+\section{Tích hợp IMDb}
+
+Pipeline chỉ tải \texttt{title.ratings.tsv.gz} từ bộ dữ liệu phi thương mại IMDb \cite{imdb2026datasets}, kiểm tra gzip/checksum và ghi metadata.
+File được stream từng dòng, chỉ giữ record có \texttt{tconst} thuộc tập IMDb ID của 2.000
+phim TMDB. Cách này không giải nén toàn bộ và không nạp IMDb đầy đủ vào RAM/Neo4j.
+\texttt{Movie.rating} và \texttt{Movie.imdb\_rating} không ghi đè nhau.
+
+\section{Quản trị nguồn, điều khoản sử dụng và đạo đức dữ liệu}
+
+TMDB API được sử dụng theo tài liệu và điều khoản dành cho nhà phát triển; khóa
+API là secret cục bộ, không đưa vào repository. Dữ liệu hiển thị phải ghi nhận
+TMDB theo yêu cầu của nền tảng và không được mô tả như dữ liệu do nhóm sở hữu \cite{tmdb2026api}.
+IMDb cung cấp các dataset này cho mục đích sử dụng phi thương mại; đề tài chỉ tải
+file ratings công khai cần thiết, không phân phối lại toàn bộ dataset và không
+mở rộng phạm vi sang mục đích thương mại \cite{imdb2026datasets}. Người tái lập phải tự kiểm tra điều
+khoản hiện hành tại thời điểm chạy vì điều khoản dịch vụ có thể thay đổi.
+
+Corpus chỉ chứa metadata nghề nghiệp công khai về phim và người tham gia, không
+thu thập lịch sử xem, hồ sơ người dùng hoặc dữ liệu nhạy cảm. Rating của nguồn là
+tín hiệu tổng hợp, không được diễn giải như sự thật khách quan về chất lượng phim.
+Sampling theo popular pages có popularity bias; giới hạn cast tạo coverage bias.
+Hai bias này được công bố để tránh suy rộng kết quả sang toàn bộ điện ảnh hoặc
+mọi nhóm người dùng.
+
+\section{Cleaning và entity resolution}
+\reportfigure{entity_resolution_flow.pdf}{Quy trình cleaning và phân giải thực thể}{fig:entity-resolution}
+
+Cleaning chuẩn hóa Unicode/whitespace, kiểu số/ngày và trường bắt buộc. Duplicate
+TMDB ID bị loại và log. Exact TMDB/IMDb ID được ưu tiên; fuzzy name fallback dùng
+threshold và từ chối tied top score. Ambiguous case không được tự động merge.
+
+\section{Normalized artifacts và manifest}
+
+Pipeline tạo \texttt{movies.csv}, \texttt{people.csv}, \texttt{genres.csv}, \texttt{keywords.csv},
+\texttt{studios.csv} và năm edge CSV. Manifest ghi source checksum, thời điểm tạo, counts,
+IMDb coverage/match, invalid record, duplicate/missing rate và coverage cast,
+director, genre. Raw, interim và processed data được tách để tránh nhầm nguồn với
+artifact dẫn xuất.
+
+\section{Import và validation Neo4j}
+
+Thứ tự import là constraint/index → node → edge → reasoning → validation. Mỗi
+batch dùng parameterized \texttt{UNWIND}; \texttt{MERGE} trên stable key giúp import lặp không
+tạo duplicate. \texttt{--replace} dành cho authoritative rebuild. Validation kiểm tra:
+
+\begin{itemize}
+\item orphan Movie;
+\item duplicate stable IDs;
+\item missing required property;
+\item invalid relationship type;
+\item endpoint/hướng sai schema;
+\item \texttt{CO\_STARRED\_WITH} không còn supporting movie.
+\end{itemize}
+
+Integration test dùng Neo4j test riêng ở cổng 7688 với storage tạm, import hai lần
+và kiểm tra QA, recommendation, CRUD; graph demo không bị reset.
+
+\section{Thuật toán pipeline}
+\reportfigure{etl_pipeline.pdf}{Luồng xử lý dữ liệu từ nguồn đến các graph}{fig:etl-pipeline}
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+INPUT: raw TMDB records, optional compressed IMDb ratings
+1. Validate required movie ID/title; reject and log invalid records.
+2. Deduplicate Movie by tmdb_id.
+3. Normalize scalar fields and names.
+4. Build stable IDs from TMDB source IDs.
+5. Emit node maps and relationship rows with source metadata.
+6. Stream IMDb ratings; retain only wanted tconst values.
+7. Enrich Movie without overwriting TMDB rating.
+8. Write deterministic CSV tables.
+9. Compute checksum, counts, error rates and coverage into manifest.
+OUTPUT: normalized CSVs + manifest + invalid-record log
+\end{Verbatim}
+
+Độ phức tạp bộ nhớ của IMDb join phụ thuộc số IMDb ID thuộc tập phim mục tiêu,
+không phụ thuộc toàn bộ file ratings. Entity maps phụ thuộc số entity trong
+2.000–5.000 phim. Cast limit kiểm soát kích thước nhưng đồng thời tạo coverage bias.
+
+\section{Xử lý lỗi}
+
+Downloader dùng file \texttt{.part}, chỉ rename sau khi gzip hợp lệ để tránh coi partial
+download là hoàn chỉnh. Collector retry lỗi tạm thời và cache response. Pipeline
+fail rõ nếu IMDb path được chỉ định nhưng không tồn tại. Runtime không tự dùng seed
+khi thiếu data thật; nó dừng và yêu cầu chuẩn bị dataset. Cách fail closed tránh
+demo vô tình chạy fixture rồi báo như corpus thật.
+
+\section{Tái lập và thay đổi nguồn}
+
+TMDB/IMDb là nguồn động, nên chạy lại ngày khác có thể tạo snapshot khác.
+Reproducibility ở đây là tái lập workflow và truy vết snapshot, không cam kết API
+luôn trả byte giống nhau. Raw cache/checksum cho phép chạy transform trên snapshot
+cũ. Nếu data thay đổi, evaluation/benchmark phải chạy lại cùng snapshot.

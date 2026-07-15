@@ -1,0 +1,22 @@
+[
+  {"question":"Những phim nào do Christopher Nolan đạo diễn?","intent":"movies_by_director","contains":"Inception"},
+  {"question":"Diễn viên nào đóng trong phim Inception?","intent":"actors_in_movie","contains":"Leonardo DiCaprio"},
+  {"question":"Phim chung của Christian Bale và Tom Hardy?","intent":"common_movies","contains":"The Dark Knight Rises"},
+  {"question":"Phim Crime có rating trên 8?","intent":"movies_by_genre_rating","contains":"Pulp Fiction"},
+  {"question":"Ai từng đóng chung với Tom Hardy?","intent":"co_stars","contains":"Leonardo DiCaprio"},
+  {"question":"Đạo diễn nào thường làm phim thể loại Action?","intent":"directors_by_genre","contains":"Christopher Nolan"},
+  {"question":"Đường liên hệ giữa Leonardo DiCaprio và Christian Bale?","intent":"shortest_path","contains":"Đường liên hệ","min_evidence":1},
+  {"question":"Phim tương tự Inception?","intent":"similar_movies","contains":"Phim tương tự","min_evidence":5},
+  {"question":"Các phim do Quentin Tarantino đạo diễn?","intent":"movies_by_director","contains":"Pulp Fiction"},
+  {"question":"Ai tham gia phim Interstellar?","intent":"actors_in_movie","contains":"Anne Hathaway"},
+  {"question":"Phim nào do Steven Spielberg đạo diễn?","intent":"movies_by_director","contains":"Saving Private Ryan"},
+  {"question":"Diễn viên nào đóng trong phim The Dark Knight?","intent":"actors_in_movie","contains":"Christian Bale"},
+  {"question":"Phim chung của Leonardo DiCaprio và Tom Hardy?","intent":"common_movies","contains":"Inception"},
+  {"question":"Phim Drama có rating trên 8?","intent":"movies_by_genre_rating","contains_any":["The Shawshank Redemption","The Godfather"]},
+  {"question":"Ai từng đóng chung với Leonardo DiCaprio?","intent":"co_stars","contains":"Tom Hardy"},
+  {"question":"Đạo diễn nào thường làm phim thể loại Science Fiction?","intent":"directors_by_genre","contains":"Christopher Nolan"},
+  {"question":"Đường liên hệ giữa Tom Hardy và Anne Hathaway?","intent":"shortest_path","contains":"Đường liên hệ","min_evidence":1},
+  {"question":"Phim tương tự The Dark Knight?","intent":"similar_movies","contains":"Phim tương tự","min_evidence":5},
+  {"question":"Các phim do James Cameron đạo diễn?","intent":"movies_by_director","contains":"Titanic"},
+  {"question":"Ai tham gia phim Pulp Fiction?","intent":"actors_in_movie","contains":"John Travolta"}
+]

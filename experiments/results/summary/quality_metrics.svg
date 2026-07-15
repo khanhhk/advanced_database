@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172033}.label{font-size:12px}.value{font-size:13px;font-weight:bold}</style>
+<line x1="55" y1="20" x2="55" y2="350" stroke="#667085"/>
+<line x1="55" y1="350" x2="845" y2="350" stroke="#667085"/>
+<rect x="71.7" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="98.9" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="98.9" y="374" text-anchor="middle">ER precision</text>
+<rect x="159.5" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="186.7" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="186.7" y="374" text-anchor="middle">ER recall</text>
+<rect x="247.2" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="274.4" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="274.4" y="374" text-anchor="middle">ER F1</text>
+<rect x="335.0" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="362.2" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="362.2" y="374" text-anchor="middle">Co-star precision</text>
+<rect x="422.8" y="135.5" width="54.4" height="214.5" fill="#2563eb"/>
+<text class="value" x="450.0" y="128.5" text-anchor="middle">0.715</text>
+<text class="label" x="450.0" y="374" text-anchor="middle">Rec. P@10</text>
+<rect x="510.6" y="123.7" width="54.4" height="226.3" fill="#2563eb"/>
+<text class="value" x="537.8" y="116.7" text-anchor="middle">0.754</text>
+<text class="label" x="537.8" y="374" text-anchor="middle">Rec. NDCG@10</text>
+<rect x="598.3" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="625.6" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="625.6" y="374" text-anchor="middle">QA smoke accuracy</text>
+<rect x="686.1" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="713.3" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="713.3" y="374" text-anchor="middle">Semantic conformance</text>
+<rect x="773.9" y="50.0" width="54.4" height="300.0" fill="#2563eb"/>
+<text class="value" x="801.1" y="43.0" text-anchor="middle">1.000</text>
+<text class="label" x="801.1" y="374" text-anchor="middle">Neo4j structural validity</text>
+</svg>

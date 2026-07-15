@@ -1,0 +1,83 @@
+% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter{Phân tích yêu cầu}
+
+\section{Stakeholder và use case}
+
+\begin{itemize}
+\item Người dùng cuối hỏi thông tin phim và nhận recommendation có lý do.
+\item Data engineer thu thập, chuẩn hóa, enrich và import dữ liệu.
+\item Người vận hành khởi động Neo4j/API và kiểm tra health/stats.
+\item Người đánh giá chạy test, query, benchmark và truy vết evidence.
+\end{itemize}
+
+\section{Yêu cầu chức năng}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
+\caption{Tổng hợp yêu cầu chức năng}\label{tab:4-1} \\
+\hline
+\textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline
+\endfirsthead\hline \textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline\endhead
+F01 & Thu thập/cache TMDB & \texttt{collect\_tmdb.py}, \texttt{tmdb\_client.py} \\ \hline
+F02 & Tải/stream IMDb ratings & \texttt{download\_imdb.py}, \texttt{imdb\_loader.py} \\ \hline
+F03 & Clean, normalize, entity resolution & \texttt{processing/} \\ \hline
+F04 & Sinh 5 node CSV + 5 edge CSV + manifest & \texttt{pipeline.py} \\ \hline
+F05 & Import/validate Neo4j idempotent & \texttt{load\_neo4j.py} \\ \hline
+F06 & RDF export, entailment, 10 SPARQL & \texttt{export\_rdf.py}, \texttt{semantic\_reasoning.py} \\ \hline
+F07 & 10 Cypher và CRUD parameterized & \texttt{cypher/}, \texttt{kg/crud.py} \\ \hline
+F08 & QA answer + evidence & \texttt{/ask} \\ \hline
+F09 & Recommendation + explanation & \texttt{/recommend} \\ \hline
+F10 & Search/stats/health và UI & FastAPI/static UI \\ \hline
+\end{longtable}
+
+\section{Yêu cầu phi chức năng}
+
+Hệ thống phải idempotent, query-safe, có provenance, chạy demo không phụ thuộc
+Internet sau import, không commit API key/raw dataset, và có workflow tái lập.
+Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. LLM failure
+không được làm mất QA fallback hoặc recommendation.
+
+\section{Competency questions}
+
+\begin{enumerate}
+\item Phim nào do một đạo diễn thực hiện?
+\item Ai đóng trong một phim?
+\item Hai diễn viên có phim chung nào?
+\item Phim thuộc thể loại X có rating trên ngưỡng?
+\item Ai từng đóng chung với một người?
+\item Đạo diễn nào thường làm phim thuộc thể loại X?
+\item Đường ngắn nhất giữa hai người?
+\item Phim nào tương tự một phim nguồn và vì sao?
+\item Thống kê số node theo label?
+\item Fact co-star nào được suy ra và bằng chứng là phim nào?
+\end{enumerate}
+
+\section{Ma trận truy vết competency question}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
+\caption{Tổng hợp ma trận truy vết competency question (2)}\label{tab:4-2} \\
+\hline
+\textbf{CQ} & \textbf{Pattern chính} & \textbf{Số bước} & \textbf{Đầu ra/bằng chứng} \\ \hline
+\endfirsthead\hline \textbf{CQ} & \textbf{Pattern chính} & \textbf{Số bước} & \textbf{Đầu ra/bằng chứng} \\ \hline\endhead
+1 & Person-DIRECTED-Movie & 1 & Movie ID/title, director link \\ \hline
+2 & Person-ACTED\_IN-Movie & 1 & Person và edge metadata \\ \hline
+3 & Person-ACTED\_IN-Movie-ACTED\_IN-Person & 2 & shared Movie \\ \hline
+4 & Movie-HAS\_GENRE-Genre + rating & 1 + filter & Movie/rating/genre \\ \hline
+5 & Person-CO\_STARRED\_WITH-Person & derived & count/evidence IDs \\ \hline
+6 & Person-DIRECTED-Movie-HAS\_GENRE-Genre & 2 + aggregate & director/count \\ \hline
+7 & variable path giữa Person & tối đa 8 edge & node/relationship path \\ \hline
+8 & Movie-feature-Movie & 2 mỗi feature & contribution/feature \\ \hline
+9 & scan label & 0 & count theo label \\ \hline
+10 & CO\_STARRED\_WITH & derived audit & pair/count/evidence IDs \\ \hline
+\end{longtable}
+
+Ma trận là cầu nối giữa yêu cầu, schema, query catalog, API và test. Class hoặc
+relationship không hỗ trợ competency question nào cần được cân nhắc loại khỏi
+MVP; một CQ không ánh xạ được query chỉ ra thiếu sót thiết kế.
+
+\section{Acceptance criteria}
+
+Dataset phải đạt ít nhất 2.000 Movie; import hai lần không đổi counts; validation
+không có violation chưa giải thích; catalog Cypher/SPARQL phải parse/chạy; API trả
+schema hợp lệ; recommendation trả explanation; evaluation ghi backend, corpus và
+protocol; integration test phải kết nối Neo4j test riêng thay vì skip do graph
+demo có dữ liệu.

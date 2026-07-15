@@ -6,3 +6,5 @@ CREATE CONSTRAINT studio_id IF NOT EXISTS FOR (n:Studio) REQUIRE n.company_id IS
 CREATE INDEX person_tmdb_id IF NOT EXISTS FOR (n:Person) ON (n.tmdb_id);
 CREATE INDEX movie_title IF NOT EXISTS FOR (n:Movie) ON (n.title);
 CREATE INDEX person_name IF NOT EXISTS FOR (n:Person) ON (n.name);
+CREATE FULLTEXT INDEX entity_names IF NOT EXISTS
+FOR (n:Movie|Person|Genre|Keyword|Studio) ON EACH [n.title, n.name];

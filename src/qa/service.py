@@ -64,20 +64,30 @@ def _movie_evidence(items, relation): return [{"movie_id": m["tmdb_id"], "title"
 
 def _path_evidence(movies, source, target):
     # Person -> Movie -> Person breadth-first search with explicit evidence.
-    adjacency: dict[str, list[tuple[str, dict]]] = {}
+    # Keep the bipartite structure instead of expanding every cast into an O(c²)
+    # person clique. This matters for the documented 5,000-movie smoke scale.
+    person_movies: dict[str, list[dict]] = {}
     for m in movies:
         people = list(dict.fromkeys(m["actors"] + m["directors"]))
-        for a in people:
-            for b in people:
-                if a != b: adjacency.setdefault(a, []).append((b, {"from": a, "movie_id": m["tmdb_id"], "movie": m["title"], "to": b}))
-    start = next((p for p in adjacency if source.casefold() in p.casefold()), None)
-    goal = next((p for p in adjacency if target.casefold() in p.casefold()), None)
+        movie = {"tmdb_id": m["tmdb_id"], "title": m["title"], "people": people}
+        for person in people:
+            person_movies.setdefault(person, []).append(movie)
+    start = next((p for p in person_movies if source.casefold() in p.casefold()), None)
+    goal = next((p for p in person_movies if target.casefold() in p.casefold()), None)
     if not start or not goal: return []
-    queue = [(start, [])]; visited = {start}
+    queue = [(start, [])]; visited_people = {start}; visited_movies = set()
     for node, path in queue:
         if node == goal: return path
-        for neighbor, edge in adjacency.get(node, []):
-            if neighbor not in visited: visited.add(neighbor); queue.append((neighbor, path + [edge]))
+        for movie in person_movies.get(node, []):
+            if movie["tmdb_id"] in visited_movies:
+                continue
+            visited_movies.add(movie["tmdb_id"])
+            for neighbor in movie["people"]:
+                if neighbor not in visited_people:
+                    visited_people.add(neighbor)
+                    edge = {"from": node, "movie_id": movie["tmdb_id"],
+                            "movie": movie["title"], "to": neighbor}
+                    queue.append((neighbor, path + [edge]))
     return []
 
 

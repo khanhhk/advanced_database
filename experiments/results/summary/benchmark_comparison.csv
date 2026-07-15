@@ -1,0 +1,5 @@
+intent,iterations,neo4j_median_ms,neo4j_p95_ms,sqlite_median_ms,sqlite_p95_ms
+movies_by_director,100,10.0865,16.5566,1.0504125000000002,1.643834
+common_movies,100,38.324,48.3256,12.0411355,13.070105
+movies_by_genre_rating,100,2.6665,5.0848,0.8136795,0.835101
+directors_by_genre,100,4.5449,6.6388,2.118795,2.198301

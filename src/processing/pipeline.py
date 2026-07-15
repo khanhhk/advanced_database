@@ -64,6 +64,7 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
     edges: dict[str, list[dict]] = defaultdict(list)
 
     seen_movies: set[int] = set()
+    movie_rows: dict[int, int] = {}
     for index, record in enumerate(records):
         movie = clean_movie(record)
         if not movie:
@@ -74,8 +75,10 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
             invalid.append({"row": index, "reason": "duplicate_tmdb_id", "tmdb_id": movie_id})
             continue
         seen_movies.add(movie_id)
+        movie_rows[movie_id] = index
         movies.append({key: movie.get(key) for key in
-                       ("tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "popularity", "overview")})
+                       ("tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating",
+                        "imdb_rating", "imdb_votes", "popularity", "overview")})
         for value in movie.get("actors", []):
             person_id, name, item = _entity(value, "tmdb_id", "person")
             if not name: continue
@@ -102,10 +105,24 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
                 entities[plural][entity_id] = row
                 edges[edge_name].append({"tmdb_id": movie_id, id_name: entity_id, "source": "tmdb"})
 
+    # A Movie without any graph relationship cannot answer a competency question
+    # and would violate the import quality gate. Keep the rejection explicit in
+    # the manifest instead of silently loading an isolated node.
+    linked_movie_ids = {row["tmdb_id"] for name in EDGE_FILES for row in edges[name]}
+    orphan_ids = {movie["tmdb_id"] for movie in movies} - linked_movie_ids
+    if orphan_ids:
+        movies = [movie for movie in movies if movie["tmdb_id"] not in orphan_ids]
+        invalid.extend({"row": movie_rows[movie_id], "reason": "no_graph_relationships", "tmdb_id": movie_id}
+                       for movie_id in sorted(orphan_ids))
+
     wanted_imdb_ids = {m["imdb_id"] for m in movies if m.get("imdb_id")}
     ratings = _imdb_ratings(imdb_ratings_path, wanted_imdb_ids)
     for movie in movies:
-        movie.update(ratings.get(movie.get("imdb_id"), {"imdb_rating": None, "imdb_votes": None}))
+        if movie.get("imdb_id") in ratings:
+            movie.update(ratings[movie["imdb_id"]])
+        else:
+            movie.setdefault("imdb_rating", None); movie.setdefault("imdb_votes", None)
+    matched_rating_count = sum(movie.get("imdb_rating") is not None for movie in movies)
     node_rows = {"movies": movies, **{key: list(values.values()) for key, values in entities.items()}}
     node_fields = {
         "movies": ["tmdb_id", "imdb_id", "title", "release_date", "runtime", "rating", "imdb_rating", "imdb_votes", "popularity", "overview"],
@@ -124,13 +141,19 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
         "imdb": {"source": str(imdb_ratings_path) if imdb_ratings_path else None,
                  "source_sha256": hashlib.sha256(imdb_ratings_path.read_bytes()).hexdigest() if imdb_ratings_path else None,
-                 "tmdb_movies_with_imdb_id": len(wanted_imdb_ids), "matched_ratings": len(ratings),
-                 "match_method": "exact_imdb_id"},
+                 "tmdb_movies_with_imdb_id": len(wanted_imdb_ids), "matched_ratings": matched_rating_count,
+                 "match_method": "exact_imdb_id" if imdb_ratings_path else "preserved_from_snapshot"},
         "counts": {**{k: len(v) for k, v in node_rows.items()}, **{k: len(edges[k]) for k in EDGE_FILES}},
         "quality": {"input_records": len(records), "valid_movies": len(movies), "invalid_records": len(invalid),
                     "duplicate_movie_rate": sum(x["reason"] == "duplicate_tmdb_id" for x in invalid) / max(len(records), 1),
                     "missing_required_rate": sum(x["reason"].startswith("missing") for x in invalid) / max(len(records), 1),
-                    "invalid_edges": 0},
+                    "invalid_edges": 0,
+                    "rejected_orphan_movies": len(orphan_ids),
+                    "imdb_id_coverage": len(wanted_imdb_ids) / max(len(movies), 1),
+                    "imdb_rating_match_coverage": matched_rating_count / max(len(wanted_imdb_ids), 1),
+                    "movies_with_cast": len({row["tmdb_id"] for row in edges["acted_in"]}) / max(len(movies), 1),
+                    "movies_with_director": len({row["tmdb_id"] for row in edges["directed"]}) / max(len(movies), 1),
+                    "movies_with_genre": len({row["tmdb_id"] for row in edges["has_genre"]}) / max(len(movies), 1)},
         "invalid_records": invalid,
     }
     (output_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")

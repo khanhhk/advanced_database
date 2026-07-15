@@ -1,6 +1,6 @@
 # Movie Knowledge Graph — project memory
 
-Last reviewed: 2026-07-13. This briefing summarizes the original Office sources,
+Last reviewed: 2026-07-16. This briefing summarizes the original Office sources,
 the project Markdown documents and the current implementation artifacts.
 
 ## Mission and thesis
@@ -37,6 +37,10 @@ subset is exported as RDF/Turtle for OWL/SPARQL comparison.
   implementation are straightforward.
 - RDF/RDFS/OWL, RDFLib and Protégé/Jena illustrate standards, semantic
   constraints, SPARQL and reasoner capabilities.
+- The standards path is executable: RDFLib materializes the declared RDFS/OWL-RL
+  subset (domain/range, inverse and symmetric properties) and validates functional
+  properties, disjoint classes and required Movie titles. It reports before/after
+  triple counts and violations; it is not presented as a full OWL 2 DL reasoner.
 - Stable source IDs are keys. Match TMDB↔IMDb by exact IDs first; fuzzy matching
   is a logged, confidence-scored fallback, never a name-based primary key.
 - Import nodes before edges, create constraints/indexes first, use parameterized
@@ -127,17 +131,31 @@ facts; QA accuracy on 20–30 questions; recommendation relevance (Precision@K,
 NDCG@K or documented manual review); and the fraction of recommendations with
 an evidence path. Store configurations and CSV/JSON results so experiments are
 reproducible.
+The evaluation workflow also provides a same-snapshot SQLite baseline for four
+representative relational queries and generates CSV/Markdown/SVG evidence summaries.
+Neo4j/SQLite comparisons are valid only when run on the same machine, dataset,
+warm-up policy and iteration count.
+The RDF workflow parses and executes all ten numbered SPARQL queries after
+materialization. Administrative Movie CRUD is parameterized and tested but is
+not exposed through the public API. Integration tests use a dedicated temporary
+Neo4j service on Bolt 7688, so they can verify reset/import/idempotency, QA,
+recommendation and CRUD without touching the demo graph.
 
-Current reproducible evidence (2026-07-12): the corpus has 2,000 movies and the
-loaded graph validates at 36,574 nodes/337,822 relationships with zero structural
-violations. Exact IMDb ratings match 1,677 of 1,785 movies carrying an IMDb ID.
+Current reproducible evidence (2026-07-15): the pipeline receives 2,001 records,
+explicitly rejects one relationship-free Movie, and retains 2,000 valid movies.
+The loaded graph validates at 37,349 nodes/353,915 relationships with zero structural
+violations. Exact IMDb ratings match 1,783 of 1,855 movies carrying an IMDb ID.
 Silver entity-resolution P/R/F1 is 1.00; silver co-star precision is 1.00;
-recommendation P@10 is 0.64, NDCG@10 is 0.699, and explanation coverage is 1.00.
+the 20-question Neo4j QA smoke corpus passes 20/20 with evidence; semantic
+materialization adds 35,419 triples (154,970 to 190,389) with zero violations;
+all ten SPARQL queries execute successfully.
 The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
-question at 2,000 movies; intent medians range 2.34–110.65 ms and p95 ranges
-3.83–126.20 ms. This single-scale result is not a scalability claim.
+question at 2,000 movies; intent medians range 2.67–188.74 ms and p95 ranges
+5.08–211.24 ms. This single-scale result is not a scalability claim. A controlled
+same-snapshot SQLite baseline covers four equivalent queries and is faster on all
+four; this supports a trade-off discussion, not a universal engine ranking.
 On 20 silver cases against real Neo4j, the
-IDF-weighted production ranker reaches P@10 0.70 and NDCG@10 0.748. Historical
+IDF-weighted production ranker reaches P@10 0.715 and NDCG@10 0.754. Historical
 results were overlap 0.67/0.723, weighted Jaccard 0.64/0.699, and hybrid
 0.59/0.657; these remain design history rather than end-user alternatives.
 Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
@@ -176,6 +194,19 @@ authoritative full-fidelity sources for report/slide reconstruction.
   requirements and engineering quality rules.
 - `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
   presentation story; keep final artifacts aligned with measured evidence.
+- `docs/REPORT_DRAFT.md`: current ten-chapter Vietnamese report manuscript,
+  including theory, related work, implementation, measured evidence, validity
+  limits, preliminary IEEE-style references and reproducibility appendices.
+- `report_latex/`: submission-oriented LaTeX report generated from the manuscript.
+  `main.tex` assembles all ten chapters and appendices, `ref.bib` is the normalized
+  bibliography, and all 14 image calls now resolve to vector PDF figures under
+  `report_latex/images/`. Eleven editable diagram sources live in
+  `report_latex/images/sources/*.drawio`; three measured charts are generated from
+  experiment CSV/JSON. Regenerate them with
+  `python3 scripts/generate_report_figures.py`. `web_ui.pdf` is explicitly a
+  source-aligned wireframe and may later be replaced by a real screenshot with
+  the same filename. Regenerate chapter files with
+  `python3 scripts/report_markdown_to_latex.py` after manuscript edits.
 - Root `README.md`: current runnable interface and commands; prefer it over old
   planning prose when describing implemented behavior.
 - `docs/README.md`: index and precedence guidance for the planning documents.
@@ -191,6 +222,9 @@ authoritative full-fidelity sources for report/slide reconstruction.
   troubleshooting runbook.
 - `docs/REPORT_SLIDE_SOURCE_GUIDE.md`: claim-to-evidence and narrative mapping for
   future report and slide production.
+- `docs/CHECKLIST_TRACEABILITY.md`: A-level release gate mapping each grading
+  criterion to code/evidence and the future report/slide; source Office files are
+  references, not submission deliverables.
 
 ## Working rules and precedence
 
