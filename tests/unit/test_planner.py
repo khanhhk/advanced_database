@@ -21,6 +21,19 @@ def test_compiler_builds_parameterized_movie_query():
     assert "DIRECTED" in compiled.cypher and "HAS_GENRE" in compiled.cypher
 
 
+def test_compiler_uses_runtime_entity_ids_without_exposing_them_to_llm_schema():
+    plan = QueryPlan.model_validate({
+        "operation": "find", "target": "Movie",
+        "entities": [{"type": "Person", "name": "Alex Kim", "role": "actor"}],
+        "filters": [], "sort": None, "limit": 10, "confidence": .9,
+        "clarification": None,
+    })
+    compiled = compile_plan(plan, {0: "tmdb:111"})
+    assert "p0.person_id = $entity0_id" in compiled.cypher
+    assert compiled.parameters["entity0_id"] == "tmdb:111"
+    assert "entity_id" not in QueryPlan.model_json_schema()["$defs"]["EntityReference"]["properties"]
+
+
 def test_planner_validates_structured_llm_output(monkeypatch):
     payload = {"operation": "find", "target": "Movie",
                "entities": [{"type": "Person", "name": "Elisa Gabrielli", "role": "any"}],

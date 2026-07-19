@@ -11,6 +11,7 @@
 5. [Sơ đồ flow kỹ thuật](movie_knowledge_graph_flow.drawio)
 6. [Giải thích từng block và flow kiến trúc](ARCHITECTURE_EXPLAINED.md)
 7. [Runbook dựng Qwen3-8B-AWQ với vLLM](QWEN_VLLM_DEPLOYMENT.md)
+8. [Runbook demo Neo4j trên DBeaver Community](DBEAVER_NEO4J_DEMO.md)
 
 ## Tên đề tài đề xuất
 

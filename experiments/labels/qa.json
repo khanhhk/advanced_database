@@ -10,7 +10,7 @@
   {"question":"Các phim do Quentin Tarantino đạo diễn?","intent":"movies_by_director","contains":"Pulp Fiction"},
   {"question":"Ai tham gia phim Interstellar?","intent":"actors_in_movie","contains":"Anne Hathaway"},
   {"question":"Phim nào do Steven Spielberg đạo diễn?","intent":"movies_by_director","contains":"Saving Private Ryan"},
-  {"question":"Diễn viên nào đóng trong phim The Dark Knight?","intent":"actors_in_movie","contains":"Christian Bale"},
+  {"question":"Diễn viên nào đóng trong phim The Dark Knight?","intent":"actors_in_movie","contains":"Christian Bale","excludes":["Tom Hardy","Anne Hathaway"]},
   {"question":"Phim chung của Leonardo DiCaprio và Tom Hardy?","intent":"common_movies","contains":"Inception"},
   {"question":"Phim Drama có rating trên 8?","intent":"movies_by_genre_rating","contains_any":["The Shawshank Redemption","The Godfather"]},
   {"question":"Ai từng đóng chung với Leonardo DiCaprio?","intent":"co_stars","contains":"Tom Hardy"},

@@ -1,6 +1,6 @@
 # Movie Knowledge Graph — project memory
 
-Last reviewed: 2026-07-16. This briefing summarizes the original Office sources,
+Last reviewed: 2026-07-20. This briefing summarizes the original Office sources,
 the project Markdown documents and the current implementation artifacts.
 
 ## Mission and thesis
@@ -115,9 +115,14 @@ name hashes accepted only for old fixtures/raw caches; `ACTED_IN` retains
 character and cast order. Genre, keyword, and studio source IDs are preserved as
 well. QA entity slots are linked to canonical Movie/Person entities before
 parameterized Cypher execution, and link confidence is returned as evidence.
-Full-text entity candidates now precede fuzzy reranking. The eight known intents
-remain fixed parameterized Cypher templates; unrestricted LLM-to-Cypher is
-deliberately not enabled.
+Full-text entity candidates now precede fuzzy reranking. Linked entities retain
+their stable `tmdb_id`/source-qualified ID through deterministic catalog and LLM
+compiler execution; canonical-name equality is only a fallback for legacy
+fixtures without IDs. This prevents substring contamination such as querying
+`The Dark Knight` and also matching `The Dark Knight Rises`, and prevents query
+execution from expanding to every same-name entity after one candidate is linked.
+The nine known intents remain fixed parameterized Cypher templates; unrestricted
+LLM-to-Cypher is deliberately not enabled.
 Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
 an explicit relevance rubric. Their metrics may be reported only as silver
@@ -142,12 +147,15 @@ not exposed through the public API. Integration tests use a dedicated temporary
 Neo4j service on Bolt 7688, so they can verify reset/import/idempotency, QA,
 recommendation and CRUD without touching the demo graph.
 
-Current reproducible evidence (2026-07-15): the pipeline receives 2,001 records,
+Current reproducible evidence (data snapshot 2026-07-15; QA rerun 2026-07-20):
+the pipeline receives 2,001 records,
 explicitly rejects one relationship-free Movie, and retains 2,000 valid movies.
 The loaded graph validates at 37,349 nodes/353,915 relationships with zero structural
 violations. Exact IMDb ratings match 1,783 of 1,855 movies carrying an IMDb ID.
 Silver entity-resolution P/R/F1 is 1.00; silver co-star precision is 1.00;
-the 20-question Neo4j QA smoke corpus passes 20/20 with evidence; semantic
+the strengthened 20-question Neo4j QA smoke corpus passes 20/20 with evidence,
+including a negative assertion that `The Dark Knight` cast lookup excludes actors
+linked only to `The Dark Knight Rises`; semantic
 materialization adds 35,419 triples (154,970 to 190,389) with zero violations;
 all ten SPARQL queries execute successfully.
 The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
@@ -195,7 +203,9 @@ authoritative full-fidelity sources for report/slide reconstruction.
   presentation story; keep final artifacts aligned with measured evidence.
 - `docs/REPORT_DRAFT.md`: current ten-chapter Vietnamese report manuscript,
   including theory, related work, implementation, measured evidence, validity
-  limits, preliminary IEEE-style references and reproducibility appendices.
+  limits, preliminary IEEE-style references and reproducibility appendices. Its
+  front matter and evaluation prose were streamlined on 2026-07-19 for the course
+  submission; detailed defense notes now live in `docs/internal/REPORT_SUPPORT.md`.
 - `report_latex/`: submission-oriented LaTeX report generated from the manuscript.
   `main.tex` assembles all ten chapters and appendices, `ref.bib` is the normalized
   bibliography, and all 14 image calls now resolve to vector PDF figures under
@@ -214,6 +224,10 @@ authoritative full-fidelity sources for report/slide reconstruction.
   of the draw.io architecture.
 - `docs/QWEN_VLLM_DEPLOYMENT.md`: reproducible GPU/vLLM/Qwen setup and
   troubleshooting runbook.
+- `docs/DBEAVER_NEO4J_DEMO.md`: reproducible DBeaver Community demo runbook. It
+  configures the official Neo4j JDBC full bundle as a custom Generic driver,
+  documents SQL-to-Cypher versus native Cypher use, and covers connection and
+  authentication troubleshooting for the local Compose graph.
 - `docs/CHECKLIST_TRACEABILITY.md`: A-level release gate mapping each grading
   criterion to code/evidence and the future report/slide; source Office files are
   references, not submission deliverables.

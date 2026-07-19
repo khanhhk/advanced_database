@@ -48,6 +48,11 @@ thật, lệnh sẽ dừng và yêu cầu chạy `make data`.
 
 Importer tạo constraints/index, dùng transaction batch + `MERGE` theo stable ID, sinh `CO_STARRED_WITH`, rồi kiểm tra orphan/duplicate/invalid edge. Có thể chạy lại không sinh bản ghi trùng. Mật khẩu Compose chỉ dành cho local demo; hãy thay trong `.env` ở môi trường khác.
 
+Để duyệt graph và demo truy vấn dạng bảng trên DBeaver Community, xem
+[runbook DBeaver + Neo4j JDBC](docs/DBEAVER_NEO4J_DEMO.md). Tài liệu bao gồm cách
+tạo Generic JDBC driver bằng full bundle chính thức của Neo4j, chạy SQL qua lớp
+dịch SQL-to-Cypher, chạy Cypher trực tiếp và xử lý lỗi kết nối thường gặp.
+
 ## RDF và kiểm thử
 
 ```bash
@@ -83,7 +88,7 @@ hệ quá phổ biến và ưu tiên đặc trưng chung hiếm, có tính phân
 đặc trưng chung là `type_weight * (1 + ln((N+1)/(df+1)))`; kết quả trả lại chính
 các đạo diễn, diễn viên, keyword, thể loại và studio chung làm bằng chứng. Đây là
 phương pháp graph-native duy nhất của API. Trên 20 case silver chạy với Neo4j
-thật, phương pháp đạt P@10 `0,70` và NDCG@10 `0,748`.
+thật, phương pháp đạt P@10 `0,715` và NDCG@10 `0,754`.
 
 `make run` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
 dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn
@@ -137,8 +142,9 @@ end-to-end Neo4j thật được lưu tại `experiments/results/neo4j_benchmark
 
 TMDB credits được giữ dưới dạng object có source ID; `Person.person_id` ưu tiên
 `tmdb:<id>` thay vì hash tên, và `ACTED_IN` giữ `character`/`cast_order`. QA
-Neo4j liên kết slot phim/người về tên canonical trước khi chạy catalog Cypher và
-đưa confidence vào evidence. Các evaluator có sẵn tại
+Neo4j liên kết slot về thực thể canonical, dùng stable ID để chạy catalog Cypher
+và đưa ID/confidence vào evidence. Tên canonical chỉ là fallback cho fixture cũ
+không có ID. Các evaluator có sẵn tại
 `experiments/evaluate_entity_resolution.py`, `evaluate_reasoning.py` và
 `evaluate_recommendation.py`; schema corpus review nằm tại
 `experiments/labels/README.md`. `make evaluation-corpora` sinh bộ silver có

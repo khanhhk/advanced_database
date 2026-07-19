@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T17:49:39.350592+00:00",
+  "generated_at": "2026-07-19T17:25:01.177937+00:00",
   "backend": "neo4j",
   "dataset_movie_count": 2000,
   "cases": 20,
@@ -112,9 +112,13 @@
       "question": "Diễn viên nào đóng trong phim The Dark Knight?",
       "intent": "actors_in_movie",
       "contains": "Christian Bale",
+      "excludes": [
+        "Tom Hardy",
+        "Anne Hathaway"
+      ],
       "actual_intent": "actors_in_movie",
-      "answer": "Các diễn viên: Christian Bale, Christian Bale, Heath Ledger, Gary Oldman, Aaron Eckhart, Tom Hardy, Michael Caine, Joseph Gordon-Levitt, Maggie Gyllenhaal, Anne Hathaway, Gary Oldman, Marion Cotillard, Morgan Freeman, Morgan Freeman, Monique Gabriela Curnen, Michael Caine, Ron Dean, Matthew Modine, Cillian Murphy, Alon Aboutboul, Chin Han, Ben Mendelsohn, Nestor Carbonell, Burn Gorman, Eric Roberts, Daniel Sunjata, Ritchie Coster, Aidan Gillen, Anthony Michael Hall, Sam Kennard, Keith Szarabajka, Aljaž Tepina, Colin McFarlane, Nestor Carbonell, Joshua Harto, Brett Cullen, Melinda McGraw, Nick Julian, Nathan Gamble, Miranda Nolan",
-      "evidence_count": 41,
+      "answer": "Các diễn viên: Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine, Maggie Gyllenhaal, Gary Oldman, Morgan Freeman, Monique Gabriela Curnen, Ron Dean, Cillian Murphy, Chin Han, Nestor Carbonell, Eric Roberts, Ritchie Coster, Anthony Michael Hall, Keith Szarabajka, Colin McFarlane, Joshua Harto, Melinda McGraw, Nathan Gamble",
+      "evidence_count": 21,
       "passed": true
     },
     {

@@ -95,7 +95,10 @@ class Neo4jRepository:
     def search_entities(self, query: str, limit: int = 10) -> list[dict]:
         fulltext = """CALL db.index.fulltext.queryNodes('entity_names', $q, {limit:$limit}) YIELD node, score
         WHERE node:Movie OR node:Person OR node:Genre OR node:Keyword OR node:Studio
-        RETURN coalesce(node.tmdb_id,node.name) AS id,coalesce(node.title,node.name) AS name,
+        RETURN CASE WHEN node:Movie THEN node.tmdb_id WHEN node:Person THEN node.person_id
+                    WHEN node:Genre THEN node.genre_id WHEN node:Keyword THEN node.keyword_id
+                    WHEN node:Studio THEN node.company_id END AS id,
+        coalesce(node.title,node.name) AS name,
         CASE WHEN node:Movie THEN 'Movie' WHEN node:Person THEN 'Person' WHEN node:Genre THEN 'Genre'
              WHEN node:Keyword THEN 'Keyword' ELSE 'Studio' END AS type,
         CASE WHEN node:Movie THEN substring(toString(node.release_date),0,4) ELSE null END AS year,
@@ -110,7 +113,10 @@ class Neo4jRepository:
         MATCH (n) WHERE (n:Movie OR n:Person OR n:Genre OR n:Keyword OR n:Studio) AND
         (toLower(coalesce(n.title,n.name)) CONTAINS toLower($q) OR
          any(token IN tokens WHERE toLower(coalesce(n.title,n.name)) CONTAINS token))
-        RETURN coalesce(n.tmdb_id,n.name) AS id, coalesce(n.title,n.name) AS name,
+        RETURN CASE WHEN n:Movie THEN n.tmdb_id WHEN n:Person THEN n.person_id
+                    WHEN n:Genre THEN n.genre_id WHEN n:Keyword THEN n.keyword_id
+                    WHEN n:Studio THEN n.company_id END AS id,
+        coalesce(n.title,n.name) AS name,
         CASE WHEN n:Movie THEN 'Movie' WHEN n:Person THEN 'Person' WHEN n:Genre THEN 'Genre'
              WHEN n:Keyword THEN 'Keyword' ELSE 'Studio' END AS type,
         CASE WHEN n:Movie THEN substring(toString(n.release_date),0,4) ELSE null END AS year

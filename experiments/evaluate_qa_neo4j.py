@@ -10,6 +10,15 @@ from src.config import get_settings
 from src.kg.repository import Neo4jRepository
 
 
+def case_passes(case: dict, text: str, intent: str, evidence: list[dict]) -> bool:
+    expected = case.get("contains_any", [case.get("contains")])
+    content_ok = any(value and value.casefold() in text.casefold() for value in expected)
+    excluded_ok = all(value.casefold() not in text.casefold()
+                      for value in case.get("excludes", []))
+    evidence_ok = len(evidence) >= case.get("min_evidence", 1)
+    return intent == case["intent"] and content_ok and excluded_ok and evidence_ok
+
+
 def evaluate(questions: Path) -> dict:
     settings = get_settings()
     repository = Neo4jRepository(settings.neo4j_uri, settings.neo4j_user,
@@ -20,10 +29,7 @@ def evaluate(questions: Path) -> dict:
         movie_count = repository.stats()["nodes"].get("Movie", 0)
         for case in cases:
             text, intent, evidence = repository.answer(case["question"])
-            expected = case.get("contains_any", [case.get("contains")])
-            content_ok = any(value and value.casefold() in text.casefold() for value in expected)
-            evidence_ok = len(evidence) >= case.get("min_evidence", 1)
-            passed = intent == case["intent"] and content_ok and evidence_ok
+            passed = case_passes(case, text, intent, evidence)
             details.append({**case, "actual_intent": intent, "answer": text,
                             "evidence_count": len(evidence), "passed": passed})
     finally:
