@@ -108,11 +108,11 @@ Movie.title & Unicode string & có & TMDB & trim whitespace, không được r�
 Movie.rating & số 0–10 & không & TMDB & giữ riêng với IMDb rating \\ \hline
 \texttt{Movie.}\linebreak{}\texttt{imdb\_rating} & số 0–10 & không & IMDb & chỉ ghi khi exact \texttt{imdb\_id} match \\ \hline
 \texttt{Movie.}\linebreak{}\texttt{imdb\_votes} & integer không âm & không & IMDb & số phiếu tại snapshot thu thập \\ \hline
-\texttt{Person.}\linebreak{}\texttt{person\_id} & source-qualified ID & có & TMDB/pipeline & identity key, không dùng tên làm khóa \\ \hline
+\texttt{Person.}\linebreak{}\texttt{person\_id} & source-qualified ID & có & TMDB/\linebreak{}pipeline & identity key, không dùng tên làm khóa \\ \hline
 \texttt{ACTED\_IN.}\linebreak{}\texttt{character} & string & không & TMDB credits & vai diễn được công bố ở nguồn \\ \hline
 \texttt{ACTED\_IN.}\linebreak{}\texttt{cast\_order} & integer không âm & không & TMDB credits & thứ tự cast, không phải độ quan trọng tuyệt đối \\ \hline
 \texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{movie\_count} & integer dương & có & luật & số phim chung hỗ trợ fact suy ra \\ \hline
-\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{evidence\_movie\_ids} & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
+\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{evidence\_}\linebreak{}\texttt{movie\_ids} & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
 \end{longtable}
 
 Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế

@@ -5,37 +5,37 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="collect" value="Thu thập&#10;TMDB · IMDb" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="collect" value="Thu thập&#10;TMDB · IMDb" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="15" y="215" width="145" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="raw" value="Raw cache bất biến&#10;JSON · GZIP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="raw" value="Raw cache&#10;JSON · GZIP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="190" y="215" width="160" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="process" value="Xử lý&#10;clean · normalize · resolve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="process" value="Xử lý&#10;clean · normalize&#10;resolve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="380" y="215" width="185" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="tables" value="Dữ liệu chuẩn hóa&#10;node/edge CSV · manifest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="tables" value="Dữ liệu&#10;node/edge CSV&#10;manifest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="595" y="215" width="185" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="neo" value="Neo4j import&#10;constraint · MERGE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="neo" value="Neo4j import&#10;constraint · MERGE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="820" y="85" width="175" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="rdf" value="RDF export&#10;materialization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="rdf" value="RDF export&#10;materialization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="820" y="345" width="175" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="eval" value="Kiểm tra&#10;validation · experiments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="eval" value="Kiểm tra&#10;validation&#10;experiments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="1035" y="215" width="150" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="collect" target="raw">
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="collect" target="raw">
           <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="checksum" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="raw" target="process">
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="raw" target="process">
           <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="CSV" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="process" target="tables">
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="process" target="tables">
           <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="batch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.28;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tables" target="neo">
+        <mxCell id="e4" value="batch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.28;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tables" target="neo">
           <mxGeometry relative="1" y="-12" as="geometry">
             <Array as="points">
               <mxPoint x="776" y="244" />
@@ -43,7 +43,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e5" value="same snapshot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.72;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tables" target="rdf">
+        <mxCell id="e5" value="snapshot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.72;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tables" target="rdf">
           <mxGeometry relative="1" y="-12" as="geometry">
             <Array as="points">
               <mxPoint x="824" y="291" />
@@ -51,7 +51,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e6" value="graph checks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.30000000000000004;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="eval">
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.30000000000000004;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="eval">
           <mxGeometry relative="1" y="-12" as="geometry">
             <Array as="points">
               <mxPoint x="991" y="137" />
@@ -59,7 +59,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7" value="semantic checks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="rdf" target="eval">
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="rdf" target="eval">
           <mxGeometry relative="1" y="-12" as="geometry">
             <Array as="points">
               <mxPoint x="1039" y="397" />

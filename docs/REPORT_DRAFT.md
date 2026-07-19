@@ -521,11 +521,11 @@ hạn thay vì một claim provenance chuẩn hóa toàn diện.
 | Movie.rating | số 0–10 | không | TMDB | giữ riêng với IMDb rating |
 | `Movie.`<br>`imdb_rating` | số 0–10 | không | IMDb | chỉ ghi khi exact `imdb_id` match |
 | `Movie.`<br>`imdb_votes` | integer không âm | không | IMDb | số phiếu tại snapshot thu thập |
-| `Person.`<br>`person_id` | source-qualified ID | có | TMDB/pipeline | identity key, không dùng tên làm khóa |
+| `Person.`<br>`person_id` | source-qualified ID | có | TMDB/<br>pipeline | identity key, không dùng tên làm khóa |
 | `ACTED_IN.`<br>`character` | string | không | TMDB credits | vai diễn được công bố ở nguồn |
 | `ACTED_IN.`<br>`cast_order` | integer không âm | không | TMDB credits | thứ tự cast, không phải độ quan trọng tuyệt đối |
 | `CO_STARRED_WITH.`<br>`movie_count` | integer dương | có | luật | số phim chung hỗ trợ fact suy ra |
-| `CO_STARRED_WITH.`<br>`evidence_movie_ids` | danh sách ID | có | luật | đường truy vết về các Movie tiền đề |
+| `CO_STARRED_WITH.`<br>`evidence_`<br>`movie_ids` | danh sách ID | có | luật | đường truy vết về các Movie tiền đề |
 
 Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế
 kiểm tra dữ liệu đóng. Required field là yêu cầu của ứng dụng; functional và

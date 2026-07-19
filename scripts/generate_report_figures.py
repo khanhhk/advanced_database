@@ -93,7 +93,7 @@ def _draw_route(ax, points, label):
                                 linewidth=1.45, color=EDGE, zorder=3))
     if label:
         x, y = _label_anchor(points)
-        ax.text(x, y, label, fontsize=7.8, ha="center", va="center", color="#2F3B4A",
+        ax.text(x, y, label, fontsize=8.8, ha="center", va="center", color="#2F3B4A",
                 bbox=dict(boxstyle="round,pad=0.22", facecolor="white", edgecolor="#D7DEE7",
                           linewidth=.6, alpha=.98), zorder=8)
 
@@ -110,20 +110,22 @@ def _draw_node(ax, label, x, y, w, h, role):
     lines = label.split("\n")
     if len(lines) == 1:
         ax.text(x + w / 2, y + h / 2, lines[0], ha="center", va="center",
-                fontsize=10.0, weight="semibold", color="#1F2937", zorder=7)
+                fontsize=11.5, weight="semibold", color="#1F2937", zorder=7)
     else:
-        ax.text(x + w / 2, y + h * .61, lines[0], ha="center", va="center",
-                fontsize=9.8, weight="semibold", color="#1F2937", zorder=7)
-        ax.text(x + w / 2, y + h * .39, "\n".join(lines[1:]), ha="center", va="center",
-                fontsize=8.4, color="#354152", linespacing=1.18, zorder=7)
+        ax.text(x + w / 2, y + h * .68, lines[0], ha="center", va="center",
+                fontsize=10.8, weight="semibold", color="#1F2937", zorder=7)
+        ax.text(x + w / 2, y + h * .34, "\n".join(lines[1:]), ha="center", va="center",
+                fontsize=9.2, color="#354152", linespacing=1.12, zorder=7)
 
 
 def diagram(name, title, nodes, edges, note=None):
     """Render a publication-ready PDF and matching editable draw.io source."""
-    fig, ax = plt.subplots(figsize=(12.8, 7.2))
+    # Match the physical size used on an A4 report page.  A very wide source
+    # canvas would make LaTeX scale 8–10 pt labels down to unreadable text.
+    fig, ax = plt.subplots(figsize=(7.4, 4.16))
     fig.patch.set_facecolor("white"); ax.set_facecolor("white")
     ax.set_xlim(0, 12); ax.set_ylim(0, 6.8); ax.axis("off")
-    ax.text(6, 6.48, title, ha="center", va="center", fontsize=17.5,
+    ax.text(6, 6.48, title, ha="center", va="center", fontsize=16.0,
             weight="bold", color=INK)
     ax.plot([4.7, 7.3], [6.22, 6.22], color="#C9D5E3", linewidth=1.2)
     boxes = {}
@@ -145,7 +147,7 @@ def diagram(name, title, nodes, edges, note=None):
     for _, label, x, y, w, h, role in nodes:
         _draw_node(ax, label, x, y, w, h, role)
     if note:
-        ax.text(6, .19, note, fontsize=8.2, color="#445164", ha="center", va="center",
+        ax.text(6, .19, note, fontsize=9.0, color="#445164", ha="center", va="center",
                 bbox=dict(boxstyle="round,pad=.35", facecolor="#F7F9FB", edgecolor="#D7DEE7", linewidth=.7))
     fig.tight_layout(pad=.65)
     fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight", pad_inches=.08)
@@ -159,7 +161,7 @@ def diagram(name, title, nodes, edges, note=None):
     for node_id, label, x, y, w, h, role in nodes:
         cell = ET.SubElement(root, "mxCell", id=node_id, value=label,
             style=(f"rounded=1;whiteSpace=wrap;html=1;fillColor={COLORS[role]};"
-                   f"strokeColor={STROKES[role]};strokeWidth=2;fontSize=13;fontColor=#1F2937;"
+                   f"strokeColor={STROKES[role]};strokeWidth=2;fontSize=15;fontColor=#1F2937;"
                    "fontStyle=1;spacing=8;shadow=1;"),
             vertex="1", parent="1")
         ET.SubElement(cell, "mxGeometry", x=str(round(x*100)), y=str(round((6.1-y-h)*100)),
@@ -174,7 +176,7 @@ def diagram(name, title, nodes, edges, note=None):
         ex, ey = port_values(source_side, source_fraction)
         enx, eny = port_values(target_side, target_fraction)
         style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;"
-                 "endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;"
+                 "endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;"
                  "fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;"
                  f"exitX={ex};exitY={ey};exitDx=0;exitDy=0;entryX={enx};entryY={eny};entryDx=0;entryDy=0;")
         edge = ET.SubElement(root, "mxCell", id=f"e{i}", value=label, style=style,
@@ -191,7 +193,7 @@ def diagram(name, title, nodes, edges, note=None):
 
 def metric_plots():
     plt.rcParams.update({
-        "font.family": "DejaVu Sans", "font.size": 10.5,
+        "font.family": "DejaVu Sans", "font.size": 11.5,
         "axes.titlesize": 15, "axes.titleweight": "bold", "axes.labelcolor": "#354152",
         "axes.edgecolor": "#B9C4D0", "xtick.color": "#354152", "ytick.color": "#354152",
     })
@@ -203,13 +205,13 @@ def metric_plots():
               .replace("Neo4j structural validity", "Neo4j — hợp lệ cấu trúc") for r in rows]
     values = [float(r["value"]) for r in rows]
     colors = ["#3B73A8"] * 4 + ["#C58A18"] * 2 + ["#7B5AA6", "#4D8B52", "#4D8B52"]
-    fig, ax = plt.subplots(figsize=(11.2, 6.2)); y = list(range(len(rows)))
+    fig, ax = plt.subplots(figsize=(7.4, 4.8)); y = list(range(len(rows)))
     ax.barh(y, values, height=.62, color=colors, edgecolor="white", linewidth=.7)
     ax.set_yticks(y, labels); ax.invert_yaxis(); ax.set_xlim(0, 1.06)
     ax.set_xlabel("Giá trị chỉ số (0–1)"); ax.set_title("Tổng hợp chất lượng dữ liệu và kết quả đánh giá", color=INK, pad=15)
     for i, v in enumerate(values):
         ax.text(min(v + .012, 1.015), i, f"{v:.3f}", va="center", ha="left",
-                fontsize=9.5, weight="semibold", color="#263445")
+                fontsize=10.5, weight="semibold", color="#263445")
     ax.grid(axis="x", color="#D7DEE7", linewidth=.7); ax.set_axisbelow(True)
     ax.spines[["top", "right", "left"]].set_visible(False)
     fig.tight_layout(pad=1.2); fig.savefig(OUT/"quality_metrics.pdf", bbox_inches="tight"); plt.close(fig)
@@ -221,7 +223,7 @@ def metric_plots():
         "movies_by_genre_rating": "Phim theo thể loại và điểm", "directors_by_genre": "Đạo diễn theo thể loại",
     }
     labels = [intent_labels.get(r["intent"], r["intent"].replace("_", " ")) for r in rows]
-    fig, axes = plt.subplots(1, 2, figsize=(12.2, 5.9), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.4, 4.8), sharey=True)
     for ax, statistic, neo_key, sqlite_key in (
         (axes[0], "Median", "neo4j_median_ms", "sqlite_median_ms"),
         (axes[1], "P95", "neo4j_p95_ms", "sqlite_p95_ms"),
@@ -233,8 +235,8 @@ def metric_plots():
         ax.set_xscale("log"); ax.set_title(statistic, color=INK, pad=10); ax.set_xlabel("Độ trễ (ms, thang log)")
         ax.grid(axis="x", color="#D7DEE7", linewidth=.7); ax.set_axisbelow(True)
         ax.spines[["top", "right", "left"]].set_visible(False)
-        for i, value in enumerate(neo): ax.text(value * 1.07, i - offset, f"{value:.2f}", va="center", fontsize=8.2)
-        for i, value in enumerate(sqlite): ax.text(value * 1.07, i + offset, f"{value:.2f}", va="center", fontsize=8.2)
+        for i, value in enumerate(neo): ax.text(value * 1.07, i - offset, f"{value:.2f}", va="center", fontsize=9.2)
+        for i, value in enumerate(sqlite): ax.text(value * 1.07, i + offset, f"{value:.2f}", va="center", fontsize=9.2)
     axes[0].set_yticks(list(range(len(rows))), labels); axes[0].invert_yaxis()
     handles, legend_labels = axes[1].get_legend_handles_labels()
     fig.legend(handles, legend_labels, loc="upper center", bbox_to_anchor=(.5, .93), ncol=2, frameon=False)
@@ -248,11 +250,11 @@ def metric_plots():
     method_labels = {"idf_weighted (production)": "IDF-weighted\n(đang sử dụng)", "overlap": "Overlap",
                      "weighted_jaccard": "Weighted Jaccard", "hybrid": "Hybrid"}
     labels=[method_labels[d["method"]] for d in data]
-    fig,ax=plt.subplots(figsize=(10.8,5.9)); x=list(range(len(data))); w=.31
+    fig,ax=plt.subplots(figsize=(7.2,4.6)); x=list(range(len(data))); w=.31
     ax.axvspan(-.48, .48, color="#E8F3E8", zorder=0)
     bars_p = ax.bar([i-w/2 for i in x],[d["precision_at_k"] for d in data],w,label="P@10",color="#3B73A8")
     bars_n = ax.bar([i+w/2 for i in x],[d["ndcg_at_k"] for d in data],w,label="NDCG@10",color="#C58A18")
-    ax.bar_label(bars_p, fmt="%.3f", padding=3, fontsize=9); ax.bar_label(bars_n, fmt="%.3f", padding=3, fontsize=9)
+    ax.bar_label(bars_p, fmt="%.3f", padding=3, fontsize=10); ax.bar_label(bars_n, fmt="%.3f", padding=3, fontsize=10)
     ax.set_ylim(0, .86); ax.set_xticks(x,labels); ax.set_ylabel("Giá trị chỉ số")
     ax.set_title("So sánh các phương pháp xếp hạng trên 20 trường hợp kiểm thử", color=INK, pad=15)
     ax.legend(frameon=False, ncol=2, loc="upper right"); ax.grid(axis="y", color="#D7DEE7", linewidth=.7)
@@ -286,7 +288,7 @@ def main():
         ("movie", "genre", "hasGenre", .22, .28, .5),
         ("movie", "keyword", "hasKeyword", -.22, .72, .5),
         ("movie", "studio", "producedBy", .22, .28, .5),
-        ("person", "person", "coStarredWith", .05),
+        ("person", "person", "coStarredWith", -.22),
         ("movie", "axioms", "ràng buộc ngữ nghĩa")],
        "Ontology dùng một lớp Person; vai trò actor/director được biểu diễn bằng object property."),
 
@@ -296,54 +298,54 @@ def main():
        ("genre", "Genre\ngenre_id · name", .45, 1.2, 2.45, 1.05, "semantic"),
        ("keyword", "Keyword\nkeyword_id · name", 9.1, 4.35, 2.45, 1.05, "process"),
        ("studio", "Studio\ncompany_id · name", 9.1, 1.2, 2.45, 1.05, "app")],
-       [("person", "movie", "ACTED_IN {character, cast_order}", -.42, .35, .72),
+       [("person", "movie", "ACTED_IN", -.42, .35, .72),
         ("person", "movie", "DIRECTED", -.05, .72, .88),
         ("movie", "genre", "HAS_GENRE", .38, .25, .5),
         ("movie", "keyword", "HAS_KEYWORD", -.22, .75, .5),
         ("movie", "studio", "PRODUCED_BY", .22, .25, .5),
-        ("person", "person", "CO_STARRED_WITH {count, evidence}", .08)],
+        ("person", "person", "CO_STARRED_WITH {count, evidence}", -.22)],
        "Một Person có thể đồng thời tham gia ACTED_IN và DIRECTED; CO_STARRED_WITH là quan hệ suy diễn."),
 
       ("system_architecture", "Kiến trúc tổng thể hệ thống", [
-       ("sources", "Nguồn dữ liệu\nTMDB API · IMDb ratings", .15, 4.35, 1.6, 1.05, "source"),
-       ("pipeline", "Xử lý dữ liệu\ncache · clean · resolve", 2.0, 4.35, 1.7, 1.05, "process"),
-       ("artifacts", "Processed data\nCSV · manifest", 3.95, 4.35, 1.65, 1.05, "process"),
+       ("sources", "Nguồn\nTMDB · IMDb", .15, 4.35, 1.6, 1.05, "source"),
+       ("pipeline", "Xử lý\ncache · clean\nresolve", 2.0, 4.35, 1.7, 1.05, "process"),
+       ("artifacts", "Dữ liệu\nCSV · manifest", 3.95, 4.35, 1.65, 1.05, "process"),
        ("neo", "Neo4j 5\nProperty Graph", 5.95, 4.35, 1.65, 1.05, "graph"),
-       ("rdf", "RDF / OWL\nSPARQL · entailment", 5.95, 1.75, 1.65, 1.05, "semantic"),
-       ("qa", "Hỏi–đáp\nplanner · linker · compiler", 7.95, 4.7, 1.8, 1.05, "process"),
-       ("rec", "Gợi ý phim\nIDF graph similarity", 7.95, 2.15, 1.8, 1.05, "semantic"),
+       ("rdf", "RDF / OWL\nSPARQL\nentailment", 5.95, 1.75, 1.65, 1.05, "semantic"),
+       ("qa", "Hỏi–đáp\nplanner · linker\ncompiler", 7.95, 4.7, 1.8, 1.05, "process"),
+       ("rec", "Gợi ý phim\nIDF graph\nsimilarity", 7.95, 2.15, 1.8, 1.05, "semantic"),
        ("api", "FastAPI\nAPI an toàn", 10.15, 3.55, 1.45, 1.0, "app"),
-       ("ui", "Web UI\nQA · recommendation", 10.15, 1.35, 1.45, 1.0, "app")],
-       [("sources", "pipeline", "raw cache"), ("pipeline", "artifacts", "chuẩn hóa"),
-        ("artifacts", "neo", "batch import"), ("artifacts", "rdf", "cùng snapshot"),
-        ("neo", "qa", "fact + evidence", 0, .7, .5), ("neo", "rec", "graph features", 0, .3, .5),
-        ("qa", "api", "answer", -.22, .65, .7), ("rec", "api", "ranking", .22, .55, .3),
-        ("api", "ui", "JSON / HTTP")],
+       ("ui", "Web UI\nQA · gợi ý", 10.15, 1.35, 1.45, 1.0, "app")],
+       [("sources", "pipeline", ""), ("pipeline", "artifacts", ""),
+        ("artifacts", "neo", ""), ("artifacts", "rdf", "snapshot"),
+        ("neo", "qa", "", 0, .7, .5), ("neo", "rec", "", 0, .3, .5),
+        ("qa", "api", "", -.22, .65, .7), ("rec", "api", "", .22, .55, .3),
+        ("api", "ui", "HTTP")],
        "Neo4j phục vụ ứng dụng; RDF/OWL là nhánh tiêu chuẩn hóa và kiểm tra ngữ nghĩa trên cùng snapshot."),
 
       ("entity_resolution_flow", "Cleaning và phân giải thực thể", [
        ("raw", "Dữ liệu thô\nTMDB records", .25, 2.9, 1.65, 1.05, "source"),
-       ("clean", "Chuẩn hóa\nkiểm tra trường bắt buộc", 2.25, 2.9, 1.85, 1.05, "process"),
+       ("clean", "Chuẩn hóa\nkiểm tra trường\nbắt buộc", 2.25, 2.9, 1.85, 1.05, "process"),
        ("id", "Đối sánh chính\nexact stable ID", 4.65, 4.25, 2.0, 1.05, "graph"),
-       ("fuzzy", "Phương án dự phòng\nfuzzy score + log", 4.65, 1.55, 2.0, 1.05, "process"),
-       ("decision", "Kiểm tra quyết định\nngưỡng + tính duy nhất", 7.25, 2.9, 2.0, 1.05, "semantic"),
-       ("out", "Thực thể chuẩn\nID · provenance · confidence", 9.85, 2.9, 1.9, 1.05, "app")],
-       [("raw", "clean", "validate"), ("clean", "id", "ưu tiên ID", -.24, .7, .5),
-        ("clean", "fuzzy", "khi thiếu ID", .24, .3, .5), ("id", "decision", "candidate", -.24, .5, .7),
-        ("fuzzy", "decision", "candidate", .24, .5, .3), ("decision", "out", "chấp nhận / từ chối")],
+       ("fuzzy", "Dự phòng\nfuzzy score · log", 4.65, 1.55, 2.0, 1.05, "process"),
+       ("decision", "Quyết định\nngưỡng · duy nhất", 7.25, 2.9, 2.0, 1.05, "semantic"),
+       ("out", "Thực thể\nID · provenance\nconfidence", 9.85, 2.9, 1.9, 1.05, "app")],
+       [("raw", "clean", ""), ("clean", "id", "exact ID", -.24, .7, .5),
+        ("clean", "fuzzy", "fallback", .24, .3, .5), ("id", "decision", "", -.24, .5, .7),
+        ("fuzzy", "decision", "", .24, .5, .3), ("decision", "out", "")],
        "Tên không được dùng làm khóa chính; fuzzy fallback luôn có confidence và dấu vết kiểm tra."),
 
       ("etl_pipeline", "Pipeline dữ liệu có thể chạy lại", [
        ("collect", "Thu thập\nTMDB · IMDb", .15, 2.9, 1.45, 1.05, "source"),
-       ("raw", "Raw cache bất biến\nJSON · GZIP", 1.9, 2.9, 1.6, 1.05, "source"),
-       ("process", "Xử lý\nclean · normalize · resolve", 3.8, 2.9, 1.85, 1.05, "process"),
-       ("tables", "Dữ liệu chuẩn hóa\nnode/edge CSV · manifest", 5.95, 2.9, 1.85, 1.05, "process"),
+       ("raw", "Raw cache\nJSON · GZIP", 1.9, 2.9, 1.6, 1.05, "source"),
+       ("process", "Xử lý\nclean · normalize\nresolve", 3.8, 2.9, 1.85, 1.05, "process"),
+       ("tables", "Dữ liệu\nnode/edge CSV\nmanifest", 5.95, 2.9, 1.85, 1.05, "process"),
        ("neo", "Neo4j import\nconstraint · MERGE", 8.2, 4.2, 1.75, 1.05, "graph"),
        ("rdf", "RDF export\nmaterialization", 8.2, 1.6, 1.75, 1.05, "semantic"),
-       ("eval", "Kiểm tra\nvalidation · experiments", 10.35, 2.9, 1.5, 1.05, "app")],
-       [("collect", "raw", "cache"), ("raw", "process", "checksum"), ("process", "tables", "CSV"),
-        ("tables", "neo", "batch", -.24, .72, .5), ("tables", "rdf", "same snapshot", .24, .28, .5),
-        ("neo", "eval", "graph checks", -.24, .5, .7), ("rdf", "eval", "semantic checks", .24, .5, .3)],
+       ("eval", "Kiểm tra\nvalidation\nexperiments", 10.35, 2.9, 1.5, 1.05, "app")],
+       [("collect", "raw", ""), ("raw", "process", ""), ("process", "tables", ""),
+        ("tables", "neo", "batch", -.24, .72, .5), ("tables", "rdf", "snapshot", .24, .28, .5),
+        ("neo", "eval", "", -.24, .5, .7), ("rdf", "eval", "", .24, .5, .3)],
        "Import lặp lại không tạo bản ghi trùng; manifest và checksum cho phép xác định chính xác snapshot."),
 
       ("costar_reasoning", "Suy diễn quan hệ CO_STARRED_WITH", [
@@ -351,52 +353,52 @@ def main():
        ("m1", "Movie M1\nbằng chứng 1", 3.55, 4.35, 1.85, 1.05, "graph"),
        ("m2", "Movie M2\nbằng chứng 2", 3.55, 1.75, 1.85, 1.05, "graph"),
        ("b", "Person B", 6.75, 3.05, 1.75, 1.05, "source"),
-       ("derived", "Quan hệ suy diễn\ncount = 2 · evidence = [M1, M2]", 9.25, 3.0, 2.35, 1.15, "semantic")],
+       ("derived", "Quan hệ mới\nderived · count = 2\nevidence = [M1, M2]", 9.25, 3.0, 2.35, 1.15, "semantic")],
        [("a", "m1", "ACTED_IN", -.24, .75, .5), ("a", "m2", "ACTED_IN", .24, .25, .5),
         ("b", "m1", "ACTED_IN", .24, .75, .5), ("b", "m2", "ACTED_IN", -.24, .25, .5),
-        ("b", "derived", "materialize pair (A, B)", .18, .5, .5)],
+        ("b", "derived", "", .18, .5, .5)],
        "Fact chỉ được tạo khi tồn tại shared Movie; edge lưu derived=true, movie_count và evidence_movie_ids."),
 
       ("semantic_reasoning", "Materialization và kiểm tra ngữ nghĩa", [
-       ("ttl", "RDF asserted\n154.970 triples", .35, 3.0, 1.8, 1.05, "source"),
-       ("rules", "Tập luật thực thi\ndomain · range · inverse · symmetric", 2.55, 3.0, 2.3, 1.05, "semantic"),
-       ("mat", "RDF materialized\n190.389 triples", 5.25, 3.0, 1.95, 1.05, "graph"),
-       ("validate", "Kiểm tra ràng buộc\nfunctional · disjoint · title", 7.6, 3.0, 2.15, 1.05, "process"),
-       ("result", "Kết quả\n0 vi phạm · +35.419 triples", 10.1, 3.0, 1.55, 1.05, "app")],
-       [("ttl", "rules", "parse"), ("rules", "mat", "materialize"),
-        ("mat", "validate", "validate"), ("validate", "result", "JSON report")],
+       ("ttl", "RDF đầu vào\n154.970 triples", .35, 3.0, 1.8, 1.05, "source"),
+       ("rules", "Tập luật\ndomain · range\ninverse · symmetric", 2.55, 3.0, 2.3, 1.05, "semantic"),
+       ("mat", "RDF kết quả\n190.389 triples", 5.25, 3.0, 1.95, 1.05, "graph"),
+       ("validate", "Kiểm tra\nfunctional · disjoint\nrequired title", 7.6, 3.0, 2.15, 1.05, "process"),
+       ("result", "Kết quả\n0 vi phạm\n+35.419 triples", 10.1, 3.0, 1.55, 1.05, "app")],
+       [("ttl", "rules", ""), ("rules", "mat", ""),
+        ("mat", "validate", ""), ("validate", "result", "")],
        "Workflow dùng RDFLib và một tập con RDFS/OWL-RL; không phải full OWL 2 DL reasoner."),
 
       ("qa_sequence", "Luồng xử lý yêu cầu hỏi–đáp", [
-       ("user", "Người dùng\ncâu hỏi tự nhiên", .15, 4.0, 1.45, 1.05, "source"),
+       ("user", "Người hỏi\ncâu hỏi\ntự nhiên", .15, 4.0, 1.45, 1.05, "source"),
        ("api", "FastAPI\nPOST /ask", 1.9, 4.0, 1.45, 1.05, "app"),
-       ("planner", "Lập kế hoạch\nLLM hoặc 9-intent fallback", 3.65, 4.0, 1.85, 1.05, "process"),
-       ("link", "Liên kết thực thể\ncanonical entity", 5.85, 4.0, 1.7, 1.05, "process"),
-       ("compile", "Biên dịch an toàn\nwhitelist Cypher", 7.9, 4.0, 1.75, 1.05, "semantic"),
-       ("neo", "Neo4j\nparameterized query", 10.0, 4.0, 1.65, 1.05, "graph"),
-       ("answer", "Câu trả lời\nanswer · evidence · confidence", 7.75, 1.45, 2.05, 1.05, "app")],
-       [("user", "api", "question"), ("api", "planner", "validated input"),
-        ("planner", "link", "QueryPlan"), ("link", "compile", "canonical slots"),
-        ("compile", "neo", "safe query"), ("neo", "answer", "rows + path"),
-        ("answer", "user", "JSON response", 0, .5, .5, [(6.7, .95), (.85, .95)])],
+       ("planner", "Planner\nLLM / 9 intents", 3.65, 4.0, 1.85, 1.05, "process"),
+       ("link", "Liên kết\ncanonical entity", 5.85, 4.0, 1.7, 1.05, "process"),
+       ("compile", "Biên dịch\nCypher whitelist", 7.9, 4.0, 1.75, 1.05, "semantic"),
+       ("neo", "Neo4j\nparameterized\nquery", 10.0, 4.0, 1.65, 1.05, "graph"),
+       ("answer", "Câu trả lời\nanswer · evidence\nconfidence", 7.75, 1.45, 2.05, 1.05, "app")],
+       [("user", "api", ""), ("api", "planner", ""),
+        ("planner", "link", ""), ("link", "compile", ""),
+        ("compile", "neo", ""), ("neo", "answer", "rows + path"),
+        ("answer", "user", "JSON", 0, .5, .5, [(6.7, .95), (.85, .95)])],
        "LLM không sinh Cypher và không tự trả lời; fact cùng evidence luôn được lấy từ Neo4j."),
 
       ("recommendation_explanation", "Xếp hạng và giải thích gợi ý phim", [
-       ("seed", "Phim đầu vào\nTMDB ID", .35, 3.0, 1.45, 1.05, "source"),
-       ("features", "Duyệt graph\ndirector · actor · keyword · genre · studio", 2.15, 2.85, 2.35, 1.35, "graph"),
-       ("idf", "Tính đóng góp\ntype weight × IDF rarity", 4.9, 2.95, 2.05, 1.15, "process"),
-       ("rank", "Tổng hợp điểm\nsắp xếp Top-K", 7.35, 2.95, 1.8, 1.15, "semantic"),
-       ("explain", "Kết quả có giải thích\nshared features · score", 9.55, 2.85, 2.1, 1.35, "app")],
-       [("seed", "features", "traverse"), ("features", "idf", "candidate features"),
-        ("idf", "rank", "score"), ("rank", "explain", "ranked movies")],
+       ("seed", "Phim gốc\nTMDB ID", .35, 3.0, 1.45, 1.05, "source"),
+       ("features", "Duyệt graph\ndirector · actor\nkeyword · genre · studio", 2.15, 2.85, 2.35, 1.35, "graph"),
+       ("idf", "Đóng góp\ntype weight × IDF", 4.9, 2.95, 2.05, 1.15, "process"),
+       ("rank", "Xếp hạng\nsắp xếp Top-K", 7.35, 2.95, 1.8, 1.15, "semantic"),
+       ("explain", "Giải thích\nshared features\nscore", 9.55, 2.85, 2.1, 1.35, "app")],
+       [("seed", "features", ""), ("features", "idf", ""),
+        ("idf", "rank", ""), ("rank", "explain", "")],
        "Trọng số loại: director 3, actor 2, keyword 1,5, genre 1 và studio 0,75."),
 
       ("web_ui", "Giao diện web: hỏi–đáp và gợi ý phim", [
        ("header", "MOVIE KNOWLEDGE GRAPH\nAdvanced Database", .45, 5.05, 11.1, .75, "neutral"),
-       ("tabs", "Điều hướng\nHỏi đáp   |   Gợi ý phim tương tự", .75, 4.05, 10.5, .7, "source"),
+       ("tabs", "Điều hướng\nHỏi đáp   |   Gợi ý phim tương tự", .75, 4.0, 10.5, .85, "source"),
        ("history", "Hội thoại hỏi–đáp\nBạn: Phim nào do Christopher Nolan đạo diễn?\nTrợ lý: Danh sách phim và bằng chứng", .75, 1.55, 6.55, 2.15, "neutral"),
        ("evidence", "Bằng chứng graph\nentity link · intent · rows · latency", 7.65, 2.55, 3.6, 1.15, "semantic"),
-       ("input", "Ô nhập câu hỏi\nNhập nội dung…                                      Gửi", .75, .65, 10.5, .6, "app")],
+       ("input", "Ô nhập câu hỏi\nNhập nội dung…                                      Gửi", .75, .55, 10.5, .75, "app")],
        [],
        "Wireframe bám theo giao diện hiện tại: lịch sử hội thoại, evidence và hai tab chức năng."),
     ]
