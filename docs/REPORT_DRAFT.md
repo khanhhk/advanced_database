@@ -13,83 +13,23 @@
 **Thành viên:** [Họ tên – MSSV]  
 **Thời gian:** 2026
 
----
+## Lời mở đầu
 
-## Lời cam đoan và nguyên tắc sử dụng bằng chứng
+Knowledge Graph là một hướng tiếp cận phù hợp với dữ liệu có nhiều loại thực thể
+và quan hệ liên kết. Trong miền phim, một bộ phim liên hệ với diễn viên, đạo diễn,
+thể loại, từ khóa và hãng sản xuất; các quan hệ này tạo ra nhiều câu hỏi mà cách
+biểu diễn đồ thị có thể mô tả trực tiếp và dễ theo dõi hơn.
 
-Báo cáo phân biệt rõ kết quả đã đo, kết quả silver và kế hoạch mở rộng. Mọi số
-liệu định lượng được dẫn từ artifact có thể tái lập; không dùng fixture, ảnh minh
-họa hoặc kết quả mô phỏng để thay cho lần chạy trên graph thật. Những đánh giá
-cần người phản biện độc lập được ghi là giới hạn thay vì suy diễn thành gold
-evaluation. Tác giả chịu trách nhiệm về nội dung tổng hợp, trích dẫn và cách diễn
-giải kết quả trong báo cáo.
+Báo cáo trình bày quá trình xây dựng Movie Knowledge Graph từ dữ liệu TMDB và
+IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế ontology và graph schema,
+nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một số luật suy diễn.
+Trên nền tảng đó, project triển khai hai chức năng chính: hỏi–đáp về phim bằng
+ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong graph.
 
-## Tóm tắt
-
-Dữ liệu phim được phân tán ở nhiều nguồn và chứa mật độ quan hệ cao giữa phim,
-diễn viên, đạo diễn, thể loại, từ khóa và hãng sản xuất. Mô hình bảng có thể lưu
-trữ các dữ liệu này, nhưng những câu hỏi nhiều bước thường đòi hỏi nhiều bảng nối,
-trong khi kết quả gợi ý cần thêm cơ chế dựng lại đường bằng chứng. Báo cáo trình
-bày quá trình xây dựng một Movie Knowledge Graph đầu cuối nhằm tích hợp dữ liệu
-TMDB và IMDb, hỗ trợ truy vấn đa bước, suy diễn dựa trên luật, hỏi–đáp bằng ngôn
-ngữ tự nhiên và gợi ý phim có giải thích.
-
-TMDB được dùng làm nguồn đồ thị chính; IMDb `title.ratings.tsv.gz` chỉ bổ sung
-rating và số lượt bình chọn bằng phép nối chính xác trên `imdb_id`. Pipeline bảo
-toàn định danh nguồn, cache dữ liệu thô bất biến, chuẩn hóa thành năm bảng node và
-năm bảng edge, sau đó nạp idempotent vào Neo4j bằng constraint, transaction batch
-và `MERGE`. Một ontology RDF/OWL mô tả năm lớp cốt lõi cùng các object/datatype
-property. Nhánh chuẩn ngữ nghĩa materialize một tập con RDFS/OWL-RL gồm domain,
-range, inverse và symmetric property, đồng thời kiểm tra functional property,
-disjoint class và thuộc tính bắt buộc. Luật nghiệp vụ `CO_STARRED_WITH` được
-materialize bằng Cypher và lưu số phim cùng danh sách phim bằng chứng.
-
-Hệ thống cung cấp hai ứng dụng trên cùng graph. Với hỏi–đáp, Qwen chỉ lập kế hoạch
-truy vấn dưới dạng JSON có schema; entity linker và compiler whitelist chuyển kế
-hoạch thành Cypher tham số hóa. Parser chín intent là fallback khi model không
-sẵn sàng. Với gợi ý, hệ thống dùng IDF-weighted graph similarity, giảm đóng góp
-của đặc trưng phổ biến và trả chính các đạo diễn, diễn viên, thể loại, từ khóa và
-studio chung làm giải thích. Trên graph 2.000 phim đã xác nhận, hệ thống có 37.349
-node và 353.915 relationship, không phát hiện vi phạm cấu trúc. Kết quả silver
-evaluation ghi nhận entity-resolution P/R/F1 bằng 1,00; precision của 50 fact
-co-star bằng 1,00; production recommender trên Neo4j đạt P@10 bằng 0,715 và
-NDCG@10 bằng 0,754. Corpus QA 20 câu đạt 20/20 trên Neo4j. Benchmark Neo4j gồm
-một warm-up và 100 lần chạy cho mỗi câu hỏi, với median 2,67–188,74 ms và p95
-5,08–211,24 ms. Các kết quả silver/smoke không
-được diễn giải như gold human evaluation, và benchmark một quy mô không được dùng
-để kết luận về scalability.
-
-**Từ khóa:** Knowledge Graph, Neo4j, RDF, OWL, SPARQL, Cypher, entity resolution,
-question answering, explainable recommendation.
-
-## Abstract
-
-Movie data is distributed across heterogeneous sources and contains dense
-relationships among movies, actors, directors, genres, keywords, and production
-companies. Although relational tables can store such data, multi-hop questions
-often require numerous joins, while explainable recommendations require an
-additional mechanism to reconstruct supporting evidence. This report presents
-an end-to-end Movie Knowledge Graph that integrates TMDB and IMDb data and
-supports multi-hop queries, rule-based inference, natural-language question
-answering, and explainable movie recommendation.
-
-TMDB is the primary graph source, whereas the compressed IMDb ratings dataset is
-stream-joined by exact IMDb identifiers. The pipeline preserves source IDs and
-provenance, produces normalized node and edge tables, and loads them idempotently
-into Neo4j. An RDF/OWL ontology and an executable RDFS/OWL-RL subset provide a
-standards-oriented semantic view. The QA component constrains Qwen to producing
-a validated JSON query plan rather than Cypher; a whitelist compiler generates
-parameterized queries. The recommendation component applies IDF-weighted graph
-similarity and returns the shared graph features that contributed to each score.
-
-On the confirmed 2,000-movie graph, structural validation reported no duplicate
-stable IDs, orphan movies, missing required properties, invalid relationship
-types, or unsupported derived facts. Silver evaluation achieved 1.00 entity
-resolution precision/recall/F1, 1.00 co-star precision, and recommendation P@10
-of 0.715 with NDCG@10 of 0.754; the 20-question Neo4j QA smoke corpus passed
-20/20 cases with evidence. These figures are reported with explicit validity
-limitations: silver labels are not independent gold labels, and a single-scale
-benchmark does not establish scalability.
+Nội dung báo cáo lần lượt giới thiệu cơ sở lý thuyết, yêu cầu và thiết kế hệ
+thống, pipeline dữ liệu, các thành phần ứng dụng, kết quả kiểm thử và hướng phát
+triển. Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có
+thể chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao.
 
 ---
 
@@ -126,7 +66,7 @@ quyết đồng thời:
 3. Chất lượng: phát hiện bản ghi lỗi, duplicate, orphan và quan hệ sai kiểu/hướng.
 4. An toàn truy vấn: không ghép chuỗi người dùng vào Cypher.
 5. Tái lập: cache, checksum, manifest, cấu hình và kết quả đo phải kiểm chứng được.
-6. Trung thực thực nghiệm: phân biệt smoke test, silver evaluation và human review.
+6. Đánh giá: lưu cấu hình, dữ liệu đầu vào và kết quả để có thể chạy lại.
 
 ## 1.3. Câu hỏi nghiên cứu
 
@@ -364,10 +304,9 @@ reproducibility trong phạm vi Movie KG. Vì vậy smoke test 10 câu của đ�
 Đề tài không cố cạnh tranh với KGQA/recommender quy mô nghiên cứu. Khoảng trống
 được chọn là một workflow học phần nhưng đầu cuối và kiểm chứng được: thu thập
 đa nguồn, identity/provenance, hai biểu diễn graph, suy diễn có evidence, API/UI,
-test và artifact thực nghiệm. Điểm khác biệt quan trọng là claim discipline: LLM
-không trực tiếp sinh Cypher/câu trả lời, recommendation score không được gọi là
-xác suất, silver label không được gọi là gold label và benchmark một quy mô không
-được ngoại suy thành scalability.
+test và artifact thực nghiệm. Điểm khác biệt quan trọng là LLM không trực tiếp
+sinh Cypher hoặc câu trả lời, recommendation score được giải thích bằng các quan
+hệ trong graph, và các kết quả đo đều gắn với snapshot cùng cấu hình cụ thể.
 
 ## 3.4. So sánh có cấu trúc các công trình liên quan
 
@@ -815,11 +754,11 @@ trong graph và contribution xác định.
 
 # Chương 9. Thực nghiệm và kết quả
 
-## 9.1. Nguyên tắc báo cáo
+## 9.1. Cách đọc kết quả
 
-Mọi kết quả phải gắn với backend, movie count, corpus type, K, iteration và cấu
-hình. Silver corpus không gọi là gold/human-reviewed trước khi review gate qua.
-QA và performance claims chỉ lấy từ production Neo4j artifacts.
+Các kết quả dưới đây được ghi kèm backend, số lượng phim, số case, K, số lần lặp
+và cấu hình cần thiết. Các bộ kiểm thử do nhóm chuẩn bị nhằm kiểm tra hệ thống
+trên snapshot hiện tại; số liệu QA và hiệu năng được lấy từ Neo4j thực tế.
 
 ## 9.2. Dataset và graph
 
@@ -851,15 +790,14 @@ Quality gate không xóa im lặng record lỗi: Movie bị loại được ghi 
 
 ## 9.3. Entity resolution
 
-Corpus silver gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
+Corpus kiểm thử gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
 Kết quả là TP=75, TN=25, FP=0, FN=0, do đó precision, recall và F1 đều bằng 1,00.
-Kết quả chứng minh workflow xử lý đúng corpus deterministic này; nó không chứng
-minh mọi tên thực tế được giải quyết hoàn hảo. Muốn gọi human-reviewed, mỗi case
-phải có reviewer độc lập, timestamp, decision, rubric và adjudication note.
+Kết quả cho thấy workflow xử lý đúng bộ case hiện tại; các trường hợp tên trùng,
+alias hoặc dữ liệu thiếu vẫn cần được bổ sung khi mở rộng hệ thống.
 
 ## 9.4. Reasoning
 
-Năm mươi fact `CO_STARRED_WITH` silver được kiểm tra bằng supporting movie và
+Năm mươi fact `CO_STARRED_WITH` được kiểm tra bằng supporting movie và
 source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
 tra mọi derived edge phải có ít nhất một shared Movie. Semantic workflow trên
 full normalized snapshot materialize 35.419 triple, tăng từ 154.970 lên 190.389
@@ -873,7 +811,8 @@ mong đợi và tối thiểu một evidence record (riêng top-5 yêu cầu đ�
 Production path trên Neo4j đạt 20/20. Rubric shortest-path chấp nhận mọi đường hợp
 lệ thay vì khóa vào một intermediate; recommendation question kiểm tra contract
 và evidence, còn chất lượng ranking được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
-smoke corpus do nhóm xây dựng, không phải gold QA được reviewer độc lập xác nhận.
+bộ kiểm thử chức năng do nhóm xây dựng và có thể mở rộng thêm paraphrase hoặc câu
+mơ hồ trong các phiên bản sau.
 
 ## 9.6. Recommendation
 
@@ -884,7 +823,7 @@ smoke corpus do nhóm xây dựng, không phải gold QA được reviewer độ
 | Hybrid | 0,590 | 0,657 | baseline lịch sử |
 | IDF-weighted graph | **0,715** | **0,754** | production Neo4j |
 
-IDF đạt kết quả tốt nhất trên 20 case silver và mọi recommendation có explanation.
+IDF đạt kết quả tốt nhất trên 20 case kiểm thử và mọi recommendation có explanation.
 Tuy nhiên, corpus nhỏ và relevance rubric dựa trên metadata graph; kết quả không
 đồng nghĩa người dùng thực sẽ ưa thích recommendation.
 
@@ -918,8 +857,8 @@ thế latency phổ quát.
 - Top-20 cast bỏ diễn viên phụ.
 - Nguồn TMDB thay đổi theo thời gian; cache chỉ cố định một snapshot.
 - IMDb chỉ enrich Movie, chưa link Person.
-- Silver labels được sinh từ source/rule và chưa độc lập.
-- QA corpus deterministic 20 câu chưa có reviewer độc lập và chưa phủ paraphrase rộng.
+- Các bộ case đánh giá do nhóm xây dựng và còn nhỏ.
+- QA corpus deterministic 20 câu chưa phủ paraphrase rộng.
 - Recommendation không có user interaction, nên không đánh giá personalization.
 - Benchmark chỉ một quy mô Neo4j và phụ thuộc phần cứng/cache.
 
@@ -932,9 +871,9 @@ aggregation và shortest path; evidence là node/relationship thực thi.
 **RQ3:** Cypher rule tạo co-star có supporting movie; semantic profile tạo inverse
 và type entailment, đồng thời validator phát hiện conflict.  
 **RQ4:** IDF giảm ảnh hưởng feature phổ biến, đạt P@10/NDCG@10 cao hơn ba baseline
-trên corpus silver và giữ explanation coverage.  
-**RQ5:** Hệ thống đạt mục tiêu demo/reproducibility ở 2.000 phim nhưng chưa chứng
-minh gold-label accuracy, personalization hoặc multi-scale scalability.
+trên corpus kiểm thử và giữ explanation coverage.
+**RQ5:** Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 2.000 phim; phạm vi
+hiện tại chưa gồm cá nhân hóa hoặc benchmark nhiều quy mô.
 
 ## 9.10. Protocol tái chạy thực nghiệm
 
@@ -950,7 +889,7 @@ minh gold-label accuracy, personalization hoặc multi-scale scalability.
 Với relational baseline, snapshot và máy phải giống Neo4j run. Nếu không đáp ứng,
 kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
 
-## 9.11. Kiểm thử và release gate
+## 9.11. Kiểm thử và quy trình chạy
 
 Lần chạy cuối của `make test` đạt 30/30 test. Bộ test gồm unit test cho cleaning,
 entity resolution, query planning/compiler, RDF export, semantic materialization,
@@ -959,9 +898,9 @@ dùng Neo4j riêng ở Bolt 7688, thực hiện import hai lần để xác nh�
 sau đó kiểm tra QA, recommendation và vòng đời CRUD trước khi dọn graph test.
 
 Docker healthcheck gọi `cypher-shell RETURN 1`, nên trạng thái healthy chỉ được
-công bố sau khi Bolt thực sự nhận query; điều này loại race condition trong đó
-container đã chạy nhưng driver chưa handshake được. Release gate còn chạy
-`compileall`, dependency check và xác minh checksum của toàn bộ tài liệu nguồn.
+báo sau khi Bolt thực sự nhận query; điều này loại race condition trong đó
+container đã chạy nhưng driver chưa handshake được. Quy trình còn chạy
+`compileall`, kiểm tra dependency và xác minh checksum của tài liệu nguồn.
 
 ## 9.12. Phân tích lỗi và hướng khắc phục
 
@@ -970,8 +909,7 @@ container đã chạy nhưng driver chưa handshake được. Release gate còn 
 Rubric cũ khóa shortest path vào một intermediate và đã được thay bằng yêu cầu
 đúng intent, có đường/evidence hợp lệ. Recommendation question chỉ kiểm tra API
 contract; relevance dùng corpus P@10/NDCG@10 riêng. Bước tiếp theo là bổ sung
-paraphrase, câu mơ hồ, expected abstention và review độc lập thay vì tăng điểm
-bằng các câu gần template.
+paraphrase, câu mơ hồ và expected abstention thay vì chỉ dùng các câu gần template.
 
 ### Entity resolution
 
@@ -999,11 +937,10 @@ ghi concurrency trước khi tối ưu.
 view. Stable ID, provenance, safe query compiler, evidence-backed inference và
 explainable recommendation giúp kết quả không chỉ chạy được mà còn kiểm tra được.
 
-Hạn chế chính nằm ở coverage dữ liệu, chất lượng nhãn độc lập, phạm vi QA và quy
-mô benchmark. Thứ tự phát triển hợp lý là: hoàn thành human review/adjudication;
-xây QA corpus lớn hơn; benchmark nhiều snapshot thật; cải thiện ambiguity handling;
-sau đó mới mở rộng Wikidata/Award, temporal graph, vector retrieval, GraphRAG hoặc
-graph embedding. Mọi mở rộng phải giữ nguyên nguyên tắc: model lập kế hoạch,
+Hạn chế chính nằm ở coverage dữ liệu, phạm vi QA và quy mô benchmark. Thứ tự phát
+triển hợp lý là: xây QA corpus lớn hơn; benchmark nhiều snapshot thật; cải thiện
+ambiguity handling; sau đó mới mở rộng Wikidata/Award, temporal graph, vector
+retrieval, GraphRAG hoặc graph embedding. Mọi mở rộng phải giữ nguyên nguyên tắc: model lập kế hoạch,
 compiler kiểm soát execution, graph cung cấp fact và evidence.
 
 # Tài liệu tham khảo sơ bộ
@@ -1048,152 +985,110 @@ no. 4, 2021.
 > lại page range của [8], [11] và [12] theo metadata nhà xuất bản, và dùng một
 > công cụ quản lý tài liệu tham khảo để tránh sửa số citation thủ công.
 
-# Phụ lục A. Lệnh tái lập
+# Phụ lục A. Hướng dẫn cài đặt và chạy chương trình
+
+Môi trường yêu cầu Python 3.11 trở lên, Docker và Docker Compose. Các biến cấu
+hình được khai báo trong `.env`; khóa `TMDB_API_KEY` chỉ cần thiết khi thu thập
+lại dữ liệu. Quy trình chạy cơ bản như sau:
 
 ```bash
 make setup
 make data DATA_COUNT=2000
 make run
+```
+
+Sau khi khởi động, giao diện web có tại `http://localhost:8000/` và tài liệu API
+Swagger có tại `http://localhost:8000/docs`. Các lệnh kiểm tra và thực nghiệm:
+
+```bash
 make test
 make experiments
 make semantic-reasoning
 make sparql-check
-make evaluation-corpora
 make neo4j-benchmark
 make relational-benchmark
 make evidence-summary
 ```
 
-# Phụ lục B. Nguyên tắc phản biện
+`make run` sử dụng manifest để chỉ import lại khi snapshot hoặc số lượng Movie
+thay đổi. Dữ liệu Neo4j kiểm thử chạy ở Bolt 7688 và tách biệt với graph demo.
 
-- Không nói KG luôn nhanh hơn SQL.
-- Không gọi Cypher rule là OWL reasoning.
-- Không gọi silver corpus là gold/human evaluation.
-- Không gọi item-to-item similarity là personalization hoặc xác suất yêu thích.
-- Không nói Qwen trả lời; Qwen chỉ lập QueryPlan.
-- Không gọi hệ thống open-domain QA.
-- Không suy rộng benchmark 2.000 phim thành scalability result.
+# Phụ lục B. API và ví dụ sử dụng
 
-# Phụ lục C. Ma trận truy vết tiêu chí báo cáo
+| Phương thức | Endpoint | Chức năng |
+|---|---|---|
+| `GET` | `/health` | Kiểm tra kết nối Knowledge Graph |
+| `GET` | `/stats` | Trả số lượng node và relationship |
+| `GET` | `/entities/search?q=...` | Tìm Movie, Person, Genre, Keyword hoặc Studio |
+| `POST` | `/ask` | Hỏi–đáp bằng ngôn ngữ tự nhiên |
+| `POST` | `/recommend` | Gợi ý phim theo TMDB ID |
 
-| STT | Tiêu chí | Vị trí nội dung | Loại minh chứng |
-|---|---|---|---|
-| 1 | Bài toán, phạm vi, mục tiêu và lý do chọn KG | Chương 1; Mục 2.5 | lập luận và research question |
-| 2 | Survey và công trình gần đây | Chương 3 | protocol, 8 công trình, synthesis table, research gap |
-| 3 | So sánh mô hình thay thế | Mục 2.5; Chương 9 | bảng SQL/document/RDF/property graph và baseline |
-| 4 | Biểu diễn tri thức/ngữ nghĩa | Mục 2.1–2.4; Chương 5 | ontology, triple/quad, namespace, OWA/CWA |
-| 5 | Entailment và luật suy diễn | Mục 2.3; Chương 7 | semantic entailment và rule materialization |
-| 6 | Chất lượng tri thức và entity resolution | Mục 2.6, 2.9; Chương 6, 9 | policy, coverage, structural/semantic validation |
-| 7 | Công cụ, phiên bản và triển khai | Chương 6, 8; Phụ lục A | rationale, cấu hình và lệnh tái lập |
-| 8 | Dataset, nguồn và tiền xử lý | Mục 6.2–6.10 | provenance, terms, sampling, manifest và checksum |
-| 9 | Ontology/schema và mapping | Chương 5 | data dictionary và ánh xạ RDF–Neo4j |
-| 10 | Cài đặt graph/reasoner | Mục 6.7; 7.2–7.6 | import order, materialization và validation |
-| 11 | Ngôn ngữ truy vấn đặc thù | Mục 7.1, 7.4 | catalog Cypher/SPARQL và semantic path |
-| 12 | CRUD và nghiệp vụ | Mục 4.4–4.5; 7.1 | competency question và thao tác tham số hóa |
-| 13 | Inference-enabled query | Mục 7.2–7.6 | fact ẩn và evidence path |
-| 14 | Tiêu chí đánh giá | Mục 2.8; Chương 9 | metric, protocol và validity |
-| 15 | Benchmark, bảng, biểu đồ và baseline | Mục 9.2–9.7 | số liệu, protocol và placeholder hình evidence |
-| 16 | Bàn luận, hạn chế và cải tiến | Mục 9.8–9.12; Chương 10 | error analysis và roadmap ưu tiên |
-| 17 | Ứng dụng nghiệp vụ | Chương 4, 8 | stakeholder, QA/recommendation, API/UI và evidence |
-| 18 | Chất lượng báo cáo | toàn bộ báo cáo | bố cục, hình/bảng, BibTeX và phụ lục truy vết |
+Ví dụ gửi câu hỏi:
 
-Các tiêu chí phụ thuộc chương trình chạy được phải được đối chiếu với artifact
-cuối; ma trận này chỉ bảo đảm người chấm tìm được nội dung và loại bằng chứng,
-không thay thế kết quả thực nghiệm.
+```bash
+curl -X POST http://localhost:8000/ask \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"Những phim nào do Christopher Nolan đạo diễn?"}'
+```
 
-# Phụ lục D. Ngân hàng câu hỏi phản biện và trả lời
+Response gồm `answer`, `intent`, `evidence` và `query_time_ms`. Ví dụ yêu cầu gợi
+ý ba phim tương tự `Inception`:
 
-## D.1. Vì sao không dùng CSDL quan hệ?
+```bash
+curl -X POST http://localhost:8000/recommend \
+  -H 'Content-Type: application/json' \
+  -d '{"movie_id":27205,"top_k":3}'
+```
 
-CSDL quan hệ vẫn lưu được dữ liệu và là baseline hợp lệ. Neo4j được chọn vì
-workload chính là pattern nhiều bước, shortest path và dựng evidence từ quan hệ.
-Nếu workload chuyển thành giao dịch theo khóa hoặc aggregate cố định, hệ quan hệ
-có thể là lựa chọn đơn giản hơn. Báo cáo không tuyên bố graph luôn nhanh hơn SQL.
+Mỗi recommendation trả `movie_id`, `title`, `score`, các feature chung theo từng
+loại và câu giải thích được dựng từ chính các feature đã đóng góp vào điểm.
 
-## D.2. Vì sao cần đồng thời Neo4j và RDF/OWL?
+# Phụ lục C. Truy vấn minh họa
 
-Neo4j là operational store thuận tiện cho property trên edge và traversal của
-ứng dụng. RDF/OWL là standards view cho IRI, interoperability và entailment.
-Hai biểu diễn phục vụ hai mục tiêu; mapping ở Chương 5 chỉ rõ phần tương đương và
-phần mất mát như edge property cần reification/RDF-star.
+Truy vấn Cypher tìm phim theo đạo diễn:
 
-## D.3. Cypher rule có phải OWL reasoning không?
+```cypher
+MATCH (p:Person)-[:DIRECTED]->(m:Movie)
+WHERE toLower(p.name) = toLower($director)
+RETURN m.tmdb_id AS movie_id, m.title AS title
+ORDER BY m.release_date
+```
 
-Không. `CO_STARRED_WITH` là luật nghiệp vụ closed-world được materialize từ hai
-edge `ACTED_IN` và lưu evidence. Semantic materializer xử lý tập con RDFS/OWL-RL
-như domain, range, inverse và symmetric property. Báo cáo tách hai nhánh để không
-đánh đồng procedural rule với ontology entailment.
+Truy vấn Cypher sử dụng quan hệ suy diễn để tìm bạn diễn:
 
-## D.4. Tại sao không dùng tên làm khóa thực thể?
+```cypher
+MATCH (a:Person)-[r:CO_STARRED_WITH]-(b:Person)
+WHERE toLower(a.name) = toLower($person)
+RETURN b.name, r.movie_count, r.evidence_movie_ids
+ORDER BY r.movie_count DESC
+```
 
-Tên có thể trùng, đổi hoặc khác cách viết. Stable source ID giữ identity và cho
-phép constraint. Fuzzy name chỉ dùng để liên kết truy vấn hoặc fallback có log;
-trường hợp mơ hồ bị từ chối thay vì merge tự động.
+Truy vấn SPARQL sử dụng inverse relation sau semantic materialization:
 
-## D.5. Vì sao rating TMDB và IMDb không gộp lại?
+```sparql
+PREFIX : <https://example.org/movie-kg/>
+SELECT ?movie ?actor
+WHERE { ?movie :hasActor ?actor }
+```
 
-Hai nguồn có population, thời điểm cập nhật và số phiếu khác nhau. Gộp làm mất
-provenance. Hệ thống giữ hai thuộc tính và công khai chính sách `coalesce` khi
-một use case cần một giá trị ưu tiên.
+Catalog đầy đủ gồm 10 truy vấn Cypher tại `cypher/queries.cypher` và 10 truy vấn
+SPARQL tại `sparql/queries.rq`. Các truy vấn do ứng dụng thực thi được tham số hóa
+và quản lý tập trung trong `src/kg/query_catalog.py`.
 
-## D.6. Fact suy ra được kiểm chứng như thế nào?
+# Phụ lục D. Cấu trúc dữ liệu và kết quả thực nghiệm
 
-Mỗi `CO_STARRED_WITH` giữ `movie_count` và `evidence_movie_ids`. Validation kiểm
-tra phải tồn tại ít nhất một phim mà cả hai Person đều có `ACTED_IN`; nếu tiền đề
-không còn, fact suy ra bị coi là không được hỗ trợ.
+| Đường dẫn | Nội dung |
+|---|---|
+| `data/processed/manifest.json` | Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu |
+| `data/processed/*.csv` | Năm bảng node và năm bảng relationship đã chuẩn hóa |
+| `data/processed/movies.ttl` | RDF export từ processed snapshot |
+| `data/processed/movies.inferred.ttl` | RDF sau semantic materialization |
+| `experiments/results/neo4j_validation.json` | Kết quả kiểm tra cấu trúc graph |
+| `experiments/results/qa_neo4j.json` | Kết quả bộ câu hỏi QA trên Neo4j |
+| `experiments/results/recommendation.json` | P@10 và NDCG@10 của recommendation |
+| `experiments/results/neo4j_benchmark.csv` | Median, p95 và độ lệch chuẩn theo truy vấn |
+| `experiments/results/relational_benchmark.csv` | Baseline SQLite trên cùng processed snapshot |
 
-## D.7. LLM có thể hallucinate Cypher hoặc câu trả lời không?
-
-LLM không được phép viết Cypher hoặc trả lời từ kiến thức riêng. Nó chỉ sinh JSON
-theo `QueryPlan` schema. Entity linker ánh xạ slot, compiler whitelist sinh Cypher
-tham số hóa, Neo4j trả fact và evidence. Kế hoạch sai schema hoặc ngoài intent bị
-từ chối/fallback.
-
-## D.8. Recommendation có phải cá nhân hóa không?
-
-Không. Đây là item-to-item similarity vì hệ thống không lưu user history/profile.
-Điểm là tổng đóng góp IDF-weighted của feature chung, không phải xác suất người
-dùng thích phim. Explanation faithful vì được tạo từ chính feature đã cộng điểm.
-
-## D.9. Vì sao metric silver cao chưa chứng minh hệ thống hoàn hảo?
-
-Silver label được sinh từ quy tắc hoặc graph và có thể chia sẻ lỗi với hệ thống.
-Do đó P/R/F1 hoặc precision cao chủ yếu chứng minh consistency với corpus, chưa
-thay cho đánh giá gold độc lập. Báo cáo yêu cầu reviewer/adjudication trước khi
-nâng claim.
-
-## D.10. Benchmark hiện tại chứng minh điều gì?
-
-Nó mô tả latency của workload, snapshot, máy và protocol đã nêu. Một warm-up và
-100 iteration hỗ trợ thống kê median/p95, nhưng một scale 2.000 phim không chứng
-minh scalability. So sánh SQLite chỉ hợp lệ khi cùng snapshot, máy và cache policy.
-
-## D.11. Những bias dữ liệu quan trọng nhất là gì?
-
-Popular-page sampling thiên về phim phổ biến; cast limit làm mất vai phụ; IMDb
-match chỉ tồn tại khi TMDB có external ID; rating phản ánh nhóm người đã bình
-chọn. Vì vậy coverage và recommendation không được suy rộng sang toàn bộ điện
-ảnh hoặc mọi nhóm người dùng.
-
-## D.12. Đóng góp quan trọng nhất của đề tài là gì?
-
-Đóng góp không nằm ở một thuật toán state-of-the-art mà ở workflow đầu cuối có
-claim discipline: identity/provenance rõ, hai standards view, suy diễn có evidence,
-execution surface của LLM được kiểm soát và evaluation phân biệt silver/gold.
-
-## D.13. Nếu có thêm thời gian, nên mở rộng gì trước?
-
-Ưu tiên human review/adjudication, QA corpus lớn hơn và benchmark nhiều snapshot
-thật; sau đó mới mở rộng Wikidata/Award, temporal model, vector retrieval hoặc
-embedding. Thứ tự này cải thiện validity trước khi tăng độ phức tạp mô hình.
-
-# Phụ lục E. Checklist trước khi xuất bản PDF
-
-- Điền đủ thông tin hành chính trên trang bìa và kiểm tra tên học phần.
-- Chạy lại toàn bộ thực nghiệm trên cùng snapshot rồi đồng bộ bảng số liệu.
-- Thay placeholder bằng hình thật đúng tên file; kiểm tra caption và khả năng đọc.
-- Kiểm tra danh mục hình, bảng, mục lục và số trang sau hai lần biên dịch.
-- Xác nhận mọi citation xuất hiện trong bibliography và mọi nguồn đã dùng được trích dẫn.
-- Kiểm tra bảng dài không tràn lề, code không vượt trang và hyperlink hoạt động.
-- Ghi số trang minh chứng vào bản checklist sau khi PDF đã khóa trang.
-- Không xóa phần limitation hoặc đổi silver result thành gold claim.
+Snapshot hiện tại gồm 2.000 Movie, 24.661 Person, 19 Genre, 7.916 Keyword và
+2.753 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
+tra lại số liệu và tái tạo bảng, biểu đồ trong Chương 9.

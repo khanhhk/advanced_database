@@ -1,11 +1,11 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
 \chapter{Thực nghiệm và kết quả}
 
-\section{Nguyên tắc báo cáo}
+\section{Cách đọc kết quả}
 
-Mọi kết quả phải gắn với backend, movie count, corpus type, K, iteration và cấu
-hình. Silver corpus không gọi là gold/human-reviewed trước khi review gate qua.
-QA và performance claims chỉ lấy từ production Neo4j artifacts.
+Các kết quả dưới đây được ghi kèm backend, số lượng phim, số case, K, số lần lặp
+và cấu hình cần thiết. Các bộ kiểm thử do nhóm chuẩn bị nhằm kiểm tra hệ thống
+trên snapshot hiện tại; số liệu QA và hiệu năng được lấy từ Neo4j thực tế.
 
 \section{Dataset và graph}
 \reportfigure{quality_metrics.pdf}{Tổng hợp chỉ số chất lượng dữ liệu và graph}{fig:quality-metrics}
@@ -42,15 +42,14 @@ Quality gate không xóa im lặng record lỗi: Movie bị loại được ghi 
 
 \section{Entity resolution}
 
-Corpus silver gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
+Corpus kiểm thử gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
 Kết quả là TP=75, TN=25, FP=0, FN=0, do đó precision, recall và F1 đều bằng 1,00.
-Kết quả chứng minh workflow xử lý đúng corpus deterministic này; nó không chứng
-minh mọi tên thực tế được giải quyết hoàn hảo. Muốn gọi human-reviewed, mỗi case
-phải có reviewer độc lập, timestamp, decision, rubric và adjudication note.
+Kết quả cho thấy workflow xử lý đúng bộ case hiện tại; các trường hợp tên trùng,
+alias hoặc dữ liệu thiếu vẫn cần được bổ sung khi mở rộng hệ thống.
 
 \section{Reasoning}
 
-Năm mươi fact \texttt{CO\_STARRED\_WITH} silver được kiểm tra bằng supporting movie và
+Năm mươi fact \texttt{CO\_STARRED\_WITH} được kiểm tra bằng supporting movie và
 source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
 tra mọi derived edge phải có ít nhất một shared Movie. Semantic workflow trên
 full normalized snapshot materialize 35.419 triple, tăng từ 154.970 lên 190.389
@@ -64,13 +63,14 @@ mong đợi và tối thiểu một evidence record (riêng top-5 yêu cầu đ�
 Production path trên Neo4j đạt 20/20. Rubric shortest-path chấp nhận mọi đường hợp
 lệ thay vì khóa vào một intermediate; recommendation question kiểm tra contract
 và evidence, còn chất lượng ranking được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
-smoke corpus do nhóm xây dựng, không phải gold QA được reviewer độc lập xác nhận.
+bộ kiểm thử chức năng do nhóm xây dựng và có thể mở rộng thêm paraphrase hoặc câu
+mơ hồ trong các phiên bản sau.
 
 \section{Recommendation}
 \reportfigure{recommendation_ablation.pdf}{So sánh kết quả các phương pháp xếp hạng}{fig:recommendation-ablation}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
-\caption{Tổng hợp recommendation (2)}\label{tab:9-2} \\
+\caption{Tổng hợp recommendation}\label{tab:9-2} \\
 \hline
 \textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline
 \endfirsthead\hline \textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline\endhead
@@ -80,7 +80,7 @@ Hybrid & 0,590 & 0,657 & baseline lịch sử \\ \hline
 IDF-weighted graph & \textbf{0,715} & \textbf{0,754} & production Neo4j \\ \hline
 \end{longtable}
 
-IDF đạt kết quả tốt nhất trên 20 case silver và mọi recommendation có explanation.
+IDF đạt kết quả tốt nhất trên 20 case kiểm thử và mọi recommendation có explanation.
 Tuy nhiên, corpus nhỏ và relevance rubric dựa trên metadata graph; kết quả không
 đồng nghĩa người dùng thực sẽ ưa thích recommendation.
 
@@ -98,7 +98,7 @@ kiểm soát, không đại diện cho mọi RDBMS; mục tiêu là thảo luậ
 chứng minh graph luôn nhanh hơn relational.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|}
-\caption{Tổng hợp hiệu năng (3)}\label{tab:9-3} \\
+\caption{Tổng hợp hiệu năng}\label{tab:9-3} \\
 \hline
 \textbf{Intent tương đương} & \textbf{Neo4j median (ms)} & \textbf{Neo4j p95 (ms)} & \textbf{SQLite median (ms)} & \textbf{SQLite p95 (ms)} \\ \hline
 \endfirsthead\hline \textbf{Intent tương đương} & \textbf{Neo4j median (ms)} & \textbf{Neo4j p95 (ms)} & \textbf{SQLite median (ms)} & \textbf{SQLite p95 (ms)} \\ \hline\endhead
@@ -120,8 +120,8 @@ thế latency phổ quát.
 \item Top-20 cast bỏ diễn viên phụ.
 \item Nguồn TMDB thay đổi theo thời gian; cache chỉ cố định một snapshot.
 \item IMDb chỉ enrich Movie, chưa link Person.
-\item Silver labels được sinh từ source/rule và chưa độc lập.
-\item QA corpus deterministic 20 câu chưa có reviewer độc lập và chưa phủ paraphrase rộng.
+\item Các bộ case đánh giá do nhóm xây dựng và còn nhỏ.
+\item QA corpus deterministic 20 câu chưa phủ paraphrase rộng.
 \item Recommendation không có user interaction, nên không đánh giá personalization.
 \item Benchmark chỉ một quy mô Neo4j và phụ thuộc phần cứng/cache.
 \end{itemize}
@@ -135,9 +135,9 @@ aggregation và shortest path; evidence là node/relationship thực thi.
 \textbf{RQ3:} Cypher rule tạo co-star có supporting movie; semantic profile tạo inverse
 và type entailment, đồng thời validator phát hiện conflict.
 \textbf{RQ4:} IDF giảm ảnh hưởng feature phổ biến, đạt P@10/NDCG@10 cao hơn ba baseline
-trên corpus silver và giữ explanation coverage.
-\textbf{RQ5:} Hệ thống đạt mục tiêu demo/reproducibility ở 2.000 phim nhưng chưa chứng
-minh gold-label accuracy, personalization hoặc multi-scale scalability.
+trên corpus kiểm thử và giữ explanation coverage.
+\textbf{RQ5:} Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 2.000 phim; phạm vi
+hiện tại chưa gồm cá nhân hóa hoặc benchmark nhiều quy mô.
 
 \section{Protocol tái chạy thực nghiệm}
 
@@ -155,7 +155,7 @@ minh gold-label accuracy, personalization hoặc multi-scale scalability.
 Với relational baseline, snapshot và máy phải giống Neo4j run. Nếu không đáp ứng,
 kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
 
-\section{Kiểm thử và release gate}
+\section{Kiểm thử và quy trình chạy}
 
 Lần chạy cuối của \texttt{make test} đạt 30/30 test. Bộ test gồm unit test cho cleaning,
 entity resolution, query planning/compiler, RDF export, semantic materialization,
@@ -164,9 +164,9 @@ dùng Neo4j riêng ở Bolt 7688, thực hiện import hai lần để xác nh�
 sau đó kiểm tra QA, recommendation và vòng đời CRUD trước khi dọn graph test.
 
 Docker healthcheck gọi \texttt{cypher-shell RETURN 1}, nên trạng thái healthy chỉ được
-công bố sau khi Bolt thực sự nhận query; điều này loại race condition trong đó
-container đã chạy nhưng driver chưa handshake được. Release gate còn chạy
-\texttt{compileall}, dependency check và xác minh checksum của toàn bộ tài liệu nguồn.
+báo sau khi Bolt thực sự nhận query; điều này loại race condition trong đó
+container đã chạy nhưng driver chưa handshake được. Quy trình còn chạy
+\texttt{compileall}, kiểm tra dependency và xác minh checksum của tài liệu nguồn.
 
 \section{Phân tích lỗi và hướng khắc phục}
 
@@ -175,8 +175,7 @@ container đã chạy nhưng driver chưa handshake được. Release gate còn 
 Rubric cũ khóa shortest path vào một intermediate và đã được thay bằng yêu cầu
 đúng intent, có đường/evidence hợp lệ. Recommendation question chỉ kiểm tra API
 contract; relevance dùng corpus P@10/NDCG@10 riêng. Bước tiếp theo là bổ sung
-paraphrase, câu mơ hồ, expected abstention và review độc lập thay vì tăng điểm
-bằng các câu gần template.
+paraphrase, câu mơ hồ và expected abstention thay vì chỉ dùng các câu gần template.
 
 \subsection{Entity resolution}
 

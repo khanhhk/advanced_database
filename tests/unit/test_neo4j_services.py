@@ -31,6 +31,24 @@ def test_neo4j_qa_links_entity_to_canonical_name(monkeypatch):
     assert evidence[0]["entity_links"][0]["confidence"] >= .7
 
 
+def test_movie_lookup_uses_exact_canonical_title(monkeypatch):
+    _disable_llm(monkeypatch)
+    repository = FakeRepository([{"movie_id": 155, "name": "Christian Bale",
+                                  "relationship": "ACTED_IN"}])
+    repository.search_entities = lambda query, limit: [
+        {"id": 155, "name": "The Dark Knight", "type": "Movie"},
+        {"id": 49026, "name": "The Dark Knight Rises", "type": "Movie"},
+    ]
+
+    text, intent, _ = answer("Diễn viên nào đóng trong phim The Dark Knight?", repository)
+
+    assert intent == "actors_in_movie" and "Christian Bale" in text
+    query, parameters = repository.calls[0]
+    assert "toLower(m.title) = toLower($movie)" in query
+    assert "toLower(m.title) CONTAINS" not in query
+    assert parameters == {"movie": "The Dark Knight"}
+
+
 def test_neo4j_qa_understands_movies_by_person_without_role(monkeypatch):
     _disable_llm(monkeypatch)
     repository = FakeRepository([{"movie_id": 1, "title": "The Great Mouse Detective",

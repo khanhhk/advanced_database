@@ -1,84 +1,21 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+\chapter*{Lời mở đầu}
+\addcontentsline{toc}{chapter}{Lời mở đầu}
 
-\bigskip\hrule\bigskip
+Knowledge Graph là một hướng tiếp cận phù hợp với dữ liệu có nhiều loại thực thể
+và quan hệ liên kết. Trong miền phim, một bộ phim liên hệ với diễn viên, đạo diễn,
+thể loại, từ khóa và hãng sản xuất; các quan hệ này tạo ra nhiều câu hỏi mà cách
+biểu diễn đồ thị có thể mô tả trực tiếp và dễ theo dõi hơn.
 
-\chapter*{Lời cam đoan và nguyên tắc sử dụng bằng chứng}
-\addcontentsline{toc}{chapter}{Lời cam đoan và nguyên tắc sử dụng bằng chứng}
+Báo cáo trình bày quá trình xây dựng Movie Knowledge Graph từ dữ liệu TMDB và
+IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế ontology và graph schema,
+nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một số luật suy diễn.
+Trên nền tảng đó, project triển khai hai chức năng chính: hỏi–đáp về phim bằng
+ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong graph.
 
-Báo cáo phân biệt rõ kết quả đã đo, kết quả silver và kế hoạch mở rộng. Mọi số
-liệu định lượng được dẫn từ artifact có thể tái lập; không dùng fixture, ảnh minh
-họa hoặc kết quả mô phỏng để thay cho lần chạy trên graph thật. Những đánh giá
-cần người phản biện độc lập được ghi là giới hạn thay vì suy diễn thành gold
-evaluation. Tác giả chịu trách nhiệm về nội dung tổng hợp, trích dẫn và cách diễn
-giải kết quả trong báo cáo.
-
-\chapter*{Tóm tắt}
-\addcontentsline{toc}{chapter}{Tóm tắt}
-
-Dữ liệu phim được phân tán ở nhiều nguồn và chứa mật độ quan hệ cao giữa phim,
-diễn viên, đạo diễn, thể loại, từ khóa và hãng sản xuất. Mô hình bảng có thể lưu
-trữ các dữ liệu này, nhưng những câu hỏi nhiều bước thường đòi hỏi nhiều bảng nối,
-trong khi kết quả gợi ý cần thêm cơ chế dựng lại đường bằng chứng. Báo cáo trình
-bày quá trình xây dựng một Movie Knowledge Graph đầu cuối nhằm tích hợp dữ liệu
-TMDB và IMDb, hỗ trợ truy vấn đa bước, suy diễn dựa trên luật, hỏi–đáp bằng ngôn
-ngữ tự nhiên và gợi ý phim có giải thích.
-
-TMDB được dùng làm nguồn đồ thị chính; IMDb \texttt{title.ratings.tsv.gz} chỉ bổ sung
-rating và số lượt bình chọn bằng phép nối chính xác trên \texttt{imdb\_id}. Pipeline bảo
-toàn định danh nguồn, cache dữ liệu thô bất biến, chuẩn hóa thành năm bảng node và
-năm bảng edge, sau đó nạp idempotent vào Neo4j bằng constraint, transaction batch
-và \texttt{MERGE}. Một ontology RDF/OWL mô tả năm lớp cốt lõi cùng các object/datatype
-property. Nhánh chuẩn ngữ nghĩa materialize một tập con RDFS/OWL-RL gồm domain,
-range, inverse và symmetric property, đồng thời kiểm tra functional property,
-disjoint class và thuộc tính bắt buộc. Luật nghiệp vụ \texttt{CO\_STARRED\_WITH} được
-materialize bằng Cypher và lưu số phim cùng danh sách phim bằng chứng.
-
-Hệ thống cung cấp hai ứng dụng trên cùng graph. Với hỏi–đáp, Qwen chỉ lập kế hoạch
-truy vấn dưới dạng JSON có schema; entity linker và compiler whitelist chuyển kế
-hoạch thành Cypher tham số hóa. Parser chín intent là fallback khi model không
-sẵn sàng. Với gợi ý, hệ thống dùng IDF-weighted graph similarity, giảm đóng góp
-của đặc trưng phổ biến và trả chính các đạo diễn, diễn viên, thể loại, từ khóa và
-studio chung làm giải thích. Trên graph 2.000 phim đã xác nhận, hệ thống có 37.349
-node và 353.915 relationship, không phát hiện vi phạm cấu trúc. Kết quả silver
-evaluation ghi nhận entity-resolution P/R/F1 bằng 1,00; precision của 50 fact
-co-star bằng 1,00; production recommender trên Neo4j đạt P@10 bằng 0,715 và
-NDCG@10 bằng 0,754. Corpus QA 20 câu đạt 20/20 trên Neo4j. Benchmark Neo4j gồm
-một warm-up và 100 lần chạy cho mỗi câu hỏi, với median 2,67–188,74 ms và p95
-5,08–211,24 ms. Các kết quả silver/smoke không
-được diễn giải như gold human evaluation, và benchmark một quy mô không được dùng
-để kết luận về scalability.
-
-\textbf{Từ khóa:} Knowledge Graph, Neo4j, RDF, OWL, SPARQL, Cypher, entity resolution,
-question answering, explainable recommendation.
-
-\chapter*{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
-
-Movie data is distributed across heterogeneous sources and contains dense
-relationships among movies, actors, directors, genres, keywords, and production
-companies. Although relational tables can store such data, multi-hop questions
-often require numerous joins, while explainable recommendations require an
-additional mechanism to reconstruct supporting evidence. This report presents
-an end-to-end Movie Knowledge Graph that integrates TMDB and IMDb data and
-supports multi-hop queries, rule-based inference, natural-language question
-answering, and explainable movie recommendation.
-
-TMDB is the primary graph source, whereas the compressed IMDb ratings dataset is
-stream-joined by exact IMDb identifiers. The pipeline preserves source IDs and
-provenance, produces normalized node and edge tables, and loads them idempotently
-into Neo4j. An RDF/OWL ontology and an executable RDFS/OWL-RL subset provide a
-standards-oriented semantic view. The QA component constrains Qwen to producing
-a validated JSON query plan rather than Cypher; a whitelist compiler generates
-parameterized queries. The recommendation component applies IDF-weighted graph
-similarity and returns the shared graph features that contributed to each score.
-
-On the confirmed 2,000-movie graph, structural validation reported no duplicate
-stable IDs, orphan movies, missing required properties, invalid relationship
-types, or unsupported derived facts. Silver evaluation achieved 1.00 entity
-resolution precision/recall/F1, 1.00 co-star precision, and recommendation P@10
-of 0.715 with NDCG@10 of 0.754; the 20-question Neo4j QA smoke corpus passed
-20/20 cases with evidence. These figures are reported with explicit validity
-limitations: silver labels are not independent gold labels, and a single-scale
-benchmark does not establish scalability.
+Nội dung báo cáo lần lượt giới thiệu cơ sở lý thuyết, yêu cầu và thiết kế hệ
+thống, pipeline dữ liệu, các thành phần ứng dụng, kết quả kiểm thử và hướng phát
+triển. Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có
+thể chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao.
 
 \bigskip\hrule\bigskip

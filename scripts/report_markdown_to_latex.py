@@ -60,6 +60,8 @@ def inline(value: str) -> str:
 
 def title_without_number(title: str) -> str:
     title = re.sub(r"^Chương\s+\d+\.\s*", "", title, flags=re.IGNORECASE)
+    title = re.sub(r"^Phụ lục\s+[A-Z]\.\s*", "", title, flags=re.IGNORECASE)
+    title = re.sub(r"^[A-Z]\.\d+\.\s*", "", title)
     return re.sub(r"^\d+(?:\.\d+)*\.\s*", "", title).strip()
 
 
@@ -84,6 +86,7 @@ def convert(lines: list[str], chapter_number: int | None) -> str:
     out: list[str] = ["% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter."]
     index = 0; list_kind = None; in_code = False; emitted_figures: set[str] = set()
     current_heading = "Nội dung tổng hợp"; table_count = 0
+    heading_table_counts: dict[str, int] = {}
     while index < len(lines):
         line = lines[index].rstrip()
         if line.startswith("```"):
@@ -99,7 +102,9 @@ def convert(lines: list[str], chapter_number: int | None) -> str:
             while index < len(lines) and lines[index].lstrip().startswith("|"):
                 table.append(lines[index].rstrip()); index += 1
             table_count += 1
-            suffix = f" ({table_count})" if table_count > 1 else ""
+            heading_table_counts[current_heading] = heading_table_counts.get(current_heading, 0) + 1
+            heading_table_count = heading_table_counts[current_heading]
+            suffix = f" ({heading_table_count})" if heading_table_count > 1 else ""
             label_prefix = chapter_number if chapter_number is not None else "app"
             out.extend(render_table(table, f"Tổng hợp {current_heading.lower()}{suffix}",
                                     f"tab:{label_prefix}-{table_count}")); continue
@@ -109,8 +114,8 @@ def convert(lines: list[str], chapter_number: int | None) -> str:
             level, title = len(heading.group(1)), heading.group(2)
             title = title_without_number(title)
             current_heading = re.sub(r"[`*]", "", title)
-            if level == 1 and chapter_number is not None: out.append(r"\chapter{" + inline(title) + "}")
-            elif level == 2 and chapter_number is None and title in {"Lời cam đoan và nguyên tắc sử dụng bằng chứng", "Tóm tắt", "Abstract"}:
+            if level == 1: out.append(r"\chapter{" + inline(title) + "}")
+            elif level == 2 and chapter_number is None and title == "Lời mở đầu":
                 out.append(r"\chapter*{" + inline(title) + "}")
                 out.append(r"\addcontentsline{toc}{chapter}{" + inline(title) + "}")
             elif level == 2: out.append(r"\section{" + inline(title) + "}")
@@ -158,9 +163,11 @@ def main() -> None:
     # Exclude the Markdown bibliography; LaTeX uses ref.bib.
     body = text.split("# Tài liệu tham khảo sơ bộ", 1)[0]
     chapters = list(re.finditer(r"(?m)^# Chương (\d+)\.\s+(.+)$", body))
-    front = body[:chapters[0].start()].splitlines()
-    # Remove Markdown document title/subtitle and administrative lines already on titlepage.
-    front = front[14:]
+    front_text = body[:chapters[0].start()]
+    # The title page owns the document title and administrative fields. Start
+    # the generated front matter at the introduction instead of relying on a fixed
+    # line offset that changes whenever those fields are edited.
+    front = ("## Lời mở đầu" + front_text.split("## Lời mở đầu", 1)[1]).splitlines()
     (OUT / "00_frontmatter.tex").write_text(convert(front, None), encoding="utf-8")
     for offset, match in enumerate(chapters):
         start = match.start(); end = chapters[offset + 1].start() if offset + 1 < len(chapters) else len(body)
@@ -170,9 +177,6 @@ def main() -> None:
     appendices = text.split("# Phụ lục A.", 1)
     if len(appendices) == 2:
         appendix_source = "# Phụ lục A." + appendices[1]
-        # Nest appendix headings below the single appendix chapter in main.tex.
-        appendix_source = re.sub(r"(?m)^##\s+", "### ", appendix_source)
-        appendix_source = re.sub(r"(?m)^# Phụ lục [A-Z]\.\s+", "## ", appendix_source)
         (OUT / "appendices.tex").write_text(convert(appendix_source.splitlines(), None), encoding="utf-8")
 
 

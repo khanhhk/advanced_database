@@ -22,6 +22,9 @@ def test_import_is_idempotent(tmp_path):
     try:
         text, intent, evidence = repository.answer("Những phim nào do Christopher Nolan đạo diễn?")
         assert intent == "movies_by_director" and "Inception" in text and evidence
+        text, intent, evidence = repository.answer("Diễn viên nào đóng trong phim The Dark Knight?")
+        assert intent == "actors_in_movie" and "Heath Ledger" in text and evidence
+        assert "Tom Hardy" not in text and "Anne Hathaway" not in text
         recommendations = repository.recommend(27205, 3)
         assert recommendations and all(item.explanation for item in recommendations)
         created = crud.create_movie(repository, tmdb_id=99999999, title="Integration Test Movie")
