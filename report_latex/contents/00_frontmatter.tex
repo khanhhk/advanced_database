@@ -13,9 +13,24 @@ nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một
 Trên nền tảng đó, project triển khai hai chức năng chính: hỏi–đáp về phim bằng
 ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong graph.
 
-Nội dung báo cáo lần lượt giới thiệu cơ sở lý thuyết, yêu cầu và thiết kế hệ
-thống, pipeline dữ liệu, các thành phần ứng dụng, kết quả kiểm thử và hướng phát
-triển. Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có
-thể chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao.
+Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có thể
+chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao. Báo
+cáo được tổ chức thành mười chương với nội dung tổng quan như sau:
+
+\begin{enumerate}
+\item \textbf{Chương 1 – Giới thiệu:} trình bày bối cảnh, bài toán, mục tiêu, phạm vi và các đóng góp chính của project.
+\item \textbf{Chương 2 – Cơ sở lý thuyết:} giới thiệu Knowledge Graph, ontology, RDF/RDFS/OWL, SPARQL, Property Graph, Neo4j, entity resolution và các chỉ số đánh giá được sử dụng.
+\item \textbf{Chương 3 – Công trình và nền tảng liên quan:} tổng hợp các hướng tiếp cận liên quan đến Knowledge Graph, hỏi–đáp và recommendation để xác định vị trí của project.
+\item \textbf{Chương 4 – Phân tích yêu cầu:} mô tả đối tượng sử dụng, yêu cầu chức năng, yêu cầu phi chức năng, competency question và tiêu chí nghiệm thu.
+\item \textbf{Chương 5 – Thiết kế ontology và graph schema:} trình bày các lớp, thuộc tính, quan hệ, định danh thực thể và cách ánh xạ giữa RDF với Neo4j.
+\item \textbf{Chương 6 – Kiến trúc và pipeline dữ liệu:} mô tả kiến trúc tổng thể, quá trình thu thập TMDB/IMDb, làm sạch, chuẩn hóa, import và kiểm tra graph.
+\item \textbf{Chương 7 – Truy vấn, suy diễn và semantic workflow:} giới thiệu catalog Cypher/SPARQL, luật \texttt{CO\_STARRED\_WITH} và quá trình materialize các quan hệ ngữ nghĩa.
+\item \textbf{Chương 8 – Ứng dụng:} trình bày hệ hỏi–đáp, chức năng gợi ý phim có giải thích, API, giao diện web và cách các thành phần khai thác Knowledge Graph.
+\item \textbf{Chương 9 – Thực nghiệm và kết quả:} tổng hợp chất lượng dữ liệu, kết quả kiểm thử QA, reasoning, recommendation, benchmark Neo4j và SQLite baseline.
+\item \textbf{Chương 10 – Kết luận và hướng phát triển:} tổng kết kết quả đạt được, các hạn chế hiện tại và những hướng có thể mở rộng trong tương lai.
+\end{enumerate}
+
+Phần phụ lục cung cấp hướng dẫn cài đặt và chạy chương trình, ví dụ sử dụng API,
+một số truy vấn minh họa và vị trí các tệp dữ liệu, kết quả thực nghiệm.
 
 \bigskip\hrule\bigskip

@@ -5,32 +5,52 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="movie" value="Movie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d6edd4;strokeColor=#59a14f;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="500" y="250" width="200" height="100" as="geometry" />
+        <mxCell id="movie" value="Movie&#10;ID · tiêu đề · rating" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="240" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="person" value="Person" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbe8fa;strokeColor=#4c78a8;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="100" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="person" value="Person&#10;diễn viên / đạo diễn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="70" width="235" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="genre" value="Genre" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="100" y="410" width="200" height="100" as="geometry" />
+        <mxCell id="genre" value="Genre&#10;thể loại" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="380" width="235" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="keyword" value="Keyword" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedc7;strokeColor=#d69e2e;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="900" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="keyword" value="Keyword&#10;chủ đề" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="910" y="70" width="235" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="studio" value="Studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="900" y="410" width="200" height="100" as="geometry" />
+        <mxCell id="studio" value="Studio&#10;hãng sản xuất" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="910" y="380" width="235" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="ACTED_IN / DIRECTED" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="person" target="movie">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e1" value="ACTED_IN / DIRECTED" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.28;entryDx=0;entryDy=0;" edge="1" parent="1" source="person" target="movie">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="363" y="122" />
+              <mxPoint x="363" y="252" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e2" value="HAS_GENRE" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="genre">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e2" value="HAS_GENRE" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=0;exitY=0.72;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="genre">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="407" y="303" />
+              <mxPoint x="407" y="432" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e3" value="HAS_KEYWORD" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="keyword">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e3" value="HAS_KEYWORD" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.28;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="keyword">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="793" y="252" />
+              <mxPoint x="793" y="122" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e4" value="PRODUCED_BY" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="studio">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e4" value="PRODUCED_BY" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.72;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="movie" target="studio">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="837" y="303" />
+              <mxPoint x="837" y="432" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

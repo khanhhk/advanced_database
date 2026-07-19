@@ -38,6 +38,16 @@ FIGURES = {
     (9, "Recommendation"): ("recommendation_ablation.pdf", "So sánh kết quả các phương pháp xếp hạng", "fig:recommendation-ablation"),
 }
 
+TABLE_WIDTHS = {
+    # Field names and descriptions need substantially more room than the
+    # required/source columns. Values sum to 0.82 so tab padding and rules still
+    # fit inside the text block.
+    (5, "Từ điển dữ liệu và quy tắc miền"): [0.23, 0.14, 0.09, 0.14, 0.22],
+    # Artifact descriptions are longer than their paths. Explicit breaks in the
+    # path cells keep long monospace filenames from crossing the column border.
+    (None, "Cấu trúc dữ liệu và kết quả thực nghiệm"): [0.36, 0.52],
+}
+
 
 def escape(value: str) -> str:
     replacements = {"\\": r"\textbackslash{}", "&": r"\&", "%": r"\%",
@@ -50,6 +60,7 @@ def inline(value: str) -> str:
     tokens: list[str] = []
     def stash(rendered: str) -> str:
         tokens.append(rendered); return f"@@TOKEN{len(tokens)-1}@@"
+    value = re.sub(r"<br\s*/?>", lambda _: stash(r"\linebreak{}"), value, flags=re.IGNORECASE)
     value = re.sub(r"`([^`]+)`", lambda m: stash(r"\texttt{" + escape(m.group(1)) + "}"), value)
     value = re.sub(r"\*\*([^*]+)\*\*", lambda m: stash(r"\textbf{" + escape(m.group(1)) + "}"), value)
     value = re.sub(r"\[([1-9]|1[0-6])\]", lambda m: stash(r"\cite{" + CITATIONS[m.group(1)] + "}"), value)
@@ -65,11 +76,19 @@ def title_without_number(title: str) -> str:
     return re.sub(r"^\d+(?:\.\d+)*\.\s*", "", title).strip()
 
 
-def render_table(lines: list[str], caption: str, label: str) -> list[str]:
+def render_table(lines: list[str], caption: str, label: str,
+                 widths: list[float] | None = None) -> list[str]:
     rows = [[cell.strip() for cell in line.strip().strip("|").split("|")] for line in lines]
     rows = [rows[0], *rows[2:]]  # remove Markdown alignment row
-    columns = len(rows[0]); width = max(0.12, 0.88 / columns)
-    spec = "|" + "|".join(f">{{\\raggedright\\arraybackslash}}p{{{width:.2f}\\textwidth}}" for _ in range(columns)) + "|"
+    columns = len(rows[0])
+    if widths is None:
+        width = max(0.12, 0.88 / columns)
+        widths = [width] * columns
+    if len(widths) != columns:
+        raise ValueError(f"Expected {columns} table widths, received {len(widths)}")
+    spec = "|" + "|".join(
+        f">{{\\raggedright\\arraybackslash}}p{{{width:.2f}\\textwidth}}" for width in widths
+    ) + "|"
     result = [r"\begin{longtable}{" + spec + "}",
               r"\caption{" + inline(caption) + r"}\label{" + label + r"} \\",
               r"\hline"]
@@ -106,8 +125,9 @@ def convert(lines: list[str], chapter_number: int | None) -> str:
             heading_table_count = heading_table_counts[current_heading]
             suffix = f" ({heading_table_count})" if heading_table_count > 1 else ""
             label_prefix = chapter_number if chapter_number is not None else "app"
+            widths = TABLE_WIDTHS.get((chapter_number, current_heading))
             out.extend(render_table(table, f"Tổng hợp {current_heading.lower()}{suffix}",
-                                    f"tab:{label_prefix}-{table_count}")); continue
+                                    f"tab:{label_prefix}-{table_count}", widths)); continue
         heading = re.match(r"^(#{1,3})\s+(.+)$", line)
         if heading:
             if list_kind: out.append(f"\\end{{{list_kind}}}"); list_kind = None

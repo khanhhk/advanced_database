@@ -96,23 +96,23 @@ hạn thay vì một claim provenance chuẩn hóa toàn diện.
 
 \section{Từ điển dữ liệu và quy tắc miền}
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.23\textwidth}|>{\raggedright\arraybackslash}p{0.14\textwidth}|>{\raggedright\arraybackslash}p{0.09\textwidth}|>{\raggedright\arraybackslash}p{0.14\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
 \caption{Tổng hợp từ điển dữ liệu và quy tắc miền}\label{tab:5-4} \\
 \hline
-\textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và ý nghĩa} \\ \hline
-\endfirsthead\hline \textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và ý nghĩa} \\ \hline\endhead
+\textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và\linebreak{}ý nghĩa} \\ \hline
+\endfirsthead\hline \textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và\linebreak{}ý nghĩa} \\ \hline\endhead
 Movie.tmdb\_id & integer dương & có & TMDB & khóa ổn định, duy nhất trong Movie \\ \hline
 Movie.imdb\_id & chuỗi \texttt{tt...} & không & TMDB external ID & khóa nối chính xác sang IMDb \\ \hline
 Movie.title & Unicode string & có & TMDB & trim whitespace, không được rỗng \\ \hline
-Movie.release\_date & ISO date & không & TMDB & ngày phát hành, không phải valid-time của temporal KG \\ \hline
+\texttt{Movie.}\linebreak{}\texttt{release\_date} & ISO date & không & TMDB & ngày phát hành, không phải valid-time của temporal KG \\ \hline
 Movie.rating & số 0–10 & không & TMDB & giữ riêng với IMDb rating \\ \hline
-Movie.imdb\_rating & số 0–10 & không & IMDb & chỉ ghi khi exact \texttt{imdb\_id} match \\ \hline
-Movie.imdb\_votes & integer không âm & không & IMDb & số phiếu tại snapshot thu thập \\ \hline
-Person.person\_id & source-qualified ID & có & TMDB/pipeline & identity key, không dùng tên làm khóa \\ \hline
-ACTED\_IN.character & string & không & TMDB credits & vai diễn được công bố ở nguồn \\ \hline
-ACTED\_IN.cast\_order & integer không âm & không & TMDB credits & thứ tự cast, không phải độ quan trọng tuyệt đối \\ \hline
-CO\_STARRED\_WITH.movie\_count & integer dương & có & luật & số phim chung hỗ trợ fact suy ra \\ \hline
-CO\_STARRED\_WITH.evidence\_movie\_ids & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
+\texttt{Movie.}\linebreak{}\texttt{imdb\_rating} & số 0–10 & không & IMDb & chỉ ghi khi exact \texttt{imdb\_id} match \\ \hline
+\texttt{Movie.}\linebreak{}\texttt{imdb\_votes} & integer không âm & không & IMDb & số phiếu tại snapshot thu thập \\ \hline
+\texttt{Person.}\linebreak{}\texttt{person\_id} & source-qualified ID & có & TMDB/pipeline & identity key, không dùng tên làm khóa \\ \hline
+\texttt{ACTED\_IN.}\linebreak{}\texttt{character} & string & không & TMDB credits & vai diễn được công bố ở nguồn \\ \hline
+\texttt{ACTED\_IN.}\linebreak{}\texttt{cast\_order} & integer không âm & không & TMDB credits & thứ tự cast, không phải độ quan trọng tuyệt đối \\ \hline
+\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{movie\_count} & integer dương & có & luật & số phim chung hỗ trợ fact suy ra \\ \hline
+\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{evidence\_movie\_ids} & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
 \end{longtable}
 
 Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế

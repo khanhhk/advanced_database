@@ -5,53 +5,84 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="sources" value="TMDB API + IMDb ratings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbe8fa;strokeColor=#4c78a8;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="30" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="sources" value="Nguồn dữ liệu&#10;TMDB API · IMDb ratings" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="70" width="160" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="pipeline" value="Cache → clean → resolve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedc7;strokeColor=#d69e2e;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="280" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="pipeline" value="Xử lý dữ liệu&#10;cache · clean · resolve" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="170" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="neo" value="Neo4j 5&#10;Property Graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d6edd4;strokeColor=#59a14f;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="530" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="artifacts" value="Processed data&#10;CSV · manifest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="395" y="70" width="165" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="rdf" value="RDF/OWL/SPARQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="530" y="260" width="200" height="100" as="geometry" />
+        <mxCell id="neo" value="Neo4j 5&#10;Property Graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="595" y="70" width="165" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="qa" value="QA planner + safe compiler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedc7;strokeColor=#d69e2e;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="780" y="60" width="200" height="100" as="geometry" />
+        <mxCell id="rdf" value="RDF / OWL&#10;SPARQL · entailment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="595" y="330" width="165" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="rec" value="IDF graph recommender" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="780" y="260" width="200" height="100" as="geometry" />
+        <mxCell id="qa" value="Hỏi–đáp&#10;planner · linker · compiler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="795" y="35" width="180" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="api" value="FastAPI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="1020" y="160" width="150" height="100" as="geometry" />
+        <mxCell id="rec" value="Gợi ý phim&#10;IDF graph similarity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="795" y="290" width="180" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="ui" value="Web UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="1020" y="360" width="150" height="100" as="geometry" />
+        <mxCell id="api" value="FastAPI&#10;API an toàn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1015" y="155" width="145" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="raw cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sources" target="pipeline">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="ui" value="Web UI&#10;QA · recommendation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1015" y="375" width="145" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="CSV + manifest" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pipeline" target="neo">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e1" value="raw cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sources" target="pipeline">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="export" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="rdf">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e2" value="chuẩn hóa" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pipeline" target="artifacts">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="qa">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e3" value="batch import" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="artifacts" target="neo">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e5" value="features" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="rec">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e4" value="cùng snapshot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="artifacts" target="rdf">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="478" y="252" />
+              <mxPoint x="678" y="252" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e6" value="answer" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="qa" target="api">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e5" value="fact + evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.30000000000000004;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="qa">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="778" y="101" />
+              <mxPoint x="778" y="87" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e7" value="ranking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rec" target="api">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e6" value="graph features" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="neo" target="rec">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="644" y="232" />
+              <mxPoint x="885" y="232" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="e8" value="JSON/HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="api" target="ui">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e7" value="answer" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.30000000000000004;entryDx=0;entryDy=0;" edge="1" parent="1" source="qa" target="api">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="973" y="72" />
+              <mxPoint x="973" y="185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="ranking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.44999999999999996;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="rec" target="api">
+          <mxGeometry relative="1" y="-12" as="geometry">
+            <Array as="points">
+              <mxPoint x="1017" y="337" />
+              <mxPoint x="1017" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="JSON / HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api" target="ui">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

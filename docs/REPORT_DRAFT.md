@@ -1,7 +1,5 @@
 # XÂY DỰNG MOVIE KNOWLEDGE GRAPH ĐA NGUỒN
 
-## Tích hợp dữ liệu, truy vấn đa bước, suy diễn và gợi ý phim có giải thích
-
 > **Bản thảo báo cáo chính.** Các trường hành chính trong ngoặc vuông cần được
 > nhóm điền trước khi xuất DOCX/PDF. Số liệu trong báo cáo được khóa theo artifact
 > thực nghiệm đã xác nhận; sau khi `make data` hoàn tất, chạy lại evaluation và
@@ -26,10 +24,36 @@ nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một
 Trên nền tảng đó, project triển khai hai chức năng chính: hỏi–đáp về phim bằng
 ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong graph.
 
-Nội dung báo cáo lần lượt giới thiệu cơ sở lý thuyết, yêu cầu và thiết kế hệ
-thống, pipeline dữ liệu, các thành phần ứng dụng, kết quả kiểm thử và hướng phát
-triển. Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có
-thể chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao.
+Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có thể
+chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao. Báo
+cáo được tổ chức thành mười chương với nội dung tổng quan như sau:
+
+1. **Chương 1 – Giới thiệu:** trình bày bối cảnh, bài toán, mục tiêu, phạm vi và
+   các đóng góp chính của project.
+2. **Chương 2 – Cơ sở lý thuyết:** giới thiệu Knowledge Graph, ontology,
+   RDF/RDFS/OWL, SPARQL, Property Graph, Neo4j, entity resolution và các chỉ số
+   đánh giá được sử dụng.
+3. **Chương 3 – Công trình và nền tảng liên quan:** tổng hợp các hướng tiếp cận
+   liên quan đến Knowledge Graph, hỏi–đáp và recommendation để xác định vị trí
+   của project.
+4. **Chương 4 – Phân tích yêu cầu:** mô tả đối tượng sử dụng, yêu cầu chức năng,
+   yêu cầu phi chức năng, competency question và tiêu chí nghiệm thu.
+5. **Chương 5 – Thiết kế ontology và graph schema:** trình bày các lớp, thuộc
+   tính, quan hệ, định danh thực thể và cách ánh xạ giữa RDF với Neo4j.
+6. **Chương 6 – Kiến trúc và pipeline dữ liệu:** mô tả kiến trúc tổng thể, quá
+   trình thu thập TMDB/IMDb, làm sạch, chuẩn hóa, import và kiểm tra graph.
+7. **Chương 7 – Truy vấn, suy diễn và semantic workflow:** giới thiệu catalog
+   Cypher/SPARQL, luật `CO_STARRED_WITH` và quá trình materialize các quan hệ ngữ
+   nghĩa.
+8. **Chương 8 – Ứng dụng:** trình bày hệ hỏi–đáp, chức năng gợi ý phim có giải
+   thích, API, giao diện web và cách các thành phần khai thác Knowledge Graph.
+9. **Chương 9 – Thực nghiệm và kết quả:** tổng hợp chất lượng dữ liệu, kết quả
+   kiểm thử QA, reasoning, recommendation, benchmark Neo4j và SQLite baseline.
+10. **Chương 10 – Kết luận và hướng phát triển:** tổng kết kết quả đạt được, các
+    hạn chế hiện tại và những hướng có thể mở rộng trong tương lai.
+
+Phần phụ lục cung cấp hướng dẫn cài đặt và chạy chương trình, ví dụ sử dụng API,
+một số truy vấn minh họa và vị trí các tệp dữ liệu, kết quả thực nghiệm.
 
 ---
 
@@ -488,20 +512,20 @@ hạn thay vì một claim provenance chuẩn hóa toàn diện.
 
 ## 5.7. Từ điển dữ liệu và quy tắc miền
 
-| Trường | Kiểu/miền | Bắt buộc | Nguồn | Quy tắc và ý nghĩa |
+| Trường | Kiểu/miền | Bắt buộc | Nguồn | Quy tắc và<br>ý nghĩa |
 |---|---|---|---|---|
 | Movie.tmdb_id | integer dương | có | TMDB | khóa ổn định, duy nhất trong Movie |
 | Movie.imdb_id | chuỗi `tt...` | không | TMDB external ID | khóa nối chính xác sang IMDb |
 | Movie.title | Unicode string | có | TMDB | trim whitespace, không được rỗng |
-| Movie.release_date | ISO date | không | TMDB | ngày phát hành, không phải valid-time của temporal KG |
+| `Movie.`<br>`release_date` | ISO date | không | TMDB | ngày phát hành, không phải valid-time của temporal KG |
 | Movie.rating | số 0–10 | không | TMDB | giữ riêng với IMDb rating |
-| Movie.imdb_rating | số 0–10 | không | IMDb | chỉ ghi khi exact `imdb_id` match |
-| Movie.imdb_votes | integer không âm | không | IMDb | số phiếu tại snapshot thu thập |
-| Person.person_id | source-qualified ID | có | TMDB/pipeline | identity key, không dùng tên làm khóa |
-| ACTED_IN.character | string | không | TMDB credits | vai diễn được công bố ở nguồn |
-| ACTED_IN.cast_order | integer không âm | không | TMDB credits | thứ tự cast, không phải độ quan trọng tuyệt đối |
-| CO_STARRED_WITH.movie_count | integer dương | có | luật | số phim chung hỗ trợ fact suy ra |
-| CO_STARRED_WITH.evidence_movie_ids | danh sách ID | có | luật | đường truy vết về các Movie tiền đề |
+| `Movie.`<br>`imdb_rating` | số 0–10 | không | IMDb | chỉ ghi khi exact `imdb_id` match |
+| `Movie.`<br>`imdb_votes` | integer không âm | không | IMDb | số phiếu tại snapshot thu thập |
+| `Person.`<br>`person_id` | source-qualified ID | có | TMDB/pipeline | identity key, không dùng tên làm khóa |
+| `ACTED_IN.`<br>`character` | string | không | TMDB credits | vai diễn được công bố ở nguồn |
+| `ACTED_IN.`<br>`cast_order` | integer không âm | không | TMDB credits | thứ tự cast, không phải độ quan trọng tuyệt đối |
+| `CO_STARRED_WITH.`<br>`movie_count` | integer dương | có | luật | số phim chung hỗ trợ fact suy ra |
+| `CO_STARRED_WITH.`<br>`evidence_movie_ids` | danh sách ID | có | luật | đường truy vết về các Movie tiền đề |
 
 Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế
 kiểm tra dữ liệu đóng. Required field là yêu cầu của ứng dụng; functional và
@@ -1079,15 +1103,15 @@ và quản lý tập trung trong `src/kg/query_catalog.py`.
 
 | Đường dẫn | Nội dung |
 |---|---|
-| `data/processed/manifest.json` | Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu |
-| `data/processed/*.csv` | Năm bảng node và năm bảng relationship đã chuẩn hóa |
-| `data/processed/movies.ttl` | RDF export từ processed snapshot |
-| `data/processed/movies.inferred.ttl` | RDF sau semantic materialization |
-| `experiments/results/neo4j_validation.json` | Kết quả kiểm tra cấu trúc graph |
-| `experiments/results/qa_neo4j.json` | Kết quả bộ câu hỏi QA trên Neo4j |
-| `experiments/results/recommendation.json` | P@10 và NDCG@10 của recommendation |
-| `experiments/results/neo4j_benchmark.csv` | Median, p95 và độ lệch chuẩn theo truy vấn |
-| `experiments/results/relational_benchmark.csv` | Baseline SQLite trên cùng processed snapshot |
+| `data/processed/`<br>`manifest.json` | Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu |
+| `data/processed/`<br>`*.csv` | Năm bảng node và năm bảng relationship đã chuẩn hóa |
+| `data/processed/`<br>`movies.ttl` | RDF export từ processed snapshot |
+| `data/processed/`<br>`movies.inferred.ttl` | RDF sau semantic materialization |
+| `experiments/results/`<br>`neo4j_validation.json` | Kết quả kiểm tra cấu trúc graph |
+| `experiments/results/`<br>`qa_neo4j.json` | Kết quả bộ câu hỏi QA trên Neo4j |
+| `experiments/results/`<br>`recommendation.json` | P@10 và NDCG@10 của recommendation |
+| `experiments/results/`<br>`neo4j_benchmark.csv` | Median, p95 và độ lệch chuẩn theo truy vấn |
+| `experiments/results/`<br>`relational_benchmark.csv` | Baseline SQLite trên cùng processed snapshot |
 
 Snapshot hiện tại gồm 2.000 Movie, 24.661 Person, 19 Genre, 7.916 Keyword và
 2.753 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm

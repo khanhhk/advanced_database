@@ -5,32 +5,32 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="seed" value="Phim đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbe8fa;strokeColor=#4c78a8;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="40" y="210" width="150" height="100" as="geometry" />
+        <mxCell id="seed" value="Phim đầu vào&#10;TMDB ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="205" width="145" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="features" value="Graph features&#10;genre · actor · director&#10;keyword · studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d6edd4;strokeColor=#59a14f;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="240" y="180" width="200" height="130" as="geometry" />
+        <mxCell id="features" value="Duyệt graph&#10;director · actor · keyword · genre · studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="190" width="235" height="135" as="geometry" />
         </mxCell>
-        <mxCell id="idf" value="IDF weighting&#10;type_weight × rarity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedc7;strokeColor=#d69e2e;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="500" y="190" width="200" height="120" as="geometry" />
+        <mxCell id="idf" value="Tính đóng góp&#10;type weight × IDF rarity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="200" width="205" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="rank" value="Aggregate + rank&#10;Top-K" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="760" y="210" width="170" height="100" as="geometry" />
+        <mxCell id="rank" value="Tổng hợp điểm&#10;sắp xếp Top-K" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="735" y="200" width="180" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="explain" value="Shared features&#10;+ graph evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="980" y="190" width="180" height="120" as="geometry" />
+        <mxCell id="explain" value="Kết quả có giải thích&#10;shared features · score" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="955" y="190" width="210" height="135" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="traverse" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="seed" target="features">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e1" value="traverse" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="seed" target="features">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="candidate overlap" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="features" target="idf">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e2" value="candidate features" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="features" target="idf">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="idf" target="rank">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e3" value="score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="idf" target="rank">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="ranked movies" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rank" target="explain">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e4" value="ranked movies" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=11;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rank" target="explain">
+          <mxGeometry relative="1" y="-12" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

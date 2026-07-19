@@ -1,30 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="drawio" version="26.0.0">
-  <diagram name="Wireframe giao diện web hai chức năng" id="web_ui">
+  <diagram name="Giao diện web: hỏi–đáp và gợi ý phim" id="web_ui">
     <mxGraphModel grid="1" gridSize="10" page="1" pageWidth="1200" pageHeight="680">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="header" value="MOVIE KNOWLEDGE GRAPH&#10;Advanced Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ededed;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="40" y="30" width="1120" height="80" as="geometry" />
+        <mxCell id="header" value="MOVIE KNOWLEDGE GRAPH&#10;Advanced Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F5F7;strokeColor=#5F6B76;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="30" width="1110" height="75" as="geometry" />
         </mxCell>
-        <mxCell id="tabs" value="[ Hỏi đáp ]     [ Gợi ý phim tương tự ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbe8fa;strokeColor=#4c78a8;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="140" width="1040" height="60" as="geometry" />
+        <mxCell id="tabs" value="Điều hướng&#10;Hỏi đáp   |   Gợi ý phim tương tự" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="135" width="1050" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="history" value="Trợ lý: Hãy hỏi về phim, diễn viên, đạo diễn…&#10;&#10;Bạn: Các phim của Christopher Nolan?&#10;&#10;Trợ lý: Danh sách kết quả + evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ededed;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="240" width="720" height="230" as="geometry" />
+        <mxCell id="history" value="Hội thoại hỏi–đáp&#10;Bạn: Phim nào do Christopher Nolan đạo diễn?&#10;Trợ lý: Danh sách phim và bằng chứng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F5F7;strokeColor=#5F6B76;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="240" width="655" height="215" as="geometry" />
         </mxCell>
-        <mxCell id="evidence" value="GRAPH EVIDENCE&#10;Entity link · Cypher intent&#10;Rows · latency" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6d9f0;strokeColor=#8064a2;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="840" y="240" width="280" height="120" as="geometry" />
+        <mxCell id="evidence" value="Bằng chứng graph&#10;entity link · intent · rows · latency" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="765" y="240" width="360" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="input" value="Nhập câu hỏi tiếp theo…                         [ Gửi ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad6d6;strokeColor=#e15759;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="80" y="495" width="1040" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="e1" value="active tab" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="tabs" target="history">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e2" value="expand" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="history" target="evidence">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="input" value="Ô nhập câu hỏi&#10;Nhập nội dung…                                      Gửi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=13;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="485" width="1050" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

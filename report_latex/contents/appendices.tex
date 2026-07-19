@@ -95,20 +95,20 @@ và quản lý tập trung trong \texttt{src/kg/query\_catalog.py}.
 
 \chapter{Cấu trúc dữ liệu và kết quả thực nghiệm}
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.36\textwidth}|>{\raggedright\arraybackslash}p{0.52\textwidth}|}
 \caption{Tổng hợp cấu trúc dữ liệu và kết quả thực nghiệm}\label{tab:app-2} \\
 \hline
 \textbf{Đường dẫn} & \textbf{Nội dung} \\ \hline
 \endfirsthead\hline \textbf{Đường dẫn} & \textbf{Nội dung} \\ \hline\endhead
-\texttt{data/processed/manifest.json} & Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu \\ \hline
-\texttt{data/processed/*.csv} & Năm bảng node và năm bảng relationship đã chuẩn hóa \\ \hline
-\texttt{data/processed/movies.ttl} & RDF export từ processed snapshot \\ \hline
-\texttt{data/processed/movies.inferred.ttl} & RDF sau semantic materialization \\ \hline
-\texttt{experiments/results/neo4j\_validation.json} & Kết quả kiểm tra cấu trúc graph \\ \hline
-\texttt{experiments/results/qa\_neo4j.json} & Kết quả bộ câu hỏi QA trên Neo4j \\ \hline
-\texttt{experiments/results/recommendation.json} & P@10 và NDCG@10 của recommendation \\ \hline
-\texttt{experiments/results/neo4j\_benchmark.csv} & Median, p95 và độ lệch chuẩn theo truy vấn \\ \hline
-\texttt{experiments/results/relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
+\texttt{data/processed/}\linebreak{}\texttt{manifest.json} & Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu \\ \hline
+\texttt{data/processed/}\linebreak{}\texttt{*.csv} & Năm bảng node và năm bảng relationship đã chuẩn hóa \\ \hline
+\texttt{data/processed/}\linebreak{}\texttt{movies.ttl} & RDF export từ processed snapshot \\ \hline
+\texttt{data/processed/}\linebreak{}\texttt{movies.inferred.ttl} & RDF sau semantic materialization \\ \hline
+\texttt{experiments/results/}\linebreak{}\texttt{neo4j\_validation.json} & Kết quả kiểm tra cấu trúc graph \\ \hline
+\texttt{experiments/results/}\linebreak{}\texttt{qa\_neo4j.json} & Kết quả bộ câu hỏi QA trên Neo4j \\ \hline
+\texttt{experiments/results/}\linebreak{}\texttt{recommendation.json} & P@10 và NDCG@10 của recommendation \\ \hline
+\texttt{experiments/results/}\linebreak{}\texttt{neo4j\_benchmark.csv} & Median, p95 và độ lệch chuẩn theo truy vấn \\ \hline
+\texttt{experiments/results/}\linebreak{}\texttt{relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
 \end{longtable}
 
 Snapshot hiện tại gồm 2.000 Movie, 24.661 Person, 19 Genre, 7.916 Keyword và
