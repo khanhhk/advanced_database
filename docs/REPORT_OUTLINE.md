@@ -13,9 +13,9 @@ phân biệt rõ: thiết kế dự kiến, chức năng đã triển khai, kế
 chờ đánh giá. Source code/config/test là căn cứ cho hiện trạng; số liệu lấy từ
 manifest, Neo4j validation và artifact thực nghiệm cuối.
 
-Quality gate bắt buộc: đối chiếu từng chương với `CHECKLIST_TRACEABILITY.md`.
-`docs/sources/` chỉ cung cấp kiến thức tham khảo; không được mô tả như báo cáo,
-slide hoặc bằng chứng thực nghiệm của dự án.
+Quality gate bắt buộc: đối chiếu từng chương với `ChecklistCSDLNCv2.XLS` ở thư
+mục gốc. Tài liệu bài giảng chỉ cung cấp kiến thức tham khảo; không được mô tả
+như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 
 ## Phần đầu báo cáo
 

@@ -169,34 +169,13 @@ results were overlap 0.67/0.723, weighted Jaccard 0.64/0.699, and hybrid
 0.59/0.657; these remain design history rather than end-user alternatives.
 Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
 while `runtime_manifest.json` plus the live Movie count decide whether import is
-required. Normal `make run` reuses the graph.
+required. Normal `make demo` reuses the graph.
 
 ## Source synthesis
 
-The original Office documents are archived under `docs/sources/` and remain the
-authoritative full-fidelity sources for report/slide reconstruction.
-
-- `docs/sources/KnowledgeGraph_KhungNoiDung_ChiTiet.docx`: authoritative assignment framing,
-  full lifecycle, ontology, ETL/entity resolution, Neo4j/RDF comparison,
-  reasoning, integrated QA/recommendation, evaluation, risks and extensions.
-- `docs/sources/KnowledgeGraph_50slide_VN - Repaired.pptx`: Vietnamese 50-slide presentation
-  of the project narrative, from motivation and foundations through design,
-  construction, query/reasoning, applications, evaluation and roadmap.
-- `docs/sources/Knowledge_Graph_AI_Agent_50slides.pptx`: connects Knowledge Graphs to AI
-  agents—grounding, retrieval, planning/reasoning, tool use, memory,
-  explainability and GraphRAG-style extensions. This is conceptual context, not
-  permission to expand the MVP automatically.
-- `docs/sources/Co-so-du-lieu-do-thi-Graph-Database.pptx`: graph-database foundations:
-  property graphs, nodes/edges/properties, graph-vs-relational trade-offs,
-  Neo4j/Cypher modeling and traversal/query patterns.
-- `docs/sources/8_Biểu diễn tri thức.pptx` (84 slides): course foundations spanning the
-  data–information–knowledge hierarchy, production rules, forward/backward
-  inference and conflict resolution, frames/inheritance, semantic networks and
-  ontology-oriented knowledge representation.
-- `docs/sources/Ontology_va_Ung_dung.pptx`: ontology fundamentals; class/property/individual,
-  taxonomy versus ontology, RDF/RDFS/OWL/SPARQL, Protégé and reasoners, semantic
-  web/linked data and applications in search, health, commerce, AI, recommenders,
-  IoT and enterprise knowledge graphs.
+The large Office lecture/source files used during initial synthesis are not
+stored in the demo repository. Current source code, configuration, Markdown
+documents and committed experiment artifacts are the verifiable project sources.
 - `docs/CODE_PLAN.md`: repository layout, implementation order, API/query/test
   requirements and engineering quality rules.
 - `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
@@ -233,9 +212,11 @@ authoritative full-fidelity sources for report/slide reconstruction.
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and
   authentication troubleshooting for the local Compose graph.
-- `docs/CHECKLIST_TRACEABILITY.md`: A-level release gate mapping each grading
-  criterion to code/evidence and the future report/slide; source Office files are
-  references, not submission deliverables.
+- `docs/DEMO_RUNBOOK.md`: the presentation-ready 12–15 minute demo sequence,
+  covering manifest/provenance, Neo4j schema and multi-hop queries, derived facts,
+  QA, explainable recommendation, RDF/OWL/SPARQL and measured evidence.
+- Root `ChecklistCSDLNCv2.XLS`: grading rubric used to order the report chapters
+  and review the final report, slides and oral defense.
 
 ## Working rules and precedence
 

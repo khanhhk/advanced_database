@@ -137,7 +137,7 @@ public port 8001.
 Khởi động ứng dụng ở terminal khác:
 
 ```bash
-make run
+make demo
 ```
 
 ## 8. Cách planner gọi Qwen

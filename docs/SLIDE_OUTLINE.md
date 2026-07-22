@@ -284,7 +284,7 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 - [ ] Benchmark Neo4j thật, ít nhất 100 iterations/query nếu dùng trong kết luận.
 - [ ] Relational baseline chạy cùng snapshot/máy/cache policy hoặc bỏ claim so sánh hiệu năng.
 - [ ] Semantic report có before/after triple count và zero unexplained violation.
-- [ ] Mọi slide là artifact của dự án; không dùng slide bài giảng trong `docs/sources/` làm deliverable.
+- [ ] Mọi slide là artifact của dự án; không dùng tài liệu bài giảng làm deliverable.
 - [ ] Rehearsal 3 lần đạt 15–20 phút; lưu timing theo từng section và chuẩn bị bộ câu hỏi phản biện.
 - [ ] Mọi biểu đồ có backend, movie count, cấu hình máy và ngày chạy.
 - [ ] Demo không phụ thuộc TMDB/IMDb network; không bắt buộc ảnh chụp hoặc video.
@@ -301,7 +301,8 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 ### B2 — Ontology và entailment chi tiết
 
 - Domain/range, `inverseOf`, symmetric và functional/disjoint axioms.
-- Lệnh `make semantic-reasoning && make sparql-check`; before/after/violations.
+- Module `src.kg.semantic_reasoning` và `src.kg.sparql_catalog`;
+  before/after/violations.
 
 ### B3 — CRUD và import idempotency
 
@@ -310,7 +311,8 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 ### B4 — Evaluation validity
 
-- Silver vs human-reviewed; schema reviewer/adjudication và `make review-gate`.
+- Silver vs human-reviewed; schema reviewer/adjudication và script
+  `experiments/validate_human_review.py`.
 - Giải thích vì sao metric 1,00 không đồng nghĩa production accuracy.
 
 ### B5 — Benchmark protocol

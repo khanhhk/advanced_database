@@ -1037,24 +1037,20 @@ lại dữ liệu. Quy trình chạy cơ bản như sau:
 ```bash
 make setup
 make data DATA_COUNT=2000
-make run
+make demo
 ```
 
 Sau khi khởi động, giao diện web có tại `http://localhost:8000/` và tài liệu API
-Swagger có tại `http://localhost:8000/docs`. Các lệnh kiểm tra và thực nghiệm:
+Swagger có tại `http://localhost:8000/docs`. Kiểm tra toàn bộ hệ thống bằng:
 
 ```bash
 make test
-make experiments
-make semantic-reasoning
-make sparql-check
-make neo4j-benchmark
-make relational-benchmark
-make evidence-summary
 ```
 
-`make run` sử dụng manifest để chỉ import lại khi snapshot hoặc số lượng Movie
+`make demo` sử dụng manifest để chỉ import lại khi snapshot hoặc số lượng Movie
 thay đổi. Dữ liệu Neo4j kiểm thử chạy ở Bolt 7688 và tách biệt với graph demo.
+Các workflow RDF, evaluation và benchmark được lưu dưới dạng module/script trong
+`src/kg/` và `experiments/`; chúng không thuộc tập lệnh Make phục vụ buổi demo.
 
 # Phụ lục B. API và ví dụ sử dụng
 

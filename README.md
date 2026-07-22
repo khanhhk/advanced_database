@@ -8,25 +8,27 @@ Yêu cầu Python 3.11+.
 
 ```bash
 make setup
-make test
-make run
+make demo
 ```
 
 Không cần tự activate virtual environment: Makefile luôn gọi executable trong
-`.venv`. Chạy `make help` để xem toàn bộ workflow. Các lệnh thường dùng:
+`.venv`. Snapshot đã xử lý có thể được dùng lại mà không cần gọi TMDB/IMDb khi
+demo. Chạy `make help` để xem các lệnh chính:
 
 ```bash
-make setup             # tạo .env + .venv + cài và kiểm tra dependencies
-make test              # toàn bộ test, gồm cả integration Neo4j
-make data              # thu thập TMDB + IMDb ratings và chuẩn hóa 2.000 phim
-make imdb-data         # chỉ tải IMDb title.ratings.tsv.gz
-make run               # dựng Neo4j + import data + chạy API/UI
-make experiments
-make stop
+make setup             # tạo .env, .venv và cài dependencies
+make data              # thu thập/enrich/chuẩn hóa dữ liệu khi cần snapshot mới
+make demo              # dựng Neo4j, import khi cần và chạy API/UI
+make test              # unit/API + integration trên Neo4j test riêng
+make stop              # dừng Docker nhưng giữ data volume
 ```
 
 Swagger UI: `http://localhost:8000/docs`.
 Web demo: `http://localhost:8000/`.
+
+Kịch bản trình bày đầy đủ gồm graph, multi-hop query, inference, QA,
+recommendation, RDF/OWL/SPARQL và evidence đánh giá nằm tại
+[docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md).
 
 Giao diện gồm hai tab: hội thoại Knowledge Graph nhiều lượt và gợi ý phim có
 giải thích. Recommendation UI cho phép tìm/chọn phim
@@ -42,8 +44,8 @@ curl -X POST http://localhost:8000/recommend -H 'Content-Type: application/json'
 
 ## Pipeline dữ liệu và Neo4j
 
-Chạy `make data DATA_COUNT=2000` để thu thập và chuẩn hóa dữ liệu. Sau đó
-`make run` tự dựng Neo4j, import processed data và mở API/UI. Nếu chưa có data
+Chạy `make data DATA_COUNT=2000` khi cần thu thập và chuẩn hóa snapshot mới. Sau
+đó `make demo` tự dựng Neo4j, import processed data và mở API/UI. Nếu chưa có data
 thật, lệnh sẽ dừng và yêu cầu chạy `make data`.
 
 Importer tạo constraints/index, dùng transaction batch + `MERGE` theo stable ID, sinh `CO_STARRED_WITH`, rồi kiểm tra orphan/duplicate/invalid edge. Có thể chạy lại không sinh bản ghi trùng. Mật khẩu Compose chỉ dành cho local demo; hãy thay trong `.env` ở môi trường khác.
@@ -53,19 +55,16 @@ Importer tạo constraints/index, dùng transaction batch + `MERGE` theo stable 
 tạo Generic JDBC driver bằng full bundle chính thức của Neo4j, chạy SQL qua lớp
 dịch SQL-to-Cypher, chạy Cypher trực tiếp và xử lý lỗi kết nối thường gặp.
 
-## RDF và kiểm thử
+## Kiểm thử và artifact nghiên cứu
 
 ```bash
 make test
-make experiments
 ```
 
-Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và luật `CO_STARRED_WITH` nằm trong `cypher/`; SPARQL mẫu nằm trong `sparql/`.
-Ontology có workflow entailment/validation chạy được (`make semantic-reasoning`),
-catalog gồm 10 SPARQL query và CRUD Cypher parameterized. `make evidence-summary`
-sinh bảng/biểu đồ từ result artifacts; `make relational-benchmark` tạo baseline
-SQLite trên đúng processed snapshot để đối chiếu có kiểm soát.
-`make sparql-check` chạy đủ catalog trên RDF đã materialize. CRUD hành chính có
+Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và luật
+`CO_STARRED_WITH` nằm trong `cypher/`; SPARQL mẫu nằm trong `sparql/`. Các workflow
+RDF, evaluation và benchmark vẫn được giữ dưới dạng module/script trong `src/kg/`
+và `experiments/`, nhưng không nằm trong Makefile demo tối giản. CRUD hành chính có
 implementation tại `src/kg/crud.py` nhưng không mở ra public API. `make test`
 dùng Neo4j test riêng trên cổng 7688 và storage tạm, không reset graph demo.
 
@@ -90,12 +89,12 @@ các đạo diễn, diễn viên, keyword, thể loại và studio chung làm b�
 phương pháp graph-native duy nhất của API. Trên 20 case silver chạy với Neo4j
 thật, phương pháp đạt P@10 `0,715` và NDCG@10 `0,754`.
 
-`make run` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
+`make demo` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
 dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn
 và số Movie. Graph chỉ dựng lại khi các giá trị này thay đổi. `pip check` vẫn
 chạy nhanh nhưng không tải hoặc cài package.
 
-Để bật Question Planner, đặt các biến sau trong `.env` rồi chạy lại `make run`:
+Để bật Question Planner, đặt các biến sau trong `.env` rồi chạy lại `make demo`:
 
 ```dotenv
 LLM_API_KEY=local
@@ -114,12 +113,17 @@ make llm-setup  # chạy một lần; cài vLLM 0.25.0 trong .venv-llm
 make llm-run    # phục vụ Qwen3-8B-AWQ tại 127.0.0.1:8001
 ```
 
-Giữ terminal model hoạt động rồi chạy `make run` ở terminal khác. Lệnh dùng
+Giữ terminal model hoạt động rồi chạy `make demo` ở terminal khác. Lệnh dùng
 native sampler vì máy chỉ có NVIDIA driver, không yêu cầu CUDA toolkit/nvcc.
 
 ## Dữ liệu ngoài
 
-Đặt `TMDB_API_KEY` trong `.env`; `TMDBClient` cache nguyên response vào `data/raw/tmdb`. Raw data và secret được loại khỏi Git. Pipeline chỉ tải `title.ratings.tsv.gz` của IMDb, đọc streaming trực tiếp từ gzip và giữ các dòng khớp chính xác với `imdb_id` của phim TMDB. Không giải nén hay nạp toàn bộ IMDb vào RAM/Neo4j. `Movie.rating` giữ rating TMDB; `Movie.imdb_rating` và `Movie.imdb_votes` giữ dữ liệu IMDb riêng. Dùng `make clean-imdb-raw` khi cần giải phóng file nén sau khi đã xử lý.
+Đặt `TMDB_API_KEY` trong `.env`; `TMDBClient` cache nguyên response vào
+`data/raw/tmdb`. Raw data và secret được loại khỏi Git. Pipeline chỉ tải
+`title.ratings.tsv.gz` của IMDb, đọc streaming trực tiếp từ gzip và giữ các dòng
+khớp chính xác với `imdb_id` của phim TMDB. Không giải nén hay nạp toàn bộ IMDb
+vào RAM/Neo4j. `Movie.rating` giữ rating TMDB; `Movie.imdb_rating` và
+`Movie.imdb_votes` giữ dữ liệu IMDb riêng.
 
 ## Cấu trúc đầu ra và tái lập
 
@@ -147,8 +151,7 @@ và đưa ID/confidence vào evidence. Tên canonical chỉ là fallback cho fix
 không có ID. Các evaluator có sẵn tại
 `experiments/evaluate_entity_resolution.py`, `evaluate_reasoning.py` và
 `evaluate_recommendation.py`; schema corpus review nằm tại
-`experiments/labels/README.md`. `make evaluation-corpora` sinh bộ silver có
-evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases).
-Phải gọi đúng là silver evaluation cho đến khi có reviewer độc lập.
-Sau khi review, `make review-gate` kiểm tra reviewer độc lập, timestamp, decision,
-rubric version và adjudication note trước khi cho phép claim human-reviewed.
+`experiments/labels/README.md`. Các script trong `experiments/` sinh bộ silver có
+evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases)
+và kiểm tra metadata review. Phải gọi đúng là silver evaluation cho đến khi có
+reviewer độc lập.

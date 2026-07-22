@@ -29,11 +29,8 @@
 - Báo cáo thực nghiệm.
 - Slide bảo vệ.
 
-## Tài liệu nguồn đã sử dụng
+## Tài liệu nguồn
 
-- `sources/8_Biểu diễn tri thức.pptx`
-- `sources/Ontology_va_Ung_dung.pptx`
-- `sources/Co-so-du-lieu-do-thi-Graph-Database.pptx`
-- `sources/KnowledgeGraph_50slide_VN  -  Repaired.pptx`
-- `sources/Knowledge_Graph_AI_Agent_50slides.pptx`
-- `sources/KnowledgeGraph_KhungNoiDung_ChiTiet.docx`
+Các tài liệu Office dung lượng lớn đã được dùng trong giai đoạn tổng hợp nhưng
+không còn lưu trong repository demo. Bản thảo báo cáo, code, cấu hình và artifact
+đo hiện tại là nguồn có thể kiểm chứng trong repo.

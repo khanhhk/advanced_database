@@ -10,11 +10,9 @@ tool.
 
 Refresh procedure:
 
-1. Run `python scripts/extract_office.py` to extract searchable text to `/tmp`.
-2. Run `sha256sum docs/sources/*.pptx docs/sources/*.docx README.md docs/*.md`
-   and compare the result with `SOURCES.sha256`.
-3. Review changed documents and update `PROJECT_MEMORY.md`.
-4. Replace the recorded checksums.
+1. Run `sha256sum -c .agents/memory/SOURCES.sha256`.
+2. Review changed documents and update `PROJECT_MEMORY.md`.
+3. Replace the recorded checksums for the files that changed.
 
 Do not store secrets, raw datasets, transient task state, or generated Office
 text dumps here.
