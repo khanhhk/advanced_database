@@ -3,25 +3,25 @@
 <style>text{font-family:Arial,sans-serif;fill:#172033}.axis{font-size:12px}.title{font-size:17px;font-weight:bold}</style>
 <text class="title" x="460" y="26" text-anchor="middle">Same-snapshot query latency (100 iterations)</text>
 <line x1="70" y1="365" x2="890" y2="365" stroke="#667085"/>
-<rect x="85.0" y="262.2" width="32" height="102.8" fill="#2563eb"/>
-<text class="axis" x="101.0" y="257.2" text-anchor="middle">16.56</text>
-<rect x="123.0" y="354.8" width="32" height="10.2" fill="#f59e0b"/>
-<text class="axis" x="139.0" y="349.8" text-anchor="middle">1.64</text>
+<rect x="85.0" y="183.9" width="32" height="181.1" fill="#2563eb"/>
+<text class="axis" x="101.0" y="178.9" text-anchor="middle">23.68</text>
+<rect x="123.0" y="352.3" width="32" height="12.7" fill="#f59e0b"/>
+<text class="axis" x="139.0" y="347.3" text-anchor="middle">1.66</text>
 <text class="axis" x="120.0" y="389" text-anchor="middle">movies_by_director</text>
 <rect x="285.0" y="65.0" width="32" height="300.0" fill="#2563eb"/>
-<text class="axis" x="301.0" y="60.0" text-anchor="middle">48.33</text>
-<rect x="323.0" y="283.9" width="32" height="81.1" fill="#f59e0b"/>
-<text class="axis" x="339.0" y="278.9" text-anchor="middle">13.07</text>
+<text class="axis" x="301.0" y="60.0" text-anchor="middle">39.21</text>
+<rect x="323.0" y="221.1" width="32" height="143.9" fill="#f59e0b"/>
+<text class="axis" x="339.0" y="216.1" text-anchor="middle">18.81</text>
 <text class="axis" x="320.0" y="389" text-anchor="middle">common_movies</text>
-<rect x="485.0" y="333.4" width="32" height="31.6" fill="#2563eb"/>
-<text class="axis" x="501.0" y="328.4" text-anchor="middle">5.08</text>
-<rect x="523.0" y="359.8" width="32" height="5.2" fill="#f59e0b"/>
-<text class="axis" x="539.0" y="354.8" text-anchor="middle">0.84</text>
+<rect x="485.0" y="243.8" width="32" height="121.2" fill="#2563eb"/>
+<text class="axis" x="501.0" y="238.8" text-anchor="middle">15.84</text>
+<rect x="523.0" y="353.5" width="32" height="11.5" fill="#f59e0b"/>
+<text class="axis" x="539.0" y="348.5" text-anchor="middle">1.50</text>
 <text class="axis" x="520.0" y="389" text-anchor="middle">movies_by_genre_rating</text>
-<rect x="685.0" y="323.8" width="32" height="41.2" fill="#2563eb"/>
-<text class="axis" x="701.0" y="318.8" text-anchor="middle">6.64</text>
-<rect x="723.0" y="351.4" width="32" height="13.6" fill="#f59e0b"/>
-<text class="axis" x="739.0" y="346.4" text-anchor="middle">2.20</text>
+<rect x="685.0" y="263.7" width="32" height="101.3" fill="#2563eb"/>
+<text class="axis" x="701.0" y="258.7" text-anchor="middle">13.24</text>
+<rect x="723.0" y="336.7" width="32" height="28.3" fill="#f59e0b"/>
+<text class="axis" x="739.0" y="331.7" text-anchor="middle">3.70</text>
 <text class="axis" x="720.0" y="389" text-anchor="middle">directors_by_genre</text>
 <rect x="690" y="40" width="14" height="14" fill="#2563eb"/><text class="axis" x="710" y="52">Neo4j p95</text>
 <rect x="790" y="40" width="14" height="14" fill="#f59e0b"/><text class="axis" x="810" y="52">SQLite p95</text>

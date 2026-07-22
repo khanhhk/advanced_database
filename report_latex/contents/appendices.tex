@@ -1,11 +1,11 @@
-% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+% LaTeX source maintained directly for Overleaf.
 \chapter{Hướng dẫn cài đặt và chạy chương trình}
 
 Môi trường yêu cầu Python 3.11 trở lên, Docker và Docker Compose. Các biến cấu
 hình được khai báo trong \texttt{.env}; khóa \texttt{TMDB\_API\_KEY} chỉ cần thiết khi thu thập
 lại dữ liệu. Quy trình chạy cơ bản như sau:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 make setup
 make data DATA_COUNT=2000
 make demo
@@ -14,14 +14,24 @@ make demo
 Sau khi khởi động, giao diện web có tại \texttt{http://localhost:8000/} và tài liệu API
 Swagger có tại \texttt{http://localhost:8000/docs}. Kiểm tra toàn bộ hệ thống bằng:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 make test
+.venv/bin/python -m experiments.evaluation.audit_knowledge_quality
+.venv/bin/python -m experiments.corpora.build_entity_review_pack
+docker compose --profile semantic up -d --build jena
+.venv/bin/python -m experiments.semantic.evaluate_jena
+docker compose --profile semantic stop jena
+docker compose --profile test up -d --wait neo4j-test
+RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
+  ALLOW_MULTISCALE_BENCHMARK=1 NEO4J_URI=bolt://localhost:7688 \
+  NEO4J_PASSWORD=test-password \
+  .venv/bin/python -m experiments.benchmarks.benchmark_multiscale
 \end{Verbatim}
 
-\texttt{make demo} sử dụng manifest để chỉ import lại khi snapshot hoặc số lượng Movie
-thay đổi. Dữ liệu Neo4j kiểm thử chạy ở Bolt 7688 và tách biệt với graph demo.
-Các workflow RDF, evaluation và benchmark được lưu dưới dạng module/script trong
-\texttt{src/kg/} và \texttt{experiments/}; chúng không thuộc tập lệnh Make phục vụ buổi demo.
+\texttt{make demo} so processed checksum để chỉ import lại khi CSV graph thực sự thay đổi.
+Dữ liệu Neo4j kiểm thử chạy ở Bolt 7688 và tách biệt với graph demo. Bốn lệnh đánh
+giá phía trên không cần chạy trong buổi demo; chúng tái tạo quality audit, review
+pack, Jena/Fuseki result và benchmark đa quy mô.
 
 \chapter{API và ví dụ sử dụng}
 
@@ -39,7 +49,7 @@ Các workflow RDF, evaluation và benchmark được lưu dưới dạng module/
 
 Ví dụ gửi câu hỏi:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 curl -X POST http://localhost:8000/ask \
   -H 'Content-Type: application/json' \
   -d '{"question":"Những phim nào do Christopher Nolan đạo diễn?"}'
@@ -48,7 +58,7 @@ curl -X POST http://localhost:8000/ask \
 Response gồm \texttt{answer}, \texttt{intent}, \texttt{evidence} và \texttt{query\_time\_ms}. Ví dụ yêu cầu gợi
 ý ba phim tương tự \texttt{Inception}:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 curl -X POST http://localhost:8000/recommend \
   -H 'Content-Type: application/json' \
   -d '{"movie_id":27205,"top_k":3}'
@@ -61,7 +71,7 @@ loại và câu giải thích được dựng từ chính các feature đã đó
 
 Truy vấn Cypher tìm phim theo đạo diễn:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 MATCH (p:Person)-[:DIRECTED]->(m:Movie)
 WHERE toLower(p.name) = toLower($director)
 RETURN m.tmdb_id AS movie_id, m.title AS title
@@ -70,7 +80,7 @@ ORDER BY m.release_date
 
 Truy vấn Cypher sử dụng quan hệ suy diễn để tìm bạn diễn:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 MATCH (a:Person)-[r:CO_STARRED_WITH]-(b:Person)
 WHERE toLower(a.name) = toLower($person)
 RETURN b.name, r.movie_count, r.evidence_movie_ids
@@ -79,7 +89,7 @@ ORDER BY r.movie_count DESC
 
 Truy vấn SPARQL sử dụng inverse relation sau semantic materialization:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 PREFIX : <https://example.org/movie-kg/>
 SELECT ?movie ?actor
 WHERE { ?movie :hasActor ?actor }
@@ -91,6 +101,8 @@ và quản lý tập trung trong \texttt{src/kg/query\_catalog.py}.
 
 \chapter{Cấu trúc dữ liệu và kết quả thực nghiệm}
 
+Các đường dẫn kết quả trong bảng được tính tương đối từ \texttt{experiments/results/}.
+
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.36\textwidth}|>{\raggedright\arraybackslash}p{0.52\textwidth}|}
 \caption{Tổng hợp cấu trúc dữ liệu và kết quả thực nghiệm}\label{tab:app-2} \\
 \hline
@@ -100,13 +112,16 @@ và quản lý tập trung trong \texttt{src/kg/query\_catalog.py}.
 \texttt{data/processed/}\linebreak{}\texttt{*.csv} & Năm bảng node và năm bảng relationship đã chuẩn hóa \\ \hline
 \texttt{data/processed/}\linebreak{}\texttt{movies.ttl} & RDF export từ processed snapshot \\ \hline
 \texttt{data/processed/}\linebreak{}\texttt{movies.inferred.ttl} & RDF sau semantic materialization \\ \hline
-\texttt{experiments/results/}\linebreak{}\texttt{neo4j\_validation.json} & Kết quả kiểm tra cấu trúc graph \\ \hline
-\texttt{experiments/results/}\linebreak{}\texttt{qa\_neo4j.json} & Kết quả bộ câu hỏi QA trên Neo4j \\ \hline
-\texttt{experiments/results/}\linebreak{}\texttt{recommendation.json} & P@10 và NDCG@10 của recommendation \\ \hline
-\texttt{experiments/results/}\linebreak{}\texttt{neo4j\_benchmark.csv} & Median, p95 và độ lệch chuẩn theo truy vấn \\ \hline
-\texttt{experiments/results/}\linebreak{}\texttt{relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
+\texttt{quality/}\linebreak{}\texttt{neo4j\_validation.json} & Kết quả kiểm tra cấu trúc graph \\ \hline
+\texttt{evaluation/}\linebreak{}\texttt{qa\_neo4j.json} & Kết quả bộ câu hỏi QA trên Neo4j \\ \hline
+\texttt{evaluation/}\linebreak{}\texttt{recommendation.json} & P@10 và NDCG@10 của recommendation \\ \hline
+\texttt{benchmarks/}\linebreak{}\texttt{neo4j\_benchmark.csv} & Median, p95 và độ lệch chuẩn theo truy vấn \\ \hline
+\texttt{benchmarks/}\linebreak{}\texttt{relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
+\texttt{quality/}\linebreak{}\texttt{knowledge\_quality\_audit.json} & Audit identity, consistency, completeness và provenance \\ \hline
+\texttt{semantic/}\linebreak{}\texttt{jena\_semantic\_evaluation.json} & Jena/Fuseki reasoner và kết quả 10 SPARQL \\ \hline
+\texttt{benchmarks/}\linebreak{}\texttt{multiscale\_benchmark.csv} & Neo4j–SQLite tại 500/1.000/2.000 Movie \\ \hline
 \end{longtable}
 
-Snapshot hiện tại gồm 2.000 Movie, 24.661 Person, 19 Genre, 7.916 Keyword và
-2.753 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
+Snapshot hiện tại gồm 2.000 Movie, 24.380 Person, 19 Genre, 7.912 Keyword và
+2.626 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
 tra lại số liệu và tái tạo bảng, biểu đồ trong Chương 5.

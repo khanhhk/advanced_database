@@ -11,3 +11,20 @@ data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+# LaTeX build intermediates and locally compiled output.
+report_latex/*.aux
+report_latex/*.bbl
+report_latex/*.blg
+report_latex/*.fdb_latexmk
+report_latex/*.fls
+report_latex/*.lof
+report_latex/*.log
+report_latex/*.lot
+report_latex/*.out
+report_latex/*.toc
+report_latex/*.xdv
+report_latex/main.pdf
+
+# Presentation binaries are prepared manually outside this repository.
+slides/

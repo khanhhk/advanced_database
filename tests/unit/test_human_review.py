@@ -1,6 +1,6 @@
 import json
 
-from experiments.validate_human_review import validate
+from experiments.corpora.validate_human_review import validate
 
 
 def test_human_review_gate_requires_independent_complete_metadata(tmp_path):

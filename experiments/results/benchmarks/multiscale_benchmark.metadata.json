@@ -1,0 +1,78 @@
+{
+  "protocol": "same-machine induced-snapshot Neo4j/SQLite comparison",
+  "generated_at_epoch": 1784701606.9580972,
+  "duration_seconds": 35.47043442726135,
+  "python_version": "3.11.7",
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+  "processor": "x86_64",
+  "source_manifest_sha256": "bd1470ff79fb9a5f3e02c64862c026d0779503bae93b79929c12447802bbee01",
+  "sizes": [
+    500,
+    1000,
+    2000
+  ],
+  "iterations_per_query": 100,
+  "warmup_runs_per_query": 1,
+  "selection": "first-n-processed-source-order",
+  "test_neo4j_uri": "bolt://localhost:7688",
+  "snapshots": [
+    {
+      "kind": "deterministic-induced-benchmark-snapshot",
+      "selection": "first-n-processed-source-order",
+      "requested_movies": 500,
+      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "counts": {
+        "movies": 500,
+        "people": 7271,
+        "genres": 19,
+        "keywords": 3096,
+        "studios": 849,
+        "acted_in": 8784,
+        "directed": 549,
+        "has_genre": 1316,
+        "has_keyword": 6729,
+        "produced_by": 1449
+      },
+      "snapshot_sha256": "5a9f64c6a3bdd0a902de21792ac0a6aa829176821545acc6347dec2458528764"
+    },
+    {
+      "kind": "deterministic-induced-benchmark-snapshot",
+      "selection": "first-n-processed-source-order",
+      "requested_movies": 1000,
+      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "counts": {
+        "movies": 1000,
+        "people": 13291,
+        "genres": 19,
+        "keywords": 5212,
+        "studios": 1512,
+        "acted_in": 17425,
+        "directed": 1108,
+        "has_genre": 2611,
+        "has_keyword": 13710,
+        "produced_by": 2948
+      },
+      "snapshot_sha256": "9b96b898f5220c24503c2cc2516725dc828e3f1049ed1c86b13988863c4d8516"
+    },
+    {
+      "kind": "deterministic-induced-benchmark-snapshot",
+      "selection": "first-n-processed-source-order",
+      "requested_movies": 2000,
+      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "counts": {
+        "movies": 2000,
+        "people": 24380,
+        "genres": 19,
+        "keywords": 7912,
+        "studios": 2626,
+        "acted_in": 34007,
+        "directed": 2194,
+        "has_genre": 5087,
+        "has_keyword": 25985,
+        "produced_by": 5733
+      },
+      "snapshot_sha256": "721ecbd3e1e8b7f337b07f106eb0f540388d739c49b4ed957fc63dc0da661e67"
+    }
+  ],
+  "interpretation_limit": "Latency trend on one machine and one workload; not a universal DBMS ranking."
+}

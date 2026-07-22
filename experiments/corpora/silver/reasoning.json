@@ -1,0 +1,1136 @@
+[
+  {
+    "case_id": "reason-001",
+    "person_a": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "person_b": {
+      "tmdb_id": 10980,
+      "name": "Daniel Radcliffe"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-002",
+    "person_a": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "person_b": {
+      "tmdb_id": 10990,
+      "name": "Emma Watson"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-003",
+    "person_a": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "person_b": {
+      "tmdb_id": 10989,
+      "name": "Rupert Grint"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-004",
+    "person_a": {
+      "tmdb_id": 12080,
+      "name": "Conrad Vernon"
+    },
+    "person_b": {
+      "tmdb_id": 12098,
+      "name": "Chris Miller"
+    },
+    "movie_ids": [
+      808,
+      953,
+      80321,
+      809,
+      270946,
+      421892,
+      10527,
+      417859
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-005",
+    "person_a": {
+      "tmdb_id": 10980,
+      "name": "Daniel Radcliffe"
+    },
+    "person_b": {
+      "tmdb_id": 10990,
+      "name": "Emma Watson"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-006",
+    "person_a": {
+      "tmdb_id": 10980,
+      "name": "Daniel Radcliffe"
+    },
+    "person_b": {
+      "tmdb_id": 10989,
+      "name": "Rupert Grint"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-007",
+    "person_a": {
+      "tmdb_id": 17605,
+      "name": "Idris Elba"
+    },
+    "person_b": {
+      "tmdb_id": 74568,
+      "name": "Chris Hemsworth"
+    },
+    "movie_ids": [
+      299536,
+      99861,
+      284053,
+      76338,
+      10195,
+      616037,
+      697843,
+      1141700
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-008",
+    "person_a": {
+      "tmdb_id": 1923,
+      "name": "Robbie Coltrane"
+    },
+    "person_b": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-009",
+    "person_a": {
+      "tmdb_id": 1923,
+      "name": "Robbie Coltrane"
+    },
+    "person_b": {
+      "tmdb_id": 10980,
+      "name": "Daniel Radcliffe"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-010",
+    "person_a": {
+      "tmdb_id": 1923,
+      "name": "Robbie Coltrane"
+    },
+    "person_b": {
+      "tmdb_id": 10990,
+      "name": "Emma Watson"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-011",
+    "person_a": {
+      "tmdb_id": 1923,
+      "name": "Robbie Coltrane"
+    },
+    "person_b": {
+      "tmdb_id": 10989,
+      "name": "Rupert Grint"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-012",
+    "person_a": {
+      "tmdb_id": 10989,
+      "name": "Rupert Grint"
+    },
+    "person_b": {
+      "tmdb_id": 10990,
+      "name": "Emma Watson"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      12444,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-013",
+    "person_a": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "person_b": {
+      "tmdb_id": 10978,
+      "name": "Maggie Smith"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-014",
+    "person_a": {
+      "tmdb_id": 5149,
+      "name": "Bonnie Hunt"
+    },
+    "person_b": {
+      "tmdb_id": 7907,
+      "name": "John Ratzenberger"
+    },
+    "movie_ids": [
+      1084244,
+      585,
+      301528,
+      10193,
+      920,
+      260514,
+      9487
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-015",
+    "person_a": {
+      "tmdb_id": 16828,
+      "name": "Chris Evans"
+    },
+    "person_b": {
+      "tmdb_id": 53650,
+      "name": "Anthony Mackie"
+    },
+    "movie_ids": [
+      1003596,
+      299536,
+      299534,
+      99861,
+      271110,
+      100402,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-016",
+    "person_a": {
+      "tmdb_id": 10978,
+      "name": "Maggie Smith"
+    },
+    "person_b": {
+      "tmdb_id": 10980,
+      "name": "Daniel Radcliffe"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-017",
+    "person_a": {
+      "tmdb_id": 10978,
+      "name": "Maggie Smith"
+    },
+    "person_b": {
+      "tmdb_id": 10990,
+      "name": "Emma Watson"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-018",
+    "person_a": {
+      "tmdb_id": 10978,
+      "name": "Maggie Smith"
+    },
+    "person_b": {
+      "tmdb_id": 10989,
+      "name": "Rupert Grint"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-019",
+    "person_a": {
+      "tmdb_id": 103,
+      "name": "Mark Ruffalo"
+    },
+    "person_b": {
+      "tmdb_id": 74568,
+      "name": "Chris Hemsworth"
+    },
+    "movie_ids": [
+      24428,
+      299536,
+      1171145,
+      299534,
+      99861,
+      284053,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-020",
+    "person_a": {
+      "tmdb_id": 1923,
+      "name": "Robbie Coltrane"
+    },
+    "person_b": {
+      "tmdb_id": 10978,
+      "name": "Maggie Smith"
+    },
+    "movie_ids": [
+      671,
+      672,
+      674,
+      12445,
+      673,
+      675,
+      767
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-021",
+    "person_a": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "person_b": {
+      "tmdb_id": 16828,
+      "name": "Chris Evans"
+    },
+    "movie_ids": [
+      1003596,
+      24428,
+      299536,
+      299534,
+      99861,
+      271110,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-022",
+    "person_a": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "person_b": {
+      "tmdb_id": 6162,
+      "name": "Paul Bettany"
+    },
+    "movie_ids": [
+      24428,
+      299536,
+      99861,
+      1726,
+      271110,
+      68721,
+      10138
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-023",
+    "person_a": {
+      "tmdb_id": 19292,
+      "name": "Adam Sandler"
+    },
+    "person_b": {
+      "tmdb_id": 32895,
+      "name": "Kevin James"
+    },
+    "movie_ids": [
+      38365,
+      76492,
+      109418,
+      257344,
+      400155,
+      159824
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-024",
+    "person_a": {
+      "tmdb_id": 6,
+      "name": "Anthony Daniels"
+    },
+    "person_b": {
+      "tmdb_id": 7908,
+      "name": "Frank Oz"
+    },
+    "movie_ids": [
+      181808,
+      1891,
+      1893,
+      1895,
+      1892,
+      1894
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-025",
+    "person_a": {
+      "tmdb_id": 11357,
+      "name": "Bruce Campbell"
+    },
+    "person_b": {
+      "tmdb_id": 11769,
+      "name": "Ted Raimi"
+    },
+    "movie_ids": [
+      557,
+      764,
+      559,
+      766,
+      558,
+      765
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-026",
+    "person_a": {
+      "tmdb_id": 4,
+      "name": "Carrie Fisher"
+    },
+    "person_b": {
+      "tmdb_id": 6,
+      "name": "Anthony Daniels"
+    },
+    "movie_ids": [
+      181808,
+      11,
+      181812,
+      140607,
+      1891,
+      1892
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-027",
+    "person_a": {
+      "tmdb_id": 16828,
+      "name": "Chris Evans"
+    },
+    "person_b": {
+      "tmdb_id": 74568,
+      "name": "Chris Hemsworth"
+    },
+    "movie_ids": [
+      1003596,
+      24428,
+      299536,
+      299534,
+      99861,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-028",
+    "person_a": {
+      "tmdb_id": 16828,
+      "name": "Chris Evans"
+    },
+    "person_b": {
+      "tmdb_id": 60898,
+      "name": "Sebastian Stan"
+    },
+    "movie_ids": [
+      1003596,
+      299536,
+      271110,
+      100402,
+      1003598,
+      1771
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-029",
+    "person_a": {
+      "tmdb_id": 74568,
+      "name": "Chris Hemsworth"
+    },
+    "person_b": {
+      "tmdb_id": 91606,
+      "name": "Tom Hiddleston"
+    },
+    "movie_ids": [
+      1003596,
+      24428,
+      299536,
+      284053,
+      76338,
+      10195
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-030",
+    "person_a": {
+      "tmdb_id": 12098,
+      "name": "Chris Miller"
+    },
+    "person_b": {
+      "tmdb_id": 18864,
+      "name": "Tom McGrath"
+    },
+    "movie_ids": [
+      953,
+      80321,
+      270946,
+      15512,
+      10527,
+      417859
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-031",
+    "person_a": {
+      "tmdb_id": 12097,
+      "name": "Christopher Knights"
+    },
+    "person_b": {
+      "tmdb_id": 12098,
+      "name": "Chris Miller"
+    },
+    "movie_ids": [
+      808,
+      953,
+      80321,
+      809,
+      270946,
+      10527
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-032",
+    "person_a": {
+      "tmdb_id": 12080,
+      "name": "Conrad Vernon"
+    },
+    "person_b": {
+      "tmdb_id": 12097,
+      "name": "Christopher Knights"
+    },
+    "movie_ids": [
+      808,
+      953,
+      80321,
+      809,
+      270946,
+      10527
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-033",
+    "person_a": {
+      "tmdb_id": 5724,
+      "name": "Denis Leary"
+    },
+    "person_b": {
+      "tmdb_id": 15757,
+      "name": "Ray Romano"
+    },
+    "movie_ids": [
+      57800,
+      425,
+      278154,
+      8355,
+      950,
+      1384758
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-034",
+    "person_a": {
+      "tmdb_id": 1896,
+      "name": "Don Cheadle"
+    },
+    "person_b": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "movie_ids": [
+      299536,
+      299534,
+      99861,
+      271110,
+      68721,
+      10138
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-035",
+    "person_a": {
+      "tmdb_id": 1283,
+      "name": "Helena Bonham Carter"
+    },
+    "person_b": {
+      "tmdb_id": 4566,
+      "name": "Alan Rickman"
+    },
+    "movie_ids": [
+      12445,
+      12444,
+      675,
+      767,
+      12155,
+      241259
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-036",
+    "person_a": {
+      "tmdb_id": 19545,
+      "name": "Jack Angel"
+    },
+    "person_b": {
+      "tmdb_id": 78317,
+      "name": "Bob Bergen"
+    },
+    "movie_ids": [
+      585,
+      73723,
+      11544,
+      10545,
+      10386,
+      9016
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-037",
+    "person_a": {
+      "tmdb_id": 5723,
+      "name": "John Leguizamo"
+    },
+    "person_b": {
+      "tmdb_id": 5724,
+      "name": "Denis Leary"
+    },
+    "movie_ids": [
+      57800,
+      425,
+      278154,
+      8355,
+      950,
+      1384758
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-038",
+    "person_a": {
+      "tmdb_id": 5723,
+      "name": "John Leguizamo"
+    },
+    "person_b": {
+      "tmdb_id": 15757,
+      "name": "Ray Romano"
+    },
+    "movie_ids": [
+      57800,
+      425,
+      278154,
+      8355,
+      950,
+      1384758
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-039",
+    "person_a": {
+      "tmdb_id": 2975,
+      "name": "Laurence Fishburne"
+    },
+    "person_b": {
+      "tmdb_id": 6384,
+      "name": "Keanu Reeves"
+    },
+    "movie_ids": [
+      603,
+      603692,
+      605,
+      458156,
+      604,
+      324552
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-040",
+    "person_a": {
+      "tmdb_id": 2,
+      "name": "Mark Hamill"
+    },
+    "person_b": {
+      "tmdb_id": 6,
+      "name": "Anthony Daniels"
+    },
+    "movie_ids": [
+      181808,
+      11,
+      181812,
+      140607,
+      1891,
+      1892
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-041",
+    "person_a": {
+      "tmdb_id": 2,
+      "name": "Mark Hamill"
+    },
+    "person_b": {
+      "tmdb_id": 4,
+      "name": "Carrie Fisher"
+    },
+    "movie_ids": [
+      181808,
+      11,
+      181812,
+      140607,
+      1891,
+      1892
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-042",
+    "person_a": {
+      "tmdb_id": 103,
+      "name": "Mark Ruffalo"
+    },
+    "person_b": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "movie_ids": [
+      24428,
+      299536,
+      299534,
+      99861,
+      1003598,
+      1949
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-043",
+    "person_a": {
+      "tmdb_id": 84493,
+      "name": "Mickie McGowan"
+    },
+    "person_b": {
+      "tmdb_id": 214701,
+      "name": "Sherry Lynn"
+    },
+    "movie_ids": [
+      10681,
+      73723,
+      11688,
+      10144,
+      211672,
+      10009
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-044",
+    "person_a": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "person_b": {
+      "tmdb_id": 53650,
+      "name": "Anthony Mackie"
+    },
+    "movie_ids": [
+      1003596,
+      299536,
+      299534,
+      99861,
+      271110,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-045",
+    "person_a": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "person_b": {
+      "tmdb_id": 74568,
+      "name": "Chris Hemsworth"
+    },
+    "movie_ids": [
+      1003596,
+      24428,
+      299536,
+      299534,
+      99861,
+      1003598
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-046",
+    "person_a": {
+      "tmdb_id": 70615,
+      "name": "Rodger Bumpass"
+    },
+    "person_b": {
+      "tmdb_id": 78317,
+      "name": "Bob Bergen"
+    },
+    "movie_ids": [
+      585,
+      11688,
+      11544,
+      37135,
+      10386,
+      9016
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-047",
+    "person_a": {
+      "tmdb_id": 1245,
+      "name": "Scarlett Johansson"
+    },
+    "person_b": {
+      "tmdb_id": 16828,
+      "name": "Chris Evans"
+    },
+    "movie_ids": [
+      24428,
+      299536,
+      299534,
+      99861,
+      271110,
+      100402
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-048",
+    "person_a": {
+      "tmdb_id": 1245,
+      "name": "Scarlett Johansson"
+    },
+    "person_b": {
+      "tmdb_id": 3223,
+      "name": "Robert Downey Jr."
+    },
+    "movie_ids": [
+      24428,
+      299536,
+      299534,
+      99861,
+      271110,
+      10138
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-049",
+    "person_a": {
+      "tmdb_id": 884,
+      "name": "Steve Buscemi"
+    },
+    "person_b": {
+      "tmdb_id": 19292,
+      "name": "Adam Sandler"
+    },
+    "movie_ids": [
+      38365,
+      76492,
+      109418,
+      1263256,
+      400155,
+      159824
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "reason-050",
+    "person_a": {
+      "tmdb_id": 884,
+      "name": "Steve Buscemi"
+    },
+    "person_b": {
+      "tmdb_id": 60950,
+      "name": "David Spade"
+    },
+    "movie_ids": [
+      38365,
+      76492,
+      109418,
+      585083,
+      400155,
+      159824
+    ],
+    "valid": true,
+    "evidence_rule": "both TMDB person IDs occur in the cast of every listed movie",
+    "review_status": "silver-auto"
+  }
+]

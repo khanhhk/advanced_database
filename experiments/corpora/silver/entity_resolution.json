@@ -1,0 +1,3927 @@
+[
+  {
+    "case_id": "er-001",
+    "left": {
+      "id": "mention:0",
+      "name": "Andrew Mrogado",
+      "tmdb_id": 80823
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1549908",
+        "tmdb_id": 1549908,
+        "name": "Andrés Delgado"
+      },
+      {
+        "id": "tmdb:80823",
+        "tmdb_id": 80823,
+        "name": "Andrew Morgado"
+      },
+      {
+        "id": "tmdb:67206",
+        "tmdb_id": 67206,
+        "name": "Andrew Howard"
+      },
+      {
+        "id": "tmdb:167720",
+        "tmdb_id": 167720,
+        "name": "Andrew Borba"
+      },
+      {
+        "id": "tmdb:5865561",
+        "tmdb_id": 5865561,
+        "name": "Andrew Tong"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:80823",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-002",
+    "left": {
+      "id": "mention:1",
+      "name": "Lau Hak-uSen"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1048610",
+        "tmdb_id": 1048610,
+        "name": "Luke Hawker"
+      },
+      {
+        "id": "tmdb:125708",
+        "tmdb_id": 125708,
+        "name": "Yu Ha-jun"
+      },
+      {
+        "id": "tmdb:1615316",
+        "tmdb_id": 1615316,
+        "name": "Lee Hak-ju"
+      },
+      {
+        "id": "tmdb:1178942",
+        "tmdb_id": 1178942,
+        "name": "Lau Hak-Suen"
+      },
+      {
+        "id": "tmdb:1382332",
+        "tmdb_id": 1382332,
+        "name": "Lu Han"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1178942",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-003",
+    "left": {
+      "id": "mention:2",
+      "name": "Ingeborg jKeldsen",
+      "tmdb_id": 951972
+    },
+    "candidates": [
+      {
+        "id": "tmdb:26516",
+        "tmdb_id": 26516,
+        "name": "Ingeborg Schöner"
+      },
+      {
+        "id": "tmdb:2953599",
+        "tmdb_id": 2953599,
+        "name": "Angelo Kern"
+      },
+      {
+        "id": "tmdb:6216363",
+        "tmdb_id": 6216363,
+        "name": "Connor Nielsen"
+      },
+      {
+        "id": "tmdb:559052",
+        "tmdb_id": 559052,
+        "name": "Ingeborg Moosholzer"
+      },
+      {
+        "id": "tmdb:951972",
+        "tmdb_id": 951972,
+        "name": "Ingeborg Kjeldsen"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:951972",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-004",
+    "left": {
+      "id": "mention:3",
+      "name": "Dino iRsi"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1467655",
+        "tmdb_id": 1467655,
+        "name": "Veriano Ginesi"
+      },
+      {
+        "id": "tmdb:181898",
+        "tmdb_id": 181898,
+        "name": "Donogh Rees"
+      },
+      {
+        "id": "tmdb:1538847",
+        "tmdb_id": 1538847,
+        "name": "Divino Vivas"
+      },
+      {
+        "id": "tmdb:1721099",
+        "tmdb_id": 1721099,
+        "name": "Diana Rein"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-005",
+    "left": {
+      "id": "mention:4",
+      "title": "Tde",
+      "tmdb_id": 72105
+    },
+    "candidates": [
+      {
+        "id": "tmdb:94329",
+        "tmdb_id": 94329,
+        "title": "The Raid"
+      },
+      {
+        "id": "tmdb:38757",
+        "tmdb_id": 38757,
+        "title": "Tangled"
+      },
+      {
+        "id": "tmdb:72105",
+        "tmdb_id": 72105,
+        "title": "Ted"
+      },
+      {
+        "id": "tmdb:214756",
+        "tmdb_id": 214756,
+        "title": "Ted 2"
+      },
+      {
+        "id": "tmdb:1086268",
+        "tmdb_id": 1086268,
+        "title": "Three"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:72105",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-006",
+    "left": {
+      "id": "mention:5",
+      "title": "Den of Theives"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:924",
+        "tmdb_id": 924,
+        "title": "Dawn of the Dead"
+      },
+      {
+        "id": "tmdb:1263337",
+        "tmdb_id": 1263337,
+        "title": "Heart of the Beast"
+      },
+      {
+        "id": "tmdb:705996",
+        "tmdb_id": 705996,
+        "title": "Decision to Leave"
+      },
+      {
+        "id": "tmdb:449443",
+        "tmdb_id": 449443,
+        "title": "Den of Thieves"
+      },
+      {
+        "id": "tmdb:1235746",
+        "tmdb_id": 1235746,
+        "title": "Dead of Winter"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:449443",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-007",
+    "left": {
+      "id": "mention:6",
+      "title": "Death on hte Nile",
+      "tmdb_id": 505026
+    },
+    "candidates": [
+      {
+        "id": "tmdb:309775",
+        "tmdb_id": 309775,
+        "title": "Down the River"
+      },
+      {
+        "id": "tmdb:4192",
+        "tmdb_id": 4192,
+        "title": "Death on the Nile"
+      },
+      {
+        "id": "tmdb:505026",
+        "tmdb_id": 505026,
+        "title": "Death on the Nile"
+      },
+      {
+        "id": "tmdb:57165",
+        "tmdb_id": 57165,
+        "title": "Wrath of the Titans"
+      },
+      {
+        "id": "tmdb:1263337",
+        "tmdb_id": 1263337,
+        "title": "Heart of the Beast"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:505026",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-008",
+    "left": {
+      "id": "mention:7",
+      "name": "Michael-Loen Wooley"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1172388",
+        "tmdb_id": 1172388,
+        "name": "Michael Cooke"
+      },
+      {
+        "id": "tmdb:94185",
+        "tmdb_id": 94185,
+        "name": "Shailene Woodley"
+      },
+      {
+        "id": "tmdb:4311370",
+        "tmdb_id": 4311370,
+        "name": "Michael Monroe"
+      },
+      {
+        "id": "tmdb:72994",
+        "tmdb_id": 72994,
+        "name": "Michael Mosley"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-009",
+    "left": {
+      "id": "mention:8",
+      "name": "John Weslecouch",
+      "tmdb_id": 1186026
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6949",
+        "tmdb_id": 6949,
+        "name": "John Malkovich"
+      },
+      {
+        "id": "tmdb:1186026",
+        "tmdb_id": 1186026,
+        "name": "John Weselcouch"
+      },
+      {
+        "id": "tmdb:54040",
+        "tmdb_id": 54040,
+        "name": "John Lee Hancock"
+      },
+      {
+        "id": "tmdb:171747",
+        "tmdb_id": 171747,
+        "name": "John Costelloe"
+      },
+      {
+        "id": "tmdb:1273237",
+        "tmdb_id": 1273237,
+        "name": "John Wilmot"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1186026",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-010",
+    "left": {
+      "id": "mention:9",
+      "name": "Øyvind Hagne-Traberg"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:27552",
+        "tmdb_id": 27552,
+        "name": "David Eigenberg"
+      },
+      {
+        "id": "tmdb:2302835",
+        "tmdb_id": 2302835,
+        "name": "Øyvind Brandtzæg"
+      },
+      {
+        "id": "tmdb:2435043",
+        "tmdb_id": 2435043,
+        "name": "David Carlberg"
+      },
+      {
+        "id": "tmdb:1348437",
+        "tmdb_id": 1348437,
+        "name": "Øyvind Hagen-Traberg"
+      },
+      {
+        "id": "tmdb:3192875",
+        "tmdb_id": 3192875,
+        "name": "David Rosenberg"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1348437",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-011",
+    "left": {
+      "id": "mention:10",
+      "name": "Almaz Aamnova",
+      "tmdb_id": 2084558
+    },
+    "candidates": [
+      {
+        "id": "tmdb:47842",
+        "tmdb_id": 47842,
+        "name": "Alena Vránová"
+      },
+      {
+        "id": "tmdb:2044510",
+        "tmdb_id": 2044510,
+        "name": "Amaliya Panahova"
+      },
+      {
+        "id": "tmdb:1607106",
+        "tmdb_id": 1607106,
+        "name": "Olga Smirnova"
+      },
+      {
+        "id": "tmdb:1910292",
+        "tmdb_id": 1910292,
+        "name": "Ana Ivanova"
+      },
+      {
+        "id": "tmdb:2084558",
+        "tmdb_id": 2084558,
+        "name": "Almaz Amanova"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2084558",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-012",
+    "left": {
+      "id": "mention:11",
+      "name": "Ladna"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2112010",
+        "tmdb_id": 2112010,
+        "name": "Sandy"
+      },
+      {
+        "id": "tmdb:1052915",
+        "tmdb_id": 1052915,
+        "name": "Pandiraj"
+      },
+      {
+        "id": "tmdb:2310745",
+        "tmdb_id": 2310745,
+        "name": "Landon Doak"
+      },
+      {
+        "id": "tmdb:1816438",
+        "tmdb_id": 1816438,
+        "name": "Bleu Landau"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-013",
+    "left": {
+      "id": "mention:12",
+      "name": "Mehmet oPlat",
+      "tmdb_id": 212756
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1204937",
+        "tmdb_id": 1204937,
+        "name": "Michel Polnareff"
+      },
+      {
+        "id": "tmdb:230767",
+        "tmdb_id": 230767,
+        "name": "Mehmet Ada Öztekin"
+      },
+      {
+        "id": "tmdb:7470",
+        "tmdb_id": 7470,
+        "name": "Meat Loaf"
+      },
+      {
+        "id": "tmdb:6093736",
+        "tmdb_id": 6093736,
+        "name": "Meherio Patoux"
+      },
+      {
+        "id": "tmdb:212756",
+        "tmdb_id": 212756,
+        "name": "Mehmet Polat"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:212756",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-014",
+    "left": {
+      "id": "mention:13",
+      "title": "Gone iGrl"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1688933",
+        "tmdb_id": 1688933,
+        "title": "The Girl"
+      },
+      {
+        "id": "tmdb:14926",
+        "tmdb_id": 14926,
+        "title": "Uptown Girls"
+      },
+      {
+        "id": "tmdb:10625",
+        "tmdb_id": 10625,
+        "title": "Mean Girls"
+      },
+      {
+        "id": "tmdb:210577",
+        "tmdb_id": 210577,
+        "title": "Gone Girl"
+      },
+      {
+        "id": "tmdb:26181",
+        "tmdb_id": 26181,
+        "title": "Some Girls Do"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:210577",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-015",
+    "left": {
+      "id": "mention:14",
+      "name": "Jackei Chan",
+      "tmdb_id": 18897
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1895760",
+        "tmdb_id": 1895760,
+        "name": "Jack Champion"
+      },
+      {
+        "id": "tmdb:45107",
+        "tmdb_id": 45107,
+        "name": "Jackie Illman"
+      },
+      {
+        "id": "tmdb:78324",
+        "tmdb_id": 78324,
+        "name": "Jamie Chung"
+      },
+      {
+        "id": "tmdb:18897",
+        "tmdb_id": 18897,
+        "name": "Jackie Chan"
+      },
+      {
+        "id": "tmdb:5441666",
+        "tmdb_id": 5441666,
+        "name": "Grace Chan"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:18897",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-016",
+    "left": {
+      "id": "mention:15",
+      "name": "Ana Waegner"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:86267",
+        "tmdb_id": 86267,
+        "name": "Ana Gasteyer"
+      },
+      {
+        "id": "tmdb:1352495",
+        "tmdb_id": 1352495,
+        "name": "Paul Wagner"
+      },
+      {
+        "id": "tmdb:12106",
+        "tmdb_id": 12106,
+        "name": "Aron Warner"
+      },
+      {
+        "id": "tmdb:125192",
+        "tmdb_id": 125192,
+        "name": "Antal Páger"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-017",
+    "left": {
+      "id": "mention:16",
+      "name": "Anthoyn James",
+      "tmdb_id": 3715
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3715",
+        "tmdb_id": 3715,
+        "name": "Anthony James"
+      },
+      {
+        "id": "tmdb:6",
+        "tmdb_id": 6,
+        "name": "Anthony Daniels"
+      },
+      {
+        "id": "tmdb:1560244",
+        "tmdb_id": 1560244,
+        "name": "Anthony Ramos"
+      },
+      {
+        "id": "tmdb:4802975",
+        "tmdb_id": 4802975,
+        "name": "Anthony Kane"
+      },
+      {
+        "id": "tmdb:1484509",
+        "tmdb_id": 1484509,
+        "name": "Anthony Maras"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:3715",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-018",
+    "left": {
+      "id": "mention:17",
+      "name": "Ahna O'Rielly"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4764",
+        "tmdb_id": 4764,
+        "name": "John C. Reilly"
+      },
+      {
+        "id": "tmdb:4566852",
+        "tmdb_id": 4566852,
+        "name": "Asha O'Connell"
+      },
+      {
+        "id": "tmdb:999605",
+        "tmdb_id": 999605,
+        "name": "Ahna O'Reilly"
+      },
+      {
+        "id": "tmdb:3614018",
+        "tmdb_id": 3614018,
+        "name": "Vaughan Reilly"
+      },
+      {
+        "id": "tmdb:96279",
+        "tmdb_id": 96279,
+        "name": "Con O'Neill"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:999605",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-019",
+    "left": {
+      "id": "mention:18",
+      "title": "The Empire Srtikes Back",
+      "tmdb_id": 1891
+    },
+    "candidates": [
+      {
+        "id": "tmdb:777443",
+        "tmdb_id": 777443,
+        "title": "The Electric State"
+      },
+      {
+        "id": "tmdb:2502",
+        "tmdb_id": 2502,
+        "title": "The Bourne Supremacy"
+      },
+      {
+        "id": "tmdb:1891",
+        "tmdb_id": 1891,
+        "title": "The Empire Strikes Back"
+      },
+      {
+        "id": "tmdb:378236",
+        "tmdb_id": 378236,
+        "title": "The Emoji Movie"
+      },
+      {
+        "id": "tmdb:14574",
+        "tmdb_id": 14574,
+        "title": "The Boy in the Striped Pyjamas"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1891",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-020",
+    "left": {
+      "id": "mention:19",
+      "name": "Mike Lvoell"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:346",
+        "tmdb_id": 346,
+        "name": "Mike Bell"
+      },
+      {
+        "id": "tmdb:6858",
+        "tmdb_id": 6858,
+        "name": "Mike Vogel"
+      },
+      {
+        "id": "tmdb:10723",
+        "tmdb_id": 10723,
+        "name": "Mike Newell"
+      },
+      {
+        "id": "tmdb:1435196",
+        "tmdb_id": 1435196,
+        "name": "Mike Morrell"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-021",
+    "left": {
+      "id": "mention:20",
+      "name": "Gregoyr Itzin",
+      "tmdb_id": 21142
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1114613",
+        "tmdb_id": 1114613,
+        "name": "Gregory Annoni"
+      },
+      {
+        "id": "tmdb:1040850",
+        "tmdb_id": 1040850,
+        "name": "Grégory Fitoussi"
+      },
+      {
+        "id": "tmdb:187983",
+        "tmdb_id": 187983,
+        "name": "Gregory Sims"
+      },
+      {
+        "id": "tmdb:21142",
+        "tmdb_id": 21142,
+        "name": "Gregory Itzin"
+      },
+      {
+        "id": "tmdb:20814",
+        "tmdb_id": 20814,
+        "name": "Gregory Smith"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:21142",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-022",
+    "left": {
+      "id": "mention:21",
+      "name": "Ji-yougn Yoo"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1299287",
+        "tmdb_id": 1299287,
+        "name": "Jin Goo"
+      },
+      {
+        "id": "tmdb:1554866",
+        "tmdb_id": 1554866,
+        "name": "Jung Yoo-jin"
+      },
+      {
+        "id": "tmdb:1234180",
+        "tmdb_id": 1234180,
+        "name": "Kim Ji-young"
+      },
+      {
+        "id": "tmdb:150903",
+        "tmdb_id": 150903,
+        "name": "Gong Yoo"
+      },
+      {
+        "id": "tmdb:2983147",
+        "tmdb_id": 2983147,
+        "name": "Ji-young Yoo"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2983147",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-023",
+    "left": {
+      "id": "mention:22",
+      "title": "Snow White and hte Huntsman",
+      "tmdb_id": 58595
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4564",
+        "tmdb_id": 4564,
+        "title": "Sex and the City"
+      },
+      {
+        "id": "tmdb:408",
+        "tmdb_id": 408,
+        "title": "Snow White and the Seven Dwarfs"
+      },
+      {
+        "id": "tmdb:58595",
+        "tmdb_id": 58595,
+        "title": "Snow White and the Huntsman"
+      },
+      {
+        "id": "tmdb:640146",
+        "tmdb_id": 640146,
+        "title": "Ant-Man and the Wasp: Quantumania"
+      },
+      {
+        "id": "tmdb:11006",
+        "tmdb_id": 11006,
+        "title": "Smokey and the Bandit"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:58595",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-024",
+    "left": {
+      "id": "mention:23",
+      "name": "Li Liimng"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5535768",
+        "tmdb_id": 5535768,
+        "name": "Cai Jiaming"
+      },
+      {
+        "id": "tmdb:2463716",
+        "tmdb_id": 2463716,
+        "name": "Li Shimeng"
+      },
+      {
+        "id": "tmdb:5510709",
+        "tmdb_id": 5510709,
+        "name": "Li Li"
+      },
+      {
+        "id": "tmdb:1525689",
+        "tmdb_id": 1525689,
+        "name": "Ludi Lin"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-025",
+    "left": {
+      "id": "mention:24",
+      "title": "The Twilight Saga: Beraking Dawn - Part 1",
+      "tmdb_id": 50619
+    },
+    "candidates": [
+      {
+        "id": "tmdb:24021",
+        "tmdb_id": 24021,
+        "title": "The Twilight Saga: Eclipse"
+      },
+      {
+        "id": "tmdb:50620",
+        "tmdb_id": 50620,
+        "title": "The Twilight Saga: Breaking Dawn - Part 2"
+      },
+      {
+        "id": "tmdb:131631",
+        "tmdb_id": 131631,
+        "title": "The Hunger Games: Mockingjay - Part 1"
+      },
+      {
+        "id": "tmdb:18239",
+        "tmdb_id": 18239,
+        "title": "The Twilight Saga: New Moon"
+      },
+      {
+        "id": "tmdb:50619",
+        "tmdb_id": 50619,
+        "title": "The Twilight Saga: Breaking Dawn - Part 1"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:50619",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-026",
+    "left": {
+      "id": "mention:25",
+      "title": "Turnnig Red"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1387382",
+        "tmdb_id": 1387382,
+        "title": "Hunting Season"
+      },
+      {
+        "id": "tmdb:2034",
+        "tmdb_id": 2034,
+        "title": "Training Day"
+      },
+      {
+        "id": "tmdb:508947",
+        "tmdb_id": 508947,
+        "title": "Turning Red"
+      },
+      {
+        "id": "tmdb:26466",
+        "tmdb_id": 26466,
+        "title": "Triangle"
+      },
+      {
+        "id": "tmdb:1173558",
+        "tmdb_id": 1173558,
+        "title": "Burning Betrayal"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:508947",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-027",
+    "left": {
+      "id": "mention:26",
+      "name": "Tom Craey",
+      "tmdb_id": 54635
+    },
+    "candidates": [
+      {
+        "id": "tmdb:54635",
+        "tmdb_id": 54635,
+        "name": "Tom Carey"
+      },
+      {
+        "id": "tmdb:1128296",
+        "tmdb_id": 1128296,
+        "name": "Tom Carter"
+      },
+      {
+        "id": "tmdb:17867",
+        "tmdb_id": 17867,
+        "name": "Tom McCarthy"
+      },
+      {
+        "id": "tmdb:2524",
+        "tmdb_id": 2524,
+        "name": "Tom Hardy"
+      },
+      {
+        "id": "tmdb:2677070",
+        "tmdb_id": 2677070,
+        "name": "Tom Clark"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:54635",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-028",
+    "left": {
+      "id": "mention:27",
+      "name": "Reda Elzaouar"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4099517",
+        "tmdb_id": 4099517,
+        "name": "Dea Lanzaro"
+      },
+      {
+        "id": "tmdb:61426",
+        "tmdb_id": 61426,
+        "name": "Sean Elmore"
+      },
+      {
+        "id": "tmdb:973667",
+        "tmdb_id": 973667,
+        "name": "Rosa Salazar"
+      },
+      {
+        "id": "tmdb:1851163",
+        "tmdb_id": 1851163,
+        "name": "Reza Salazar"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-029",
+    "left": {
+      "id": "mention:28",
+      "name": "Mike Micthell",
+      "tmdb_id": 64151
+    },
+    "candidates": [
+      {
+        "id": "tmdb:64151",
+        "tmdb_id": 64151,
+        "name": "Mike Mitchell"
+      },
+      {
+        "id": "tmdb:1521075",
+        "tmdb_id": 1521075,
+        "name": "Max Mitchell"
+      },
+      {
+        "id": "tmdb:66528",
+        "tmdb_id": 66528,
+        "name": "Finesse Mitchell"
+      },
+      {
+        "id": "tmdb:1336796",
+        "tmdb_id": 1336796,
+        "name": "Mike Mitchell"
+      },
+      {
+        "id": "tmdb:207040",
+        "tmdb_id": 207040,
+        "name": "Justine Mitchell"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:64151",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-030",
+    "left": {
+      "id": "mention:29",
+      "name": "Elina Amlinas"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2718343",
+        "tmdb_id": 2718343,
+        "name": "Paulina Alexis"
+      },
+      {
+        "id": "tmdb:2766947",
+        "tmdb_id": 2766947,
+        "name": "Elena Askin"
+      },
+      {
+        "id": "tmdb:3623",
+        "tmdb_id": 3623,
+        "name": "Elena Anaya"
+      },
+      {
+        "id": "tmdb:2672331",
+        "tmdb_id": 2672331,
+        "name": "Emelina Adams"
+      },
+      {
+        "id": "tmdb:1394348",
+        "tmdb_id": 1394348,
+        "name": "Elina Alminas"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1394348",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-031",
+    "left": {
+      "id": "mention:30",
+      "name": "Mari Gearghty",
+      "tmdb_id": 3367704
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5672298",
+        "tmdb_id": 5672298,
+        "name": "Fearghal Geraghty"
+      },
+      {
+        "id": "tmdb:1536",
+        "tmdb_id": 1536,
+        "name": "Marita Geraghty"
+      },
+      {
+        "id": "tmdb:3367704",
+        "tmdb_id": 3367704,
+        "name": "Mari Geraghty"
+      },
+      {
+        "id": "tmdb:2807375",
+        "tmdb_id": 2807375,
+        "name": "Martin Herlihy"
+      },
+      {
+        "id": "tmdb:81881",
+        "tmdb_id": 81881,
+        "name": "Mark Wright"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:3367704",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-032",
+    "left": {
+      "id": "mention:31",
+      "name": "Sam Blal"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:58897",
+        "tmdb_id": 58897,
+        "name": "Sam Fell"
+      },
+      {
+        "id": "tmdb:4783",
+        "tmdb_id": 4783,
+        "name": "Sam Neill"
+      },
+      {
+        "id": "tmdb:2177034",
+        "tmdb_id": 2177034,
+        "name": "Sam Black"
+      },
+      {
+        "id": "tmdb:1710661",
+        "tmdb_id": 1710661,
+        "name": "Liam Hall"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-033",
+    "left": {
+      "id": "mention:32",
+      "name": "Ha Si-yoen",
+      "tmdb_id": 2123998
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6234568",
+        "tmdb_id": 6234568,
+        "name": "Han Seo-in"
+      },
+      {
+        "id": "tmdb:2123998",
+        "tmdb_id": 2123998,
+        "name": "Ha Si-yeon"
+      },
+      {
+        "id": "tmdb:1711062",
+        "tmdb_id": 1711062,
+        "name": "Cha Ji-yeon"
+      },
+      {
+        "id": "tmdb:463583",
+        "tmdb_id": 463583,
+        "name": "Jang So-yeon"
+      },
+      {
+        "id": "tmdb:1617157",
+        "tmdb_id": 1617157,
+        "name": "Han Ji-eun"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2123998",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-034",
+    "left": {
+      "id": "mention:33",
+      "name": "John R. Lenoetti"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5718",
+        "tmdb_id": 5718,
+        "name": "John C. Donkin"
+      },
+      {
+        "id": "tmdb:7873",
+        "tmdb_id": 7873,
+        "name": "Jason R. Lone Hill"
+      },
+      {
+        "id": "tmdb:11389",
+        "tmdb_id": 11389,
+        "name": "John Lone"
+      },
+      {
+        "id": "tmdb:10592",
+        "tmdb_id": 10592,
+        "name": "John Lennon"
+      },
+      {
+        "id": "tmdb:26714",
+        "tmdb_id": 26714,
+        "name": "John R. Leonetti"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:26714",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-035",
+    "left": {
+      "id": "mention:34",
+      "name": "Jane Fnoda",
+      "tmdb_id": 6352
+    },
+    "candidates": [
+      {
+        "id": "tmdb:111206",
+        "tmdb_id": 111206,
+        "name": "Olga Fonda"
+      },
+      {
+        "id": "tmdb:15098",
+        "tmdb_id": 15098,
+        "name": "June Foray"
+      },
+      {
+        "id": "tmdb:1005852",
+        "tmdb_id": 1005852,
+        "name": "Janelle Monáe"
+      },
+      {
+        "id": "tmdb:6352",
+        "tmdb_id": 6352,
+        "name": "Jane Fonda"
+      },
+      {
+        "id": "tmdb:209",
+        "tmdb_id": 209,
+        "name": "Jane Adams"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:6352",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-036",
+    "left": {
+      "id": "mention:35",
+      "name": "Gal Gdaot"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:105634",
+        "tmdb_id": 105634,
+        "name": "Gamil Ratib"
+      },
+      {
+        "id": "tmdb:33848",
+        "tmdb_id": 33848,
+        "name": "Gil Gerard"
+      },
+      {
+        "id": "tmdb:1537627",
+        "tmdb_id": 1537627,
+        "name": "Gabriel Rosado"
+      },
+      {
+        "id": "tmdb:1077950",
+        "tmdb_id": 1077950,
+        "name": "Lalá Gatóo"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-037",
+    "left": {
+      "id": "mention:36",
+      "name": "Kaneto Sihozawa",
+      "tmdb_id": 57733
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1815948",
+        "tmdb_id": 1815948,
+        "name": "Karen Takizawa"
+      },
+      {
+        "id": "tmdb:57733",
+        "tmdb_id": 57733,
+        "name": "Kaneto Shiozawa"
+      },
+      {
+        "id": "tmdb:134813",
+        "tmdb_id": 134813,
+        "name": "Ken Yoshizawa"
+      },
+      {
+        "id": "tmdb:1324666",
+        "tmdb_id": 1324666,
+        "name": "Kaito Ishikawa"
+      },
+      {
+        "id": "tmdb:1774",
+        "tmdb_id": 1774,
+        "name": "Kazuko Shibata"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:57733",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-038",
+    "left": {
+      "id": "mention:37",
+      "name": "Ian Cehn"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6720",
+        "tmdb_id": 6720,
+        "name": "Joan Chen"
+      },
+      {
+        "id": "tmdb:1622",
+        "tmdb_id": 1622,
+        "name": "Chang Chen"
+      },
+      {
+        "id": "tmdb:1929381",
+        "tmdb_id": 1929381,
+        "name": "Chang Cheng"
+      },
+      {
+        "id": "tmdb:2727143",
+        "tmdb_id": 2727143,
+        "name": "Ian Sherman"
+      },
+      {
+        "id": "tmdb:1397359",
+        "tmdb_id": 1397359,
+        "name": "Ian Chen"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1397359",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-039",
+    "left": {
+      "id": "mention:38",
+      "name": "Joey Pollari",
+      "tmdb_id": 103388
+    },
+    "candidates": [
+      {
+        "id": "tmdb:103388",
+        "tmdb_id": 103388,
+        "name": "Joey Pollari"
+      },
+      {
+        "id": "tmdb:1318900",
+        "tmdb_id": 1318900,
+        "name": "Joey Perillo"
+      },
+      {
+        "id": "tmdb:15418",
+        "tmdb_id": 15418,
+        "name": "Joel Polis"
+      },
+      {
+        "id": "tmdb:114418",
+        "tmdb_id": 114418,
+        "name": "Joe Pollini"
+      },
+      {
+        "id": "tmdb:945705",
+        "tmdb_id": 945705,
+        "name": "Joey Plewa"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:103388",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-040",
+    "left": {
+      "id": "mention:39",
+      "name": "Maximiliaon Hernandez"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1486488",
+        "tmdb_id": 1486488,
+        "name": "Callie Hernandez"
+      },
+      {
+        "id": "tmdb:3725495",
+        "tmdb_id": 3725495,
+        "name": "Marcello Hernández"
+      },
+      {
+        "id": "tmdb:1722195",
+        "tmdb_id": 1722195,
+        "name": "Maximilian Mundt"
+      },
+      {
+        "id": "tmdb:17679",
+        "tmdb_id": 17679,
+        "name": "Dalia Hernández"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-041",
+    "left": {
+      "id": "mention:40",
+      "name": "Luigi uRsso",
+      "tmdb_id": 1178002
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1711684",
+        "tmdb_id": 1711684,
+        "name": "Gaia Russo"
+      },
+      {
+        "id": "tmdb:6234312",
+        "tmdb_id": 6234312,
+        "name": "Dominic Russo"
+      },
+      {
+        "id": "tmdb:53466",
+        "tmdb_id": 53466,
+        "name": "Luigi Rossi"
+      },
+      {
+        "id": "tmdb:1178002",
+        "tmdb_id": 1178002,
+        "name": "Luigi Russo"
+      },
+      {
+        "id": "tmdb:3095",
+        "tmdb_id": 3095,
+        "name": "Gianni Russo"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1178002",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-042",
+    "left": {
+      "id": "mention:41",
+      "title": "Live and eLt Die"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4564",
+        "tmdb_id": 4564,
+        "title": "Sex and the City"
+      },
+      {
+        "id": "tmdb:1317672",
+        "tmdb_id": 1317672,
+        "title": "Love Me Love Me"
+      },
+      {
+        "id": "tmdb:1371023",
+        "tmdb_id": 1371023,
+        "title": "Chand Mera Dil"
+      },
+      {
+        "id": "tmdb:39688",
+        "tmdb_id": 39688,
+        "title": "Like a Brother"
+      },
+      {
+        "id": "tmdb:253",
+        "tmdb_id": 253,
+        "title": "Live and Let Die"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:253",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-043",
+    "left": {
+      "id": "mention:42",
+      "name": "Chibuiekm Uche",
+      "tmdb_id": 2403981
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2403981",
+        "tmdb_id": 2403981,
+        "name": "Chibuikem Uche"
+      },
+      {
+        "id": "tmdb:52654",
+        "tmdb_id": 52654,
+        "name": "Chuck Pacheco"
+      },
+      {
+        "id": "tmdb:4244140",
+        "tmdb_id": 4244140,
+        "name": "Chen Zhe"
+      },
+      {
+        "id": "tmdb:5799953",
+        "tmdb_id": 5799953,
+        "name": "Chuck Tucker"
+      },
+      {
+        "id": "tmdb:1849356",
+        "tmdb_id": 1849356,
+        "name": "Christine Sahely"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2403981",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-044",
+    "left": {
+      "id": "mention:43",
+      "name": "Max Shoawlter"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:81083",
+        "tmdb_id": 81083,
+        "name": "Max Burkholder"
+      },
+      {
+        "id": "tmdb:558928",
+        "tmdb_id": 558928,
+        "name": "Max Charles"
+      },
+      {
+        "id": "tmdb:22215",
+        "tmdb_id": 22215,
+        "name": "Michael Showalter"
+      },
+      {
+        "id": "tmdb:1749206",
+        "tmdb_id": 1749206,
+        "name": "Mia Soteriou"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-045",
+    "left": {
+      "id": "mention:44",
+      "name": "Matthew T. Ryenolds",
+      "tmdb_id": 125698
+    },
+    "candidates": [
+      {
+        "id": "tmdb:591769",
+        "tmdb_id": 591769,
+        "name": "Matthew Taylor"
+      },
+      {
+        "id": "tmdb:125698",
+        "tmdb_id": 125698,
+        "name": "Matthew T. Reynolds"
+      },
+      {
+        "id": "tmdb:29528",
+        "tmdb_id": 29528,
+        "name": "Matthew Rhys"
+      },
+      {
+        "id": "tmdb:1719996",
+        "tmdb_id": 1719996,
+        "name": "Matthew T. Metzler"
+      },
+      {
+        "id": "tmdb:239111",
+        "tmdb_id": 239111,
+        "name": "Matthew Russell"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:125698",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-046",
+    "left": {
+      "id": "mention:45",
+      "name": "Bro Giblert"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:19788",
+        "tmdb_id": 19788,
+        "name": "Lauren Gilbert"
+      },
+      {
+        "id": "tmdb:35243",
+        "tmdb_id": 35243,
+        "name": "Ed Gilbert"
+      },
+      {
+        "id": "tmdb:11763",
+        "tmdb_id": 11763,
+        "name": "Marcus Gilbert"
+      },
+      {
+        "id": "tmdb:122879",
+        "tmdb_id": 122879,
+        "name": "Bro Gilbert"
+      },
+      {
+        "id": "tmdb:5464",
+        "tmdb_id": 5464,
+        "name": "Billy Gilbert"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:122879",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-047",
+    "left": {
+      "id": "mention:46",
+      "name": "Juan Crotes",
+      "tmdb_id": 118121
+    },
+    "candidates": [
+      {
+        "id": "tmdb:99113",
+        "tmdb_id": 99113,
+        "name": "Rita Cortese"
+      },
+      {
+        "id": "tmdb:1147038",
+        "tmdb_id": 1147038,
+        "name": "Mapy Cortés"
+      },
+      {
+        "id": "tmdb:3590507",
+        "tmdb_id": 3590507,
+        "name": "Luis Cortés"
+      },
+      {
+        "id": "tmdb:830",
+        "tmdb_id": 830,
+        "name": "Joe Cortese"
+      },
+      {
+        "id": "tmdb:118121",
+        "tmdb_id": 118121,
+        "name": "Juan Cortés"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:118121",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-048",
+    "left": {
+      "id": "mention:47",
+      "name": "Dane Garertson"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1428550",
+        "tmdb_id": 1428550,
+        "name": "Jane Watson"
+      },
+      {
+        "id": "tmdb:7884",
+        "tmdb_id": 7884,
+        "name": "Daniel Gerson"
+      },
+      {
+        "id": "tmdb:1010157",
+        "tmdb_id": 1010157,
+        "name": "Diane Guerrero"
+      },
+      {
+        "id": "tmdb:52704",
+        "tmdb_id": 52704,
+        "name": "Lane Garrison"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-049",
+    "left": {
+      "id": "mention:48",
+      "name": "Emma D'rAcy",
+      "tmdb_id": 2121005
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2121005",
+        "tmdb_id": 2121005,
+        "name": "Emma D'Arcy"
+      },
+      {
+        "id": "tmdb:4804042",
+        "tmdb_id": 4804042,
+        "name": "Emma Henry"
+      },
+      {
+        "id": "tmdb:4768485",
+        "tmdb_id": 4768485,
+        "name": "Adrian D'Arcy"
+      },
+      {
+        "id": "tmdb:19655",
+        "tmdb_id": 19655,
+        "name": "James D'Arcy"
+      },
+      {
+        "id": "tmdb:3357818",
+        "tmdb_id": 3357818,
+        "name": "Emma D'Inverno"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2121005",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-050",
+    "left": {
+      "id": "mention:49",
+      "name": "Tom Holland"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:31",
+        "tmdb_id": 31,
+        "name": "Tom Hanks"
+      },
+      {
+        "id": "tmdb:2524",
+        "tmdb_id": 2524,
+        "name": "Tom Hardy"
+      },
+      {
+        "id": "tmdb:1136406",
+        "tmdb_id": 1136406,
+        "name": "Tom Holland"
+      },
+      {
+        "id": "tmdb:15513",
+        "tmdb_id": 15513,
+        "name": "Adam Hollander"
+      },
+      {
+        "id": "tmdb:2441",
+        "tmdb_id": 2441,
+        "name": "Tom Hollander"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1136406",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-051",
+    "left": {
+      "id": "mention:50",
+      "name": "Willie aGrson",
+      "tmdb_id": 1542
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1413940",
+        "tmdb_id": 1413940,
+        "name": "Billie Gibson"
+      },
+      {
+        "id": "tmdb:5858810",
+        "tmdb_id": 5858810,
+        "name": "Will Pierson"
+      },
+      {
+        "id": "tmdb:1968242",
+        "tmdb_id": 1968242,
+        "name": "Will Harrison"
+      },
+      {
+        "id": "tmdb:2112084",
+        "tmdb_id": 2112084,
+        "name": "Willie Watson"
+      },
+      {
+        "id": "tmdb:1542",
+        "tmdb_id": 1542,
+        "name": "Willie Garson"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1542",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-052",
+    "left": {
+      "id": "mention:51",
+      "name": "Nadine aBsile"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1138004",
+        "tmdb_id": 1138004,
+        "name": "Nadine Perles"
+      },
+      {
+        "id": "tmdb:200002",
+        "tmdb_id": 200002,
+        "name": "Nicole Bailey"
+      },
+      {
+        "id": "tmdb:104217",
+        "tmdb_id": 104217,
+        "name": "Claudine Beccarie"
+      },
+      {
+        "id": "tmdb:2488680",
+        "tmdb_id": 2488680,
+        "name": "Nadine Bates"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-053",
+    "left": {
+      "id": "mention:52",
+      "name": "Josua Tuiavralagi",
+      "tmdb_id": 5655546
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1099848",
+        "tmdb_id": 1099848,
+        "name": "Joshua Burge"
+      },
+      {
+        "id": "tmdb:5655546",
+        "tmdb_id": 5655546,
+        "name": "Josua Tuivaralagi"
+      },
+      {
+        "id": "tmdb:2386389",
+        "tmdb_id": 2386389,
+        "name": "Joshua Graham"
+      },
+      {
+        "id": "tmdb:1394375",
+        "tmdb_id": 1394375,
+        "name": "Joshua McGuire"
+      },
+      {
+        "id": "tmdb:4444754",
+        "tmdb_id": 4444754,
+        "name": "Joshua Kantara"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:5655546",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-054",
+    "left": {
+      "id": "mention:53",
+      "name": "John Lasseter"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:11147",
+        "tmdb_id": 11147,
+        "name": "John Cassavetes"
+      },
+      {
+        "id": "tmdb:35819",
+        "tmdb_id": 35819,
+        "name": "Johny Lever"
+      },
+      {
+        "id": "tmdb:31365",
+        "tmdb_id": 31365,
+        "name": "John Kassir"
+      },
+      {
+        "id": "tmdb:7879",
+        "tmdb_id": 7879,
+        "name": "John Lasseter"
+      },
+      {
+        "id": "tmdb:1229304",
+        "tmdb_id": 1229304,
+        "name": "John Hasler"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:7879",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-055",
+    "left": {
+      "id": "mention:54",
+      "name": "Mauricoi Pianco",
+      "tmdb_id": 2691794
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2360709",
+        "tmdb_id": 2360709,
+        "name": "Mauricio Pochettino"
+      },
+      {
+        "id": "tmdb:1314891",
+        "tmdb_id": 1314891,
+        "name": "Mauricio Mendoza"
+      },
+      {
+        "id": "tmdb:1541850",
+        "tmdb_id": 1541850,
+        "name": "Mario Passano"
+      },
+      {
+        "id": "tmdb:175615",
+        "tmdb_id": 175615,
+        "name": "Mauricio Ochmann"
+      },
+      {
+        "id": "tmdb:2691794",
+        "tmdb_id": 2691794,
+        "name": "Mauricio Piancó"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2691794",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-056",
+    "left": {
+      "id": "mention:55",
+      "title": "The Great Dcitator"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:76493",
+        "tmdb_id": 76493,
+        "title": "The Dictator"
+      },
+      {
+        "id": "tmdb:346910",
+        "tmdb_id": 346910,
+        "title": "The Predator"
+      },
+      {
+        "id": "tmdb:670292",
+        "tmdb_id": 670292,
+        "title": "The Creator"
+      },
+      {
+        "id": "tmdb:311324",
+        "tmdb_id": 311324,
+        "title": "The Great Wall"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-057",
+    "left": {
+      "id": "mention:56",
+      "name": "Chase Inifniti",
+      "tmdb_id": 3914706
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3914706",
+        "tmdb_id": 3914706,
+        "name": "Chase Infiniti"
+      },
+      {
+        "id": "tmdb:945041",
+        "tmdb_id": 945041,
+        "name": "Chase Kim"
+      },
+      {
+        "id": "tmdb:3276709",
+        "tmdb_id": 3276709,
+        "name": "Chae Won-bin"
+      },
+      {
+        "id": "tmdb:1916611",
+        "tmdb_id": 1916611,
+        "name": "Carlos Fioriti"
+      },
+      {
+        "id": "tmdb:2802836",
+        "tmdb_id": 2802836,
+        "name": "Chase Petriw"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:3914706",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-058",
+    "left": {
+      "id": "mention:57",
+      "name": "Sam Lnat"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1976084",
+        "tmdb_id": 1976084,
+        "name": "Sarah Lang"
+      },
+      {
+        "id": "tmdb:1535218",
+        "tmdb_id": 1535218,
+        "name": "Sasha Lane"
+      },
+      {
+        "id": "tmdb:996698",
+        "tmdb_id": 996698,
+        "name": "Sam Lant"
+      },
+      {
+        "id": "tmdb:3486069",
+        "tmdb_id": 3486069,
+        "name": "Sam Mac"
+      },
+      {
+        "id": "tmdb:6342035",
+        "tmdb_id": 6342035,
+        "name": "Raimy Lang"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:996698",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-059",
+    "left": {
+      "id": "mention:58",
+      "name": "Ismi Meilnda",
+      "tmdb_id": 2413870
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1044954",
+        "tmdb_id": 1044954,
+        "name": "Sam Medina"
+      },
+      {
+        "id": "tmdb:1164832",
+        "tmdb_id": 1164832,
+        "name": "Belinda"
+      },
+      {
+        "id": "tmdb:2413870",
+        "tmdb_id": 2413870,
+        "name": "Ismi Melinda"
+      },
+      {
+        "id": "tmdb:2096298",
+        "tmdb_id": 2096298,
+        "name": "Jessica Medina"
+      },
+      {
+        "id": "tmdb:1496125",
+        "tmdb_id": 1496125,
+        "name": "Kim Molina"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2413870",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-060",
+    "left": {
+      "id": "mention:59",
+      "name": "Julian lGover"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1407052",
+        "tmdb_id": 1407052,
+        "name": "Joan Glover"
+      },
+      {
+        "id": "tmdb:236239",
+        "tmdb_id": 236239,
+        "name": "Julián Soler"
+      },
+      {
+        "id": "tmdb:5589",
+        "tmdb_id": 5589,
+        "name": "John Glover"
+      },
+      {
+        "id": "tmdb:14468",
+        "tmdb_id": 14468,
+        "name": "Brian Glover"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-061",
+    "left": {
+      "id": "mention:60",
+      "name": "Edwian Wren",
+      "tmdb_id": 75181
+    },
+    "candidates": [
+      {
+        "id": "tmdb:117540",
+        "tmdb_id": 117540,
+        "name": "Edwina Carroll"
+      },
+      {
+        "id": "tmdb:27803",
+        "tmdb_id": 27803,
+        "name": "Edwin Neal"
+      },
+      {
+        "id": "tmdb:75181",
+        "tmdb_id": 75181,
+        "name": "Edwina Wren"
+      },
+      {
+        "id": "tmdb:966327",
+        "tmdb_id": 966327,
+        "name": "Edison Wang"
+      },
+      {
+        "id": "tmdb:21702",
+        "tmdb_id": 21702,
+        "name": "Ming-Na Wen"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:75181",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-062",
+    "left": {
+      "id": "mention:61",
+      "title": "Altre Ego"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1290821",
+        "tmdb_id": 1290821,
+        "title": "Shelter"
+      },
+      {
+        "id": "tmdb:1266791",
+        "tmdb_id": 1266791,
+        "title": "Alter Ego"
+      },
+      {
+        "id": "tmdb:1671548",
+        "tmdb_id": 1671548,
+        "title": "Dear You"
+      },
+      {
+        "id": "tmdb:1503107",
+        "tmdb_id": 1503107,
+        "title": "Alter Ego"
+      },
+      {
+        "id": "tmdb:537915",
+        "tmdb_id": 537915,
+        "title": "After"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1503107",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-063",
+    "left": {
+      "id": "mention:62",
+      "name": "Omar Raimrez",
+      "tmdb_id": 6339096
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3905842",
+        "tmdb_id": 3905842,
+        "name": "Ricardo Ramírez"
+      },
+      {
+        "id": "tmdb:4220133",
+        "tmdb_id": 4220133,
+        "name": "Oshún Ramirez"
+      },
+      {
+        "id": "tmdb:17683",
+        "tmdb_id": 17683,
+        "name": "Amilcar Ramírez"
+      },
+      {
+        "id": "tmdb:25616",
+        "tmdb_id": 25616,
+        "name": "Edgar Ramírez"
+      },
+      {
+        "id": "tmdb:6339096",
+        "tmdb_id": 6339096,
+        "name": "Omar Ramírez"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:6339096",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-064",
+    "left": {
+      "id": "mention:63",
+      "name": "Callum Sohniker"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1371041",
+        "tmdb_id": 1371041,
+        "name": "Callum Turner"
+      },
+      {
+        "id": "tmdb:540",
+        "tmdb_id": 540,
+        "name": "Callum Keith Rennie"
+      },
+      {
+        "id": "tmdb:1826545",
+        "tmdb_id": 1826545,
+        "name": "Callum Blake"
+      },
+      {
+        "id": "tmdb:1153566",
+        "tmdb_id": 1153566,
+        "name": "Callum Anderson"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-065",
+    "left": {
+      "id": "mention:64",
+      "name": "Olga Dolmaotvskaya",
+      "tmdb_id": 2203204
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1118280",
+        "tmdb_id": 1118280,
+        "name": "Olga Belyavskaya"
+      },
+      {
+        "id": "tmdb:50744",
+        "tmdb_id": 50744,
+        "name": "Olga Karlatos"
+      },
+      {
+        "id": "tmdb:125870",
+        "tmdb_id": 125870,
+        "name": "Olga Khokhlova"
+      },
+      {
+        "id": "tmdb:2203204",
+        "tmdb_id": 2203204,
+        "name": "Olga Dolmatovskaya"
+      },
+      {
+        "id": "tmdb:3327107",
+        "tmdb_id": 3327107,
+        "name": "Oleg Milyakhovsky"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2203204",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-066",
+    "left": {
+      "id": "mention:65",
+      "name": "Aljin Aeblla"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2335350",
+        "tmdb_id": 2335350,
+        "name": "Albela"
+      },
+      {
+        "id": "tmdb:1094511",
+        "tmdb_id": 1094511,
+        "name": "Aljin Abella"
+      },
+      {
+        "id": "tmdb:1114612",
+        "tmdb_id": 1114612,
+        "name": "Adeline Rebeillard"
+      },
+      {
+        "id": "tmdb:1345289",
+        "tmdb_id": 1345289,
+        "name": "Alejandro Sabella"
+      },
+      {
+        "id": "tmdb:21278",
+        "tmdb_id": 21278,
+        "name": "Alan Alda"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1094511",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-067",
+    "left": {
+      "id": "mention:66",
+      "name": "Joe D'Aamto",
+      "tmdb_id": 31775
+    },
+    "candidates": [
+      {
+        "id": "tmdb:134148",
+        "tmdb_id": 134148,
+        "name": "Paul D'Amato"
+      },
+      {
+        "id": "tmdb:1514314",
+        "tmdb_id": 1514314,
+        "name": "José Castro"
+      },
+      {
+        "id": "tmdb:1095343",
+        "tmdb_id": 1095343,
+        "name": "Joe DiMaggio"
+      },
+      {
+        "id": "tmdb:28417",
+        "tmdb_id": 28417,
+        "name": "Joe Hart"
+      },
+      {
+        "id": "tmdb:31775",
+        "tmdb_id": 31775,
+        "name": "Joe D'Amato"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:31775",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-068",
+    "left": {
+      "id": "mention:67",
+      "title": "Black hPone 2"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1321008",
+        "tmdb_id": 1321008,
+        "title": "Black Box"
+      },
+      {
+        "id": "tmdb:44214",
+        "tmdb_id": 44214,
+        "title": "Black Swan"
+      },
+      {
+        "id": "tmdb:284054",
+        "tmdb_id": 284054,
+        "title": "Black Panther"
+      },
+      {
+        "id": "tmdb:756999",
+        "tmdb_id": 756999,
+        "title": "The Black Phone"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-069",
+    "left": {
+      "id": "mention:68",
+      "name": "Carolien Fourmy",
+      "tmdb_id": 1107300
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1358318",
+        "tmdb_id": 1358318,
+        "name": "Caroline Boulton"
+      },
+      {
+        "id": "tmdb:1765767",
+        "tmdb_id": 1765767,
+        "name": "Caroline Fioratti"
+      },
+      {
+        "id": "tmdb:1107300",
+        "tmdb_id": 1107300,
+        "name": "Caroline Fourmy"
+      },
+      {
+        "id": "tmdb:74539",
+        "tmdb_id": 74539,
+        "name": "Colin Ford"
+      },
+      {
+        "id": "tmdb:4294870",
+        "tmdb_id": 4294870,
+        "name": "Charline Su"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1107300",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-070",
+    "left": {
+      "id": "mention:69",
+      "name": "Phil Dvais"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:57329",
+        "tmdb_id": 57329,
+        "name": "Phil Harris"
+      },
+      {
+        "id": "tmdb:26854",
+        "tmdb_id": 26854,
+        "name": "Phil Davis"
+      },
+      {
+        "id": "tmdb:2235312",
+        "tmdb_id": 2235312,
+        "name": "Emily Davis"
+      },
+      {
+        "id": "tmdb:65301",
+        "tmdb_id": 65301,
+        "name": "Phil Daniels"
+      },
+      {
+        "id": "tmdb:2073341",
+        "tmdb_id": 2073341,
+        "name": "Khris Davis"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:26854",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-071",
+    "left": {
+      "id": "mention:70",
+      "name": "Zoe Breri",
+      "tmdb_id": 2487639
+    },
+    "candidates": [
+      {
+        "id": "tmdb:723462",
+        "tmdb_id": 723462,
+        "name": "Zoe Leader"
+      },
+      {
+        "id": "tmdb:181486",
+        "tmdb_id": 181486,
+        "name": "Joe Baker"
+      },
+      {
+        "id": "tmdb:1223778",
+        "tmdb_id": 1223778,
+        "name": "Joe Perrino"
+      },
+      {
+        "id": "tmdb:2487639",
+        "tmdb_id": 2487639,
+        "name": "Zoe Berri"
+      },
+      {
+        "id": "tmdb:20494",
+        "tmdb_id": 20494,
+        "name": "Zoë Bell"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2487639",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-072",
+    "left": {
+      "id": "mention:71",
+      "name": "Jaymes uBtler"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4593425",
+        "tmdb_id": 4593425,
+        "name": "James Luster"
+      },
+      {
+        "id": "tmdb:20052",
+        "tmdb_id": 20052,
+        "name": "James Bentley"
+      },
+      {
+        "id": "tmdb:1655612",
+        "tmdb_id": 1655612,
+        "name": "James Chutter"
+      },
+      {
+        "id": "tmdb:1522760",
+        "tmdb_id": 1522760,
+        "name": "James Bloor"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-073",
+    "left": {
+      "id": "mention:72",
+      "name": "Rudy Macnuso",
+      "tmdb_id": 1727045
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1974046",
+        "tmdb_id": 1974046,
+        "name": "Rudy Pankow"
+      },
+      {
+        "id": "tmdb:1727045",
+        "tmdb_id": 1727045,
+        "name": "Rudy Mancuso"
+      },
+      {
+        "id": "tmdb:3670679",
+        "tmdb_id": 3670679,
+        "name": "Penny Mancuso"
+      },
+      {
+        "id": "tmdb:2538620",
+        "tmdb_id": 2538620,
+        "name": "Rully Santoso"
+      },
+      {
+        "id": "tmdb:4387933",
+        "tmdb_id": 4387933,
+        "name": "Rudi Malcolm"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1727045",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-074",
+    "left": {
+      "id": "mention:73",
+      "title": "The Hateufl Eight"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:273248",
+        "tmdb_id": 273248,
+        "title": "The Hateful Eight"
+      },
+      {
+        "id": "tmdb:1587964",
+        "tmdb_id": 1587964,
+        "title": "They Fight"
+      },
+      {
+        "id": "tmdb:1954",
+        "tmdb_id": 1954,
+        "title": "The Butterfly Effect"
+      },
+      {
+        "id": "tmdb:38575",
+        "tmdb_id": 38575,
+        "title": "The Karate Kid"
+      },
+      {
+        "id": "tmdb:155",
+        "tmdb_id": 155,
+        "title": "The Dark Knight"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:273248",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-075",
+    "left": {
+      "id": "mention:74",
+      "name": "Xolani fMeka",
+      "tmdb_id": 6174428
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5135499",
+        "tmdb_id": 5135499,
+        "name": "Roland Szóka"
+      },
+      {
+        "id": "tmdb:6174428",
+        "tmdb_id": 6174428,
+        "name": "Xolani Mfeka"
+      },
+      {
+        "id": "tmdb:2415",
+        "tmdb_id": 2415,
+        "name": "Yolande Moreau"
+      },
+      {
+        "id": "tmdb:1000967",
+        "tmdb_id": 1000967,
+        "name": "Wolfgang Menardi"
+      },
+      {
+        "id": "tmdb:2410364",
+        "tmdb_id": 2410364,
+        "name": "Alexa Mareka"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:6174428",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-076",
+    "left": {
+      "id": "mention:75",
+      "name": "Karren Kaargulian"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1006368",
+        "tmdb_id": 1006368,
+        "name": "Karen Kahn"
+      },
+      {
+        "id": "tmdb:1805888",
+        "tmdb_id": 1805888,
+        "name": "Karen Kaeja"
+      },
+      {
+        "id": "tmdb:5994294",
+        "tmdb_id": 5994294,
+        "name": "Aaron Margulis"
+      },
+      {
+        "id": "tmdb:6254546",
+        "tmdb_id": 6254546,
+        "name": "Karyna Karnaukh"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-077",
+    "left": {
+      "id": "mention:76",
+      "name": "Jeff Cannata",
+      "tmdb_id": 1243113
+    },
+    "candidates": [
+      {
+        "id": "tmdb:8894",
+        "tmdb_id": 8894,
+        "name": "Jeff Conaway"
+      },
+      {
+        "id": "tmdb:6192790",
+        "tmdb_id": 6192790,
+        "name": "Jeff Calmet"
+      },
+      {
+        "id": "tmdb:1243113",
+        "tmdb_id": 1243113,
+        "name": "Jeff Cannata"
+      },
+      {
+        "id": "tmdb:40223",
+        "tmdb_id": 40223,
+        "name": "Joe Carnahan"
+      },
+      {
+        "id": "tmdb:34982",
+        "tmdb_id": 34982,
+        "name": "Jeff Bennett"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1243113",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-078",
+    "left": {
+      "id": "mention:77",
+      "name": "Karen uHie"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1451088",
+        "tmdb_id": 1451088,
+        "name": "Karen Huie"
+      },
+      {
+        "id": "tmdb:5829",
+        "tmdb_id": 5829,
+        "name": "Karen Dotrice"
+      },
+      {
+        "id": "tmdb:139419",
+        "tmdb_id": 139419,
+        "name": "Karen Cliche"
+      },
+      {
+        "id": "tmdb:1952933",
+        "tmdb_id": 1952933,
+        "name": "Karl Hughes"
+      },
+      {
+        "id": "tmdb:87055",
+        "tmdb_id": 87055,
+        "name": "Karen Disher"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1451088",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-079",
+    "left": {
+      "id": "mention:78",
+      "name": "Tomym Do",
+      "tmdb_id": 4218444
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1135394",
+        "tmdb_id": 1135394,
+        "name": "Tommy Wong"
+      },
+      {
+        "id": "tmdb:2487806",
+        "tmdb_id": 2487806,
+        "name": "Tommy Kominik"
+      },
+      {
+        "id": "tmdb:76927",
+        "tmdb_id": 76927,
+        "name": "Tommy Wirkola"
+      },
+      {
+        "id": "tmdb:63208",
+        "tmdb_id": 63208,
+        "name": "Tommy Chong"
+      },
+      {
+        "id": "tmdb:4218444",
+        "tmdb_id": 4218444,
+        "name": "Tommy Do"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:4218444",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-080",
+    "left": {
+      "id": "mention:79",
+      "name": "Louie Anedrson"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:3058666",
+        "tmdb_id": 3058666,
+        "name": "Eric Anderson"
+      },
+      {
+        "id": "tmdb:5655",
+        "tmdb_id": 5655,
+        "name": "Wes Anderson"
+      },
+      {
+        "id": "tmdb:202711",
+        "tmdb_id": 202711,
+        "name": "Bob Anderson"
+      },
+      {
+        "id": "tmdb:29234",
+        "tmdb_id": 29234,
+        "name": "Joe Anderson"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-081",
+    "left": {
+      "id": "mention:80",
+      "name": "Robetr Fol",
+      "tmdb_id": 2788115
+    },
+    "candidates": [
+      {
+        "id": "tmdb:6599",
+        "tmdb_id": 6599,
+        "name": "Robert Morley"
+      },
+      {
+        "id": "tmdb:2788115",
+        "tmdb_id": 2788115,
+        "name": "Robert Fol"
+      },
+      {
+        "id": "tmdb:3919584",
+        "tmdb_id": 3919584,
+        "name": "Robert Holik"
+      },
+      {
+        "id": "tmdb:19976",
+        "tmdb_id": 19976,
+        "name": "Robert Joy"
+      },
+      {
+        "id": "tmdb:128621",
+        "tmdb_id": 128621,
+        "name": "Robert Goulet"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2788115",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-082",
+    "left": {
+      "id": "mention:81",
+      "name": "Jose Luis oMreno"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:140860",
+        "tmdb_id": 140860,
+        "name": "José Luis Coll"
+      },
+      {
+        "id": "tmdb:146516",
+        "tmdb_id": 146516,
+        "name": "Josie Loren"
+      },
+      {
+        "id": "tmdb:1756062",
+        "tmdb_id": 1756062,
+        "name": "José Luis Cordero"
+      },
+      {
+        "id": "tmdb:234654",
+        "tmdb_id": 234654,
+        "name": "José Luis Ozores"
+      },
+      {
+        "id": "tmdb:23216",
+        "tmdb_id": 23216,
+        "name": "José Luis Moreno"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:23216",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-083",
+    "left": {
+      "id": "mention:82",
+      "title": "Prisnoers",
+      "tmdb_id": 146233
+    },
+    "candidates": [
+      {
+        "id": "tmdb:718821",
+        "tmdb_id": 718821,
+        "title": "Twisters"
+      },
+      {
+        "id": "tmdb:93685",
+        "tmdb_id": 93685,
+        "title": "Swingers"
+      },
+      {
+        "id": "tmdb:146233",
+        "tmdb_id": 146233,
+        "title": "Prisoners"
+      },
+      {
+        "id": "tmdb:1233413",
+        "tmdb_id": 1233413,
+        "title": "Sinners"
+      },
+      {
+        "id": "tmdb:1328803",
+        "tmdb_id": 1328803,
+        "title": "Prisoner of War"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:146233",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-084",
+    "left": {
+      "id": "mention:83",
+      "name": "Nancy Myeers"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:11787",
+        "tmdb_id": 11787,
+        "name": "Nancy Kyes"
+      },
+      {
+        "id": "tmdb:1210153",
+        "tmdb_id": 1210153,
+        "name": "Rocky Myers"
+      },
+      {
+        "id": "tmdb:15508",
+        "tmdb_id": 15508,
+        "name": "Nancy Stephens"
+      },
+      {
+        "id": "tmdb:13854",
+        "tmdb_id": 13854,
+        "name": "Harry Myers"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-085",
+    "left": {
+      "id": "mention:84",
+      "name": "Angel Hdialgo",
+      "tmdb_id": 1639595
+    },
+    "candidates": [
+      {
+        "id": "tmdb:590969",
+        "tmdb_id": 590969,
+        "name": "Angela Salloker"
+      },
+      {
+        "id": "tmdb:1747387",
+        "tmdb_id": 1747387,
+        "name": "Ángel Silva"
+      },
+      {
+        "id": "tmdb:1639595",
+        "tmdb_id": 1639595,
+        "name": "Ángel Hidalgo"
+      },
+      {
+        "id": "tmdb:7353",
+        "tmdb_id": 7353,
+        "name": "Angélica Aragón"
+      },
+      {
+        "id": "tmdb:5713475",
+        "tmdb_id": 5713475,
+        "name": "Angel Durango"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1639595",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-086",
+    "left": {
+      "id": "mention:85",
+      "name": "Gueniever Sandre"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1683976",
+        "tmdb_id": 1683976,
+        "name": "Guenièvre Sandré"
+      },
+      {
+        "id": "tmdb:4191277",
+        "tmdb_id": 4191277,
+        "name": "Guneet Sandhu"
+      },
+      {
+        "id": "tmdb:32030",
+        "tmdb_id": 32030,
+        "name": "Guinevere Turner"
+      },
+      {
+        "id": "tmdb:3361",
+        "tmdb_id": 3361,
+        "name": "George Sanders"
+      },
+      {
+        "id": "tmdb:12094",
+        "tmdb_id": 12094,
+        "name": "Jennifer Saunders"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1683976",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-087",
+    "left": {
+      "id": "mention:86",
+      "name": "Dani de la oTrre",
+      "tmdb_id": 1489750
+    },
+    "candidates": [
+      {
+        "id": "tmdb:47468",
+        "tmdb_id": 47468,
+        "name": "Frances de la Tour"
+      },
+      {
+        "id": "tmdb:3618404",
+        "tmdb_id": 3618404,
+        "name": "Gabriela Torres"
+      },
+      {
+        "id": "tmdb:84222",
+        "tmdb_id": 84222,
+        "name": "Daniel Cudmore"
+      },
+      {
+        "id": "tmdb:2119353",
+        "tmdb_id": 2119353,
+        "name": "Daniel Villarreal"
+      },
+      {
+        "id": "tmdb:1489750",
+        "tmdb_id": 1489750,
+        "name": "Dani de la Torre"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1489750",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-088",
+    "left": {
+      "id": "mention:87",
+      "name": "Barry Cilfton"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:10411",
+        "tmdb_id": 10411,
+        "name": "Barry Nelson"
+      },
+      {
+        "id": "tmdb:16199",
+        "tmdb_id": 16199,
+        "name": "Barry Coe"
+      },
+      {
+        "id": "tmdb:55908",
+        "tmdb_id": 55908,
+        "name": "Harry Ditson"
+      },
+      {
+        "id": "tmdb:12852",
+        "tmdb_id": 12852,
+        "name": "Barry Corbin"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-089",
+    "left": {
+      "id": "mention:88",
+      "name": "Luis Znafir",
+      "tmdb_id": 4288685
+    },
+    "candidates": [
+      {
+        "id": "tmdb:28511",
+        "tmdb_id": 28511,
+        "name": "Luis Zahera"
+      },
+      {
+        "id": "tmdb:80230",
+        "tmdb_id": 80230,
+        "name": "Lino Banfi"
+      },
+      {
+        "id": "tmdb:984837",
+        "tmdb_id": 984837,
+        "name": "Louison Danis"
+      },
+      {
+        "id": "tmdb:74896",
+        "tmdb_id": 74896,
+        "name": "Luis Brandoni"
+      },
+      {
+        "id": "tmdb:4288685",
+        "tmdb_id": 4288685,
+        "name": "Luis Zanfir"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:4288685",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-090",
+    "left": {
+      "id": "mention:89",
+      "name": "Noah uJpe"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1590759",
+        "tmdb_id": 1590759,
+        "name": "Noah Jupe"
+      },
+      {
+        "id": "tmdb:20472",
+        "tmdb_id": 20472,
+        "name": "Norah Jones"
+      },
+      {
+        "id": "tmdb:3280473",
+        "tmdb_id": 3280473,
+        "name": "Noah Levi"
+      },
+      {
+        "id": "tmdb:13526",
+        "tmdb_id": 13526,
+        "name": "Noah Wyle"
+      },
+      {
+        "id": "tmdb:3032312",
+        "tmdb_id": 3032312,
+        "name": "Noah Beck"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1590759",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-091",
+    "left": {
+      "id": "mention:90",
+      "name": "John De uLca",
+      "tmdb_id": 1792202
+    },
+    "candidates": [
+      {
+        "id": "tmdb:4433125",
+        "tmdb_id": 4433125,
+        "name": "Joyner Lucas"
+      },
+      {
+        "id": "tmdb:1792202",
+        "tmdb_id": 1792202,
+        "name": "John De Luca"
+      },
+      {
+        "id": "tmdb:6164",
+        "tmdb_id": 6164,
+        "name": "Josh Lucas"
+      },
+      {
+        "id": "tmdb:56412",
+        "tmdb_id": 56412,
+        "name": "John Requa"
+      },
+      {
+        "id": "tmdb:104892",
+        "tmdb_id": 104892,
+        "name": "John Dugan"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:1792202",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-092",
+    "left": {
+      "id": "mention:91",
+      "name": "Timothee hCalamet"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:2458820",
+        "tmdb_id": 2458820,
+        "name": "Pauline Chalamet"
+      },
+      {
+        "id": "tmdb:17396",
+        "tmdb_id": 17396,
+        "name": "Timothy Carhart"
+      },
+      {
+        "id": "tmdb:4320326",
+        "tmdb_id": 4320326,
+        "name": "Timothée Vaganay"
+      },
+      {
+        "id": "tmdb:52003",
+        "tmdb_id": 52003,
+        "name": "Kathleen Chalfant"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-093",
+    "left": {
+      "id": "mention:92",
+      "name": "Lerhi",
+      "tmdb_id": 2284130
+    },
+    "candidates": [
+      {
+        "id": "tmdb:935074",
+        "tmdb_id": 935074,
+        "name": "Kerima"
+      },
+      {
+        "id": "tmdb:4184319",
+        "tmdb_id": 4184319,
+        "name": "Chakri"
+      },
+      {
+        "id": "tmdb:2046847",
+        "tmdb_id": 2046847,
+        "name": "Leah Fredkin"
+      },
+      {
+        "id": "tmdb:4677738",
+        "tmdb_id": 4677738,
+        "name": "Luz Hechim"
+      },
+      {
+        "id": "tmdb:2284130",
+        "tmdb_id": 2284130,
+        "name": "Lehri"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2284130",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-094",
+    "left": {
+      "id": "mention:93",
+      "name": "Roselyn aSnchez"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:5784281",
+        "tmdb_id": 5784281,
+        "name": "Noah Sánchez"
+      },
+      {
+        "id": "tmdb:11892",
+        "tmdb_id": 11892,
+        "name": "Paul Sanchez"
+      },
+      {
+        "id": "tmdb:59739",
+        "tmdb_id": 59739,
+        "name": "Otto Sanchez"
+      },
+      {
+        "id": "tmdb:31168",
+        "tmdb_id": 31168,
+        "name": "Kiele Sanchez"
+      },
+      {
+        "id": "tmdb:41901",
+        "tmdb_id": 41901,
+        "name": "Roselyn Sánchez"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:41901",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-095",
+    "left": {
+      "id": "mention:94",
+      "name": "Janelel James",
+      "tmdb_id": 2692283
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1984017",
+        "tmdb_id": 1984017,
+        "name": "Chantelle Jamieson"
+      },
+      {
+        "id": "tmdb:10135",
+        "tmdb_id": 10135,
+        "name": "Jesse James"
+      },
+      {
+        "id": "tmdb:4441",
+        "tmdb_id": 4441,
+        "name": "Pell James"
+      },
+      {
+        "id": "tmdb:1005852",
+        "tmdb_id": 1005852,
+        "name": "Janelle Monáe"
+      },
+      {
+        "id": "tmdb:2692283",
+        "tmdb_id": 2692283,
+        "name": "Janelle James"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:2692283",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-096",
+    "left": {
+      "id": "mention:95",
+      "name": "Antonio Zaavla Kugler"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1818853",
+        "tmdb_id": 1818853,
+        "name": "Antonio Calvar"
+      },
+      {
+        "id": "tmdb:5818",
+        "tmdb_id": 5818,
+        "name": "Antonio Casale"
+      },
+      {
+        "id": "tmdb:78995",
+        "tmdb_id": 78995,
+        "name": "Antonio Valero"
+      },
+      {
+        "id": "tmdb:1760122",
+        "tmdb_id": 1760122,
+        "name": "Víctor Zavala Kugler"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-097",
+    "left": {
+      "id": "mention:96",
+      "name": "Serinad Swan",
+      "tmdb_id": 86268
+    },
+    "candidates": [
+      {
+        "id": "tmdb:86268",
+        "tmdb_id": 86268,
+        "name": "Serinda Swan"
+      },
+      {
+        "id": "tmdb:2471066",
+        "tmdb_id": 2471066,
+        "name": "Sorina Savu"
+      },
+      {
+        "id": "tmdb:1592070",
+        "tmdb_id": 1592070,
+        "name": "Karina Suwandi"
+      },
+      {
+        "id": "tmdb:3648535",
+        "tmdb_id": 3648535,
+        "name": "Jerina Son"
+      },
+      {
+        "id": "tmdb:145628",
+        "tmdb_id": 145628,
+        "name": "Shriya Saran"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:86268",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-098",
+    "left": {
+      "id": "mention:97",
+      "title": "Mrs. Doutbfire"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:11423",
+        "tmdb_id": 11423,
+        "title": "Memories of Murder"
+      },
+      {
+        "id": "tmdb:11649",
+        "tmdb_id": 11649,
+        "title": "Masters of the Universe"
+      },
+      {
+        "id": "tmdb:788",
+        "tmdb_id": 788,
+        "title": "Mrs. Doubtfire"
+      },
+      {
+        "id": "tmdb:54156",
+        "tmdb_id": 54156,
+        "title": "First Desires"
+      },
+      {
+        "id": "tmdb:406436",
+        "tmdb_id": 406436,
+        "title": "Mr. Dólar"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:788",
+    "difficulty": "fuzzy-nearest-name",
+    "label_source": "TMDB canonical name with deterministic typo",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-099",
+    "left": {
+      "id": "mention:98",
+      "name": "Bob Gutnon",
+      "tmdb_id": 4029
+    },
+    "candidates": [
+      {
+        "id": "tmdb:53454",
+        "tmdb_id": 53454,
+        "name": "Damon Gupton"
+      },
+      {
+        "id": "tmdb:4029",
+        "tmdb_id": 4029,
+        "name": "Bob Gunton"
+      },
+      {
+        "id": "tmdb:202711",
+        "tmdb_id": 202711,
+        "name": "Bob Anderson"
+      },
+      {
+        "id": "tmdb:1080300",
+        "tmdb_id": 1080300,
+        "name": "Bobby Motown"
+      },
+      {
+        "id": "tmdb:6346167",
+        "tmdb_id": 6346167,
+        "name": "Zoë Brunton"
+      }
+    ],
+    "threshold": 90,
+    "is_match": true,
+    "expected_id": "tmdb:4029",
+    "difficulty": "exact-id",
+    "label_source": "exact TMDB ID",
+    "review_status": "silver-auto"
+  },
+  {
+    "case_id": "er-100",
+    "left": {
+      "id": "mention:99",
+      "name": "Sarah Hyaward"
+    },
+    "candidates": [
+      {
+        "id": "tmdb:1677267",
+        "tmdb_id": 1677267,
+        "name": "Ryan Hayward"
+      },
+      {
+        "id": "tmdb:91351",
+        "tmdb_id": 91351,
+        "name": "Sarah Hyland"
+      },
+      {
+        "id": "tmdb:85957",
+        "tmdb_id": 85957,
+        "name": "Sarah Edwards"
+      },
+      {
+        "id": "tmdb:929905",
+        "tmdb_id": 929905,
+        "name": "Kara Hayward"
+      }
+    ],
+    "threshold": 90,
+    "is_match": false,
+    "expected_id": null,
+    "difficulty": "hard-negative-nearest-name",
+    "label_source": "target excluded; candidates are four closest same-type names",
+    "review_status": "silver-auto"
+  }
+]

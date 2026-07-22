@@ -35,12 +35,17 @@ subset is exported as RDF/Turtle for OWL/SPARQL comparison.
 - Python 3.11, FastAPI/Pydantic, pytest.
 - Neo4j 5/property graph/Cypher is the operational store because traversal and
   implementation are straightforward.
-- RDF/RDFS/OWL, RDFLib and Protégé/Jena illustrate standards, semantic
+- RDF/RDFS/OWL, RDFLib and Apache Jena/Fuseki illustrate standards, semantic
   constraints, SPARQL and reasoner capabilities.
 - The standards path is executable: RDFLib materializes the declared RDFS/OWL-RL
   subset (domain/range, inverse and symmetric properties) and validates functional
   properties, disjoint classes and required Movie titles. It reports before/after
-  triple counts and violations; it is not presented as a full OWL 2 DL reasoner.
+  triple counts and violations. A separate Apache Jena Fuseki 6.1.0 Docker profile
+  loads the full RDF snapshot through an assembler-backed GenericRuleReasoner in
+  forward mode and executes the ten-query SPARQL catalog. Both paths deliberately
+  implement the same declared subset and are not presented as full OWL 2 DL.
+  Its isolated runtime configuration lives under `experiments/semantic/jena/` because Jena
+  is an evaluation engine, not part of the application's production path.
 - Stable source IDs are keys. Match TMDB↔IMDb by exact IDs first; fuzzy matching
   is a logged, confidence-scored fallback, never a name-based primary key.
 - Import nodes before edges, create constraints/indexes first, use parameterized
@@ -125,8 +130,11 @@ The nine known intents remain fixed parameterized Cypher templates; unrestricted
 LLM-to-Cypher is deliberately not enabled.
 Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
-an explicit relevance rubric. Their metrics may be reported only as silver
-evaluation until an independent reviewer and adjudication are recorded.
+an explicit relevance rubric. Entity candidates now use the four nearest
+same-type names, creating meaningful hard negatives and conservative abstention
+cases. A blind review pack and strict metadata gate are available, but metrics
+may be reported only as silver until an independent reviewer and adjudication
+are recorded.
 
 ## Quality and evaluation
 
@@ -138,7 +146,10 @@ NDCG@K or documented manual review); and the fraction of recommendations with
 an evidence path. Store configurations and CSV/JSON results so experiments are
 reproducible.
 The evaluation workflow also provides a same-snapshot SQLite baseline for four
-representative relational queries and generates CSV/Markdown/SVG evidence summaries.
+representative relational queries and deterministic induced snapshots at
+500/1,000/2,000 Movie. Each scale is authoritatively loaded into the isolated
+Neo4j test service and built in SQLite from the same filtered CSV set. The workflow
+generates CSV/Markdown/SVG evidence summaries.
 Neo4j/SQLite comparisons are valid only when run on the same machine, dataset,
 warm-up policy and iteration count.
 The RDF workflow parses and executes all ten numbered SPARQL queries after
@@ -146,73 +157,108 @@ materialization. Administrative Movie CRUD is parameterized and tested but is
 not exposed through the public API. Integration tests use a dedicated temporary
 Neo4j service on Bolt 7688, so they can verify reset/import/idempotency, QA,
 recommendation and CRUD without touching the demo graph.
+The root `Makefile` is intentionally limited to demo, setup, test and optional
+LLM operations. Reproducible research workflows are organized as Python modules
+under `experiments/{corpora,evaluation,benchmarks,semantic,reporting}`; measured
+artifacts are grouped under matching `experiments/results/` subdirectories.
+Every experiments subdirectory has a README describing its purpose, input,
+output, dependencies and safety limits. Docker Compose commands remain explicit.
 
-Current reproducible evidence (data snapshot 2026-07-15; QA rerun 2026-07-20):
-the pipeline receives 2,001 records,
-explicitly rejects one relationship-free Movie, and retains 2,000 valid movies.
-The loaded graph validates at 37,349 nodes/353,915 relationships with zero structural
-violations. Exact IMDb ratings match 1,783 of 1,855 movies carrying an IMDb ID.
-Silver entity-resolution P/R/F1 is 1.00; silver co-star precision is 1.00;
+Current reproducible evidence (full rerun 2026-07-22): the pipeline receives and
+retains 2,000 valid movies with no rejected records. The loaded graph validates at
+36,937 nodes/362,017 relationships with zero structural violations. Exact IMDb
+ratings match 1,851 of 1,909 movies carrying an IMDb ID.
+The final repository gate passes 37/37 tests, compileall and all tracked source
+checksums.
+The full-snapshot knowledge-quality audit has zero stable-ID duplicates,
+conflicting required values, missing required fields, invalid foreign keys and
+duplicate endpoint pairs, plus 100% provenance coverage for rows carrying a
+source field. Two repeated TMDB actor credits are collapsed by combining
+characters and retaining the smallest cast order. Fifty-four duplicate Person
+names remain separate because names are not identity keys.
+On the nearest-name hard-negative silver ER corpus, precision is 1.000, recall
+0.933 and F1 0.966 (TP=70, TN=25, FP=0, FN=5); four misses are conservative
+short-name typo abstentions and one is a tied same-title Movie abstention. Silver
+co-star precision is 1.00;
 the strengthened 20-question Neo4j QA smoke corpus passes 20/20 with evidence,
 including a negative assertion that `The Dark Knight` cast lookup excludes actors
 linked only to `The Dark Knight Rises`; semantic
-materialization adds 35,419 triples (154,970 to 190,389) with zero violations;
-all ten SPARQL queries execute successfully.
-The real Neo4j benchmark uses Neo4j 5.26.28, one warm-up and 100 iterations per
-question at 2,000 movies; intent medians range 2.67–188.74 ms and p95 ranges
-5.08–211.24 ms. This single-scale result is not a scalability claim. A controlled
-same-snapshot SQLite baseline covers four equivalent queries and is faster on all
-four; this supports a trade-off discussion, not a universal engine ranking.
+materialization adds 36,201 triples (156,491 to 192,692) with zero violations.
+Jena evaluates the ontology+data union (156,561 to 192,762), exposes 34,007 inverse
+`hasActor` triples and executes all ten SPARQL queries successfully.
+The controlled Neo4j/SQLite benchmark uses one warm-up and 100 iterations for four
+equivalent queries on 500/1,000/2,000 Movie induced snapshots. SQLite is faster on
+all measured query/scale pairs. The three-scale trend supports a trade-off and
+growth discussion, but is not a universal engine ranking or a scalability claim
+because concurrency, cold cache, resources and larger datasets are not measured.
 On 20 silver cases against real Neo4j, the
-IDF-weighted production ranker reaches P@10 0.715 and NDCG@10 0.754. Historical
+IDF-weighted production ranker reaches P@10 0.640 and NDCG@10 0.677. Historical
 results were overlap 0.67/0.723, weighted Jaccard 0.64/0.699, and hybrid
 0.59/0.657; these remain design history rather than end-user alternatives.
 Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
-while `runtime_manifest.json` plus the live Movie count decide whether import is
-required. Normal `make demo` reuses the graph.
+while a SHA-256 over all processed node/edge CSV files plus the live Movie count
+decides whether import is required. This detects transformation changes even when
+the raw source checksum and Movie count stay constant. Normal `make demo` reuses
+the graph when that processed checksum matches.
 
 ## Source synthesis
 
 The large Office lecture/source files used during initial synthesis are not
 stored in the demo repository. Current source code, configuration, Markdown
 documents and committed experiment artifacts are the verifiable project sources.
-- `docs/CODE_PLAN.md`: repository layout, implementation order, API/query/test
+- `docs/technical/implementation-plan.md`: repository layout, implementation order, API/query/test
   requirements and engineering quality rules.
-- `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
+- `docs/deliverables/report/outline.md` and
+  `docs/deliverables/defense/slide-outline.md`: expected report and
   presentation story; keep final artifacts aligned with measured evidence.
-- `docs/REPORT_DRAFT.md`: current Vietnamese report manuscript. Its submission
-  LaTeX is organized into six content chapters aligned with the applicable
+- `docs/deliverables/report/draft.md`: supporting Vietnamese manuscript snapshot. The
+  authoritative submission source is edited directly under `report_latex/` and
+  is organized into six content chapters aligned with the applicable
   report-content criteria in `ChecklistCSDLNCv2.XLS`, followed by a conclusion
   chapter. Rubric items for report quality, presentation and oral defense remain
   assessment criteria rather than self-describing report sections,
   including theory, related work, implementation, measured evidence, validity
-  limits, preliminary IEEE-style references and reproducibility appendices. Its
-  front matter and evaluation prose were streamlined on 2026-07-19 for the course
-  submission; detailed defense notes now live in `docs/internal/REPORT_SUPPORT.md`.
-- `report_latex/`: submission-oriented LaTeX report generated from the manuscript.
+  limits, numeric IEEE-style references and reproducibility appendices. Its
+  front matter, evaluation prose and measured values were finalized against the
+  2026-07-22 evidence run.
+- `report_latex/`: self-contained, submission-oriented LaTeX source for manual
+  upload to Overleaf.
   `main.tex` assembles the six content chapters, conclusion and appendices;
   `ref.bib` is the normalized
-  bibliography, and all 14 image calls now resolve to vector PDF figures under
+  bibliography, and all 14 image calls resolve to vector PDF assets under
   `report_latex/images/`. Eleven editable diagram sources live in
-  `report_latex/images/sources/*.drawio`; three measured charts are generated from
-  experiment CSV/JSON. Regenerate them with
-  `python3 scripts/generate_report_figures.py`. `web_ui.pdf` is explicitly a
+  `report_latex/images/sources/*.drawio`; three measured charts reflect the
+  committed experiment CSV/JSON. `web_ui.pdf` is explicitly a
   source-aligned wireframe and may later be replaced by a real screenshot with
-  the same filename. Regenerate chapter files with
-  `python3 scripts/report_markdown_to_latex.py` after manuscript edits.
+  the same filename. Edit `contents/*.tex` directly and select XeLaTeX on
+  Overleaf. Final report PDF and automatic report-generation scripts are not
+  stored in the repository.
+- `docs/deliverables/checklist-traceability.md`: one-to-one mapping of all 20 N5 rubric
+  criteria to report sections, source files and measured artifacts. Criteria 19
+  and 20 remain human performance gates even though their preparation artifacts
+  are complete.
+- Slide PDF/PPTX and automatic slide-generation scripts are not stored. Use
+  `docs/deliverables/defense/slide-outline.md` and the defense materials to
+  prepare slides manually.
+- `docs/deliverables/defense/defense-script.md` and
+  `docs/deliverables/defense/defense-qa.md`: timed presentation/demo
+  sequence, fallback plan, rehearsal gate and 25 evidence-backed oral-defense
+  questions. A rehearsal result must never be claimed until a human completes it.
 - Root `README.md`: current runnable interface and commands; prefer it over old
   planning prose when describing implemented behavior.
-- `docs/README.md`: index and precedence guidance for the planning documents.
-- `docs/movie_knowledge_graph_flow.drawio`: editable current-architecture flow.
-- `docs/ARCHITECTURE_EXPLAINED.md`: block-by-block and request-path explanation
+- `docs/README.md`: top-level index and precedence guidance. Documentation is
+  grouped into `technical/`, `runbooks/`, and `deliverables/`; every subdirectory
+  has a local README.
+- `docs/technical/architecture-flow.drawio`: editable current-architecture flow.
+- `docs/technical/architecture.md`: block-by-block and request-path explanation
   of the draw.io architecture.
-- `docs/QWEN_VLLM_DEPLOYMENT.md`: reproducible GPU/vLLM/Qwen setup and
+- `docs/runbooks/qwen-vllm.md`: reproducible GPU/vLLM/Qwen setup and
   troubleshooting runbook.
-- `docs/DBEAVER_NEO4J_DEMO.md`: reproducible DBeaver Community demo runbook. It
+- `docs/runbooks/dbeaver-neo4j.md`: reproducible DBeaver Community demo runbook. It
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and
   authentication troubleshooting for the local Compose graph.
-- `docs/DEMO_RUNBOOK.md`: the presentation-ready 12–15 minute demo sequence,
+- `docs/runbooks/demo.md`: the presentation-ready 12–15 minute demo sequence,
   covering manifest/provenance, Neo4j schema and multi-hop queries, derived facts,
   QA, explainable recommendation, RDF/OWL/SPARQL and measured evidence.
 - Root `ChecklistCSDLNCv2.XLS`: grading rubric used to order the report chapters

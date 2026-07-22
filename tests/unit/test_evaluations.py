@@ -1,6 +1,6 @@
-from experiments.evaluate_reasoning import evaluate as evaluate_reasoning
-from experiments.evaluate_recommendation import evaluate as evaluate_recommendation
-from experiments.evaluate_qa_neo4j import case_passes
+from experiments.evaluation.evaluate_qa_neo4j import case_passes
+from experiments.evaluation.evaluate_reasoning import evaluate as evaluate_reasoning
+from experiments.evaluation.evaluate_recommendation_fixture import evaluate as evaluate_recommendation
 from src.kg.repository import MemoryRepository
 from pathlib import Path
 

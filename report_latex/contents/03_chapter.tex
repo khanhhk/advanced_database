@@ -1,4 +1,4 @@
-% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+% LaTeX source maintained directly for Overleaf.
 \chapter{III. Thiết kế và cài đặt hệ thống}
 
 \section{Lựa chọn, cấu hình và triển khai DBMS/công cụ}
@@ -6,11 +6,11 @@
 \subsection{Kiến trúc tổng thể}
 \reportfigure{system_architecture.pdf}{Kiến trúc tổng thể của hệ thống}{fig:system-architecture}
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
-TMDB API/cache ─┐
-                ├→ clean/normalize/exact-ID enrich → CSV + manifest
-IMDb ratings.gz ┘                         ├→ Neo4j → QA/recommend → FastAPI/UI
-                                         └→ RDF → entailment → SPARQL
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
+TMDB API/cache --+
+                 +-> clean/normalize/exact-ID enrich -> CSV + manifest
+IMDb ratings.gz -+                          +-> Neo4j -> QA/recommend -> FastAPI/UI
+                                            +-> RDF -> entailment -> SPARQL
 \end{Verbatim}
 
 Qwen là service tùy chọn tại localhost, chỉ nhận câu hỏi và trả QueryPlan JSON.
@@ -74,7 +74,7 @@ artifact dẫn xuất.
 \subsection{Thuật toán pipeline}
 \reportfigure{etl_pipeline.pdf}{Luồng xử lý dữ liệu từ nguồn đến các graph}{fig:etl-pipeline}
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 INPUT: raw TMDB records, optional compressed IMDb ratings
 1. Validate required movie ID/title; reject and log invalid records.
 2. Deduplicate Movie by tmdb_id.
@@ -231,7 +231,9 @@ Ba lớp ràng buộc bổ sung cho nhau nhưng không được đánh đồng.
 
 \section{Cài đặt trên Knowledge Graph engine và cấu hình reasoner}
 
-Neo4j là operational Knowledge Graph engine; RDFLib đảm nhiệm export, materialization và validation cho nhánh RDF/OWL của cùng snapshot.
+Neo4j là operational Knowledge Graph engine. RDFLib cung cấp nhánh kiểm thử semantic
+nhẹ; Apache Jena Fuseki 6.1.0 là triple-store/SPARQL endpoint độc lập dùng để chạy
+cùng tập luật suy diễn trên full RDF snapshot.
 
 \subsection{Import và validation Neo4j}
 
@@ -250,3 +252,10 @@ tạo duplicate. \texttt{--replace} dành cho authoritative rebuild. Validation 
 
 Integration test dùng Neo4j test riêng ở cổng 7688 với storage tạm, import hai lần
 và kiểm tra QA, recommendation, CRUD; graph demo không bị reset.
+
+Jena chạy trong Docker profile \texttt{semantic}, đọc ontology và \texttt{movies.ttl} qua
+assembler. \texttt{GenericRuleReasoner} ở chế độ forward nạp năm luật khai báo tường minh:
+domain, range, hai chiều của \texttt{owl:inverseOf} và \texttt{owl:SymmetricProperty}. Profile
+này cố ý khớp phạm vi mà báo cáo tuyên bố, tránh ngụ ý hỗ trợ toàn bộ OWL 2 DL.
+Fuseki chỉ phục vụ endpoint query cho workflow đánh giá, không nằm trên critical
+path của \texttt{make demo}.

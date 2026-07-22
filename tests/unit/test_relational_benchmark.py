@@ -1,4 +1,4 @@
-from experiments.benchmark_relational import QUERIES, benchmark, build_database
+from experiments.benchmarks.benchmark_relational import QUERIES, benchmark, build_database
 from src.processing.pipeline import transform
 import json
 

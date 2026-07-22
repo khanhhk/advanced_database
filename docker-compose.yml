@@ -36,5 +36,18 @@ services:
       timeout: 5s
       retries: 30
       start_period: 5s
+  jena:
+    build:
+      context: .
+      dockerfile: experiments/semantic/jena/Dockerfile
+    profiles: [semantic]
+    ports: ["3030:3030"]
+    volumes:
+      - ./experiments/semantic/jena/config.ttl:/fuseki/config.ttl:ro
+      - ./experiments/semantic/jena/movie.rules:/input/movie.rules:ro
+      - ./ontology/movie_ontology.ttl:/input/movie_ontology.ttl:ro
+      - ./data/processed/movies.ttl:/input/movies.ttl:ro
+    tmpfs:
+      - /fuseki/databases
 volumes:
   neo4j_data:

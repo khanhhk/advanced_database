@@ -1,4 +1,4 @@
-% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+% LaTeX source maintained directly for Overleaf.
 \chapter{IV. Truy vấn, xử lý và nghiệp vụ}
 
 \section{Ngôn ngữ truy vấn và suy diễn đặc thù}
@@ -84,9 +84,9 @@ demo có dữ liệu.
 
 Luật:
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+\begin{Verbatim}[fontsize=\scriptsize,frame=single]
 Person A -[:ACTED_IN]-> Movie <-[:ACTED_IN]- Person B
-⇒ A -[:CO_STARRED_WITH]-> B
+=> A -[:CO_STARRED_WITH]-> B
 \end{Verbatim}
 
 Điều kiện sắp thứ tự ID tránh cặp trùng/ngược. Relationship lưu \texttt{movie\_count},
@@ -96,7 +96,8 @@ Person A -[:ACTED_IN]-> Movie <-[:ACTED_IN]- Person B
 \subsection{Semantic entailment}
 \reportfigure{semantic_reasoning.pdf}{Luồng materialization và kiểm tra ngữ nghĩa}{fig:semantic-reasoning}
 
-RDFLib materializer chạy profile RDFS/OWL-RL subset xác định:
+RDFLib materializer và Jena Generic Rule Reasoner cùng chạy profile RDFS/OWL
+subset xác định:
 
 \begin{itemize}
 \item property domain → type của subject;
@@ -105,6 +106,8 @@ RDFLib materializer chạy profile RDFS/OWL-RL subset xác định:
 \item \texttt{owl:SymmetricProperty} → triple chiều ngược.
 \end{itemize}
 
-Validator kiểm tra functional property, disjoint class và Movie thiếu title. Báo
-cáo ghi số triple trước/sau, số triple mới và violation. Profile này chạy được và
-test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.
+Validator kiểm tra functional property, disjoint class và Movie thiếu title. RDFLib
+ghi data graph 156.491 → 192.692 triple. Jena tính trên union data + 70 ontology
+triple, do đó 156.561 → 192.762; cả hai engine đều suy ra đúng 36.201 triple mới.
+Fuseki thực thi 10/10 query, trong đó có 34.007 inverse \texttt{hasActor}. Profile này
+chạy được và test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.

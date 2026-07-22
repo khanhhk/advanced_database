@@ -33,9 +33,43 @@ def _entity(value, id_key: str, prefix: str) -> tuple[str, str, dict]:
 
 def _write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
     with path.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+
+
+def _deduplicate_edges(edges: dict[str, list[dict]]) -> dict[str, int]:
+    """Collapse repeated source credits to the relationship identity used by Neo4j.
+
+    TMDB can credit one person more than once in a movie for different characters.
+    The graph models one ACTED_IN edge per Person–Movie pair, so character evidence
+    is combined instead of being overwritten by MERGE.
+    """
+    removed = {}
+    for name, rows in edges.items():
+        if name in {"acted_in", "directed"}:
+            key = lambda row: (row["person_id"], row["tmdb_id"])
+        else:
+            foreign_key = {"has_genre": "genre_id", "has_keyword": "keyword_id",
+                           "produced_by": "company_id"}[name]
+            key = lambda row, foreign_key=foreign_key: (row["tmdb_id"], row[foreign_key])
+        grouped = {}
+        for row in rows:
+            identity = key(row)
+            if identity not in grouped:
+                grouped[identity] = dict(row)
+                continue
+            if name == "acted_in":
+                current = grouped[identity]
+                characters = [value.strip() for value in
+                              (current.get("character", ""), row.get("character", "")) if value.strip()]
+                current["character"] = " | ".join(dict.fromkeys(characters))
+                orders = [int(value) for value in (current.get("cast_order"), row.get("cast_order"))
+                          if value not in (None, "")]
+                current["cast_order"] = min(orders) if orders else ""
+        removed[name] = len(rows) - len(grouped)
+        edges[name] = list(grouped.values())
+    return removed
 
 
 def _imdb_ratings(path: Path | None, wanted_ids: set[str]) -> dict[str, dict]:
@@ -105,6 +139,8 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
                 entities[plural][entity_id] = row
                 edges[edge_name].append({"tmdb_id": movie_id, id_name: entity_id, "source": "tmdb"})
 
+    duplicate_edges_collapsed = _deduplicate_edges(edges)
+
     # A Movie without any graph relationship cannot answer a competency question
     # and would violate the import quality gate. Keep the rejection explicit in
     # the manifest instead of silently loading an isolated node.
@@ -136,6 +172,10 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
                    "produced_by": ["tmdb_id", "company_id", "source"]}
     for name, rows in node_rows.items(): _write_csv(output_dir / f"{name}.csv", rows, node_fields[name])
     for name in EDGE_FILES: _write_csv(output_dir / f"{name}.csv", edges[name], edge_fields[name])
+    processed_hash = hashlib.sha256()
+    for name in (*NODE_FILES, *EDGE_FILES):
+        path = output_dir / f"{name}.csv"
+        processed_hash.update(path.name.encode("utf-8")); processed_hash.update(path.read_bytes())
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(), "source": str(source),
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
@@ -143,11 +183,13 @@ def transform(source: Path, output_dir: Path, imdb_ratings_path: Path | None = N
                  "source_sha256": hashlib.sha256(imdb_ratings_path.read_bytes()).hexdigest() if imdb_ratings_path else None,
                  "tmdb_movies_with_imdb_id": len(wanted_imdb_ids), "matched_ratings": matched_rating_count,
                  "match_method": "exact_imdb_id" if imdb_ratings_path else "preserved_from_snapshot"},
+        "processed_sha256": processed_hash.hexdigest(),
         "counts": {**{k: len(v) for k, v in node_rows.items()}, **{k: len(edges[k]) for k in EDGE_FILES}},
         "quality": {"input_records": len(records), "valid_movies": len(movies), "invalid_records": len(invalid),
                     "duplicate_movie_rate": sum(x["reason"] == "duplicate_tmdb_id" for x in invalid) / max(len(records), 1),
                     "missing_required_rate": sum(x["reason"].startswith("missing") for x in invalid) / max(len(records), 1),
                     "invalid_edges": 0,
+                    "duplicate_edges_collapsed": duplicate_edges_collapsed,
                     "rejected_orphan_movies": len(orphan_ids),
                     "imdb_id_coverage": len(wanted_imdb_ids) / max(len(movies), 1),
                     "imdb_rating_match_coverage": matched_rating_count / max(len(wanted_imdb_ids), 1),

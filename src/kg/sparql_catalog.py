@@ -46,7 +46,8 @@ def execute_catalog(graph: Graph, bindings: dict | None = None) -> list[dict]:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=Path("data/processed/movies.inferred.ttl"))
-    parser.add_argument("--output", type=Path, default=Path("experiments/results/sparql_execution.json"))
+    parser.add_argument("--output", type=Path,
+                        default=Path("experiments/results/semantic/sparql_execution.json"))
     args = parser.parse_args(); graph = Graph(); graph.parse(args.input)
     report = execute_catalog(graph, {
         "name": Literal("Christopher Nolan"), "movieTitle": Literal("Inception"),

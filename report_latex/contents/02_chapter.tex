@@ -1,4 +1,4 @@
-% Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
+% LaTeX source maintained directly for Overleaf.
 \chapter{II. Lý thuyết và mô hình dữ liệu}
 
 \section{Biểu diễn tri thức và ngữ nghĩa}
@@ -51,7 +51,7 @@ Phần này phân biệt suy diễn cấu trúc trong property graph với entai
 \hline
 \textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline
 \endfirsthead\hline \textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline\endhead
-Engine & RDFLib materializer & Neo4j/Cypher \\ \hline
+Engine & RDFLib materializer + Apache Jena/Fuseki & Neo4j/Cypher \\ \hline
 Ví dụ & \texttt{actedIn} → inverse \texttt{hasActor} & shared Movie → co-star \\ \hline
 Cơ sở & ontology axiom & domain-specific rule \\ \hline
 Output & inferred RDF triple & materialized relationship \\ \hline
@@ -84,6 +84,15 @@ Một phim có thể thiếu cast do giới hạn nguồn nhưng vẫn hợp l�
 lại, graph có coverage cao vẫn có thể merge sai hai người trùng tên. Vì vậy đề tài
 báo cáo đồng thời constraint/validation, coverage và sample review thay vì gộp
 tất cả thành một “quality score”.
+
+Audit trên toàn bộ processed snapshot kiểm tra stable-ID trùng, required field,
+foreign key của edge, endpoint pair trùng, conflicting value và provenance. Hai
+credit TMDB lặp cùng Person–Movie nhưng khác tên vai được gộp thành một
+\texttt{ACTED\_IN}: nối các character khác nhau và giữ \texttt{cast\_order} nhỏ nhất. Artifact
+sau chuẩn hóa có zero violation; 54 tên Person trùng được ghi nhận nhưng không
+merge vì tên không phải khóa. Một review pack mù 100 case đã được tạo với rubric,
+trường reviewer/time/decision và validation gate. Cho đến khi người độc lập điền
+và ký review, kết quả 1,00 vẫn được gọi chính xác là silver, không phải gold.
 
 \subsection{Provenance}
 

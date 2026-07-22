@@ -1,0 +1,52 @@
+{
+  "cases": 100,
+  "tp": 70,
+  "fp": 0,
+  "fn": 5,
+  "tn": 25,
+  "precision": 1.0,
+  "recall": 0.9333333333333333,
+  "f1": 0.9655172413793104,
+  "errors": [
+    {
+      "case_id": "er-014",
+      "difficulty": "fuzzy-nearest-name",
+      "expected_id": "tmdb:210577",
+      "predicted_id": null,
+      "method": null,
+      "confidence": null
+    },
+    {
+      "case_id": "er-038",
+      "difficulty": "fuzzy-nearest-name",
+      "expected_id": "tmdb:1397359",
+      "predicted_id": null,
+      "method": null,
+      "confidence": null
+    },
+    {
+      "case_id": "er-058",
+      "difficulty": "fuzzy-nearest-name",
+      "expected_id": "tmdb:996698",
+      "predicted_id": null,
+      "method": null,
+      "confidence": null
+    },
+    {
+      "case_id": "er-062",
+      "difficulty": "fuzzy-nearest-name",
+      "expected_id": "tmdb:1503107",
+      "predicted_id": null,
+      "method": null,
+      "confidence": null
+    },
+    {
+      "case_id": "er-090",
+      "difficulty": "fuzzy-nearest-name",
+      "expected_id": "tmdb:1590759",
+      "predicted_id": null,
+      "method": null,
+      "confidence": null
+    }
+  ]
+}

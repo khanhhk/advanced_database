@@ -1,0 +1,85 @@
+{
+  "engine": "Apache Jena Fuseki",
+  "jena_version": "6.1.0",
+  "reasoner": "GenericRuleReasoner/forward",
+  "endpoint": "http://127.0.0.1:3030/movies/sparql",
+  "asserted_union_triples": 156561,
+  "inference_model_triples": 192762,
+  "additional_visible_triples": 36201,
+  "inverse_hasActor_triples": 34007,
+  "queries": [
+    {
+      "query_id": "Q1",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 21.242
+    },
+    {
+      "query_id": "Q2",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 64.365
+    },
+    {
+      "query_id": "Q3",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 5.725
+    },
+    {
+      "query_id": "Q4",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 1504.759
+    },
+    {
+      "query_id": "Q5",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 1,
+      "latency_ms": 7.001
+    },
+    {
+      "query_id": "Q6",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 6.291
+    },
+    {
+      "query_id": "Q7",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 7.053
+    },
+    {
+      "query_id": "Q8",
+      "status": "ok",
+      "result_type": "SELECT",
+      "result_count_capped": 5,
+      "latency_ms": 6.925
+    },
+    {
+      "query_id": "Q9",
+      "status": "ok",
+      "result_type": "ASK",
+      "result_count_capped": 1,
+      "latency_ms": 4.765
+    },
+    {
+      "query_id": "Q10",
+      "status": "ok",
+      "result_type": "CONSTRUCT",
+      "result_count_capped": 10,
+      "latency_ms": 24.804
+    }
+  ],
+  "queries_executed": 10,
+  "all_queries_ok": true,
+  "interpretation_limit": "Declared RDFS/OWL rule subset on Jena; not a full OWL 2 DL completeness claim."
+}

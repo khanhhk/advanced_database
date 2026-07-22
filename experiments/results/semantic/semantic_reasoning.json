@@ -1,0 +1,11 @@
+{
+  "profile": "rdfs-owl-rl-subset",
+  "triples_before": 156491,
+  "triples_after": 192692,
+  "inferred_triples": 36201,
+  "validation": {
+    "conforms": true,
+    "violation_count": 0,
+    "violations": []
+  }
+}

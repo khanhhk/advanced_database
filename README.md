@@ -28,7 +28,7 @@ Web demo: `http://localhost:8000/`.
 
 Kịch bản trình bày đầy đủ gồm graph, multi-hop query, inference, QA,
 recommendation, RDF/OWL/SPARQL và evidence đánh giá nằm tại
-[docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md).
+[docs/runbooks/demo.md](docs/runbooks/demo.md).
 
 Giao diện gồm hai tab: hội thoại Knowledge Graph nhiều lượt và gợi ý phim có
 giải thích. Recommendation UI cho phép tìm/chọn phim
@@ -51,7 +51,7 @@ thật, lệnh sẽ dừng và yêu cầu chạy `make data`.
 Importer tạo constraints/index, dùng transaction batch + `MERGE` theo stable ID, sinh `CO_STARRED_WITH`, rồi kiểm tra orphan/duplicate/invalid edge. Có thể chạy lại không sinh bản ghi trùng. Mật khẩu Compose chỉ dành cho local demo; hãy thay trong `.env` ở môi trường khác.
 
 Để duyệt graph và demo truy vấn dạng bảng trên DBeaver Community, xem
-[runbook DBeaver + Neo4j JDBC](docs/DBEAVER_NEO4J_DEMO.md). Tài liệu bao gồm cách
+[runbook DBeaver + Neo4j JDBC](docs/runbooks/dbeaver-neo4j.md). Tài liệu bao gồm cách
 tạo Generic JDBC driver bằng full bundle chính thức của Neo4j, chạy SQL qua lớp
 dịch SQL-to-Cypher, chạy Cypher trực tiếp và xử lý lỗi kết nối thường gặp.
 
@@ -64,7 +64,22 @@ make test
 Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và luật
 `CO_STARRED_WITH` nằm trong `cypher/`; SPARQL mẫu nằm trong `sparql/`. Các workflow
 RDF, evaluation và benchmark vẫn được giữ dưới dạng module/script trong `src/kg/`
-và `experiments/`, nhưng không nằm trong Makefile demo tối giản. CRUD hành chính có
+và `experiments/`. Các lệnh đánh giá tách khỏi luồng demo:
+
+```bash
+.venv/bin/python -m experiments.evaluation.audit_knowledge_quality
+.venv/bin/python -m experiments.corpora.build_entity_review_pack
+docker compose --profile semantic up -d --build jena
+.venv/bin/python -m experiments.semantic.evaluate_jena
+docker compose --profile semantic stop jena
+docker compose --profile test up -d --wait neo4j-test
+RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
+  ALLOW_MULTISCALE_BENCHMARK=1 NEO4J_URI=bolt://localhost:7688 \
+  NEO4J_PASSWORD=test-password \
+  .venv/bin/python -m experiments.benchmarks.benchmark_multiscale
+```
+
+CRUD hành chính có
 implementation tại `src/kg/crud.py` nhưng không mở ra public API. `make test`
 dùng Neo4j test riêng trên cổng 7688 và storage tạm, không reset graph demo.
 
@@ -87,11 +102,11 @@ hệ quá phổ biến và ưu tiên đặc trưng chung hiếm, có tính phân
 đặc trưng chung là `type_weight * (1 + ln((N+1)/(df+1)))`; kết quả trả lại chính
 các đạo diễn, diễn viên, keyword, thể loại và studio chung làm bằng chứng. Đây là
 phương pháp graph-native duy nhất của API. Trên 20 case silver chạy với Neo4j
-thật, phương pháp đạt P@10 `0,715` và NDCG@10 `0,754`.
+thật, phương pháp đạt P@10 `0,640` và NDCG@10 `0,677`.
 
 `make demo` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
-dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum nguồn
-và số Movie. Graph chỉ dựng lại khi các giá trị này thay đổi. `pip check` vẫn
+dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum toàn bộ
+processed CSV và số Movie. Graph chỉ dựng lại khi các giá trị này thay đổi. `pip check` vẫn
 chạy nhanh nhưng không tải hoặc cài package.
 
 Để bật Question Planner, đặt các biến sau trong `.env` rồi chạy lại `make demo`:
@@ -140,18 +155,25 @@ trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repo
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 
 QA được đánh giá trực tiếp trên Neo4j production tại
-`experiments/results/qa_neo4j.json`. Corpus hiện có đúng 2.000 phim. Benchmark
-end-to-end Neo4j thật được lưu tại `experiments/results/neo4j_benchmark.csv`
+`experiments/results/evaluation/qa_neo4j.json`. Corpus hiện có đúng 2.000 phim. Benchmark
+end-to-end Neo4j thật được lưu tại `experiments/results/benchmarks/neo4j_benchmark.csv`
 (100 lần/câu, một warm-up) và cấu hình tại file `.metadata.json` tương ứng.
+Benchmark kiểm soát đa quy mô 500/1.000/2.000 Movie nằm trong
+`experiments/results/benchmarks/multiscale_benchmark.csv`. Apache Jena Fuseki 6.1.0 chạy
+forward rule profile trên full RDF snapshot; kết quả 10/10 SPARQL nằm tại
+`experiments/results/semantic/jena_semantic_evaluation.json`.
 
 TMDB credits được giữ dưới dạng object có source ID; `Person.person_id` ưu tiên
 `tmdb:<id>` thay vì hash tên, và `ACTED_IN` giữ `character`/`cast_order`. QA
 Neo4j liên kết slot về thực thể canonical, dùng stable ID để chạy catalog Cypher
 và đưa ID/confidence vào evidence. Tên canonical chỉ là fallback cho fixture cũ
 không có ID. Các evaluator có sẵn tại
-`experiments/evaluate_entity_resolution.py`, `evaluate_reasoning.py` và
-`evaluate_recommendation.py`; schema corpus review nằm tại
-`experiments/labels/README.md`. Các script trong `experiments/` sinh bộ silver có
+`experiments/evaluation/evaluate_entity_resolution.py`, `evaluate_reasoning.py`
+và `evaluate_recommendation_neo4j.py`; schema corpus review nằm tại
+`experiments/corpora/README.md`. Các module trong `experiments/` sinh bộ silver có
 evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases)
 và kiểm tra metadata review. Phải gọi đúng là silver evaluation cho đến khi có
-reviewer độc lập.
+reviewer độc lập. File chờ điền nằm tại
+`experiments/corpora/human_review/entity_resolution.json`;
+`python -m experiments.corpora.build_entity_review_pack` luôn tạo
+bản mù, không sao chép silver label vào phần reviewer nhìn thấy.

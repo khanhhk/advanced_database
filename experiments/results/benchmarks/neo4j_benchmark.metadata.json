@@ -1,0 +1,11 @@
+{
+  "generated_at_epoch": 1784695986.245009,
+  "neo4j_version": "5.26.28",
+  "python_version": "3.11.7",
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+  "processor": "x86_64",
+  "iterations_per_query": 100,
+  "warmup_runs_per_query": 1,
+  "question_count": 10,
+  "movie_count": 2000
+}

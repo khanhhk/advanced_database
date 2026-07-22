@@ -15,7 +15,7 @@ API_HOST ?= 127.0.0.1
 API_PORT ?= 8000
 
 .DEFAULT_GOAL := help
-.PHONY: help setup data demo run test stop llm-setup llm-run \
+.PHONY: help setup data demo test stop llm-setup llm-run \
 	_env _imdb-data _neo4j _neo4j-test _runtime-prepare
 
 help: ## Liệt kê các lệnh phục vụ demo
@@ -76,8 +76,6 @@ demo: _runtime-prepare ## Chạy API và giao diện demo
 	@echo "Swagger: http://$(API_HOST):$(API_PORT)/docs"
 	$(UVICORN) src.api.main:app --host $(API_HOST) --port $(API_PORT)
 
-# Backward-compatible alias; keep the public demo workflow centered on `make demo`.
-run: demo
 
 test: setup _neo4j-test ## Chạy toàn bộ kiểm thử trên Neo4j test riêng
 	RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \

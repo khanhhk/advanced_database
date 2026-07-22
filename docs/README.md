@@ -1,36 +1,35 @@
-# Movie Knowledge Graph — Bộ kế hoạch project
+# Movie Knowledge Graph — Tài liệu dự án
 
-Đây là bộ tài liệu lập kế hoạch cho project cuối khóa **Advanced Database** với chủ đề Knowledge Graph trong miền phim ảnh.
+Thư mục này tập hợp tài liệu kỹ thuật, hướng dẫn vận hành và tài liệu chuẩn bị
+nộp/bảo vệ project **Advanced Database** về Movie Knowledge Graph.
 
-## Danh sách tài liệu
+## Nhóm tài liệu
 
-1. [Kế hoạch triển khai code](CODE_PLAN.md)
-2. [Dàn ý báo cáo](REPORT_OUTLINE.md)
-3. [Bản thảo báo cáo chính](REPORT_DRAFT.md)
-4. [Dàn ý slide bảo vệ](SLIDE_OUTLINE.md)
-5. [Sơ đồ flow kỹ thuật](movie_knowledge_graph_flow.drawio)
-6. [Giải thích từng block và flow kiến trúc](ARCHITECTURE_EXPLAINED.md)
-7. [Runbook dựng Qwen3-8B-AWQ với vLLM](QWEN_VLLM_DEPLOYMENT.md)
-8. [Runbook demo Neo4j trên DBeaver Community](DBEAVER_NEO4J_DEMO.md)
+- [Technical](technical/README.md): kiến trúc hệ thống, sơ đồ và kế hoạch triển
+  khai code.
+- [Runbooks](runbooks/README.md): quy trình chạy demo, DBeaver và Qwen/vLLM.
+- [Deliverables](deliverables/README.md): ma trận tiêu chí, nội dung báo cáo và
+  tài liệu chuẩn bị bảo vệ.
 
-## Tên đề tài đề xuất
+## Thứ tự ưu tiên
+
+1. Source code, cấu hình, test và root `README.md` mô tả hệ thống đang chạy.
+2. `report_latex/` là nguồn báo cáo chính thức để tải thủ công lên Overleaf.
+3. [Bản thảo Markdown](deliverables/report/draft.md) chỉ là tài liệu tham khảo.
+4. [Dàn ý báo cáo](deliverables/report/outline.md) và
+   [dàn ý slide](deliverables/defense/slide-outline.md) là checklist nội dung.
+5. [Runbook demo](runbooks/demo.md) là tài liệu dùng trực tiếp khi trình bày.
+
+Repository không lưu PDF/PPTX đầu ra hoặc script tự sinh các file đó.
+
+## Tên đề tài
 
 > Xây dựng Movie Knowledge Graph phục vụ hỏi–đáp và gợi ý phim có khả năng giải thích
 
-## Sản phẩm cuối cùng
+## Sản phẩm chính
 
-- Movie ontology ở định dạng OWL/Turtle.
-- Pipeline thu thập, làm sạch và liên kết dữ liệu phim.
-- Knowledge Graph trên Neo4j.
-- Tập con RDF để minh họa SPARQL và reasoning.
-- API hỏi–đáp dựa trên Cypher template.
-- API gợi ý phim kèm lý do gợi ý.
-- Web demo tối giản.
-- Báo cáo thực nghiệm.
-- Slide bảo vệ.
-
-## Tài liệu nguồn
-
-Các tài liệu Office dung lượng lớn đã được dùng trong giai đoạn tổng hợp nhưng
-không còn lưu trong repository demo. Bản thảo báo cáo, code, cấu hình và artifact
-đo hiện tại là nguồn có thể kiểm chứng trong repo.
+- Pipeline thu thập, làm sạch và liên kết dữ liệu TMDB/IMDb.
+- Neo4j Property Graph và tập con RDF/OWL/SPARQL.
+- Reasoning, hỏi–đáp theo intent/template và recommendation có giải thích.
+- API, giao diện web, kiểm thử và bằng chứng đánh giá tái lập được.
+- Mã nguồn LaTeX của báo cáo và bộ tài liệu chuẩn bị bảo vệ.

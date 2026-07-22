@@ -1,0 +1,202 @@
+{
+  "generated_at": "2026-07-22T04:52:17.407147+00:00",
+  "backend": "neo4j",
+  "dataset_movie_count": 2000,
+  "cases": 20,
+  "passed": 20,
+  "accuracy": 1.0,
+  "limitations": "Deterministic evidence-backed smoke corpus; not independent human-reviewed gold QA.",
+  "details": [
+    {
+      "question": "Những phim nào do Christopher Nolan đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Inception",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: Memento, Insomnia, Batman Begins, The Prestige, The Dark Knight, Inception, The Dark Knight Rises, Interstellar, Dunkirk, Tenet, Oppenheimer, The Odyssey",
+      "evidence_count": 13,
+      "passed": true
+    },
+    {
+      "question": "Diễn viên nào đóng trong phim Inception?",
+      "intent": "actors_in_movie",
+      "contains": "Leonardo DiCaprio",
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: Leonardo DiCaprio, Joseph Gordon-Levitt, Ken Watanabe, Tom Hardy, Elliot Page, Dileep Rao, Cillian Murphy, Tom Berenger, Marion Cotillard, Pete Postlethwaite, Michael Caine, Lukas Haas, Talulah Riley, Tohoru Masamune, Taylor Geare, Claire Geare, Johnathan Geare, Yuji Okumoto, Earl Cameron, Ryan Hayward",
+      "evidence_count": 21,
+      "passed": true
+    },
+    {
+      "question": "Phim chung của Christian Bale và Tom Hardy?",
+      "intent": "common_movies",
+      "contains": "The Dark Knight Rises",
+      "actual_intent": "common_movies",
+      "answer": "Phim đóng chung: The Dark Knight Rises",
+      "evidence_count": 2,
+      "passed": true
+    },
+    {
+      "question": "Phim Crime có rating trên 8?",
+      "intent": "movies_by_genre_rating",
+      "contains": "Pulp Fiction",
+      "actual_intent": "movies_by_genre_rating",
+      "answer": "Các phim phù hợp: The Shawshank Redemption, The Godfather, The Dark Knight, The Godfather Part II, Satluj, Pulp Fiction, GoodFellas, Kill Bill: The Whole Bloody Affair, The Green Mile, Se7en, City of God, Léon: The Professional, The Departed, The Usual Suspects, The Dark Knight Rises, Joker, Scarface, Heat, Once Upon a Time in America, Dhurandhar, The Wolf of Wall Street, Batman Begins, Prisoners, No Country for Old Men, Kill Bill: Vol. 1, Reservoir Dogs, Taxi Driver, A Clockwork Orange, Dhurandhar: The Revenge, Snatch, Casino, Catch Me If You Can, The Big Lebowski, Stand by Me, Memories of Murder, Trainspotting",
+      "evidence_count": 37,
+      "passed": true
+    },
+    {
+      "question": "Ai từng đóng chung với Tom Hardy?",
+      "intent": "co_stars",
+      "contains": "Leonardo DiCaprio",
+      "actual_intent": "co_stars",
+      "answer": "Các bạn diễn: Peggy Lu, Reid Scott, Joseph Gordon-Levitt, Michelle Williams, Cillian Murphy, Michael Caine, Lukas Haas, Woody Harrelson, Marion Cotillard, Leonardo DiCaprio, Stephen Graham, Rob Bowen, Michelle Waterson-Gomez, Orlando Bloom, Angus Sampson, Fabrice Adde, Ewen Bremner, Little Simz, Olumide Olorunfemi, Ron Eldard, Deen Brooksher, Joshua Burge, Jessie Mei Li, Eric Bana, John Cummins, David Jones, Sunny Pang, Elliot Page, Nathan Jones, Tyson Wood, Vincent Leclerc, Duane Howard, Chiwetel Ejiofor, Scroobius Pip, Jack Bandeira, Chris O'Hara, Serhat Metin, Quelin Sepulveda, Charlie Hofheimer, Brett Cullen, Lockhart Ogilvie, Robert Moloney, Luis Guzmán, Morgan Freeman, Emilio Rivera, Beau Sargent, Amrou Al-Kadhi, Juno Temple, Xelia Mendes-Jones, Richard Harrington",
+      "evidence_count": 51,
+      "passed": true
+    },
+    {
+      "question": "Đạo diễn nào thường làm phim thể loại Action?",
+      "intent": "directors_by_genre",
+      "contains": "Christopher Nolan",
+      "actual_intent": "directors_by_genre",
+      "answer": "Các đạo diễn: Antoine Fuqua, Anthony Russo, Joe Russo, Peter Jackson, Christopher Nolan, Guy Ritchie, Michael Bay, Louis Leterrier, James Cameron, Christopher McQuarrie, David Ayer, Ridley Scott, Roland Emmerich, Zack Snyder, James Gunn, Steven Spielberg, Lana Wachowski, Francis Lawrence, Gareth Edwards, John McTiernan, Sam Raimi, Jon Favreau, Chad Stahelski, George Lucas, Luc Besson, Doug Liman, Joseph Kosinski, Gore Verbinski, J.J. Abrams, Jeff Fowler, Wes Ball, David Leitch, Lilly Wachowski, Shane Black, Stephen Chow, Robert Rodriguez, Stephen Sommers, Brad Bird, Brad Peyton, Peyton Reed, James Mangold, Quentin Tarantino, Bryan Singer, Ron Howard, Neill Blomkamp, Dan Trachtenberg, James Wan, Ric Roman Waugh, Brett Ratner, Edgar Wright",
+      "evidence_count": 51,
+      "passed": true
+    },
+    {
+      "question": "Đường liên hệ giữa Leonardo DiCaprio và Christian Bale?",
+      "intent": "shortest_path",
+      "contains": "Đường liên hệ",
+      "min_evidence": 1,
+      "actual_intent": "shortest_path",
+      "answer": "Đường liên hệ: Leonardo DiCaprio → Cillian Murphy → Christian Bale",
+      "evidence_count": 2,
+      "passed": true
+    },
+    {
+      "question": "Phim tương tự Inception?",
+      "intent": "similar_movies",
+      "contains": "Phim tương tự",
+      "min_evidence": 5,
+      "actual_intent": "similar_movies",
+      "answer": "Phim tương tự: The Dark Knight Rises, Batman Begins, The Dark Knight, Dunkirk, Tenet",
+      "evidence_count": 6,
+      "passed": true
+    },
+    {
+      "question": "Các phim do Quentin Tarantino đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Pulp Fiction",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: Reservoir Dogs, Pulp Fiction, Kill Bill: Vol. 1, Kill Bill: Vol. 2, Inglourious Basterds, Kill Bill: The Whole Bloody Affair, Django Unchained, The Hateful Eight, Once Upon a Time... in Hollywood",
+      "evidence_count": 10,
+      "passed": true
+    },
+    {
+      "question": "Ai tham gia phim Interstellar?",
+      "intent": "actors_in_movie",
+      "contains": "Anne Hathaway",
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: Matthew McConaughey, Anne Hathaway, Michael Caine, Jessica Chastain, Casey Affleck, Wes Bentley, Topher Grace, Mackenzie Foy, Ellen Burstyn, John Lithgow, Bill Irwin, David Gyasi, Timothée Chalamet, Matt Damon, Josh Stewart, Leah Cairns, Liam Dickinson, Francis X. McCarthy, William Devane, Andrew Borba",
+      "evidence_count": 21,
+      "passed": true
+    },
+    {
+      "question": "Phim nào do Steven Spielberg đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Saving Private Ryan",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: Jaws, Raiders of the Lost Ark, E.T. the Extra-Terrestrial, Indiana Jones and the Temple of Doom, Indiana Jones and the Last Crusade, Hook, Jurassic Park, Schindler's List, Saving Private Ryan, A.I. Artificial Intelligence, Catch Me If You Can, War of the Worlds, Indiana Jones and the Kingdom of the Crystal Skull, The Adventures of Tintin, Bridge of Spies, The Post, Ready Player One, Disclosure Day",
+      "evidence_count": 19,
+      "passed": true
+    },
+    {
+      "question": "Diễn viên nào đóng trong phim The Dark Knight?",
+      "intent": "actors_in_movie",
+      "contains": "Christian Bale",
+      "excludes": [
+        "Tom Hardy",
+        "Anne Hathaway"
+      ],
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine, Maggie Gyllenhaal, Gary Oldman, Morgan Freeman, Monique Gabriela Curnen, Ron Dean, Cillian Murphy, Chin Han, Nestor Carbonell, Eric Roberts, Ritchie Coster, Anthony Michael Hall, Keith Szarabajka, Colin McFarlane, Joshua Harto, Melinda McGraw, Nathan Gamble",
+      "evidence_count": 21,
+      "passed": true
+    },
+    {
+      "question": "Phim chung của Leonardo DiCaprio và Tom Hardy?",
+      "intent": "common_movies",
+      "contains": "Inception",
+      "actual_intent": "common_movies",
+      "answer": "Phim đóng chung: Inception, The Revenant",
+      "evidence_count": 3,
+      "passed": true
+    },
+    {
+      "question": "Phim Drama có rating trên 8?",
+      "intent": "movies_by_genre_rating",
+      "contains_any": [
+        "The Shawshank Redemption",
+        "The Godfather"
+      ],
+      "actual_intent": "movies_by_genre_rating",
+      "answer": "Các phim phù hợp: Nach Ladenschluß, The Shawshank Redemption, The Godfather, Weiß gibt auf, Schindler's List, The Godfather Part II, Satluj, 12 Angry Men, Stand Up My Husband!, The Price of Your Possession, Idhayam Murali, Fight Club, Forrest Gump, Interstellar, GoodFellas, True Beauty: The Movie - Part 2, The Second November, The Green Mile, Saving Private Ryan, Life Is Beautiful, City of God, Seven Samurai, It's a Wonderful Life, One Flew Over the Cuckoo's Nest, Harakiri, Parasite, The Intouchables, The Lion King, Gladiator, Whiplash, Django Unchained, The Prestige, Léon: The Professional, The Departed, The Pianist, The Usual Suspects, Once Upon a Time in the West, Cinema Paradiso, American History X, Youngest Aunt, Casablanca, Modern Times, City Lights, Your Name., The Dark Knight Rises, Dear You, Inglourious Basterds, Good Will Hunting, Apocalypse Now, Rear Window",
+      "evidence_count": 51,
+      "passed": true
+    },
+    {
+      "question": "Ai từng đóng chung với Leonardo DiCaprio?",
+      "intent": "co_stars",
+      "contains": "Tom Hardy",
+      "actual_intent": "co_stars",
+      "answer": "Các bạn diễn: Ato Essandoh, Jonah Hill, Lukas Haas, Martin Sheen, Margot Robbie, Tom Hardy, Vincent Leclerc, JaNae Collins, Nancy Lenehan, Rob Morgan, Basil Wallace, Michael Chiklis, Joshua Burge, Melanie Lynskey, Stephen Collins, John Finn, Ntare Guma Mbaho Mwine, Tommy Schultz, Regina Hall, Antony Coleman, Jack Alberts, Kristoffer Joner, Ellen Pompeo, Melaw Nakehk'o, Matthew McConaughey, Michael Caine, Ben Kingsley, Tantoo Cardinal, Candice Azzara, Scott Shepherd, Benu Mabhena, Himesh Patel, Brian Howe, Marius Weyers, Matthew Kimbrough, James Brolin, Anointing Lukola, John Lithgow, Christoph Waltz, Tomer Sisley, Joshua Boyd, Ethan Suplee, Forrest Goodluck, Brad Pitt, Timothée Chalamet, Mark Rolston, Sturgill Simpson, Duane Howard, Damon Herriman, Kate Winslet",
+      "evidence_count": 51,
+      "passed": true
+    },
+    {
+      "question": "Đạo diễn nào thường làm phim thể loại Science Fiction?",
+      "intent": "directors_by_genre",
+      "contains": "Christopher Nolan",
+      "actual_intent": "directors_by_genre",
+      "answer": "Các đạo diễn: Joe Russo, Anthony Russo, Steven Spielberg, Lana Wachowski, Ridley Scott, James Cameron, Francis Lawrence, Lilly Wachowski, Roland Emmerich, Denis Villeneuve, James Gunn, Wes Ball, Gareth Edwards, Shawn Levy, J.J. Abrams, Christopher Nolan, George Lucas, Barry Sonnenfeld, Jon Favreau, Sam Raimi, Peyton Reed, Dan Trachtenberg, Jeff Fowler, Robert Zemeckis, Michael Bay, Zack Snyder, Neill Blomkamp, Chris Renaud, Jon Watts, Matt Reeves, Yorgos Lanthimos, Danny Boyle, Robert Rodriguez, Stanley Kubrick, Luc Besson, Nia DaCosta, Brad Peyton, Bong Joon Ho, Shane Black, Ric Roman Waugh, Joseph Kosinski, John Krasinski, Adam Wingard, Andrew Stanton, Brad Bird, Alex Garland, Travis Knight, Alfonso Cuarón, M. Night Shyamalan, Paul Verhoeven",
+      "evidence_count": 51,
+      "passed": true
+    },
+    {
+      "question": "Đường liên hệ giữa Tom Hardy và Anne Hathaway?",
+      "intent": "shortest_path",
+      "contains": "Đường liên hệ",
+      "min_evidence": 1,
+      "actual_intent": "shortest_path",
+      "answer": "Đường liên hệ: Tom Hardy → Anne Hathaway",
+      "evidence_count": 2,
+      "passed": true
+    },
+    {
+      "question": "Phim tương tự The Dark Knight?",
+      "intent": "similar_movies",
+      "contains": "Phim tương tự",
+      "min_evidence": 5,
+      "actual_intent": "similar_movies",
+      "answer": "Phim tương tự: Batman Begins, The Dark Knight Rises, The Batman, Inception, Batman",
+      "evidence_count": 6,
+      "passed": true
+    },
+    {
+      "question": "Các phim do James Cameron đạo diễn?",
+      "intent": "movies_by_director",
+      "contains": "Titanic",
+      "actual_intent": "movies_by_director",
+      "answer": "Các phim tìm thấy: The Terminator, Aliens, Terminator 2: Judgment Day, Titanic, Avatar, Avatar: The Way of Water, Avatar: Fire and Ash",
+      "evidence_count": 8,
+      "passed": true
+    },
+    {
+      "question": "Ai tham gia phim Pulp Fiction?",
+      "intent": "actors_in_movie",
+      "contains": "John Travolta",
+      "actual_intent": "actors_in_movie",
+      "answer": "Các diễn viên: John Travolta, Samuel L. Jackson, Uma Thurman, Bruce Willis, Ving Rhames, Harvey Keitel, Eric Stoltz, Tim Roth, Amanda Plummer, Maria de Medeiros, Quentin Tarantino, Christopher Walken, Rosanna Arquette, Peter Greene, Duane Whitaker, Angela Jones, Phil LaMarr, Steve Buscemi, Bronagh Gallagher, Laura Lovelace",
+      "evidence_count": 21,
+      "passed": true
+    }
+  ]
+}

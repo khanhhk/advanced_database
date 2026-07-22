@@ -92,6 +92,7 @@ if __name__ == "__main__":
     parser.add_argument("--ontology", type=Path, default=Path("ontology/movie_ontology.ttl"))
     parser.add_argument("--input", type=Path, default=Path("data/processed/movies.ttl"))
     parser.add_argument("--output", type=Path, default=Path("data/processed/movies.inferred.ttl"))
-    parser.add_argument("--report", type=Path, default=Path("experiments/results/semantic_reasoning.json"))
+    parser.add_argument("--report", type=Path,
+                        default=Path("experiments/results/semantic/semantic_reasoning.json"))
     args = parser.parse_args()
     print(json.dumps(run(args.ontology, args.input, args.output, args.report), indent=2))
