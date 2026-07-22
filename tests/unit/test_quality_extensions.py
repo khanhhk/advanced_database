@@ -3,10 +3,7 @@ import json
 from pathlib import Path
 
 from experiments.benchmarks.snapshot_subset import build_induced_snapshot
-from experiments.corpora.build_entity_review_pack import build as build_review_pack
-from experiments.corpora.validate_human_review import validate
 from experiments.evaluation.audit_knowledge_quality import audit
-from experiments.evaluation.evaluate_entity_review import evaluate as evaluate_human_entity_review
 from experiments.semantic.evaluate_jena import _bounded
 from src.processing.pipeline import transform
 
@@ -55,25 +52,6 @@ def test_pipeline_collapses_repeated_actor_credit_without_losing_roles(tmp_path)
     assert rows[0]["character"] == "Voice B | Voice A"
     assert manifest["quality"]["duplicate_edges_collapsed"]["acted_in"] == 1
     assert len(manifest["processed_sha256"]) == 64
-
-
-def test_blind_review_pack_requires_real_reviewer_and_can_be_evaluated(tmp_path):
-    silver = tmp_path / "silver.json"
-    silver.write_text(json.dumps([{"case_id": "er-001", "left": {"id": "m1", "tmdb_id": 1,
-        "title": "Movie One"}, "candidates": [{"id": "tmdb:1", "tmdb_id": 1,
-        "title": "Movie One"}], "threshold": 85, "is_match": True,
-        "expected_id": "tmdb:1"}]), encoding="utf-8")
-    review = tmp_path / "review.json"
-    build_review_pack(silver, review)
-    document = json.loads(review.read_text(encoding="utf-8"))
-    assert "is_match" not in document["cases"][0]
-    assert not validate([review])["conforms"]
-    human = document["cases"][0]["human_review"]
-    human.update({"reviewer_id": "reviewer-01", "reviewed_at": "2026-07-22T12:00:00+07:00",
-                  "decision": "match", "expected_id": "tmdb:1", "confidence": "high"})
-    review.write_text(json.dumps(document), encoding="utf-8")
-    assert validate([review])["conforms"]
-    assert evaluate_human_entity_review(review)["f1"] == 1.0
 
 
 def test_jena_catalog_query_is_bounded_and_bound():

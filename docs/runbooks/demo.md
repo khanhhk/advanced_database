@@ -342,10 +342,10 @@ Các số cần nhấn mạnh:
 - semantic và structural validation không có violation;
 - SQLite nhanh hơn trong bốn query baseline đã đo.
 
-Phải nói rõ: các corpus hiện là silver, chưa phải human-reviewed gold; benchmark
-đã có ba induced snapshot 500/1.000/2.000 nhưng chưa chứng minh scalability tổng
-quát hay khẳng định một database luôn nhanh hơn database còn lại. Jena/Fuseki là
-workflow evaluation riêng, không cần bật trong `make demo`.
+Phải nói rõ: metric corpus silver chỉ áp dụng cho case/rubric/snapshot đã khai
+báo; benchmark có ba induced snapshot 500/1.000/2.000 nhưng chưa chứng minh
+scalability tổng quát hay khẳng định một database luôn nhanh hơn database còn
+lại. Jena/Fuseki là workflow evaluation riêng, không cần bật trong `make demo`.
 
 Số node/relationship live có thể khác artifact đánh giá cũ nếu snapshot được tạo
 lại. Khi trình bày, lấy số live từ output `make demo`; chỉ dùng file evaluation

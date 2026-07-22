@@ -45,7 +45,7 @@ movie-knowledge-graph/
 │   ├── integration/
 │   └── test_questions.json
 ├── experiments/
-│   ├── corpora/       # silver corpus và human review
+│   ├── corpora/       # silver corpus có evidence và rubric
 │   ├── evaluation/    # quality, entity, QA, reasoning, recommendation
 │   ├── benchmarks/    # Neo4j, SQLite và multi-scale
 │   ├── semantic/      # Jena/Fuseki và SPARQL evaluation

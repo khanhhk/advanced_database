@@ -81,8 +81,9 @@ Audit toàn snapshot
 ghi nhận zero duplicate stable ID, conflicting required value, missing required
 field, invalid foreign key và duplicate endpoint pair; provenance coverage của
 node/edge có trường source đạt 100\%. Năm mươi tư tên Person trùng không bị merge
-vì stable source ID là identity key. Review pack mù 100 case và validation gate đã
-sẵn sàng, nhưng chưa được gọi là human-reviewed trước khi reviewer độc lập ký.
+vì stable source ID là identity key. Corpus silver là benchmark tất định dựa trên
+source ID, typo có kiểm soát và nearest-name hard negative; kết quả không đại diện
+cho mọi lỗi định danh có thể xuất hiện ngoài snapshot.
 
 \subsection{Reasoning}
 
@@ -139,12 +140,12 @@ phiên bản runtime và protocol trong metadata.
 \hline
 \textbf{Backend / số Movie} & \textbf{Khoảng median 4 query (ms)} & \textbf{Khoảng p95 4 query (ms)} \\ \hline
 \endfirsthead\hline \textbf{Backend / số Movie} & \textbf{Khoảng median 4 query (ms)} & \textbf{Khoảng p95 4 query (ms)} \\ \hline\endhead
-Neo4j / 500 & 1,971–7,822 & 2,773–8,688 \\ \hline
-Neo4j / 1.000 & 3,457–12,196 & 5,024–15,175 \\ \hline
-Neo4j / 2.000 & 3,496–19,528 & 4,513–25,232 \\ \hline
-SQLite / 500 & 0,220–2,712 & 0,246–2,967 \\ \hline
-SQLite / 1.000 & 0,470–5,968 & 0,475–6,664 \\ \hline
-SQLite / 2.000 & 0,836–13,094 & 0,931–14,242 \\ \hline
+Neo4j / 500 & 4,696–12,627 & 7,324–17,886 \\ \hline
+Neo4j / 1.000 & 5,804–14,991 & 7,614–20,369 \\ \hline
+Neo4j / 2.000 & 4,840–23,473 & 10,633–31,311 \\ \hline
+SQLite / 500 & 0,212–2,756 & 0,239–2,892 \\ \hline
+SQLite / 1.000 & 0,450–5,252 & 0,488–5,870 \\ \hline
+SQLite / 2.000 & 0,916–12,652 & 0,936–13,426 \\ \hline
 \end{longtable}
 
 SQLite nhanh hơn trong bốn query kiểm soát này. Kết quả là bằng chứng chống lại

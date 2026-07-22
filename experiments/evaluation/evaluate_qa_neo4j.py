@@ -38,7 +38,7 @@ def evaluate(questions: Path) -> dict:
     return {"generated_at": datetime.now(timezone.utc).isoformat(), "backend": "neo4j",
             "dataset_movie_count": movie_count, "cases": len(cases), "passed": passed,
             "accuracy": passed / len(cases) if cases else 0,
-            "limitations": "Deterministic evidence-backed smoke corpus; not independent human-reviewed gold QA.",
+            "limitations": "Deterministic evidence-backed smoke corpus; limited to managed cases and one snapshot.",
             "details": details}
 
 

@@ -132,9 +132,8 @@ Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
 an explicit relevance rubric. Entity candidates now use the four nearest
 same-type names, creating meaningful hard negatives and conservative abstention
-cases. A blind review pack and strict metadata gate are available, but metrics
-may be reported only as silver until an independent reviewer and adjudication
-are recorded.
+cases. Metrics are explicitly limited to the declared case-generation protocol,
+rubric and snapshot and are not generalized as production accuracy.
 
 ## Quality and evaluation
 

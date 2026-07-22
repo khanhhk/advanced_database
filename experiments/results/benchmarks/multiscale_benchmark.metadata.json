@@ -1,7 +1,7 @@
 {
   "protocol": "same-machine induced-snapshot Neo4j/SQLite comparison",
-  "generated_at_epoch": 1784701606.9580972,
-  "duration_seconds": 35.47043442726135,
+  "generated_at_epoch": 1784709350.8938212,
+  "duration_seconds": 40.080546855926514,
   "python_version": "3.11.7",
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
   "processor": "x86_64",

@@ -6,7 +6,7 @@ API; các lệnh demo chính vẫn nằm trong `Makefile` ở repository root.
 
 ## Cấu trúc
 
-- `corpora/`: sinh và kiểm tra corpus silver hoặc human review.
+- `corpora/`: sinh corpus silver tất định có evidence và rubric.
 - `evaluation/`: đánh giá chất lượng dữ liệu, QA, reasoning và recommendation.
 - `benchmarks/`: benchmark Neo4j/SQLite và tạo snapshot đa quy mô.
 - `semantic/`: đánh giá RDF/SPARQL bằng Apache Jena/Fuseki.
@@ -20,7 +20,7 @@ Các thư mục cache sinh tự động như `__pycache__/` không thuộc cấu
 ## Quy tắc
 
 - Không chỉnh sửa số liệu trong `results/` bằng tay.
-- Không gọi corpus tự sinh là human-reviewed.
+- Không khái quát metric trên corpus silver thành độ chính xác production.
 - Benchmark reset graph chỉ được chạy trên Neo4j test ở Bolt 7688 với guard env.
 - Artifact lịch sử phải nằm trong `results/history/` và không được trình bày như
   kết quả production hiện tại.

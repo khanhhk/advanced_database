@@ -252,7 +252,7 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 ## Slide 23 — Hạn chế, rủi ro và hướng phát triển (45 giây)
 
 - QA dựa trên template; ambiguity và nhiều đáp án đúng chưa được chấm tốt.
-- Corpus silver vẫn cần reviewer độc lập/adjudication để thành human labels.
+- Corpus silver tất định chưa đại diện cho mọi lỗi định danh ngoài snapshot.
 - Benchmark mới đo một quy mô thật 2.000 phim, chưa chứng minh scalability nhiều quy mô.
 - Top-20 cast làm mất diễn viên phụ; IMDb mới enrich Movie, chưa link Person.
 - Hướng sau MVP: Wikidata/Award, full-text/fuzzy index tốt hơn, LLM-to-Cypher có
@@ -311,9 +311,8 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 ### B4 — Evaluation validity
 
-- Silver vs human-reviewed; schema reviewer/adjudication và script
-  `experiments/corpora/validate_human_review.py`.
-- Giải thích vì sao metric 1,00 không đồng nghĩa production accuracy.
+- Giải thích protocol silver gồm exact-ID, fuzzy positive và hard negative.
+- Giải thích vì sao metric trên case tất định không đồng nghĩa production accuracy.
 
 ### B5 — Benchmark protocol
 

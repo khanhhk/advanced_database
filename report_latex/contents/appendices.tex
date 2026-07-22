@@ -17,7 +17,9 @@ Swagger có tại \texttt{http://localhost:8000/docs}. Kiểm tra toàn bộ h�
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
 make test
 .venv/bin/python -m experiments.evaluation.audit_knowledge_quality
-.venv/bin/python -m experiments.corpora.build_entity_review_pack
+.venv/bin/python -m experiments.evaluation.evaluate_entity_resolution \
+  experiments/corpora/silver/entity_resolution.json \
+  --output experiments/results/evaluation/entity_resolution.json
 docker compose --profile semantic up -d --build jena
 .venv/bin/python -m experiments.semantic.evaluate_jena
 docker compose --profile semantic stop jena

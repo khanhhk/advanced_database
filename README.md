@@ -68,7 +68,9 @@ và `experiments/`. Các lệnh đánh giá tách khỏi luồng demo:
 
 ```bash
 .venv/bin/python -m experiments.evaluation.audit_knowledge_quality
-.venv/bin/python -m experiments.corpora.build_entity_review_pack
+.venv/bin/python -m experiments.evaluation.evaluate_entity_resolution \
+  experiments/corpora/silver/entity_resolution.json \
+  --output experiments/results/evaluation/entity_resolution.json
 docker compose --profile semantic up -d --build jena
 .venv/bin/python -m experiments.semantic.evaluate_jena
 docker compose --profile semantic stop jena
@@ -169,11 +171,7 @@ Neo4j liên kết slot về thực thể canonical, dùng stable ID để chạy
 và đưa ID/confidence vào evidence. Tên canonical chỉ là fallback cho fixture cũ
 không có ID. Các evaluator có sẵn tại
 `experiments/evaluation/evaluate_entity_resolution.py`, `evaluate_reasoning.py`
-và `evaluate_recommendation_neo4j.py`; schema corpus review nằm tại
-`experiments/corpora/README.md`. Các module trong `experiments/` sinh bộ silver có
-evidence/rubric (100 entity cases, 50 reasoning facts, 20 recommendation cases)
-và kiểm tra metadata review. Phải gọi đúng là silver evaluation cho đến khi có
-reviewer độc lập. File chờ điền nằm tại
-`experiments/corpora/human_review/entity_resolution.json`;
-`python -m experiments.corpora.build_entity_review_pack` luôn tạo
-bản mù, không sao chép silver label vào phần reviewer nhìn thấy.
+và `evaluate_recommendation_neo4j.py`. Các module trong `experiments/` sinh bộ
+silver có evidence/rubric (100 entity cases, 50 reasoning facts, 20
+recommendation cases). Đây là benchmark tất định dựa trên source ID và hard
+negative, không phải ground truth đại diện cho toàn bộ dữ liệu thực tế.

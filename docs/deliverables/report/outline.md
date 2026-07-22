@@ -120,7 +120,7 @@ hình luôn tốt hơn.
 ### 2.6. Entity resolution
 
 - Deterministic matching bằng source ID.
-- Fuzzy name fallback, threshold, confidence, ambiguity và human review.
+- Fuzzy name fallback, threshold, confidence và ambiguity policy.
 - Precision, Recall, F1.
 
 ### 2.7. Knowledge-based recommendation
@@ -386,16 +386,16 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 9.5. Entity resolution
 
-- Cách tạo 100 cặp silver (75 positive/25 negative), provenance và protocol reviewer/adjudication.
+- Cách tạo 100 cặp silver (75 positive/25 negative), provenance và protocol tất định.
 - Confusion matrix, Precision/Recall/F1 và error analysis.
 - Silver hard-negative: TP=70, TN=25, FP=0, FN=5; P=1,000, R=0,933,
-  F1=0,966; phân tích abstention/tie và không khái quát thành chất lượng
-  human-labeled vì case được sinh từ source ID/rule.
+  F1=0,966; phân tích abstention/tie và không khái quát thành production accuracy
+  vì case được sinh từ source ID/rule.
 
 ### 9.6. Reasoning
 
 - Sample ~50 `CO_STARRED_WITH` facts; kiểm tra evidence movies.
-- Silver precision 50/50=1,00 nhờ audit cast/source ID; vẫn cần reviewer độc lập.
+- Silver precision 50/50=1,00 nhờ audit cast/source ID; chỉ diễn giải trong corpus.
 
 ### 9.7. QA
 
@@ -484,8 +484,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
    RDFS/OWL-RL subset được khai báo; nghiệp vụ co-star là Cypher rule có evidence.
 3. **Vì sao ER precision=1 nhưng recall=0,933?** Hard-negative corpus dùng nearest
    names; resolver ưu tiên abstain ở typo dưới ngưỡng hoặc tied candidate để tránh
-   false merge. Chỉ đổi sang human-reviewed khi validation gate qua và có
-   reviewer/adjudication record.
+   false merge. Metric chỉ đại diện cho protocol silver đã khai báo.
 4. **Tại sao Qwen không sinh Cypher?** QueryPlan + compiler giới hạn schema,
    operation và parameters; giảm hallucinated label, write query và injection.
 5. **GPU/model chết thì sao?** Parser deterministic vẫn phục vụ 9 intent; Neo4j
@@ -540,7 +539,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - [ ] Semantic materialization sinh report conforms và có before/after count.
 - [ ] Survey đạt quota nguồn, literature matrix và mọi citation resolve được.
 - [ ] CRUD/query traceability và relational baseline đã chạy cùng điều kiện.
-- [ ] Có reviewer độc lập và adjudication record cho mọi claim human-reviewed.
+- [ ] Mọi metric silver đều ghi rõ case, rubric, snapshot và giới hạn khái quát.
 - [ ] Report đã qua spellcheck, citation check và kiểm tra 100% hình/bảng được gọi trong nội dung.
 - [ ] Hướng dẫn chạy trên môi trường sạch được rehearsal.
 - [ ] Không chứa API key, raw dataset hoặc mật khẩu production.

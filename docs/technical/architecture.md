@@ -258,7 +258,8 @@ tra code, query, tài liệu và artifact.
 ### 7.2. Silver evaluation corpora
 
 Corpus silver giúp evaluation có protocol rõ thay vì chọn vài ví dụ đẹp khi
-demo. “Silver” phải được ghi rõ vì nhãn chưa phải gold human adjudication.
+demo. Metric phải được giới hạn theo case, rubric và snapshot của corpus, không
+khái quát thành độ chính xác production.
 
 ### 7.3. Metrics
 

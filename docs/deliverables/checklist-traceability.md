@@ -12,7 +12,7 @@ trình bày nên repo chỉ có thể chuẩn bị và kiểm soát đầu vào.
 | 3 | So sánh relational/giải pháp thay thế | Báo cáo §1.3; slide 6, 21; benchmark SQLite | Đủ bằng chứng repo |
 | 4 | Ontology, KG schema, triple/quad, namespace, Linked Data | Báo cáo §2.1; `ontology/movie_ontology.ttl`; slide 9, 17 | Đủ; nêu rõ triple, named graph là extension |
 | 5 | Entailment, rule và suy luận ontology | Báo cáo §2.2; `cypher/reasoning.cypher`; semantic result | Đủ bằng chứng repo |
-| 6 | Entity resolution, nhất quán, đầy đủ | Báo cáo §2.3; quality audit; blind review pack; ER artifacts | Đủ bằng chứng kỹ thuật; independent reviewer chưa ký gold |
+| 6 | Entity resolution, nhất quán, đầy đủ | Báo cáo §2.3; quality audit; ER silver corpus và metrics | Đủ bằng chứng kỹ thuật; giới hạn silver được nêu rõ |
 | 7 | Chọn/cấu hình DBMS và công cụ | Báo cáo §3.1; Compose/Dockerfile/pyproject; slide 6 | Đủ bằng chứng repo |
 | 8 | Nguồn, kích thước, tiền xử lý, nạp dữ liệu | Báo cáo §3.2; manifest; pipeline; slide 8–10 | Đủ bằng chứng repo |
 | 9 | Thiết kế/tinh chỉnh ontology/KG schema | Báo cáo §3.3; ontology; graph schema; RDF exporter | Đủ bằng chứng repo |
@@ -35,5 +35,5 @@ trình bày nên repo chỉ có thể chuẩn bị và kiểm soát đầu vào.
 - [x] Chạy `make test`: 37/37 cùng compileall và checksum pass.
 - [ ] Chạy `make demo` không Internet trên máy sẽ dùng để bảo vệ.
 - [ ] Hoàn thành nhật ký diễn tập trong `docs/deliverables/defense/defense-script.md`.
-- [ ] Không gọi silver corpus là human-reviewed gold và không dùng baseline lịch
+- [ ] Không khái quát silver corpus thành production accuracy và không dùng baseline lịch
   sử để kết luận production tốt hơn.

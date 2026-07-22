@@ -5,7 +5,7 @@
   "cases": 20,
   "passed": 20,
   "accuracy": 1.0,
-  "limitations": "Deterministic evidence-backed smoke corpus; not independent human-reviewed gold QA.",
+  "limitations": "Deterministic evidence-backed smoke corpus; limited to managed cases and one snapshot.",
   "details": [
     {
       "question": "Những phim nào do Christopher Nolan đạo diễn?",

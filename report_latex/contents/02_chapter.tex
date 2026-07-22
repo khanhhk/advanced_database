@@ -90,9 +90,9 @@ foreign key của edge, endpoint pair trùng, conflicting value và provenance. 
 credit TMDB lặp cùng Person–Movie nhưng khác tên vai được gộp thành một
 \texttt{ACTED\_IN}: nối các character khác nhau và giữ \texttt{cast\_order} nhỏ nhất. Artifact
 sau chuẩn hóa có zero violation; 54 tên Person trùng được ghi nhận nhưng không
-merge vì tên không phải khóa. Một review pack mù 100 case đã được tạo với rubric,
-trường reviewer/time/decision và validation gate. Cho đến khi người độc lập điền
-và ký review, kết quả 1,00 vẫn được gọi chính xác là silver, không phải gold.
+merge vì tên không phải khóa. Corpus ER silver 100 case gồm 50 exact-ID, 25 fuzzy
+positive và 25 hard negative; metric chỉ được diễn giải trong phạm vi protocol
+tất định này, không khái quát thành độ chính xác production.
 
 \subsection{Provenance}
 

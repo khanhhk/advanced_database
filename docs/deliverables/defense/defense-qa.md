@@ -25,7 +25,8 @@
    phiếu khác nhau; giữ riêng bảo toàn provenance và tránh tạo số liệu giả.
 8. **Con số 1,0 của entity resolution có đáng tin?** Đó là silver corpus 100 case.
    Full-snapshot audit bổ sung zero duplicate/conflict/invalid FK và 100% provenance;
-   review pack mù đã sẵn sàng nhưng chưa là gold trước khi reviewer độc lập ký.
+   metric chỉ được dùng trong phạm vi 50 exact-ID, 25 fuzzy positive và 25 hard
+   negative của protocol tất định.
 9. **Top-20 cast gây ảnh hưởng gì?** Giảm kích thước và thời gian thu thập nhưng
    bỏ diễn viên phụ, làm thiếu edge và có thể ảnh hưởng shortest path/recommendation.
 10. **Pipeline có tái lập không?** Raw cache, SHA-256, manifest, exact versions,
@@ -66,7 +67,7 @@
     tài nguyên hoặc quy mô lớn hơn.
 23. **Threat lớn nhất là gì?** Popularity sampling, top-20 cast, silver labels và
     external validity benchmark; báo cáo nêu rõ thay vì khái quát hóa quá mức.
-24. **Nếu nâng cấp một việc trước tiên?** Hoàn tất independent review/adjudication,
+24. **Nếu nâng cấp một việc trước tiên?** Bổ sung ER case tự nhiên từ nguồn thứ ba,
     sau đó đo concurrency và snapshot lớn hơn trước khi thêm vector search/GraphRAG.
 25. **Đóng góp cá nhân quan trọng nhất?** Một workflow end-to-end có thể chạy lại,
     kết nối property graph và semantic standards, đồng thời mọi answer/derived

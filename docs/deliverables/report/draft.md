@@ -342,9 +342,9 @@ foreign key của edge, endpoint pair trùng, conflicting value và provenance. 
 credit TMDB lặp cùng Person–Movie nhưng khác tên vai được gộp thành một
 `ACTED_IN`: nối các character khác nhau và giữ `cast_order` nhỏ nhất. Artifact
 sau chuẩn hóa có zero violation; 54 tên Person trùng được ghi nhận nhưng không
-merge vì tên không phải khóa. Một review pack mù 100 case đã được tạo với rubric,
-trường reviewer/time/decision và validation gate. Cho đến khi người độc lập điền
-và ký review, kết quả 1,00 vẫn được gọi chính xác là silver, không phải gold.
+merge vì tên không phải khóa. Corpus ER silver 100 case gồm 50 exact-ID, 25 fuzzy
+positive và 25 hard negative; metric chỉ được diễn giải trong phạm vi protocol
+tất định này, không khái quát thành độ chính xác production.
 
 ### Provenance
 
@@ -770,8 +770,9 @@ Audit toàn snapshot
 ghi nhận zero duplicate stable ID, conflicting required value, missing required
 field, invalid foreign key và duplicate endpoint pair; provenance coverage của
 node/edge có trường source đạt 100%. Năm mươi tư tên Person trùng không bị merge
-vì stable source ID là identity key. Review pack mù 100 case và validation gate đã
-sẵn sàng, nhưng chưa được gọi là human-reviewed trước khi reviewer độc lập ký.
+vì stable source ID là identity key. Corpus silver là benchmark tất định dựa trên
+source ID, typo có kiểm soát và nearest-name hard negative; kết quả không đại diện
+cho mọi lỗi định danh có thể xuất hiện ngoài snapshot.
 
 ### Reasoning
 
@@ -819,12 +820,12 @@ phiên bản runtime và protocol trong metadata.
 
 | Backend / số Movie | Khoảng median 4 query (ms) | Khoảng p95 4 query (ms) |
 |---|---:|---:|
-| Neo4j / 500 | 1,971–7,822 | 2,773–8,688 |
-| Neo4j / 1.000 | 3,457–12,196 | 5,024–15,175 |
-| Neo4j / 2.000 | 3,496–19,528 | 4,513–25,232 |
-| SQLite / 500 | 0,220–2,712 | 0,246–2,967 |
-| SQLite / 1.000 | 0,470–5,968 | 0,475–6,664 |
-| SQLite / 2.000 | 0,836–13,094 | 0,931–14,242 |
+| Neo4j / 500 | 4,696–12,627 | 7,324–17,886 |
+| Neo4j / 1.000 | 5,804–14,991 | 7,614–20,369 |
+| Neo4j / 2.000 | 4,840–23,473 | 10,633–31,311 |
+| SQLite / 500 | 0,212–2,756 | 0,239–2,892 |
+| SQLite / 1.000 | 0,450–5,252 | 0,488–5,870 |
+| SQLite / 2.000 | 0,916–12,652 | 0,936–13,426 |
 
 SQLite nhanh hơn trong bốn query kiểm soát này. Kết quả là bằng chứng chống lại
 tuyên bố đơn giản “graph luôn nhanh hơn SQL”; lợi ích chính của Neo4j trong đề tài
@@ -1078,7 +1079,9 @@ Swagger có tại `http://localhost:8000/docs`. Kiểm tra toàn bộ hệ thố
 ```bash
 make test
 .venv/bin/python -m experiments.evaluation.audit_knowledge_quality
-.venv/bin/python -m experiments.corpora.build_entity_review_pack
+.venv/bin/python -m experiments.evaluation.evaluate_entity_resolution \
+  experiments/corpora/silver/entity_resolution.json \
+  --output experiments/results/evaluation/entity_resolution.json
 docker compose --profile semantic up -d --build jena
 .venv/bin/python -m experiments.semantic.evaluate_jena
 docker compose --profile semantic stop jena
