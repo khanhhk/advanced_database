@@ -57,7 +57,7 @@ RUBRIC_OUTLINE = [
     ("I. Đặt vấn đề và tổng quan", [
         ("Mô tả bài toán, ngữ cảnh, phạm vi, mục tiêu và lý do lựa chọn công nghệ CSDL",
          [(1, "Bối cảnh"), (1, "Phát biểu bài toán"), (1, "Câu hỏi nghiên cứu"),
-          (1, "Mục tiêu"), (1, "Phạm vi")], None),
+          (1, "Mục tiêu"), (1, "Phạm vi"), (1, "Đóng góp")], None),
         ("Khảo sát tổng quan công nghệ và mô hình liên quan",
          [(3, "Phương pháp khảo sát"), (3, "Tổng hợp nghiên cứu"),
           (3, "Khoảng trống và vị trí đề tài"),
@@ -118,26 +118,16 @@ RUBRIC_OUTLINE = [
          [(9, "Threats to validity"), (9, "Trả lời câu hỏi nghiên cứu"),
           (9, "Phân tích lỗi và hướng khắc phục")], None),
     ]),
-    ("VI. Ứng dụng, báo cáo và trình bày", [
+    ("VI. Ứng dụng và demo chương trình", [
         ("Ứng dụng nghiệp vụ và demo chương trình",
          [(4, "Stakeholder và use case"), (4, "Yêu cầu chức năng"),
           (8, "Hỏi–đáp"), (8, "Recommendation"), (8, "API và UI"),
           (8, "An toàn và vận hành"), (8, "Failure modes"),
           (8, "Tính faithful của explanation")], None),
-        ("Chất lượng báo cáo, sơ đồ và tài liệu tham khảo",
-         [(1, "Đóng góp"), (1, "Cấu trúc báo cáo")],
-         "Báo cáo duy trì một bản thảo nguồn, bộ hình vector có nguồn draw.io và "
-         "thư mục tài liệu tham khảo chuẩn hóa để bảo đảm bố cục và khả năng tái tạo."),
-        ("Slide và thuyết trình",
-         [], "Nội dung thuyết trình được rút từ cùng số liệu đã kiểm chứng trong báo cáo, "
-         "tập trung vào kiến trúc, demo, kết quả và giới hạn; thời lượng và checklist "
-         "trước bảo vệ được quản lý trong dàn ý slide của dự án."),
-        ("Chuẩn bị trả lời phản biện",
-         [], "Bộ câu hỏi phản biện tập trung vào lựa chọn mô hình, tính đúng của suy diễn, "
-         "độ trung thực của explanation, giới hạn của silver evaluation và điều kiện "
-         "để diễn giải benchmark một cách hợp lệ."),
     ]),
 ]
+
+IGNORED_LEGACY_SECTIONS = {(1, "Cấu trúc báo cáo")}
 
 
 def escape(value: str) -> str:
@@ -310,7 +300,7 @@ def restructure_for_rubric(body: str) -> str:
                 output.extend([f"### {source[1]}", "", *nested, ""])
 
     available = {key for key in sections if key[0] <= 9}
-    omitted = available - used
+    omitted = available - used - IGNORED_LEGACY_SECTIONS
     if omitted:
         raise ValueError(f"Unmapped report source sections: {sorted(omitted)}")
     if not chapter_ten:

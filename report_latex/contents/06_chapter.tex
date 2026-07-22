@@ -1,5 +1,5 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
-\chapter{VI. Ứng dụng, báo cáo và trình bày}
+\chapter{VI. Ứng dụng và demo chương trình}
 
 \section{Ứng dụng nghiệp vụ và demo chương trình}
 
@@ -106,37 +106,3 @@ Recommendation explanation không được model sinh: nó tổng hợp từ sha
 đã đóng góp score. Cách làm giảm độ tự nhiên so với NLG explanation \cite{colas2023knowledge} nhưng
 có tính faithful cao trong phạm vi hệ thống: mỗi lý do tương ứng quan hệ tồn tại
 trong graph và contribution xác định.
-
-\section{Chất lượng báo cáo, sơ đồ và tài liệu tham khảo}
-
-Báo cáo duy trì một bản thảo nguồn, bộ hình vector có nguồn draw.io và thư mục tài liệu tham khảo chuẩn hóa để bảo đảm bố cục và khả năng tái tạo.
-
-\subsection{Đóng góp}
-
-Đóng góp của đề tài gồm:
-
-\begin{itemize}
-\item Pipeline đa nguồn storage-bounded và tái lập được.
-\item Chiến lược identity dựa trên stable source ID thay vì tên.
-\item Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
-\item Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
-\item QA có LLM planner nhưng execution surface được kiểm soát.
-\item Recommendation graph-native với explanation từ chính feature đóng góp.
-\item Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
-\end{itemize}
-
-\subsection{Cấu trúc báo cáo}
-
-Sáu chương đầu lần lượt bám sáu nhóm tiêu chí của phiếu chấm: đặt vấn đề và tổng
-quan; lý thuyết và mô hình dữ liệu; thiết kế và cài đặt; truy vấn, xử lý và nghiệp
-vụ; thực nghiệm và đánh giá; ứng dụng, báo cáo và trình bày. Trong từng chương,
-các tiêu chí nhỏ giữ nguyên thứ tự trên checklist. Chương 7 tổng kết và nêu hướng
-phát triển.
-
-\section{Slide và thuyết trình}
-
-Nội dung thuyết trình được rút từ cùng số liệu đã kiểm chứng trong báo cáo, tập trung vào kiến trúc, demo, kết quả và giới hạn; thời lượng và checklist trước bảo vệ được quản lý trong dàn ý slide của dự án.
-
-\section{Chuẩn bị trả lời phản biện}
-
-Bộ câu hỏi phản biện tập trung vào lựa chọn mô hình, tính đúng của suy diễn, độ trung thực của explanation, giới hạn của silver evaluation và điều kiện để diễn giải benchmark một cách hợp lệ.

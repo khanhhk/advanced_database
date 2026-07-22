@@ -202,14 +202,16 @@ authoritative full-fidelity sources for report/slide reconstruction.
 - `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
   presentation story; keep final artifacts aligned with measured evidence.
 - `docs/REPORT_DRAFT.md`: current Vietnamese report manuscript. Its submission
-  LaTeX is organized into the six ordered rubric groups from
-  `ChecklistCSDLNCv2.XLS`, followed by a conclusion chapter,
+  LaTeX is organized into six content chapters aligned with the applicable
+  report-content criteria in `ChecklistCSDLNCv2.XLS`, followed by a conclusion
+  chapter. Rubric items for report quality, presentation and oral defense remain
+  assessment criteria rather than self-describing report sections,
   including theory, related work, implementation, measured evidence, validity
   limits, preliminary IEEE-style references and reproducibility appendices. Its
   front matter and evaluation prose were streamlined on 2026-07-19 for the course
   submission; detailed defense notes now live in `docs/internal/REPORT_SUPPORT.md`.
 - `report_latex/`: submission-oriented LaTeX report generated from the manuscript.
-  `main.tex` assembles the six rubric chapters, conclusion and appendices;
+  `main.tex` assembles the six content chapters, conclusion and appendices;
   `ref.bib` is the normalized
   bibliography, and all 14 image calls now resolve to vector PDF figures under
   `report_latex/images/`. Eleven editable diagram sources live in

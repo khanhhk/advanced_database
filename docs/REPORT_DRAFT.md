@@ -26,8 +26,10 @@ ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ
 
 Mục tiêu của project là minh họa một quy trình Knowledge Graph đầu cuối có thể
 chạy, kiểm tra và trình diễn trong phạm vi học phần Cơ sở dữ liệu nâng cao. Báo
-cáo được tổ chức thành sáu chương bám đúng sáu nhóm tiêu chí trong
-`ChecklistCSDLNCv2.XLS`, sau đó là một chương kết luận:
+cáo được tổ chức thành sáu chương nội dung bám các tiêu chí chuyên môn trong
+`ChecklistCSDLNCv2.XLS`, sau đó là một chương kết luận. Ba tiêu chí cuối của nhóm
+VI đánh giá chất lượng báo cáo, slide/thuyết trình và trả lời phản biện nên không
+được biến thành các mục tự mô tả trong thân báo cáo:
 
 1. **Chương 1 – Đặt vấn đề và tổng quan:** bài toán, survey và so sánh với mô
    hình quan hệ hoặc giải pháp thay thế.
@@ -39,8 +41,8 @@ cáo được tổ chức thành sáu chương bám đúng sáu nhóm tiêu chí
    CRUD đến nâng cao và truy vấn có suy luận.
 5. **Chương 5 – Thực nghiệm và đánh giá:** tiêu chí, benchmark/baseline và phân
    tích kết quả, hạn chế, hướng cải tiến.
-6. **Chương 6 – Ứng dụng, báo cáo và trình bày:** ứng dụng/demo, chất lượng báo
-   cáo, slide/thuyết trình và chuẩn bị phản biện.
+6. **Chương 6 – Ứng dụng và demo chương trình:** ngữ cảnh sử dụng, hai ứng dụng,
+   API, giao diện và tính faithful của explanation.
 7. **Chương 7 – Kết luận và hướng phát triển:** tổng kết kết quả đạt được và các
    hướng mở rộng.
 
@@ -124,6 +126,18 @@ Mỗi phim giữ tối đa 20 cast member nhằm giới hạn kích thước và
 MVP không bao gồm Award/Wikidata, NLP trên overview, user-history personalization,
 vector search, embedding, GraphRAG hoặc LLM-to-Cypher tự do. Các thành phần này là
 hướng mở rộng, không được dùng để mô tả chức năng hiện có.
+
+### Đóng góp
+
+Đóng góp của đề tài gồm:
+
+- Pipeline đa nguồn storage-bounded và tái lập được.
+- Chiến lược identity dựa trên stable source ID thay vì tên.
+- Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
+- Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
+- QA có LLM planner nhưng execution surface được kiểm soát.
+- Recommendation graph-native với explanation từ chính feature đóng góp.
+- Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
 
 ## 1.2. Khảo sát tổng quan công nghệ và mô hình liên quan
 
@@ -868,7 +882,7 @@ Similar-movie chậm nhất gợi ý cần inspect query plan, cardinality và i
 index không giúp mọi traversal. Cần đo cold/warm cache riêng, nhiều scale thật và
 ghi concurrency trước khi tối ưu.
 
-# Chương 6. VI. Ứng dụng, báo cáo và trình bày
+# Chương 6. VI. Ứng dụng và demo chương trình
 
 ## 6.1. Ứng dụng nghiệp vụ và demo chương trình
 
@@ -958,38 +972,6 @@ Recommendation explanation không được model sinh: nó tổng hợp từ sha
 đã đóng góp score. Cách làm giảm độ tự nhiên so với NLG explanation [10] nhưng
 có tính faithful cao trong phạm vi hệ thống: mỗi lý do tương ứng quan hệ tồn tại
 trong graph và contribution xác định.
-
-## 6.2. Chất lượng báo cáo, sơ đồ và tài liệu tham khảo
-
-Báo cáo duy trì một bản thảo nguồn, bộ hình vector có nguồn draw.io và thư mục tài liệu tham khảo chuẩn hóa để bảo đảm bố cục và khả năng tái tạo.
-
-### Đóng góp
-
-Đóng góp của đề tài gồm:
-
-- Pipeline đa nguồn storage-bounded và tái lập được.
-- Chiến lược identity dựa trên stable source ID thay vì tên.
-- Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
-- Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
-- QA có LLM planner nhưng execution surface được kiểm soát.
-- Recommendation graph-native với explanation từ chính feature đóng góp.
-- Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
-
-### Cấu trúc báo cáo
-
-Sáu chương đầu lần lượt bám sáu nhóm tiêu chí của phiếu chấm: đặt vấn đề và tổng
-quan; lý thuyết và mô hình dữ liệu; thiết kế và cài đặt; truy vấn, xử lý và nghiệp
-vụ; thực nghiệm và đánh giá; ứng dụng, báo cáo và trình bày. Trong từng chương,
-các tiêu chí nhỏ giữ nguyên thứ tự trên checklist. Chương 7 tổng kết và nêu hướng
-phát triển.
-
-## 6.3. Slide và thuyết trình
-
-Nội dung thuyết trình được rút từ cùng số liệu đã kiểm chứng trong báo cáo, tập trung vào kiến trúc, demo, kết quả và giới hạn; thời lượng và checklist trước bảo vệ được quản lý trong dàn ý slide của dự án.
-
-## 6.4. Chuẩn bị trả lời phản biện
-
-Bộ câu hỏi phản biện tập trung vào lựa chọn mô hình, tính đúng của suy diễn, độ trung thực của explanation, giới hạn của silver evaluation và điều kiện để diễn giải benchmark một cách hợp lệ.
 
 # Chương 7. Kết luận và hướng phát triển
 
