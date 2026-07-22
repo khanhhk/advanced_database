@@ -1,6 +1,6 @@
 # Movie Knowledge Graph — project memory
 
-Last reviewed: 2026-07-20. This briefing summarizes the original Office sources,
+Last reviewed: 2026-07-22. This briefing summarizes the original Office sources,
 the project Markdown documents and the current implementation artifacts.
 
 ## Mission and thesis
@@ -201,13 +201,16 @@ authoritative full-fidelity sources for report/slide reconstruction.
   requirements and engineering quality rules.
 - `docs/REPORT_OUTLINE.md` and `docs/SLIDE_OUTLINE.md`: expected report and
   presentation story; keep final artifacts aligned with measured evidence.
-- `docs/REPORT_DRAFT.md`: current ten-chapter Vietnamese report manuscript,
+- `docs/REPORT_DRAFT.md`: current Vietnamese report manuscript. Its submission
+  LaTeX is organized into the six ordered rubric groups from
+  `ChecklistCSDLNCv2.XLS`, followed by a conclusion chapter,
   including theory, related work, implementation, measured evidence, validity
   limits, preliminary IEEE-style references and reproducibility appendices. Its
   front matter and evaluation prose were streamlined on 2026-07-19 for the course
   submission; detailed defense notes now live in `docs/internal/REPORT_SUPPORT.md`.
 - `report_latex/`: submission-oriented LaTeX report generated from the manuscript.
-  `main.tex` assembles all ten chapters and appendices, `ref.bib` is the normalized
+  `main.tex` assembles the six rubric chapters, conclusion and appendices;
+  `ref.bib` is the normalized
   bibliography, and all 14 image calls now resolve to vector PDF figures under
   `report_latex/images/`. Eleven editable diagram sources live in
   `report_latex/images/sources/*.drawio`; three measured charts are generated from

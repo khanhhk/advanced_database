@@ -1,121 +1,228 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
-\chapter{Thiết kế ontology và graph schema}
+\chapter{V. Thực nghiệm và đánh giá}
 
-\section{Các lớp và định danh}
-\reportfigure{ontology_diagram.pdf}{Sơ đồ lớp của ontology miền phim}{fig:ontology-diagram}
+\section{Tiêu chí đánh giá}
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
-\caption{Tổng hợp các lớp và định danh}\label{tab:5-1} \\
-\hline
-\textbf{Class/label} & \textbf{Khóa} & \textbf{Thuộc tính chính} \\ \hline
-\endfirsthead\hline \textbf{Class/label} & \textbf{Khóa} & \textbf{Thuộc tính chính} \\ \hline\endhead
-Movie & \texttt{tmdb\_id} & imdb\_id, title, release\_date, runtime, rating, imdb\_rating, imdb\_votes, popularity, overview \\ \hline
-Person & \texttt{person\_id} & tmdb\_id, imdb\_id, name, source \\ \hline
-Genre & \texttt{genre\_id} & name, source \\ \hline
-Keyword & \texttt{keyword\_id} & name, source \\ \hline
-Studio & \texttt{company\_id} & name, country, source \\ \hline
-\end{longtable}
+\subsection{Recommendation dựa trên graph}
 
-Person dùng một label duy nhất vì một người có thể vừa đóng phim vừa đạo diễn.
-Vai trò được biểu diễn bởi relationship. Với dữ liệu mới, \texttt{person\_id=tmdb:<id>};
-hash tên chỉ là legacy fallback khi fixture/cache cũ không có source ID.
+Hai phim có thể tương tự vì chung đạo diễn, diễn viên, thể loại, từ khóa hoặc
+studio. Raw overlap thiên về phim có metadata dày và feature phổ biến. Đề tài dùng:
 
-\section{Relationship}
-\reportfigure{property_graph_schema.pdf}{Lược đồ node và relationship trong Neo4j}{fig:property-graph-schema}
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+contribution(feature) = type_weight × (1 + ln((N+1)/(df(feature)+1)))
+score(source,candidate) = tổng contribution của các feature chung
+\end{Verbatim}
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
-\caption{Tổng hợp relationship}\label{tab:5-2} \\
-\hline
-\textbf{Relationship} & \textbf{Hướng} & \textbf{Property} \\ \hline
-\endfirsthead\hline \textbf{Relationship} & \textbf{Hướng} & \textbf{Property} \\ \hline\endhead
-ACTED\_IN & Person → Movie & character, cast\_order, source \\ \hline
-DIRECTED & Person → Movie & source \\ \hline
-HAS\_GENRE & Movie → Genre & source \\ \hline
-HAS\_KEYWORD & Movie → Keyword & source \\ \hline
-PRODUCED\_BY & Movie → Studio & source \\ \hline
-CO\_STARRED\_WITH & Person → Person & movie\_count, evidence\_movie\_ids, derived \\ \hline
-\end{longtable}
+Trong đó \texttt{N} là số phim và \texttt{df} là số phim liên kết với feature. Feature hiếm có
+giá trị phân biệt cao hơn. Đây là item-to-item similarity, không phải xác suất
+yêu thích và không phải personalization theo người dùng.
 
-\section{Ontology RDF/OWL}
+\subsection{Chỉ số đánh giá}
 
-Ontology khai báo năm class disjoint, object property với domain/range, inverse
-\texttt{actedIn/hasActor}, inverse \texttt{directed/directedBy}, symmetric \texttt{coStarredWith}, và
-functional \texttt{tmdbId/imdbId}. Datatype property mô tả title, ratings, votes và name.
-Functional property không đồng nghĩa global inverse-functional identity; stable
-URI vẫn được tạo từ source ID.
+\begin{itemize}
+\item Data quality: missing, duplicate, invalid edge, orphan và coverage.
+\item Entity resolution: Precision, Recall, F1.
+\item Reasoning: precision của fact suy ra và evidence coverage.
+\item QA: intent accuracy, answer correctness và evidence.
+\item Recommendation: Precision@K, DCG/NDCG@K, explanation coverage.
+\item Performance: median, p95 và standard deviation sau warm-up.
+\end{itemize}
 
-\section{Ánh xạ RDF–Neo4j}
+\subsection{Cách đọc kết quả}
+
+Các kết quả dưới đây được ghi kèm backend, số lượng phim, số case, K, số lần lặp
+và cấu hình cần thiết. Các bộ kiểm thử do nhóm chuẩn bị nhằm kiểm tra hệ thống
+trên snapshot hiện tại; số liệu QA và hiệu năng được lấy từ Neo4j thực tế.
+
+\section{Kịch bản thực nghiệm, benchmark, bảng biểu và baseline}
+
+\subsection{Dataset và graph}
+\reportfigure{quality_metrics.pdf}{Tổng hợp chỉ số chất lượng dữ liệu và graph}{fig:quality-metrics}
+
+Snapshot đầu vào có 2.001 record; pipeline loại minh bạch một Movie không có bất
+kỳ quan hệ graph nào và giữ đúng 2.000 Movie hợp lệ. Exact IMDb ratings match
+1.783/1.855 phim có IMDb ID. Graph sau reasoning có 37.349 node và 353.915
+relationship, với zero
+orphan, duplicate stable ID, missing required property và invalid relationship.
+
+Các số liệu này lấy từ \texttt{data/processed/manifest.json} và
+\texttt{experiments/results/neo4j\_validation.json} của cùng source checksum
+\texttt{eeeb7e27...2c800}.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
-\caption{Tổng hợp ánh xạ rdf–neo4j}\label{tab:5-3} \\
+\caption{Tổng hợp dataset và graph}\label{tab:5-1} \\
 \hline
-\textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline
-\endfirsthead\hline \textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline\endhead
-\texttt{(:Movie \{tmdb\_id\})} & \texttt{:movie/<id> a :Movie; :tmdbId ...} \\ \hline
-\texttt{(:Person)-[:ACTED\_IN]->(:Movie)} & \texttt{:person/... :actedIn :movie/...} \\ \hline
-\texttt{[:DIRECTED]} & \texttt{:directed} / inverse \texttt{:directedBy} \\ \hline
-edge property & cần reification/RDF-star nếu xuất đầy đủ \\ \hline
-constraint & ontology axiom + validation đóng \\ \hline
+\textbf{Chỉ số snapshot/graph} & \textbf{Giá trị cuối} \\ \hline
+\endfirsthead\hline \textbf{Chỉ số snapshot/graph} & \textbf{Giá trị cuối} \\ \hline\endhead
+Record TMDB đầu vào & 2.001 \\ \hline
+Movie hợp lệ sau quality gate & 2.000 \\ \hline
+Movie bị loại do không có quan hệ & 1 \\ \hline
+Movie có IMDb ID & 1.855 (92,75\%) \\ \hline
+IMDb rating exact-match & 1.783/1.855 (96,12\%) \\ \hline
+Movie có cast & 99,00\% \\ \hline
+Movie có director & 99,30\% \\ \hline
+Movie có genre & 98,60\% \\ \hline
+Orphan/duplicate/missing/invalid/unsupported fact sau import & 0 \\ \hline
 \end{longtable}
 
-\section{Các quyết định mô hình hóa}
+Quality gate không xóa im lặng record lỗi: Movie bị loại được ghi trong
+\texttt{invalid\_records} với \texttt{reason=no\_graph\_relationships} và source row/TMDB ID, nhờ
+đó tổng đầu vào, tổng hợp lệ và lý do chênh lệch vẫn truy vết được.
 
-\subsection{Một Person label thay vì Actor/Director}
+\subsection{Entity resolution}
 
-Nếu dùng hai label loại trừ nhau, người vừa diễn vừa đạo diễn phải duplicate node
-hoặc mang hai label không phản ánh role theo từng phim. Một \texttt{Person} và role trên
-relationship tránh hai vấn đề này. Query “phim của một người” có thể match
-\texttt{ACTED\_IN|DIRECTED}, còn query chuyên biệt vẫn chọn đúng type.
+Corpus kiểm thử gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
+Kết quả là TP=75, TN=25, FP=0, FN=0, do đó precision, recall và F1 đều bằng 1,00.
+Kết quả cho thấy workflow xử lý đúng bộ case hiện tại; các trường hợp tên trùng,
+alias hoặc dữ liệu thiếu vẫn cần được bổ sung khi mở rộng hệ thống.
 
-\subsection{Source ID thay cho name}
+\subsection{Reasoning}
 
-Tên không ổn định và không duy nhất. Source ID được dùng làm constraint key; name
-là thuộc tính hiển thị/tìm kiếm. Fuzzy matching chỉ liên kết input người dùng tới
-entity đã có, không thay stable identity trong storage.
+Năm mươi fact \texttt{CO\_STARRED\_WITH} được kiểm tra bằng supporting movie và
+source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
+tra mọi derived edge phải có ít nhất một shared Movie. Semantic workflow trên
+full normalized snapshot materialize 35.419 triple, tăng từ 154.970 lên 190.389
+triple và không có semantic violation. RDF export dùng chính processed snapshot
+2.000 Movie như Neo4j; cả 10 SPARQL query đều parse và thực thi thành công.
 
-\subsection{Tách TMDB và IMDb rating}
+\subsection{QA}
 
-Hai rating có population và thời điểm cập nhật khác nhau. Gộp vào một property sẽ
-mất provenance. Vì vậy \texttt{rating}, \texttt{imdb\_rating}, \texttt{imdb\_votes} được giữ riêng. Khi
-QA cần một rating ưu tiên, compiler dùng \texttt{coalesce(imdb\_rating,rating)} theo quyết
-định công khai.
+Corpus deterministic gồm 20 câu phủ chín intent, yêu cầu đúng intent, nội dung
+mong đợi và tối thiểu một evidence record (riêng top-5 yêu cầu đủ năm evidence).
+Production path trên Neo4j đạt 20/20. Rubric shortest-path chấp nhận mọi đường hợp
+lệ thay vì khóa vào một intermediate; recommendation question kiểm tra contract
+và evidence, còn chất lượng ranking được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
+bộ kiểm thử chức năng do nhóm xây dựng và có thể mở rộng thêm paraphrase hoặc câu
+mơ hồ trong các phiên bản sau.
 
-\subsection{Materialize co-star}
+\subsection{Recommendation}
+\reportfigure{recommendation_ablation.pdf}{So sánh kết quả các phương pháp xếp hạng}{fig:recommendation-ablation}
 
-Co-star có thể tính tại query time nhưng được dùng thường xuyên và cần audit.
-Materialization lưu aggregate/evidence và minh họa derived fact. Chi phí là phải
-recompute sau authoritative import; runtime preparation xử lý phụ thuộc này.
-
-\section{Provenance}
-
-Provenance có ba mức. Mức source: node/edge gốc có \texttt{source=tmdb}, Movie giữ IMDb
-ID và ratings riêng. Mức snapshot: manifest giữ path/checksum/count và match
-method. Mức derivation: \texttt{CO\_STARRED\_WITH} giữ \texttt{derived}, count và supporting
-movie IDs. RDF export chưa dùng named graph đầy đủ cho từng nguồn; đây là giới
-hạn thay vì một claim provenance chuẩn hóa toàn diện.
-
-\section{Từ điển dữ liệu và quy tắc miền}
-
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.23\textwidth}|>{\raggedright\arraybackslash}p{0.14\textwidth}|>{\raggedright\arraybackslash}p{0.09\textwidth}|>{\raggedright\arraybackslash}p{0.14\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
-\caption{Tổng hợp từ điển dữ liệu và quy tắc miền}\label{tab:5-4} \\
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
+\caption{Tổng hợp recommendation}\label{tab:5-2} \\
 \hline
-\textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và\linebreak{}ý nghĩa} \\ \hline
-\endfirsthead\hline \textbf{Trường} & \textbf{Kiểu/miền} & \textbf{Bắt buộc} & \textbf{Nguồn} & \textbf{Quy tắc và\linebreak{}ý nghĩa} \\ \hline\endhead
-Movie.tmdb\_id & integer dương & có & TMDB & khóa ổn định, duy nhất trong Movie \\ \hline
-Movie.imdb\_id & chuỗi \texttt{tt...} & không & TMDB external ID & khóa nối chính xác sang IMDb \\ \hline
-Movie.title & Unicode string & có & TMDB & trim whitespace, không được rỗng \\ \hline
-\texttt{Movie.}\linebreak{}\texttt{release\_date} & ISO date & không & TMDB & ngày phát hành, không phải valid-time của temporal KG \\ \hline
-Movie.rating & số 0–10 & không & TMDB & giữ riêng với IMDb rating \\ \hline
-\texttt{Movie.}\linebreak{}\texttt{imdb\_rating} & số 0–10 & không & IMDb & chỉ ghi khi exact \texttt{imdb\_id} match \\ \hline
-\texttt{Movie.}\linebreak{}\texttt{imdb\_votes} & integer không âm & không & IMDb & số phiếu tại snapshot thu thập \\ \hline
-\texttt{Person.}\linebreak{}\texttt{person\_id} & source-qualified ID & có & TMDB/\linebreak{}pipeline & identity key, không dùng tên làm khóa \\ \hline
-\texttt{ACTED\_IN.}\linebreak{}\texttt{character} & string & không & TMDB credits & vai diễn được công bố ở nguồn \\ \hline
-\texttt{ACTED\_IN.}\linebreak{}\texttt{cast\_order} & integer không âm & không & TMDB credits & thứ tự cast, không phải độ quan trọng tuyệt đối \\ \hline
-\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{movie\_count} & integer dương & có & luật & số phim chung hỗ trợ fact suy ra \\ \hline
-\texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{evidence\_}\linebreak{}\texttt{movie\_ids} & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
+\textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline
+\endfirsthead\hline \textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline\endhead
+Overlap & 0,670 & 0,723 & baseline lịch sử \\ \hline
+Weighted Jaccard & 0,640 & 0,699 & baseline lịch sử \\ \hline
+Hybrid & 0,590 & 0,657 & baseline lịch sử \\ \hline
+IDF-weighted graph & \textbf{0,715} & \textbf{0,754} & production Neo4j \\ \hline
 \end{longtable}
 
-Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế
-kiểm tra dữ liệu đóng. Required field là yêu cầu của ứng dụng; functional và
-disjoint axiom là yêu cầu ngữ nghĩa; constraint Neo4j bảo vệ identity/storage.
-Ba lớp ràng buộc bổ sung cho nhau nhưng không được đánh đồng.
+IDF đạt kết quả tốt nhất trên 20 case kiểm thử và mọi recommendation có explanation.
+Tuy nhiên, corpus nhỏ và relevance rubric dựa trên metadata graph; kết quả không
+đồng nghĩa người dùng thực sẽ ưa thích recommendation.
+
+\subsection{Hiệu năng}
+\reportfigure{query_latency.pdf}{Phân bố độ trễ truy vấn Neo4j}{fig:query-latency}
+
+Benchmark Neo4j 5.26.28 chạy trên 2.000 Movie, một warm-up và 100 lần/câu. Median
+theo intent nằm trong 2,67–188,74 ms; p95 nằm trong 5,08–211,24 ms. Similar-movie
+query chậm nhất do candidate traversal và aggregation feature; genre/rating nhanh
+nhất. Kết quả mô tả workload và máy đo, chưa chứng minh scalability.
+
+SQLite baseline dùng cùng normalized snapshot cho bốn query tương đương. So sánh
+chỉ hợp lệ nếu chạy cùng máy, snapshot, warm-up và iterations. SQLite là baseline
+kiểm soát, không đại diện cho mọi RDBMS; mục tiêu là thảo luận trade-off, không
+chứng minh graph luôn nhanh hơn relational.
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|}
+\caption{Tổng hợp hiệu năng}\label{tab:5-3} \\
+\hline
+\textbf{Intent tương đương} & \textbf{Neo4j median (ms)} & \textbf{Neo4j p95 (ms)} & \textbf{SQLite median (ms)} & \textbf{SQLite p95 (ms)} \\ \hline
+\endfirsthead\hline \textbf{Intent tương đương} & \textbf{Neo4j median (ms)} & \textbf{Neo4j p95 (ms)} & \textbf{SQLite median (ms)} & \textbf{SQLite p95 (ms)} \\ \hline\endhead
+movies\_by\_director & 10,086 & 16,557 & 1,050 & 1,644 \\ \hline
+common\_movies & 38,324 & 48,326 & 12,041 & 13,070 \\ \hline
+movies\_by\_genre\_rating & 2,667 & 5,085 & 0,814 & 0,835 \\ \hline
+directors\_by\_genre & 4,545 & 6,639 & 2,119 & 2,198 \\ \hline
+\end{longtable}
+
+SQLite nhanh hơn trong bốn query kiểm soát này. Kết quả là bằng chứng chống lại
+tuyên bố đơn giản “graph luôn nhanh hơn SQL”; lợi ích chính của Neo4j trong đề tài
+là mô hình traversal/evidence và một execution surface thống nhất, không phải ưu
+thế latency phổ quát.
+
+\subsection{Protocol tái chạy thực nghiệm}
+
+\begin{enumerate}
+\item Cố định raw snapshot và ghi checksum.
+\item Transform/import authoritative, chạy validation và lưu counts.
+\item Chạy reasoning trước evaluation phụ thuộc derived edges.
+\item Chạy corpus bằng đúng backend được khai báo.
+\item Benchmark một warm-up, 100 iterations/query; không chạy workload khác song song.
+\item Lưu Python/Neo4j/platform/movie count trong metadata.
+\item Sinh bảng/biểu đồ từ JSON/CSV artifact, không nhập số bằng tay.
+\item Kiểm tra report/slide dùng cùng artifact version.
+\end{enumerate}
+
+Với relational baseline, snapshot và máy phải giống Neo4j run. Nếu không đáp ứng,
+kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
+
+\subsection{Kiểm thử và quy trình chạy}
+
+Lần chạy cuối của \texttt{make test} đạt 30/30 test. Bộ test gồm unit test cho cleaning,
+entity resolution, query planning/compiler, RDF export, semantic materialization,
+SPARQL catalog, CRUD, relational benchmark và evidence summary. Integration test
+dùng Neo4j riêng ở Bolt 7688, thực hiện import hai lần để xác nhận idempotency,
+sau đó kiểm tra QA, recommendation và vòng đời CRUD trước khi dọn graph test.
+
+Docker healthcheck gọi \texttt{cypher-shell RETURN 1}, nên trạng thái healthy chỉ được
+báo sau khi Bolt thực sự nhận query; điều này loại race condition trong đó
+container đã chạy nhưng driver chưa handshake được. Quy trình còn chạy
+\texttt{compileall}, kiểm tra dependency và xác minh checksum của tài liệu nguồn.
+
+\section{Phân tích, bàn luận, hạn chế và hướng cải tiến}
+
+\subsection{Threats to validity}
+
+\begin{itemize}
+\item Popular-movie sampling tạo selection bias.
+\item Top-20 cast bỏ diễn viên phụ.
+\item Nguồn TMDB thay đổi theo thời gian; cache chỉ cố định một snapshot.
+\item IMDb chỉ enrich Movie, chưa link Person.
+\item Các bộ case đánh giá do nhóm xây dựng và còn nhỏ.
+\item QA corpus deterministic 20 câu chưa phủ paraphrase rộng.
+\item Recommendation không có user interaction, nên không đánh giá personalization.
+\item Benchmark chỉ một quy mô Neo4j và phụ thuộc phần cứng/cache.
+\end{itemize}
+
+\subsection{Trả lời câu hỏi nghiên cứu}
+
+\textbf{RQ1:} Stable source ID và exact IMDb join tích hợp hai nguồn mà không ghi đè
+rating; checksum/manifest cung cấp provenance ở mức snapshot.
+\textbf{RQ2:} Mười competency question được biểu diễn bằng pattern trực tiếp, multi-hop,
+aggregation và shortest path; evidence là node/relationship thực thi.
+\textbf{RQ3:} Cypher rule tạo co-star có supporting movie; semantic profile tạo inverse
+và type entailment, đồng thời validator phát hiện conflict.
+\textbf{RQ4:} IDF giảm ảnh hưởng feature phổ biến, đạt P@10/NDCG@10 cao hơn ba baseline
+trên corpus kiểm thử và giữ explanation coverage.
+\textbf{RQ5:} Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 2.000 phim; phạm vi
+hiện tại chưa gồm cá nhân hóa hoặc benchmark nhiều quy mô.
+
+\subsection{Phân tích lỗi và hướng khắc phục}
+
+\subsubsection{QA}
+
+Rubric cũ khóa shortest path vào một intermediate và đã được thay bằng yêu cầu
+đúng intent, có đường/evidence hợp lệ. Recommendation question chỉ kiểm tra API
+contract; relevance dùng corpus P@10/NDCG@10 riêng. Bước tiếp theo là bổ sung
+paraphrase, câu mơ hồ và expected abstention thay vì chỉ dùng các câu gần template.
+
+\subsubsection{Entity resolution}
+
+Corpus exact-ID dễ hơn dữ liệu mention thực tế. Cần bổ sung hard negative cùng tên,
+alias, Unicode, tên đảo, thiếu ID và candidate tie. Từng error phải phân loại false
+merge hoặc missed match vì false merge gây ô nhiễm graph nghiêm trọng hơn.
+
+\subsubsection{Recommendation}
+
+IDF có thể ưu tiên feature quá hiếm do metadata noise. Có thể đặt minimum document
+frequency hoặc review contribution distribution. Tuy nhiên thay đổi trọng số phải
+đánh giá trên corpus tách biệt, không điều chỉnh trực tiếp theo 20 case rồi báo
+trên chính các case đó.
+
+\subsubsection{Performance}
+
+Similar-movie chậm nhất gợi ý cần inspect query plan, cardinality và index; nhưng
+index không giúp mọi traversal. Cần đo cold/warm cache riêng, nhiều scale thật và
+ghi concurrency trước khi tối ưu.

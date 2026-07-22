@@ -1,75 +1,13 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
-\chapter{Truy vấn, suy diễn và semantic workflow}
+\chapter{Kết luận và hướng phát triển}
 
-\section{Cypher catalog và CRUD}
+Đề tài đã xây dựng một Movie Knowledge Graph đầu cuối từ thu thập dữ liệu đến hai
+ứng dụng. Neo4j phục vụ operational traversal; RDF/OWL cung cấp semantic standards
+view. Stable ID, provenance, safe query compiler, evidence-backed inference và
+explainable recommendation giúp kết quả không chỉ chạy được mà còn kiểm tra được.
 
-Catalog có 10 query từ lookup đến shortest path, aggregation và kiểm tra fact suy
-ra. CRUD Movie gồm create/upsert, read neighborhood, update metadata, guarded
-delete và upsert \texttt{ACTED\_IN}; mọi value là parameter. CRUD không mở qua public API.
-
-\section{Suy diễn \texttt{CO\_STARRED\_WITH}}
-\reportfigure{costar_reasoning.pdf}{Suy diễn quan hệ đồng diễn và đường bằng chứng}{fig:costar-reasoning}
-
-Luật:
-
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
-Person A -[:ACTED_IN]-> Movie <-[:ACTED_IN]- Person B
-⇒ A -[:CO_STARRED_WITH]-> B
-\end{Verbatim}
-
-Điều kiện sắp thứ tự ID tránh cặp trùng/ngược. Relationship lưu \texttt{movie\_count},
-\texttt{evidence\_movie\_ids} và \texttt{derived=true}. \texttt{MERGE} bảo đảm materialization idempotent.
-Đây là rule nghiệp vụ bằng Cypher, không được gọi là OWL reasoning.
-
-\section{Semantic entailment}
-\reportfigure{semantic_reasoning.pdf}{Luồng materialization và kiểm tra ngữ nghĩa}{fig:semantic-reasoning}
-
-RDFLib materializer chạy profile RDFS/OWL-RL subset xác định:
-
-\begin{itemize}
-\item property domain → type của subject;
-\item property range → type của object;
-\item \texttt{owl:inverseOf} → inverse triple;
-\item \texttt{owl:SymmetricProperty} → triple chiều ngược.
-\end{itemize}
-
-Validator kiểm tra functional property, disjoint class và Movie thiếu title. Báo
-cáo ghi số triple trước/sau, số triple mới và violation. Profile này chạy được và
-test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.
-
-\section{SPARQL}
-
-Mười query bao phủ phim theo đạo diễn, cast, shared genre, co-star aggregation,
-director–genre multi-hop, OPTIONAL IMDb enrichment, inverse \texttt{hasActor}, semantic
-path, ASK quality và CONSTRUCT recommendation evidence. Loader bắt buộc đúng 10
-query, parse rồi chạy từng query trên graph đã materialize.
-
-\section{An toàn truy vấn}
-
-An toàn có nhiều tầng. Pydantic giới hạn request length/type; QueryPlan giới hạn
-operation/target/filter; compiler ánh xạ enum sang fragment do ứng dụng sở hữu;
-entity value nằm trong Neo4j parameter; public API không có write operation. Chỉ
-dynamic label trong entity-link fallback được lấy từ enum nội bộ, không từ raw
-user input. LLM error hoặc JSON sai bị bắt và fallback về parser.
-
-Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
-vậy compiler còn áp \texttt{limit≤50}, shortest-path depth \texttt{≤8}, fixed pattern và không
-cho arbitrary Cypher. Query safety không thể chỉ mô tả bằng một câu “đã dùng
-parameter”.
-
-\section{Hai loại suy diễn}
-
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
-\caption{Tổng hợp hai loại suy diễn}\label{tab:7-1} \\
-\hline
-\textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline
-\endfirsthead\hline \textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline\endhead
-Engine & RDFLib materializer & Neo4j/Cypher \\ \hline
-Ví dụ & \texttt{actedIn} → inverse \texttt{hasActor} & shared Movie → co-star \\ \hline
-Cơ sở & ontology axiom & domain-specific rule \\ \hline
-Output & inferred RDF triple & materialized relationship \\ \hline
-Validation & functional/disjoint/required & supporting movie audit \\ \hline
-\end{longtable}
-
-Có ontology file không đồng nghĩa hệ thống tự động chạy OWL reasoning; ngược lại,
-Cypher materialization sinh tri thức mới nhưng không phải OWL entailment.
+Hạn chế chính nằm ở coverage dữ liệu, phạm vi QA và quy mô benchmark. Thứ tự phát
+triển hợp lý là: xây QA corpus lớn hơn; benchmark nhiều snapshot thật; cải thiện
+ambiguity handling; sau đó mới mở rộng Wikidata/Award, temporal graph, vector
+retrieval, GraphRAG hoặc graph embedding. Mọi mở rộng phải giữ nguyên nguyên tắc: model lập kế hoạch,
+compiler kiểm soát execution, graph cung cấp fact và evidence.

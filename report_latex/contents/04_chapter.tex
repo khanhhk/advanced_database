@@ -1,42 +1,37 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
-\chapter{Phân tích yêu cầu}
+\chapter{IV. Truy vấn, xử lý và nghiệp vụ}
 
-\section{Stakeholder và use case}
+\section{Ngôn ngữ truy vấn và suy diễn đặc thù}
 
-\begin{itemize}
-\item Người dùng cuối hỏi thông tin phim và nhận recommendation có lý do.
-\item Data engineer thu thập, chuẩn hóa, enrich và import dữ liệu.
-\item Người vận hành khởi động Neo4j/API và kiểm tra health/stats.
-\item Người đánh giá chạy test, query, benchmark và truy vết evidence.
-\end{itemize}
+\subsection{SPARQL}
 
-\section{Yêu cầu chức năng}
+Mười query bao phủ phim theo đạo diễn, cast, shared genre, co-star aggregation,
+director–genre multi-hop, OPTIONAL IMDb enrichment, inverse \texttt{hasActor}, semantic
+path, ASK quality và CONSTRUCT recommendation evidence. Loader bắt buộc đúng 10
+query, parse rồi chạy từng query trên graph đã materialize.
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
-\caption{Tổng hợp yêu cầu chức năng}\label{tab:4-1} \\
-\hline
-\textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline
-\endfirsthead\hline \textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline\endhead
-F01 & Thu thập/cache TMDB & \texttt{collect\_tmdb.py}, \texttt{tmdb\_client.py} \\ \hline
-F02 & Tải/stream IMDb ratings & \texttt{download\_imdb.py}, \texttt{imdb\_loader.py} \\ \hline
-F03 & Clean, normalize, entity resolution & \texttt{processing/} \\ \hline
-F04 & Sinh 5 node CSV + 5 edge CSV + manifest & \texttt{pipeline.py} \\ \hline
-F05 & Import/validate Neo4j idempotent & \texttt{load\_neo4j.py} \\ \hline
-F06 & RDF export, entailment, 10 SPARQL & \texttt{export\_rdf.py}, \texttt{semantic\_reasoning.py} \\ \hline
-F07 & 10 Cypher và CRUD parameterized & \texttt{cypher/}, \texttt{kg/crud.py} \\ \hline
-F08 & QA answer + evidence & \texttt{/ask} \\ \hline
-F09 & Recommendation + explanation & \texttt{/recommend} \\ \hline
-F10 & Search/stats/health và UI & FastAPI/static UI \\ \hline
-\end{longtable}
+\subsection{An toàn truy vấn}
 
-\section{Yêu cầu phi chức năng}
+An toàn có nhiều tầng. Pydantic giới hạn request length/type; QueryPlan giới hạn
+operation/target/filter; compiler ánh xạ enum sang fragment do ứng dụng sở hữu;
+entity value nằm trong Neo4j parameter; public API không có write operation. Chỉ
+dynamic label trong entity-link fallback được lấy từ enum nội bộ, không từ raw
+user input. LLM error hoặc JSON sai bị bắt và fallback về parser.
 
-Hệ thống phải idempotent, query-safe, có provenance, chạy demo không phụ thuộc
-Internet sau import, không commit API key/raw dataset, và có workflow tái lập.
-Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. LLM failure
-không được làm mất QA fallback hoặc recommendation.
+Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
+vậy compiler còn áp \texttt{limit≤50}, shortest-path depth \texttt{≤8}, fixed pattern và không
+cho arbitrary Cypher. Query safety không thể chỉ mô tả bằng một câu “đã dùng
+parameter”.
 
-\section{Competency questions}
+\section{Bộ truy vấn và thao tác nghiệp vụ từ cơ bản đến nâng cao}
+
+\subsection{Cypher catalog và CRUD}
+
+Catalog có 10 query từ lookup đến shortest path, aggregation và kiểm tra fact suy
+ra. CRUD Movie gồm create/upsert, read neighborhood, update metadata, guarded
+delete và upsert \texttt{ACTED\_IN}; mọi value là parameter. CRUD không mở qua public API.
+
+\subsection{Competency questions}
 
 \begin{enumerate}
 \item Phim nào do một đạo diễn thực hiện?
@@ -51,10 +46,10 @@ không được làm mất QA fallback hoặc recommendation.
 \item Fact co-star nào được suy ra và bằng chứng là phim nào?
 \end{enumerate}
 
-\section{Ma trận truy vết competency question}
+\subsection{Ma trận truy vết competency question}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.22\textwidth}|}
-\caption{Tổng hợp ma trận truy vết competency question}\label{tab:4-2} \\
+\caption{Tổng hợp ma trận truy vết competency question}\label{tab:4-1} \\
 \hline
 \textbf{CQ} & \textbf{Pattern chính} & \textbf{Số bước} & \textbf{Đầu ra/bằng chứng} \\ \hline
 \endfirsthead\hline \textbf{CQ} & \textbf{Pattern chính} & \textbf{Số bước} & \textbf{Đầu ra/bằng chứng} \\ \hline\endhead
@@ -74,10 +69,42 @@ Ma trận là cầu nối giữa yêu cầu, schema, query catalog, API và test
 relationship không hỗ trợ competency question nào cần được cân nhắc loại khỏi
 MVP; một CQ không ánh xạ được query chỉ ra thiếu sót thiết kế.
 
-\section{Acceptance criteria}
+\subsection{Acceptance criteria}
 
 Dataset phải đạt ít nhất 2.000 Movie; import hai lần không đổi counts; validation
 không có violation chưa giải thích; catalog Cypher/SPARQL phải parse/chạy; API trả
 schema hợp lệ; recommendation trả explanation; evaluation ghi backend, corpus và
 protocol; integration test phải kết nối Neo4j test riêng thay vì skip do graph
 demo có dữ liệu.
+
+\section{Truy vấn có suy luận và tri thức ẩn}
+
+\subsection{Suy diễn \texttt{CO\_STARRED\_WITH}}
+\reportfigure{costar_reasoning.pdf}{Suy diễn quan hệ đồng diễn và đường bằng chứng}{fig:costar-reasoning}
+
+Luật:
+
+\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
+Person A -[:ACTED_IN]-> Movie <-[:ACTED_IN]- Person B
+⇒ A -[:CO_STARRED_WITH]-> B
+\end{Verbatim}
+
+Điều kiện sắp thứ tự ID tránh cặp trùng/ngược. Relationship lưu \texttt{movie\_count},
+\texttt{evidence\_movie\_ids} và \texttt{derived=true}. \texttt{MERGE} bảo đảm materialization idempotent.
+Đây là rule nghiệp vụ bằng Cypher, không được gọi là OWL reasoning.
+
+\subsection{Semantic entailment}
+\reportfigure{semantic_reasoning.pdf}{Luồng materialization và kiểm tra ngữ nghĩa}{fig:semantic-reasoning}
+
+RDFLib materializer chạy profile RDFS/OWL-RL subset xác định:
+
+\begin{itemize}
+\item property domain → type của subject;
+\item property range → type của object;
+\item \texttt{owl:inverseOf} → inverse triple;
+\item \texttt{owl:SymmetricProperty} → triple chiều ngược.
+\end{itemize}
+
+Validator kiểm tra functional property, disjoint class và Movie thiếu title. Báo
+cáo ghi số triple trước/sau, số triple mới và violation. Profile này chạy được và
+test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.

@@ -1,115 +1,142 @@
 % Generated from docs/REPORT_DRAFT.md; edit the manuscript then rerun the converter.
-\chapter{Kiến trúc và pipeline dữ liệu}
+\chapter{VI. Ứng dụng, báo cáo và trình bày}
 
-\section{Kiến trúc tổng thể}
-\reportfigure{system_architecture.pdf}{Kiến trúc tổng thể của hệ thống}{fig:system-architecture}
+\section{Ứng dụng nghiệp vụ và demo chương trình}
 
-\begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
-TMDB API/cache ─┐
-                ├→ clean/normalize/exact-ID enrich → CSV + manifest
-IMDb ratings.gz ┘                         ├→ Neo4j → QA/recommend → FastAPI/UI
-                                         └→ RDF → entailment → SPARQL
-\end{Verbatim}
-
-Qwen là service tùy chọn tại localhost, chỉ nhận câu hỏi và trả QueryPlan JSON.
-Neo4j luôn là nguồn dữ liệu/câu trả lời của runtime.
-
-\section{Thu thập TMDB}
-
-Collector duyệt popular pages đến khi đủ số movie ID duy nhất, sau đó tải detail,
-credits, keywords và external IDs theo TMDB API \cite{tmdb2026api}. Response được cache nguyên dạng; request có
-timeout, retry và interval. Cache giúp chạy lại không tiêu tốn API quota và giữ
-snapshot nguồn cho reproducibility.
-
-\section{Tích hợp IMDb}
-
-Pipeline chỉ tải \texttt{title.ratings.tsv.gz} từ bộ dữ liệu phi thương mại IMDb \cite{imdb2026datasets}, kiểm tra gzip/checksum và ghi metadata.
-File được stream từng dòng, chỉ giữ record có \texttt{tconst} thuộc tập IMDb ID của 2.000
-phim TMDB. Cách này không giải nén toàn bộ và không nạp IMDb đầy đủ vào RAM/Neo4j.
-\texttt{Movie.rating} và \texttt{Movie.imdb\_rating} không ghi đè nhau.
-
-\section{Quản trị nguồn, điều khoản sử dụng và đạo đức dữ liệu}
-
-TMDB API được sử dụng theo tài liệu và điều khoản dành cho nhà phát triển; khóa
-API là secret cục bộ, không đưa vào repository. Dữ liệu hiển thị phải ghi nhận
-TMDB theo yêu cầu của nền tảng và không được mô tả như dữ liệu do nhóm sở hữu \cite{tmdb2026api}.
-IMDb cung cấp các dataset này cho mục đích sử dụng phi thương mại; đề tài chỉ tải
-file ratings công khai cần thiết, không phân phối lại toàn bộ dataset và không
-mở rộng phạm vi sang mục đích thương mại \cite{imdb2026datasets}. Người tái lập phải tự kiểm tra điều
-khoản hiện hành tại thời điểm chạy vì điều khoản dịch vụ có thể thay đổi.
-
-Corpus chỉ chứa metadata nghề nghiệp công khai về phim và người tham gia, không
-thu thập lịch sử xem, hồ sơ người dùng hoặc dữ liệu nhạy cảm. Rating của nguồn là
-tín hiệu tổng hợp, không được diễn giải như sự thật khách quan về chất lượng phim.
-Sampling theo popular pages có popularity bias; giới hạn cast tạo coverage bias.
-Hai bias này được công bố để tránh suy rộng kết quả sang toàn bộ điện ảnh hoặc
-mọi nhóm người dùng.
-
-\section{Cleaning và entity resolution}
-\reportfigure{entity_resolution_flow.pdf}{Quy trình cleaning và phân giải thực thể}{fig:entity-resolution}
-
-Cleaning chuẩn hóa Unicode/whitespace, kiểu số/ngày và trường bắt buộc. Duplicate
-TMDB ID bị loại và log. Exact TMDB/IMDb ID được ưu tiên; fuzzy name fallback dùng
-threshold và từ chối tied top score. Ambiguous case không được tự động merge.
-
-\section{Normalized artifacts và manifest}
-
-Pipeline tạo \texttt{movies.csv}, \texttt{people.csv}, \texttt{genres.csv}, \texttt{keywords.csv},
-\texttt{studios.csv} và năm edge CSV. Manifest ghi source checksum, thời điểm tạo, counts,
-IMDb coverage/match, invalid record, duplicate/missing rate và coverage cast,
-director, genre. Raw, interim và processed data được tách để tránh nhầm nguồn với
-artifact dẫn xuất.
-
-\section{Import và validation Neo4j}
-
-Thứ tự import là constraint/index → node → edge → reasoning → validation. Mỗi
-batch dùng parameterized \texttt{UNWIND}; \texttt{MERGE} trên stable key giúp import lặp không
-tạo duplicate. \texttt{--replace} dành cho authoritative rebuild. Validation kiểm tra:
+\subsection{Stakeholder và use case}
 
 \begin{itemize}
-\item orphan Movie;
-\item duplicate stable IDs;
-\item missing required property;
-\item invalid relationship type;
-\item endpoint/hướng sai schema;
-\item \texttt{CO\_STARRED\_WITH} không còn supporting movie.
+\item Người dùng cuối hỏi thông tin phim và nhận recommendation có lý do.
+\item Data engineer thu thập, chuẩn hóa, enrich và import dữ liệu.
+\item Người vận hành khởi động Neo4j/API và kiểm tra health/stats.
+\item Người đánh giá chạy test, query, benchmark và truy vết evidence.
 \end{itemize}
 
-Integration test dùng Neo4j test riêng ở cổng 7688 với storage tạm, import hai lần
-và kiểm tra QA, recommendation, CRUD; graph demo không bị reset.
+\subsection{Yêu cầu chức năng}
 
-\section{Thuật toán pipeline}
-\reportfigure{etl_pipeline.pdf}{Luồng xử lý dữ liệu từ nguồn đến các graph}{fig:etl-pipeline}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
+\caption{Tổng hợp yêu cầu chức năng}\label{tab:6-1} \\
+\hline
+\textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline
+\endfirsthead\hline \textbf{ID} & \textbf{Yêu cầu} & \textbf{Artifact chính} \\ \hline\endhead
+F01 & Thu thập/cache TMDB & \texttt{collect\_tmdb.py}, \texttt{tmdb\_client.py} \\ \hline
+F02 & Tải/stream IMDb ratings & \texttt{download\_imdb.py}, \texttt{imdb\_loader.py} \\ \hline
+F03 & Clean, normalize, entity resolution & \texttt{processing/} \\ \hline
+F04 & Sinh 5 node CSV + 5 edge CSV + manifest & \texttt{pipeline.py} \\ \hline
+F05 & Import/validate Neo4j idempotent & \texttt{load\_neo4j.py} \\ \hline
+F06 & RDF export, entailment, 10 SPARQL & \texttt{export\_rdf.py}, \texttt{semantic\_reasoning.py} \\ \hline
+F07 & 10 Cypher và CRUD parameterized & \texttt{cypher/}, \texttt{kg/crud.py} \\ \hline
+F08 & QA answer + evidence & \texttt{/ask} \\ \hline
+F09 & Recommendation + explanation & \texttt{/recommend} \\ \hline
+F10 & Search/stats/health và UI & FastAPI/static UI \\ \hline
+\end{longtable}
+
+\subsection{Hỏi–đáp}
+\reportfigure{qa_sequence.pdf}{Luồng xử lý một yêu cầu hỏi--đáp}{fig:qa-sequence}
 
 \begin{Verbatim}[fontsize=\small,breaklines=true,frame=single]
-INPUT: raw TMDB records, optional compressed IMDb ratings
-1. Validate required movie ID/title; reject and log invalid records.
-2. Deduplicate Movie by tmdb_id.
-3. Normalize scalar fields and names.
-4. Build stable IDs from TMDB source IDs.
-5. Emit node maps and relationship rows with source metadata.
-6. Stream IMDb ratings; retain only wanted tconst values.
-7. Enrich Movie without overwriting TMDB rating.
-8. Write deterministic CSV tables.
-9. Compute checksum, counts, error rates and coverage into manifest.
-OUTPUT: normalized CSVs + manifest + invalid-record log
+Question → Qwen QueryPlan hoặc parser fallback → entity linking
+         → whitelist compiler/catalog → parameterized Cypher
+         → Neo4j → answer + evidence + latency
 \end{Verbatim}
 
-Độ phức tạp bộ nhớ của IMDb join phụ thuộc số IMDb ID thuộc tập phim mục tiêu,
-không phụ thuộc toàn bộ file ratings. Entity maps phụ thuộc số entity trong
-2.000–5.000 phim. Cast limit kiểm soát kích thước nhưng đồng thời tạo coverage bias.
+QueryPlan giới hạn operation, target, entity type, filter field/operator, sort và
+limit bằng Pydantic JSON Schema. Qwen không sinh Cypher và không trả lời bằng kiến
+thức riêng. Entity linker canonicalize tên trước query và trả confidence trong
+evidence. Compiler chỉ phát sinh graph pattern đã whitelist; user input luôn nằm
+trong parameter. Khi không có LLM, parser deterministic hỗ trợ chín intent.
 
-\section{Xử lý lỗi}
+\subsection{Recommendation}
+\reportfigure{recommendation_explanation.pdf}{Luồng xếp hạng và tạo giải thích gợi ý phim}{fig:recommendation-flow}
 
-Downloader dùng file \texttt{.part}, chỉ rename sau khi gzip hợp lệ để tránh coi partial
-download là hoàn chỉnh. Collector retry lỗi tạm thời và cache response. Pipeline
-fail rõ nếu IMDb path được chỉ định nhưng không tồn tại. Runtime không tự dùng seed
-khi thiếu data thật; nó dừng và yêu cầu chuẩn bị dataset. Cách fail closed tránh
-demo vô tình chạy fixture rồi báo như corpus thật.
+Neo4j tạo candidate bằng các phim chia sẻ ít nhất một director, actor, keyword,
+genre hoặc studio. Mỗi feature được tính document frequency trong graph và đóng
+góp IDF theo type weight. Query trả candidate, score và feature chung; Python chỉ
+định dạng \texttt{Recommendation} và explanation. Tie-break theo title giúp kết quả xác
+định. Endpoint nhận \texttt{movie\_id} thay vì title để tránh nhập nhằng.
 
-\section{Tái lập và thay đổi nguồn}
+\subsection{API và UI}
+\reportfigure{web_ui.pdf}{Giao diện hỏi--đáp và gợi ý phim}{fig:web-ui}
 
-TMDB/IMDb là nguồn động, nên chạy lại ngày khác có thể tạo snapshot khác.
-Reproducibility ở đây là tái lập workflow và truy vết snapshot, không cam kết API
-luôn trả byte giống nhau. Raw cache/checksum cho phép chạy transform trên snapshot
-cũ. Nếu data thay đổi, evaluation/benchmark phải chạy lại cùng snapshot.
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
+\caption{Tổng hợp api và ui}\label{tab:6-2} \\
+\hline
+\textbf{Endpoint} & \textbf{Chức năng} \\ \hline
+\endfirsthead\hline \textbf{Endpoint} & \textbf{Chức năng} \\ \hline\endhead
+GET \texttt{/health} & kiểm tra Neo4j connectivity \\ \hline
+GET \texttt{/stats} & số node theo label và tổng relationship \\ \hline
+GET \texttt{/entities/search} & full-text rồi fallback parameterized search \\ \hline
+POST \texttt{/ask} & QA answer, intent, evidence, query time \\ \hline
+POST \texttt{/recommend} & top-K recommendation và explanation \\ \hline
+\end{longtable}
+
+UI có hai tab QA và recommendation, autocomplete phim, lịch sử hiển thị và state
+loading/error/success. Lịch sử chỉ ở frontend; backend hiện stateless.
+
+\subsection{An toàn và vận hành}
+
+Secret nằm trong \texttt{.env}; raw data không commit. LLM endpoint bind localhost;
+remote demo dùng SSH tunnel. Public API không có write endpoint. Hạn chế hiện tại
+là chưa có authentication/rate limiting, nên cấu hình phù hợp demo local chứ
+không phải public production deployment.
+
+\subsection{Failure modes}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
+\caption{Tổng hợp failure modes}\label{tab:6-3} \\
+\hline
+\textbf{Tình huống} & \textbf{Hành vi} \\ \hline
+\endfirsthead\hline \textbf{Tình huống} & \textbf{Hành vi} \\ \hline\endhead
+LLM chưa cấu hình & dùng parser 9 intent \\ \hline
+LLM timeout/JSON sai & fallback parser \\ \hline
+confidence thấp/thiếu slot & trả clarification \\ \hline
+entity không tồn tại & trả entity-not-found/không tìm thấy \\ \hline
+movie ID recommend sai & HTTP 404 \\ \hline
+Neo4j không sẵn sàng & health 503 \\ \hline
+tên fuzzy nhập nhằng & không tự chọn tied candidate \\ \hline
+\end{longtable}
+
+Failure behavior là một phần correctness. Hệ QA an toàn nên thừa nhận không biết
+hoặc yêu cầu làm rõ thay vì chạy query với entity đoán sai.
+
+\subsection{Tính faithful của explanation}
+
+QA evidence gồm canonical entity/link confidence và record/path trả từ Neo4j.
+Recommendation explanation không được model sinh: nó tổng hợp từ shared feature
+đã đóng góp score. Cách làm giảm độ tự nhiên so với NLG explanation \cite{colas2023knowledge} nhưng
+có tính faithful cao trong phạm vi hệ thống: mỗi lý do tương ứng quan hệ tồn tại
+trong graph và contribution xác định.
+
+\section{Chất lượng báo cáo, sơ đồ và tài liệu tham khảo}
+
+Báo cáo duy trì một bản thảo nguồn, bộ hình vector có nguồn draw.io và thư mục tài liệu tham khảo chuẩn hóa để bảo đảm bố cục và khả năng tái tạo.
+
+\subsection{Đóng góp}
+
+Đóng góp của đề tài gồm:
+
+\begin{itemize}
+\item Pipeline đa nguồn storage-bounded và tái lập được.
+\item Chiến lược identity dựa trên stable source ID thay vì tên.
+\item Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
+\item Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
+\item QA có LLM planner nhưng execution surface được kiểm soát.
+\item Recommendation graph-native với explanation từ chính feature đóng góp.
+\item Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
+\end{itemize}
+
+\subsection{Cấu trúc báo cáo}
+
+Sáu chương đầu lần lượt bám sáu nhóm tiêu chí của phiếu chấm: đặt vấn đề và tổng
+quan; lý thuyết và mô hình dữ liệu; thiết kế và cài đặt; truy vấn, xử lý và nghiệp
+vụ; thực nghiệm và đánh giá; ứng dụng, báo cáo và trình bày. Trong từng chương,
+các tiêu chí nhỏ giữ nguyên thứ tự trên checklist. Chương 7 tổng kết và nêu hướng
+phát triển.
+
+\section{Slide và thuyết trình}
+
+Nội dung thuyết trình được rút từ cùng số liệu đã kiểm chứng trong báo cáo, tập trung vào kiến trúc, demo, kết quả và giới hạn; thời lượng và checklist trước bảo vệ được quản lý trong dàn ý slide của dự án.
+
+\section{Chuẩn bị trả lời phản biện}
+
+Bộ câu hỏi phản biện tập trung vào lựa chọn mô hình, tính đúng của suy diễn, độ trung thực của explanation, giới hạn của silver evaluation và điều kiện để diễn giải benchmark một cách hợp lệ.
