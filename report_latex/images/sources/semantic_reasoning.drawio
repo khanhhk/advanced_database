@@ -5,19 +5,19 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="ttl" value="RDF đầu vào&#10;156.491 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="ttl" value="RDF đầu vào&#10;342.683 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F1FB;strokeColor=#3B73A8;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="35" y="205" width="180" height="105" as="geometry" />
         </mxCell>
         <mxCell id="rules" value="Tập luật&#10;domain · range&#10;inverse · symmetric" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="255" y="205" width="230" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="mat" value="RDF kết quả&#10;192.692 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="mat" value="RDF kết quả&#10;429.192 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="525" y="205" width="195" height="105" as="geometry" />
         </mxCell>
         <mxCell id="validate" value="Kiểm tra&#10;functional · disjoint&#10;required title" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="760" y="205" width="215" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="result" value="Kết quả&#10;0 vi phạm&#10;+36.201 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="result" value="Kết quả&#10;0 vi phạm&#10;+86.509 triples" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="1010" y="205" width="155" height="105" as="geometry" />
         </mxCell>
         <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#40536B;strokeWidth=2;fontSize=13;fontColor=#2F3B4A;labelBackgroundColor=#FFFFFF;spacingBottom=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ttl" target="rules">

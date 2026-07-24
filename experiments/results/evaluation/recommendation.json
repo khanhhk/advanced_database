@@ -4,7 +4,7 @@
     "method": "idf_weighted_graph",
     "cases": 20,
     "k": 10,
-    "precision_at_k": 0.6399999999999999,
-    "ndcg_at_k": 0.6766010627502674
+    "precision_at_k": 0.635,
+    "ndcg_at_k": 0.6724691106028089
   }
 }

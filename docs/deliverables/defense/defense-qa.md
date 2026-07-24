@@ -40,7 +40,7 @@
     50 case silver đều có bằng chứng trong source cast.
 13. **Reasoner có phải OWL 2 DL đầy đủ?** Không. Đây là RDFS/OWL subset thực thi
     bằng RDFLib và Jena/Fuseki: domain/range, inverse, symmetric cùng các constraint
-    rõ ràng. Hai engine đều sinh thêm đúng 36.201 triple.
+    rõ ràng. Hai engine đều sinh thêm đúng 86.509 triple.
 14. **Truy vấn inference-enabled là gì?** Query dùng inverse property hoặc derived
     relation chỉ xuất hiện sau materialization để rút tri thức không assert trực tiếp.
 15. **Có nguy cơ Cypher injection không?** Input được link thành entity, plan qua
@@ -62,8 +62,8 @@
 21. **Vì sao SQLite nhanh hơn?** Dataset nhỏ và query kiểm soát có index/join phù
     hợp. Neo4j được chọn cho expressiveness, traversal và evidence path, không vì
     một cam kết latency phổ quát.
-22. **Benchmark có chứng minh scalability không?** Chưa. Đã đo ba induced snapshot
-    500/1.000/2.000 trên cùng máy và protocol, nhưng chưa đo concurrency, cold cache,
+22. **Benchmark có chứng minh scalability không?** Chưa. Đã đo bốn induced snapshot
+    500/1.000/2.000/4.999 trên cùng máy và protocol, nhưng chưa đo concurrency, cold cache,
     tài nguyên hoặc quy mô lớn hơn.
 23. **Threat lớn nhất là gì?** Popularity sampling, top-20 cast, silver labels và
     external validity benchmark; báo cáo nêu rõ thay vì khái quát hóa quá mức.

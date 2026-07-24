@@ -22,9 +22,9 @@ là cơ sở để chuẩn bị slide thủ công khi cần.
 | 15 | 45s | Planner chỉ sinh QueryPlan có schema; linker + whitelist compiler quyết định Cypher. |
 | 16 | 40s | IDF giảm trọng số feature phổ biến; explanation lấy từ contribution thật. |
 | 17 | 35s | Cùng snapshot được xuất sang RDF/Turtle với namespace và ontology. |
-| 18 | 40s | RDFLib và Jena/Fuseki cùng tăng 36.201 triple; 10/10 SPARQL chạy trên endpoint thật. |
-| 19 | 35s | Giải thích silver/review gate và benchmark 500/1.000/2.000 cùng protocol. |
-| 20 | 45s | QA 20/20; ER P=1,000/R=0,933/F1=0,966; P@10=0,640; NDCG@10=0,677. |
+| 18 | 40s | RDFLib và Jena/Fuseki cùng tăng 86.509 triple; 10/10 SPARQL chạy trên endpoint thật. |
+| 19 | 35s | Giải thích silver/review gate và benchmark 500/1.000/2.000/4.999 cùng protocol. |
+| 20 | 45s | QA 20/20; ER P=1,000/R=0,933/F1=0,966; P@10=0,635; NDCG@10=0,672. |
 | 21 | 45s | SQLite nhanh hơn cả bốn query; giá trị graph nằm ở mô hình/evidence, không phải luôn nhanh hơn SQL. |
 | 22 | 20s | Giới thiệu luồng demo rồi chuyển sang terminal/browser. |
 | 23 | 35s | Nêu selection bias, corpus nhỏ, warm-cache/concurrency limit và hướng nâng cấp. |

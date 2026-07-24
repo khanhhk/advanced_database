@@ -8,7 +8,7 @@ TMDB + IMDb → xử lý dữ liệu → Neo4j → truy vấn/suy diễn
 ```
 
 Thời lượng đề xuất: 12–15 phút. Không chạy `make data` trong buổi demo vì bước
-thu thập phụ thuộc Internet. Dùng snapshot 2.000 phim đã chuẩn bị sẵn.
+thu thập phụ thuộc Internet. Dùng snapshot 4.999 phim hợp lệ đã chuẩn bị sẵn.
 
 ## A. Chuẩn bị trước buổi demo
 
@@ -117,7 +117,7 @@ Giữ terminal này chạy trong suốt buổi demo.
 - validation kiểm tra orphan, duplicate ID, property bắt buộc, kiểu/hướng quan hệ
   và supporting evidence của derived fact.
 
-Kết quả mong đợi: `movies: 2000`, `graph: reused` và `valid: true`.
+Kết quả mong đợi: `movies: 4999`, `graph: reused` và `valid: true`.
 
 ### Bước 2 — Trình bày dataset đa nguồn
 
@@ -336,14 +336,14 @@ sed -n '1,80p' experiments/results/summary/benchmark_comparison.md
 Các số cần nhấn mạnh:
 
 - QA smoke: 20/20 có evidence;
-- recommendation: P@10 `0,640`, NDCG@10 `0,677` trên 20 case silver;
+- recommendation: P@10 `0,635`, NDCG@10 `0,672` trên 20 case silver;
 - entity resolution đạt P=`1,000`, R=`0,933`, F1=`0,966`; co-star precision `1,00`;
   quality audit có zero identity/consistency violation và 100% provenance;
 - semantic và structural validation không có violation;
 - SQLite nhanh hơn trong bốn query baseline đã đo.
 
 Phải nói rõ: metric corpus silver chỉ áp dụng cho case/rubric/snapshot đã khai
-báo; benchmark có ba induced snapshot 500/1.000/2.000 nhưng chưa chứng minh
+báo; benchmark có bốn induced snapshot 500/1.000/2.000/4.999 nhưng chưa chứng minh
 scalability tổng quát hay khẳng định một database luôn nhanh hơn database còn
 lại. Jena/Fuseki là workflow evaluation riêng, không cần bật trong `make demo`.
 

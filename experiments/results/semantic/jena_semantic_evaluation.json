@@ -3,80 +3,80 @@
   "jena_version": "6.1.0",
   "reasoner": "GenericRuleReasoner/forward",
   "endpoint": "http://127.0.0.1:3030/movies/sparql",
-  "asserted_union_triples": 156561,
-  "inference_model_triples": 192762,
-  "additional_visible_triples": 36201,
-  "inverse_hasActor_triples": 34007,
+  "asserted_union_triples": 342753,
+  "inference_model_triples": 429262,
+  "additional_visible_triples": 86509,
+  "inverse_hasActor_triples": 81030,
   "queries": [
     {
       "query_id": "Q1",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 21.242
+      "latency_ms": 573.667
     },
     {
       "query_id": "Q2",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 64.365
+      "latency_ms": 257.298
     },
     {
       "query_id": "Q3",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 5.725
+      "latency_ms": 22.541
     },
     {
       "query_id": "Q4",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 1504.759
+      "latency_ms": 8933.71
     },
     {
       "query_id": "Q5",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 1,
-      "latency_ms": 7.001
+      "latency_ms": 13.753
     },
     {
       "query_id": "Q6",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 6.291
+      "latency_ms": 9.991
     },
     {
       "query_id": "Q7",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 7.053
+      "latency_ms": 6.444
     },
     {
       "query_id": "Q8",
       "status": "ok",
       "result_type": "SELECT",
       "result_count_capped": 5,
-      "latency_ms": 6.925
+      "latency_ms": 9.493
     },
     {
       "query_id": "Q9",
       "status": "ok",
       "result_type": "ASK",
       "result_count_capped": 1,
-      "latency_ms": 4.765
+      "latency_ms": 28.777
     },
     {
       "query_id": "Q10",
       "status": "ok",
       "result_type": "CONSTRUCT",
       "result_count_capped": 10,
-      "latency_ms": 24.804
+      "latency_ms": 35.405
     }
   ],
   "queries_executed": 10,

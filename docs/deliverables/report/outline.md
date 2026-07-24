@@ -402,22 +402,22 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Tách smoke test 10 câu và reviewed corpus 20–30 câu.
 - Đánh giá intent và answer correctness riêng.
 - Nêu vấn đề nhiều shortest paths đúng và expected substring quá chặt.
-- Hiện trạng smoke: 8/10 trên 2.000 phim, chỉ dùng như tín hiệu kiểm tra.
+- Hiện trạng smoke: 20/20 trên 4.999 phim, chỉ dùng như tín hiệu kiểm tra.
 
 ### 9.8. Recommendation
 
 - Relevance-label protocol hoặc manual review có rubric.
 - P@K, NDCG@K và explanation coverage cho IDF-weighted graph similarity.
 - Với 20 case silver, K=10: P@10=0,64; NDCG@10=0,699; explanation coverage=1,00.
-- IDF-weighted graph similarity trên Neo4j thật đạt P@10 0,640 và NDCG@10 0,677
+- IDF-weighted graph similarity trên Neo4j thật đạt P@10 0,635 và NDCG@10 0,672
   trên 20 case silver; nêu rõ quy mô và không coi silver corpus là gold label.
 
 ### 9.9. Hiệu năng và scalability
 
 - Benchmark Neo4j thật tại các quy mô dataset có thật nếu có thể.
 - Median/p95/stdev, ≥100 iterations/query, warm/cold cache ghi rõ.
-- Neo4j 5.26.28 ở 2.000 phim, một warm-up và 100 lần/câu: median theo intent
-  2,34–110,65 ms; p95 3,83–126,20 ms.
+- Neo4j 5.26 ở 4.999 phim, một warm-up và 100 lần/câu; median/p95 theo intent
+  được lưu trong artifact benchmark cùng metadata máy chạy.
 - Shortest-path outlier/error analysis.
 - Baseline quan hệ phải chạy trên cùng snapshot/máy với các truy vấn tương đương;
   không dùng khác engine/cache policy để kết luận Neo4j “nhanh hơn”.
@@ -493,8 +493,8 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
    similarity, không có user history; score không phải xác suất yêu thích.
 7. **Tại sao dùng IDF?** Feature phổ biến có ít khả năng phân biệt; contribution
    vẫn truy ngược được về feature và frequency trong graph.
-8. **Benchmark chứng minh scalability chưa?** Chưa nếu chỉ có 2.000 Movie;
-   median/p95 mô tả workload/máy hiện tại, không ngoại suy.
+8. **Benchmark chứng minh scalability chưa?** Chưa; bốn mốc đến 4.999 Movie chỉ
+   mô tả workload/máy hiện tại, không ngoại suy concurrency hay quy mô lớn hơn.
 9. **Dữ liệu có cập nhật và tái lập không?** Raw cache bất biến, checksum/manifest,
    exact IMDb join, atomic download và runtime manifest kiểm soát rebuild.
 10. **Tên người trùng xử lý thế nào?** Stable source ID là khóa; fuzzy link từ
@@ -530,7 +530,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ## Checklist trước khi nộp
 
-- [ ] Dataset đạt ≥2.000 phim hoặc phạm vi được sửa trung thực.
+- [x] Dataset đạt ≥2.000 phim: 4.999 Movie hợp lệ từ 5.000 record đầu vào.
 - [ ] Hoàn thành corpus nhãn và reviewer protocol cho metric được báo cáo.
 - [ ] Chạy benchmark Neo4j thật với cấu hình/iterations rõ ràng.
 - [ ] Số liệu report = slide = manifest/result artifacts.

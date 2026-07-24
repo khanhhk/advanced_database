@@ -146,7 +146,7 @@ an evidence path. Store configurations and CSV/JSON results so experiments are
 reproducible.
 The evaluation workflow also provides a same-snapshot SQLite baseline for four
 representative relational queries and deterministic induced snapshots at
-500/1,000/2,000 Movie. Each scale is authoritatively loaded into the isolated
+500/1,000/2,000/4,999 Movie. Each scale is authoritatively loaded into the isolated
 Neo4j test service and built in SQLite from the same filtered CSV set. The workflow
 generates CSV/Markdown/SVG evidence summaries.
 Neo4j/SQLite comparisons are valid only when run on the same machine, dataset,
@@ -163,17 +163,18 @@ artifacts are grouped under matching `experiments/results/` subdirectories.
 Every experiments subdirectory has a README describing its purpose, input,
 output, dependencies and safety limits. Docker Compose commands remain explicit.
 
-Current reproducible evidence (full rerun 2026-07-22): the pipeline receives and
-retains 2,000 valid movies with no rejected records. The loaded graph validates at
-36,937 nodes/362,017 relationships with zero structural violations. Exact IMDb
-ratings match 1,851 of 1,909 movies carrying an IMDb ID.
+Current reproducible evidence (full rerun 2026-07-24): the pipeline receives
+5,000 records and retains 4,999 valid movies; one orphan movie with no graph
+relationships is rejected. The loaded graph validates at 76,612 nodes/846,309
+relationships with zero structural violations. Exact IMDb ratings match 4,351
+of 4,558 movies carrying an IMDb ID.
 The final repository gate passes 37/37 tests, compileall and all tracked source
 checksums.
 The full-snapshot knowledge-quality audit has zero stable-ID duplicates,
 conflicting required values, missing required fields, invalid foreign keys and
 duplicate endpoint pairs, plus 100% provenance coverage for rows carrying a
 source field. Two repeated TMDB actor credits are collapsed by combining
-characters and retaining the smallest cast order. Fifty-four duplicate Person
+characters and retaining the smallest cast order. Two hundred nine duplicate Person
 names remain separate because names are not identity keys.
 On the nearest-name hard-negative silver ER corpus, precision is 1.000, recall
 0.933 and F1 0.966 (TP=70, TN=25, FP=0, FN=5); four misses are conservative
@@ -182,16 +183,16 @@ co-star precision is 1.00;
 the strengthened 20-question Neo4j QA smoke corpus passes 20/20 with evidence,
 including a negative assertion that `The Dark Knight` cast lookup excludes actors
 linked only to `The Dark Knight Rises`; semantic
-materialization adds 36,201 triples (156,491 to 192,692) with zero violations.
-Jena evaluates the ontology+data union (156,561 to 192,762), exposes 34,007 inverse
+materialization adds 86,509 triples (342,683 to 429,192) with zero violations.
+Jena evaluates the ontology+data union (342,753 to 429,262), exposes 81,030 inverse
 `hasActor` triples and executes all ten SPARQL queries successfully.
 The controlled Neo4j/SQLite benchmark uses one warm-up and 100 iterations for four
-equivalent queries on 500/1,000/2,000 Movie induced snapshots. SQLite is faster on
-all measured query/scale pairs. The three-scale trend supports a trade-off and
+equivalent queries on 500/1,000/2,000/4,999 Movie induced snapshots. SQLite is faster on
+all measured query/scale pairs. The four-scale trend supports a trade-off and
 growth discussion, but is not a universal engine ranking or a scalability claim
 because concurrency, cold cache, resources and larger datasets are not measured.
 On 20 silver cases against real Neo4j, the
-IDF-weighted production ranker reaches P@10 0.640 and NDCG@10 0.677. Historical
+IDF-weighted production ranker reaches P@10 0.635 and NDCG@10 0.672. Historical
 results were overlap 0.67/0.723, weighted Jaccard 0.64/0.699, and hybrid
 0.59/0.657; these remain design history rather than end-user alternatives.
 Runtime preparation is idempotent: dependency stamps follow `pyproject.toml`,
@@ -229,7 +230,7 @@ documents and committed experiment artifacts are the verifiable project sources.
   `report_latex/images/sources/*.drawio`; three measured charts reflect the
   committed experiment CSV/JSON. `web_ui.pdf` is explicitly a
   source-aligned wireframe and may later be replaced by a real screenshot with
-  the same filename. Edit `contents/*.tex` directly and select XeLaTeX on
+  the same filename. Edit `contents/*.tex` directly and select pdfLaTeX on
   Overleaf. Final report PDF and automatic report-generation scripts are not
   stored in the repository.
 - `docs/deliverables/checklist-traceability.md`: one-to-one mapping of all 20 N5 rubric

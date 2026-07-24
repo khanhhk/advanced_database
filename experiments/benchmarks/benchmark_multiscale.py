@@ -90,7 +90,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--processed-dir", type=Path, default=Path("data/processed"))
     parser.add_argument("--questions", type=Path, default=Path("tests/test_questions.json"))
-    parser.add_argument("--sizes", default="500,1000,2000")
+    parser.add_argument("--sizes", default="500,1000,2000,4999")
     parser.add_argument("--iterations", type=int, default=100)
     parser.add_argument("--output", type=Path,
                         default=Path("experiments/results/benchmarks/multiscale_benchmark.csv"))

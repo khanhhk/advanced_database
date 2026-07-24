@@ -2,7 +2,7 @@
   {
     "query_id": "Q1",
     "result_type": "SELECT",
-    "result_count": 12
+    "result_count": 13
   },
   {
     "query_id": "Q2",
@@ -12,12 +12,12 @@
   {
     "query_id": "Q3",
     "result_type": "SELECT",
-    "result_count": 1439
+    "result_count": 2826
   },
   {
     "query_id": "Q4",
     "result_type": "SELECT",
-    "result_count": 289011
+    "result_count": 680108
   },
   {
     "query_id": "Q5",
@@ -27,12 +27,12 @@
   {
     "query_id": "Q6",
     "result_type": "SELECT",
-    "result_count": 2000
+    "result_count": 4999
   },
   {
     "query_id": "Q7",
     "result_type": "SELECT",
-    "result_count": 34007
+    "result_count": 81030
   },
   {
     "query_id": "Q8",
@@ -47,6 +47,6 @@
   {
     "query_id": "Q10",
     "result_type": "CONSTRUCT",
-    "result_count": 2363
+    "result_count": 4750
   }
 ]

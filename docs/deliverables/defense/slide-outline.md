@@ -12,7 +12,7 @@ dụng giải thích được → bằng chứng thực nghiệm → giới hạ
 
 - Chỉ dùng số liệu lấy từ `data/processed/manifest.json`, Neo4j validation và
   `experiments/results/` tại lần chạy cuối.
-- Hiện có đúng 2.000 phim, đạt mốc tối thiểu của MVP.
+- Hiện có 4.999 Movie hợp lệ từ 5.000 record đầu vào.
 - QA production chạy trực tiếp trên Neo4j và phải lấy số từ `qa_neo4j.json`.
 - Chỉ dùng benchmark Neo4j thật và SQLite cùng snapshot/máy/protocol.
 - Entity resolution, reasoning precision, Precision@K và NDCG@K để ô
@@ -66,7 +66,7 @@ Mục tiêu đo được:
 - TMDB là graph source; IMDb chỉ enrichment rating/votes bằng exact ID.
 - Ngoài phạm vi: Award/Wikidata, LLM-to-Cypher tự do, multimodal, vector search
   và GraphRAG.
-- Nêu dataset hiện tại 2.000 phim; dải mục tiêu của đề tài là 2.000–5.000.
+- Nêu dataset hiện tại 4.999 Movie hợp lệ; dải mục tiêu của đề tài là 2.000–5.000.
 
 ## Slide 6 — Vì sao Knowledge Graph/Neo4j? (45 giây)
 
@@ -100,7 +100,7 @@ thuộc Internet sau khi import.
 - Chỉ tải `title.ratings.tsv.gz` khoảng 8,2 MB.
 - Đọc streaming, không giải nén và không nạp toàn bộ IMDb vào RAM/Neo4j.
 - Join: `TMDB.external_ids.imdb_id = IMDb.tconst`.
-- 1.909/2.000 phim có IMDb ID; 1.851 rating match chính xác.
+- 4.558/4.999 phim có IMDb ID; 4.351 rating match chính xác.
 - Giữ riêng `rating`, `imdb_rating`, `imdb_votes`.
 - Hình: một record Inception trước/sau enrichment.
 
@@ -130,11 +130,11 @@ Hiển thị bảng số liệu chạy cuối:
 
 | Chỉ số | Giá trị hiện tại |
 |---|---:|
-| Movie | 2.000 |
-| Person | 23.585 |
-| Genre / Keyword / Studio | 19 / 8.059 / 2.618 |
-| Tổng node | 36.253 |
-| Tổng relationship, gồm suy diễn | 334.598 |
+| Movie | 4.999 |
+| Person | 53.555 |
+| Genre / Keyword / Studio | 19 / 12.509 / 5.530 |
+| Tổng node | 76.612 |
+| Tổng relationship, gồm suy diễn | 846.309 |
 | Orphan / duplicate / missing required | 0 / 0 / 0 |
 
 Ghi chú: cập nhật lại từ manifest/Neo4j ngay trước ngày bảo vệ.
@@ -217,18 +217,18 @@ Ma trận metric:
 
 ## Slide 20 — Kết quả hiện có và cách đọc (55 giây)
 
-- Corpus/graph: 2.000 Movie; 36.937 node; 362.017 relationship; validation hợp lệ,
+- Corpus/graph: 4.999 Movie; 76.612 node; 846.309 relationship; validation hợp lệ,
   orphan/duplicate/missing/invalid đều bằng 0.
-- IMDb exact-match: 1.851/1.909 Movie có IMDb ID ghép được rating.
-- QA smoke: chạy lại 20 câu trên corpus 2.000 phim; chỉ là smoke test.
+- IMDb exact-match: 4.351/4.558 Movie có IMDb ID ghép được rating.
+- QA smoke: chạy lại 20 câu trên corpus 4.999 phim; chỉ là smoke test.
 - Silver: entity P=1,000/R=0,933/F1=0,966; reasoning precision=1,00; recommendation
-  P@10=0,640, NDCG@10=0,677, explanation coverage=1,00.
-- Neo4j/SQLite cùng induced snapshot 500/1.000/2.000, 100 lần/query sau một
+  P@10=0,635, NDCG@10=0,672, explanation coverage=1,00.
+- Neo4j/SQLite cùng induced snapshot 500/1.000/2.000/4.999, 100 lần/query sau một
   warm-up; số liệu và cấu hình máy nằm trong metadata.
 - QA deterministic đạt 20/20; shortest path chấp nhận mọi đường hợp lệ thay vì
   khóa vào duy nhất một intermediate node.
 - Gắn chữ `silver`, không diễn giải metric là human evaluation độc lập.
-- Recommendation IDF-weighted trên Neo4j thật: P@10=0,640 và NDCG@10=0,677
+- Recommendation IDF-weighted trên Neo4j thật: P@10=0,635 và NDCG@10=0,672
   trên 20 case silver; kết quả baseline cũ chỉ là lịch sử thiết kế.
 
 ## Slide 21 — Baseline, ablation và error analysis (50 giây)
@@ -253,7 +253,8 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 - QA dựa trên template; ambiguity và nhiều đáp án đúng chưa được chấm tốt.
 - Corpus silver tất định chưa đại diện cho mọi lỗi định danh ngoài snapshot.
-- Benchmark mới đo một quy mô thật 2.000 phim, chưa chứng minh scalability nhiều quy mô.
+- Benchmark đo bốn quy mô đến 4.999 phim, nhưng chưa đo concurrency, cold cache
+  hoặc dataset lớn hơn nên chưa chứng minh scalability tổng quát.
 - Top-20 cast làm mất diễn viên phụ; IMDb mới enrich Movie, chưa link Person.
 - Hướng sau MVP: Wikidata/Award, full-text/fuzzy index tốt hơn, LLM-to-Cypher có
   guardrail, vector search/GraphRAG, graph embedding.
@@ -278,7 +279,7 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 ## Checklist trước khi đóng slide
 
-- [ ] Thu đủ ≥2.000 phim hoặc sửa toàn bộ tuyên bố phạm vi.
+- [x] Đã có 4.999 Movie hợp lệ từ 5.000 record đầu vào.
 - [ ] Chạy lại manifest, Neo4j validation và chụp số liệu cuối.
 - [ ] Hoàn thành corpus nhãn hoặc đánh dấu rõ metric còn pending.
 - [ ] Benchmark Neo4j thật, ít nhất 100 iterations/query nếu dùng trong kết luận.

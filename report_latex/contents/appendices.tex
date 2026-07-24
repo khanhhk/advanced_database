@@ -7,7 +7,7 @@ lại dữ liệu. Quy trình chạy cơ bản như sau:
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
 make setup
-make data DATA_COUNT=2000
+make data DATA_COUNT=5000
 make demo
 \end{Verbatim}
 
@@ -121,9 +121,9 @@ Các đường dẫn kết quả trong bảng được tính tương đối từ
 \texttt{benchmarks/}\linebreak{}\texttt{relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
 \texttt{quality/}\linebreak{}\texttt{knowledge\_quality\_audit.json} & Audit identity, consistency, completeness và provenance \\ \hline
 \texttt{semantic/}\linebreak{}\texttt{jena\_semantic\_evaluation.json} & Jena/Fuseki reasoner và kết quả 10 SPARQL \\ \hline
-\texttt{benchmarks/}\linebreak{}\texttt{multiscale\_benchmark.csv} & Neo4j–SQLite tại 500/1.000/2.000 Movie \\ \hline
+\texttt{benchmarks/}\linebreak{}\texttt{multiscale\_benchmark.csv} & Neo4j–SQLite tại 500/1.000/2.000/4.999 Movie \\ \hline
 \end{longtable}
 
-Snapshot hiện tại gồm 2.000 Movie, 24.380 Person, 19 Genre, 7.912 Keyword và
-2.626 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
+Snapshot hiện tại gồm 4.999 Movie, 53.555 Person, 19 Genre, 12.509 Keyword và
+5.530 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
 tra lại số liệu và tái tạo bảng, biểu đồ trong Chương 5.

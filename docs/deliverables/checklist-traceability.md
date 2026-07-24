@@ -21,7 +21,7 @@ trình bày nên repo chỉ có thể chuẩn bị và kiểm soát đầu vào.
 | 12 | CRUD đến truy vấn nâng cao | Báo cáo §4.2; `cypher/crud.cypher`, `queries.cypher`; tests | Đủ bằng chứng repo |
 | 13 | Truy vấn inference-enabled | Báo cáo §4.3; inferred Turtle; semantic/SPARQL result | Đủ bằng chứng repo |
 | 14 | Tiêu chí đánh giá phù hợp | Báo cáo §5.1; slide 19 | Đủ bằng chứng repo |
-| 15 | Benchmark, bảng/biểu đồ, baseline | Báo cáo §5.2; multi-scale Neo4j/SQLite CSV+metadata+figure | Đủ tại 500/1.000/2.000; không khái quát ngoài protocol |
+| 15 | Benchmark, bảng/biểu đồ, baseline | Báo cáo §5.2; multi-scale Neo4j/SQLite CSV+metadata+figure | Đủ tại 500/1.000/2.000/4.999; không khái quát ngoài protocol |
 | 16 | Phân tích, hạn chế, hướng cải tiến | Báo cáo §5.3; slide 23 | Đủ bằng chứng repo |
 | 17 | Ứng dụng nghiệp vụ và demo UI | Báo cáo chương 6; API/UI; `docs/runbooks/demo.md` | Đủ bằng chứng repo |
 | 18 | Chất lượng báo cáo, hình, tham khảo | `report_latex/`, 14 hình PDF/draw.io, `ref.bib` | Đủ bằng chứng repo; PDF cuối phải được kiểm tra trực quan |

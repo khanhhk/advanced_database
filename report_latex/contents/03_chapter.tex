@@ -35,7 +35,7 @@ snapshot nguồn cho reproducibility.
 \subsection{Tích hợp IMDb}
 
 Pipeline chỉ tải \texttt{title.ratings.tsv.gz} từ bộ dữ liệu phi thương mại IMDb \cite{imdb2026datasets}, kiểm tra gzip/checksum và ghi metadata.
-File được stream từng dòng, chỉ giữ record có \texttt{tconst} thuộc tập IMDb ID của 2.000
+File được stream từng dòng, chỉ giữ record có \texttt{tconst} thuộc tập IMDb ID của 5.000
 phim TMDB. Cách này không giải nén toàn bộ và không nạp IMDb đầy đủ vào RAM/Neo4j.
 \texttt{Movie.rating} và \texttt{Movie.imdb\_rating} không ghi đè nhau.
 

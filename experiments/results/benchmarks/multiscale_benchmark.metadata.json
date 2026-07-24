@@ -1,15 +1,16 @@
 {
   "protocol": "same-machine induced-snapshot Neo4j/SQLite comparison",
-  "generated_at_epoch": 1784709350.8938212,
-  "duration_seconds": 40.080546855926514,
+  "generated_at_epoch": 1784862244.4364426,
+  "duration_seconds": 96.78539371490479,
   "python_version": "3.11.7",
   "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
   "processor": "x86_64",
-  "source_manifest_sha256": "bd1470ff79fb9a5f3e02c64862c026d0779503bae93b79929c12447802bbee01",
+  "source_manifest_sha256": "bd694c9c196be9c95eca9e5e2e03cf1bbb2a6403ab613ba692a6f6d554f49e2d",
   "sizes": [
     500,
     1000,
-    2000
+    2000,
+    4999
   ],
   "iterations_per_query": 100,
   "warmup_runs_per_query": 1,
@@ -20,58 +21,77 @@
       "kind": "deterministic-induced-benchmark-snapshot",
       "selection": "first-n-processed-source-order",
       "requested_movies": 500,
-      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "source_sha256": "727bc6de77741cfa95000c72a11ff487679e53e16234823f790ada31ea3319c3",
       "counts": {
         "movies": 500,
-        "people": 7271,
-        "genres": 19,
-        "keywords": 3096,
-        "studios": 849,
-        "acted_in": 8784,
-        "directed": 549,
-        "has_genre": 1316,
-        "has_keyword": 6729,
-        "produced_by": 1449
+        "people": 7224,
+        "genres": 18,
+        "keywords": 3260,
+        "studios": 856,
+        "acted_in": 8911,
+        "directed": 543,
+        "has_genre": 1338,
+        "has_keyword": 7111,
+        "produced_by": 1513
       },
-      "snapshot_sha256": "5a9f64c6a3bdd0a902de21792ac0a6aa829176821545acc6347dec2458528764"
+      "snapshot_sha256": "fe36b19d1b2e6128f7cc4bdf0ebaa0d3be3f64952a24b4d2e73b61fdfdeccbcf"
     },
     {
       "kind": "deterministic-induced-benchmark-snapshot",
       "selection": "first-n-processed-source-order",
       "requested_movies": 1000,
-      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "source_sha256": "727bc6de77741cfa95000c72a11ff487679e53e16234823f790ada31ea3319c3",
       "counts": {
         "movies": 1000,
-        "people": 13291,
+        "people": 13467,
         "genres": 19,
-        "keywords": 5212,
-        "studios": 1512,
-        "acted_in": 17425,
-        "directed": 1108,
-        "has_genre": 2611,
-        "has_keyword": 13710,
-        "produced_by": 2948
+        "keywords": 5526,
+        "studios": 1502,
+        "acted_in": 18011,
+        "directed": 1100,
+        "has_genre": 2680,
+        "has_keyword": 14927,
+        "produced_by": 3020
       },
-      "snapshot_sha256": "9b96b898f5220c24503c2cc2516725dc828e3f1049ed1c86b13988863c4d8516"
+      "snapshot_sha256": "b47ffca6e296415e55c1e3f886cda406693d68600accca08534f90599938f428"
     },
     {
       "kind": "deterministic-induced-benchmark-snapshot",
       "selection": "first-n-processed-source-order",
       "requested_movies": 2000,
-      "source_sha256": "44cda033049a7ad1dcebfb7d54cb8690250e3c25c06c6b940136b1e60958fd09",
+      "source_sha256": "727bc6de77741cfa95000c72a11ff487679e53e16234823f790ada31ea3319c3",
       "counts": {
         "movies": 2000,
-        "people": 24380,
+        "people": 24446,
         "genres": 19,
-        "keywords": 7912,
-        "studios": 2626,
-        "acted_in": 34007,
-        "directed": 2194,
-        "has_genre": 5087,
-        "has_keyword": 25985,
-        "produced_by": 5733
+        "keywords": 8145,
+        "studios": 2649,
+        "acted_in": 35029,
+        "directed": 2189,
+        "has_genre": 5228,
+        "has_keyword": 27706,
+        "produced_by": 6047
       },
-      "snapshot_sha256": "721ecbd3e1e8b7f337b07f106eb0f540388d739c49b4ed957fc63dc0da661e67"
+      "snapshot_sha256": "5af881701ad84643019e41390e08caf613f3febcf8102d0a65de9de347a42d82"
+    },
+    {
+      "kind": "deterministic-induced-benchmark-snapshot",
+      "selection": "first-n-processed-source-order",
+      "requested_movies": 4999,
+      "source_sha256": "727bc6de77741cfa95000c72a11ff487679e53e16234823f790ada31ea3319c3",
+      "counts": {
+        "movies": 4999,
+        "people": 53555,
+        "genres": 19,
+        "keywords": 12509,
+        "studios": 5530,
+        "acted_in": 81030,
+        "directed": 5479,
+        "has_genre": 11962,
+        "has_keyword": 54106,
+        "produced_by": 13624
+      },
+      "snapshot_sha256": "8e08a0fc66fdf7ec857a3960f0cd924dc2993ee29326c13e727cfbb4cfdcc205"
     }
   ],
   "interpretation_limit": "Latency trend on one machine and one workload; not a universal DBMS ranking."

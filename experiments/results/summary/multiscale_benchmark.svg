@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:20px;font-weight:bold}.label{font-size:13px}.legend{font-size:12px}</style>
+<text class="title" x="550" y="30" text-anchor="middle">Độ trễ median theo quy mô induced snapshot</text>
+<text class="label" x="292.5" y="54" text-anchor="middle">NEO4J</text>
+<line x1="65" y1="65" x2="65" y2="420" stroke="#667085"/>
+<line x1="65" y1="420" x2="520" y2="420" stroke="#667085"/>
+<text class="label" x="65.0" y="444" text-anchor="middle">500</text>
+<text class="label" x="216.7" y="444" text-anchor="middle">1000</text>
+<text class="label" x="368.3" y="444" text-anchor="middle">2000</text>
+<text class="label" x="520.0" y="444" text-anchor="middle">4999</text>
+<polyline points="65.0,337.9 216.7,332.5 368.3,334.5 520.0,250.8" fill="none" stroke="#2563eb" stroke-width="3"/>
+<circle cx="65.0" cy="337.9" r="4" fill="#2563eb"/>
+<circle cx="216.7" cy="332.5" r="4" fill="#2563eb"/>
+<circle cx="368.3" cy="334.5" r="4" fill="#2563eb"/>
+<circle cx="520.0" cy="250.8" r="4" fill="#2563eb"/>
+<polyline points="65.0,298.6 216.7,284.6 368.3,214.4 520.0,65.0" fill="none" stroke="#dc2626" stroke-width="3"/>
+<circle cx="65.0" cy="298.6" r="4" fill="#dc2626"/>
+<circle cx="216.7" cy="284.6" r="4" fill="#dc2626"/>
+<circle cx="368.3" cy="214.4" r="4" fill="#dc2626"/>
+<circle cx="520.0" cy="65.0" r="4" fill="#dc2626"/>
+<polyline points="65.0,378.1 216.7,359.4 368.3,356.8 520.0,357.3" fill="none" stroke="#16a34a" stroke-width="3"/>
+<circle cx="65.0" cy="378.1" r="4" fill="#16a34a"/>
+<circle cx="216.7" cy="359.4" r="4" fill="#16a34a"/>
+<circle cx="368.3" cy="356.8" r="4" fill="#16a34a"/>
+<circle cx="520.0" cy="357.3" r="4" fill="#16a34a"/>
+<polyline points="65.0,382.4 216.7,342.9 368.3,367.4 520.0,341.3" fill="none" stroke="#9333ea" stroke-width="3"/>
+<circle cx="65.0" cy="382.4" r="4" fill="#9333ea"/>
+<circle cx="216.7" cy="342.9" r="4" fill="#9333ea"/>
+<circle cx="368.3" cy="367.4" r="4" fill="#9333ea"/>
+<circle cx="520.0" cy="341.3" r="4" fill="#9333ea"/>
+<text class="label" x="827.5" y="54" text-anchor="middle">SQLITE</text>
+<line x1="600" y1="65" x2="600" y2="420" stroke="#667085"/>
+<line x1="600" y1="420" x2="1055" y2="420" stroke="#667085"/>
+<text class="label" x="600.0" y="444" text-anchor="middle">500</text>
+<text class="label" x="751.7" y="444" text-anchor="middle">1000</text>
+<text class="label" x="903.3" y="444" text-anchor="middle">2000</text>
+<text class="label" x="1055.0" y="444" text-anchor="middle">4999</text>
+<polyline points="600.0,418.3 751.7,415.4 903.3,411.5 1055.0,395.5" fill="none" stroke="#2563eb" stroke-width="3"/>
+<circle cx="600.0" cy="418.3" r="4" fill="#2563eb"/>
+<circle cx="751.7" cy="415.4" r="4" fill="#2563eb"/>
+<circle cx="903.3" cy="411.5" r="4" fill="#2563eb"/>
+<circle cx="1055.0" cy="395.5" r="4" fill="#2563eb"/>
+<polyline points="600.0,397.8 751.7,361.5 903.3,306.3 1055.0,99.6" fill="none" stroke="#dc2626" stroke-width="3"/>
+<circle cx="600.0" cy="397.8" r="4" fill="#dc2626"/>
+<circle cx="751.7" cy="361.5" r="4" fill="#dc2626"/>
+<circle cx="903.3" cy="306.3" r="4" fill="#dc2626"/>
+<circle cx="1055.0" cy="99.6" r="4" fill="#dc2626"/>
+<polyline points="600.0,418.0 751.7,415.8 903.3,411.4 1055.0,402.6" fill="none" stroke="#16a34a" stroke-width="3"/>
+<circle cx="600.0" cy="418.0" r="4" fill="#16a34a"/>
+<circle cx="751.7" cy="415.8" r="4" fill="#16a34a"/>
+<circle cx="903.3" cy="411.4" r="4" fill="#16a34a"/>
+<circle cx="1055.0" cy="402.6" r="4" fill="#16a34a"/>
+<polyline points="600.0,415.4 751.7,409.3 903.3,394.8 1055.0,372.4" fill="none" stroke="#9333ea" stroke-width="3"/>
+<circle cx="600.0" cy="415.4" r="4" fill="#9333ea"/>
+<circle cx="751.7" cy="409.3" r="4" fill="#9333ea"/>
+<circle cx="903.3" cy="394.8" r="4" fill="#9333ea"/>
+<circle cx="1055.0" cy="372.4" r="4" fill="#9333ea"/>
+<line x1="120" y1="474" x2="142" y2="474" stroke="#2563eb" stroke-width="3"/>
+<text class="legend" x="148" y="478">movies_by_director</text>
+<line x1="365" y1="474" x2="387" y2="474" stroke="#dc2626" stroke-width="3"/>
+<text class="legend" x="393" y="478">common_movies</text>
+<line x1="610" y1="474" x2="632" y2="474" stroke="#16a34a" stroke-width="3"/>
+<text class="legend" x="638" y="478">movies_by_genre_rating</text>
+<line x1="855" y1="474" x2="877" y2="474" stroke="#9333ea" stroke-width="3"/>
+<text class="legend" x="883" y="478">directors_by_genre</text>
+</svg>

@@ -389,7 +389,7 @@ snapshot nguồn cho reproducibility.
 ### Tích hợp IMDb
 
 Pipeline chỉ tải `title.ratings.tsv.gz` từ bộ dữ liệu phi thương mại IMDb [7], kiểm tra gzip/checksum và ghi metadata.
-File được stream từng dòng, chỉ giữ record có `tconst` thuộc tập IMDb ID của 2.000
+File được stream từng dòng, chỉ giữ record có `tconst` thuộc tập IMDb ID của 5.000
 phim TMDB. Cách này không giải nén toàn bộ và không nạp IMDb đầy đủ vào RAM/Neo4j.
 `Movie.rating` và `Movie.imdb_rating` không ghi đè nhau.
 
@@ -690,9 +690,9 @@ subset xác định:
 - `owl:SymmetricProperty` → triple chiều ngược.
 
 Validator kiểm tra functional property, disjoint class và Movie thiếu title. RDFLib
-ghi data graph 156.491 → 192.692 triple. Jena tính trên union data + 70 ontology
-triple, do đó 156.561 → 192.762; cả hai engine đều suy ra đúng 36.201 triple mới.
-Fuseki thực thi 10/10 query, trong đó có 34.007 inverse `hasActor`. Profile này
+ghi data graph 342.683 → 429.192 triple. Jena tính trên union data + 70 ontology
+triple, do đó 342.753 → 429.262; cả hai engine đều suy ra đúng 86.509 triple mới.
+Fuseki thực thi 10/10 query, trong đó có 81.030 inverse `hasActor`. Profile này
 chạy được và test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.
 
 # Chương 5. V. Thực nghiệm và đánh giá
@@ -732,9 +732,9 @@ trên snapshot hiện tại; số liệu QA và hiệu năng được lấy từ
 
 ### Dataset và graph
 
-Snapshot đầu vào có 2.000 record và giữ đúng 2.000 Movie hợp lệ; không có record
-bị loại bởi quality gate. Exact IMDb ratings match 1.851/1.909 phim có IMDb ID.
-Graph sau reasoning có 36.937 node và 362.017 relationship, với zero
+Snapshot đầu vào có 5.000 record và giữ 4.999 Movie hợp lệ; một record không có
+quan hệ graph bị loại bởi quality gate. Exact IMDb ratings match 4.351/4.558 phim có IMDb ID.
+Graph sau reasoning có 76.612 node và 846.309 relationship, với zero
 orphan, duplicate stable ID, missing required property và invalid relationship.
 
 Các số liệu này lấy từ `data/processed/manifest.json` và
@@ -743,19 +743,20 @@ Các số liệu này lấy từ `data/processed/manifest.json` và
 
 | Chỉ số snapshot/graph | Giá trị cuối |
 |---|---:|
-| Record TMDB đầu vào | 2.000 |
-| Movie hợp lệ sau quality gate | 2.000 |
-| Movie bị loại do không có quan hệ | 0 |
-| Movie có IMDb ID | 1.909 (95,45%) |
-| IMDb rating exact-match | 1.851/1.909 (96,96%) |
-| Movie có cast | 99,50% |
-| Movie có director | 99,30% |
-| Movie có genre | 98,25% |
+| Record TMDB đầu vào | 5.000 |
+| Movie hợp lệ sau quality gate | 4.999 |
+| Movie bị loại do không có quan hệ | 1 |
+| Movie có IMDb ID | 4.558 (91,18%) |
+| IMDb rating exact-match | 4.351/4.558 (95,46%) |
+| Movie có cast | 99,26% |
+| Movie có director | 98,92% |
+| Movie có genre | 97,40% |
 | Orphan/duplicate/missing/invalid/unsupported fact sau import | 0 |
 
 Quality gate không xóa im lặng record lỗi: nếu phát hiện Movie không có quan hệ,
 record sẽ được ghi trong `invalid_records` với reason và source row/TMDB ID.
-Snapshot hiện tại có danh sách lỗi rỗng, vì vậy input và valid count bằng nhau.
+Snapshot hiện tại ghi một lỗi `no_graph_relationships` cho TMDB ID `1038919`;
+vì vậy valid count nhỏ hơn input count một record.
 
 ### Entity resolution
 
@@ -769,7 +770,7 @@ vì false merge làm ô nhiễm graph nghiêm trọng hơn một match bị bỏ
 Audit toàn snapshot
 ghi nhận zero duplicate stable ID, conflicting required value, missing required
 field, invalid foreign key và duplicate endpoint pair; provenance coverage của
-node/edge có trường source đạt 100%. Năm mươi tư tên Person trùng không bị merge
+node/edge có trường source đạt 100%. Hai trăm linh chín tên Person trùng không bị merge
 vì stable source ID là identity key. Corpus silver là benchmark tất định dựa trên
 source ID, typo có kiểm soát và nearest-name hard negative; kết quả không đại diện
 cho mọi lỗi định danh có thể xuất hiện ngoài snapshot.
@@ -779,9 +780,9 @@ cho mọi lỗi định danh có thể xuất hiện ngoài snapshot.
 Năm mươi fact `CO_STARRED_WITH` được kiểm tra bằng supporting movie và
 source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
 tra mọi derived edge phải có ít nhất một shared Movie. Semantic workflow trên
-full normalized snapshot materialize 36.201 triple, tăng từ 156.491 lên 192.692
+full normalized snapshot materialize 86.509 triple, tăng từ 342.683 lên 429.192
 triple và không có semantic violation. RDF export dùng chính processed snapshot
-2.000 Movie như Neo4j. Apache Jena Fuseki 6.1.0 tái hiện đúng mức tăng 36.201
+4.999 Movie như Neo4j. Apache Jena Fuseki 6.1.0 tái hiện đúng mức tăng 86.509
 triple bằng forward rule profile; 10/10 SPARQL query thực thi thành công trên cả
 RDFLib và endpoint Jena.
 
@@ -802,9 +803,9 @@ mơ hồ trong các phiên bản sau.
 | Overlap | 0,670 | 0,723 | baseline lịch sử |
 | Weighted Jaccard | 0,640 | 0,699 | baseline lịch sử |
 | Hybrid | 0,590 | 0,657 | baseline lịch sử |
-| IDF-weighted graph | **0,640** | **0,677** | production Neo4j hiện tại |
+| IDF-weighted graph | **0,635** | **0,672** | production Neo4j hiện tại |
 
-IDF đạt P@10=0,640 và NDCG@10=0,677 trên 20 case hiện tại; mọi recommendation có
+IDF đạt P@10=0,635 và NDCG@10=0,672 trên 20 case hiện tại; mọi recommendation có
 explanation. Ba hàng baseline là lịch sử thiết kế trên snapshot/cấu hình trước,
 vì vậy không dùng để kết luận IDF tốt hơn nếu chưa tái chạy chung protocol. Corpus
 nhỏ và relevance rubric dựa trên metadata graph; kết quả không đồng nghĩa người
@@ -812,7 +813,7 @@ dùng thực sẽ ưa thích recommendation.
 
 ### Hiệu năng
 
-Benchmark đa quy mô dùng ba induced snapshot tất định 500/1.000/2.000 Movie từ
+Benchmark đa quy mô dùng bốn induced snapshot tất định 500/1.000/2.000/4.999 Movie từ
 cùng processed order. Mỗi scale được import authoritative vào Neo4j test riêng;
 SQLite dựng bảng/index từ đúng các CSV cùng scale. Bốn query tương đương chạy trên
 cùng máy, một warm-up và 100 lần/query. Mỗi snapshot lưu checksum, count node/edge,
@@ -820,18 +821,20 @@ phiên bản runtime và protocol trong metadata.
 
 | Backend / số Movie | Khoảng median 4 query (ms) | Khoảng p95 4 query (ms) |
 |---|---:|---:|
-| Neo4j / 500 | 4,696–12,627 | 7,324–17,886 |
-| Neo4j / 1.000 | 5,804–14,991 | 7,614–20,369 |
-| Neo4j / 2.000 | 4,840–23,473 | 10,633–31,311 |
-| SQLite / 500 | 0,212–2,756 | 0,239–2,892 |
-| SQLite / 1.000 | 0,450–5,252 | 0,488–5,870 |
-| SQLite / 2.000 | 0,916–12,652 | 0,936–13,426 |
+| Neo4j / 500 | 4,688–15,156 | 7,042–22,406 |
+| Neo4j / 1.000 | 7,569–16,902 | 9,614–23,112 |
+| Neo4j / 2.000 | 6,562–25,666 | 9,510–37,530 |
+| Neo4j / 4.999 | 7,831–44,312 | 11,603–52,081 |
+| SQLite / 500 | 0,216–2,771 | 0,233–2,854 |
+| SQLite / 1.000 | 0,530–7,308 | 0,828–10,936 |
+| SQLite / 2.000 | 1,063–14,193 | 1,424–17,893 |
+| SQLite / 4.999 | 2,177–39,995 | 2,414–48,822 |
 
 SQLite nhanh hơn trong bốn query kiểm soát này. Kết quả là bằng chứng chống lại
 tuyên bố đơn giản “graph luôn nhanh hơn SQL”; lợi ích chính của Neo4j trong đề tài
 là mô hình traversal/evidence và một execution surface thống nhất, không phải ưu
-thế latency phổ quát. Ba điểm đo cho thấy xu hướng latency theo workload trong
-phạm vi 500–2.000 Movie; chúng không phải tuyên bố scalability tổng quát vì chưa
+thế latency phổ quát. Bốn điểm đo cho thấy xu hướng latency theo workload trong
+phạm vi 500–4.999 Movie; chúng không phải tuyên bố scalability tổng quát vì chưa
 đo concurrency, cold cache, tài nguyên hoặc dataset lớn hơn.
 
 ### Protocol tái chạy thực nghiệm
@@ -840,7 +843,7 @@ phạm vi 500–2.000 Movie; chúng không phải tuyên bố scalability tổng
 2. Transform/import authoritative, chạy validation và lưu counts.
 3. Chạy reasoning trước evaluation phụ thuộc derived edges.
 4. Chạy corpus bằng đúng backend được khai báo.
-5. Sinh induced snapshot 500/1.000/2.000; benchmark một warm-up và 100
+5. Sinh induced snapshot 500/1.000/2.000/4.999; benchmark một warm-up và 100
    iterations/query; không chạy workload khác song song.
 6. Lưu Python/Neo4j/platform/movie count trong metadata.
 7. Sinh bảng/biểu đồ từ JSON/CSV artifact, không nhập số bằng tay.
@@ -873,7 +876,7 @@ container đã chạy nhưng driver chưa handshake được. Quy trình còn ch
 - Các bộ case đánh giá do nhóm xây dựng và còn nhỏ.
 - QA corpus deterministic 20 câu chưa phủ paraphrase rộng.
 - Recommendation không có user interaction, nên không đánh giá personalization.
-- Benchmark có ba quy mô nhưng vẫn phụ thuộc phần cứng/warm cache, chưa đo concurrency.
+- Benchmark có bốn quy mô nhưng vẫn phụ thuộc phần cứng/warm cache, chưa đo concurrency.
 
 ### Trả lời câu hỏi nghiên cứu
 
@@ -883,12 +886,12 @@ rating; checksum/manifest cung cấp provenance ở mức snapshot.
 aggregation và shortest path; evidence là node/relationship thực thi.
 **RQ3:** Cypher rule tạo co-star có supporting movie; semantic profile tạo inverse
 và type entailment, đồng thời validator phát hiện conflict.
-**RQ4:** IDF giảm ảnh hưởng feature phổ biến, đạt P@10=0,640 và NDCG@10=0,677,
+**RQ4:** IDF giảm ảnh hưởng feature phổ biến, đạt P@10=0,635 và NDCG@10=0,672,
 đồng thời giữ explanation coverage. Ba baseline lịch sử chỉ cung cấp design
 history, không dùng để khẳng định production vượt trội nếu chưa tái chạy chung protocol.
-**RQ5:** Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 2.000 phim; phạm vi
-hiện tại chưa gồm cá nhân hóa; benchmark ba quy mô mới mô tả trend trong phạm vi
-500–2.000 Movie, chưa chứng minh scalability tổng quát.
+**RQ5:** Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 4.999 phim; phạm vi
+hiện tại chưa gồm cá nhân hóa; benchmark bốn quy mô mới mô tả trend trong phạm vi
+500–4.999 Movie, chưa chứng minh scalability tổng quát.
 
 ### Phân tích lỗi và hướng khắc phục
 
@@ -1069,7 +1072,7 @@ lại dữ liệu. Quy trình chạy cơ bản như sau:
 
 ```bash
 make setup
-make data DATA_COUNT=2000
+make data DATA_COUNT=5000
 make demo
 ```
 
@@ -1176,8 +1179,8 @@ Các đường dẫn kết quả trong bảng được tính tương đối từ
 | `benchmarks/`<br>`relational_benchmark.csv` | Baseline SQLite trên cùng processed snapshot |
 | `quality/`<br>`knowledge_quality_audit.json` | Audit identity, consistency, completeness và provenance |
 | `semantic/`<br>`jena_semantic_evaluation.json` | Jena/Fuseki reasoner và kết quả 10 SPARQL |
-| `benchmarks/`<br>`multiscale_benchmark.csv` | Neo4j–SQLite tại 500/1.000/2.000 Movie |
+| `benchmarks/`<br>`multiscale_benchmark.csv` | Neo4j–SQLite tại 500/1.000/2.000/4.999 Movie |
 
-Snapshot hiện tại gồm 2.000 Movie, 24.380 Person, 19 Genre, 7.912 Keyword và
-2.626 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
+Snapshot hiện tại gồm 4.999 Movie, 53.555 Person, 19 Genre, 12.509 Keyword và
+5.530 Studio. Các artifact thực nghiệm được lưu dưới CSV hoặc JSON để có thể kiểm
 tra lại số liệu và tái tạo bảng, biểu đồ trong Chương 5.

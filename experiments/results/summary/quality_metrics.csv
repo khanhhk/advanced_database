@@ -3,8 +3,8 @@ Entity resolution precision,1.0,silver,100
 Entity resolution recall,0.9333333333333333,silver,100
 Entity resolution F1,0.9655172413793104,silver,100
 Co-star precision,1.0,silver,50
-Recommendation P@10,0.6399999999999999,silver/neo4j,20
-Recommendation NDCG@10,0.6766010627502674,silver/neo4j,20
+Recommendation P@10,0.635,silver/neo4j,20
+Recommendation NDCG@10,0.6724691106028089,silver/neo4j,20
 QA smoke accuracy,1.0,smoke/neo4j,20
-Semantic conformance,1.0,semantic-validation,156491
-Neo4j structural validity,1.0,graph-validation,36937
+Semantic conformance,1.0,semantic-validation,342683
+Neo4j structural validity,1.0,graph-validation,76612

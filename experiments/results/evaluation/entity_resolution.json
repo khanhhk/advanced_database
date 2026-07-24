@@ -11,39 +11,39 @@
     {
       "case_id": "er-014",
       "difficulty": "fuzzy-nearest-name",
-      "expected_id": "tmdb:210577",
+      "expected_id": "tmdb:64450",
       "predicted_id": null,
       "method": null,
       "confidence": null
     },
     {
-      "case_id": "er-038",
+      "case_id": "er-042",
       "difficulty": "fuzzy-nearest-name",
-      "expected_id": "tmdb:1397359",
+      "expected_id": "tmdb:3236583",
       "predicted_id": null,
       "method": null,
       "confidence": null
     },
     {
-      "case_id": "er-058",
+      "case_id": "er-054",
       "difficulty": "fuzzy-nearest-name",
-      "expected_id": "tmdb:996698",
+      "expected_id": "tmdb:1246972",
       "predicted_id": null,
       "method": null,
       "confidence": null
     },
     {
-      "case_id": "er-062",
+      "case_id": "er-066",
       "difficulty": "fuzzy-nearest-name",
-      "expected_id": "tmdb:1503107",
+      "expected_id": "tmdb:72450",
       "predicted_id": null,
       "method": null,
       "confidence": null
     },
     {
-      "case_id": "er-090",
+      "case_id": "er-098",
       "difficulty": "fuzzy-nearest-name",
-      "expected_id": "tmdb:1590759",
+      "expected_id": "tmdb:10435",
       "predicted_id": null,
       "method": null,
       "confidence": null

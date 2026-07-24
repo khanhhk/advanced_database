@@ -63,7 +63,7 @@ so sánh dataset sẽ khó hơn.
 Runtime preparation so checksum và số Movie giữa manifest với graph hiện tại.
 Nếu khớp, graph được tái sử dụng; nếu lệch, importer chạy lại.
 
-Block này ngăn `make demo` xóa/import 2.000 phim mỗi lần khởi động, đồng thời vẫn
+Block này ngăn `make demo` xóa/import 4.999 phim mỗi lần khởi động, đồng thời vẫn
 phát hiện khi source thực sự thay đổi.
 
 ## 3. Knowledge Layer

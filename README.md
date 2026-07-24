@@ -44,7 +44,7 @@ curl -X POST http://localhost:8000/recommend -H 'Content-Type: application/json'
 
 ## Pipeline dữ liệu và Neo4j
 
-Chạy `make data DATA_COUNT=2000` khi cần thu thập và chuẩn hóa snapshot mới. Sau
+Chạy `make data DATA_COUNT=5000` khi cần thu thập và chuẩn hóa snapshot mới. Sau
 đó `make demo` tự dựng Neo4j, import processed data và mở API/UI. Nếu chưa có data
 thật, lệnh sẽ dừng và yêu cầu chạy `make data`.
 
@@ -104,7 +104,7 @@ hệ quá phổ biến và ưu tiên đặc trưng chung hiếm, có tính phân
 đặc trưng chung là `type_weight * (1 + ln((N+1)/(df+1)))`; kết quả trả lại chính
 các đạo diễn, diễn viên, keyword, thể loại và studio chung làm bằng chứng. Đây là
 phương pháp graph-native duy nhất của API. Trên 20 case silver chạy với Neo4j
-thật, phương pháp đạt P@10 `0,640` và NDCG@10 `0,677`.
+thật, phương pháp đạt P@10 `0,635` và NDCG@10 `0,672`.
 
 `make demo` không cài lại thư viện hoặc import lại dữ liệu ở mỗi lần chạy. Make
 dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum toàn bộ
@@ -157,10 +157,11 @@ trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repo
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 
 QA được đánh giá trực tiếp trên Neo4j production tại
-`experiments/results/evaluation/qa_neo4j.json`. Corpus hiện có đúng 2.000 phim. Benchmark
+`experiments/results/evaluation/qa_neo4j.json`. Snapshot hiện có 4.999 Movie hợp lệ từ
+5.000 record đầu vào. Benchmark
 end-to-end Neo4j thật được lưu tại `experiments/results/benchmarks/neo4j_benchmark.csv`
 (100 lần/câu, một warm-up) và cấu hình tại file `.metadata.json` tương ứng.
-Benchmark kiểm soát đa quy mô 500/1.000/2.000 Movie nằm trong
+Benchmark kiểm soát đa quy mô 500/1.000/2.000/4.999 Movie nằm trong
 `experiments/results/benchmarks/multiscale_benchmark.csv`. Apache Jena Fuseki 6.1.0 chạy
 forward rule profile trên full RDF snapshot; kết quả 10/10 SPARQL nằm tại
 `experiments/results/semantic/jena_semantic_evaluation.json`.

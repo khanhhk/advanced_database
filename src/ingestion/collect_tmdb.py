@@ -31,7 +31,7 @@ def normalize_response(item: dict) -> dict:
 
 def collect(ids: list[int] | None, output: Path, count: int | None = None) -> None:
     settings = get_settings(); client = TMDBClient(settings.tmdb_api_key or "")
-    if ids is None: ids = client.popular_ids(count or 2000)
+    if ids is None: ids = client.popular_ids(count or 5000)
     movies = [normalize_response(client.movie(movie_id)) for movie_id in ids]
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({"movies": movies}, ensure_ascii=False, indent=2), encoding="utf-8")

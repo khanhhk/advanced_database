@@ -117,6 +117,56 @@ def build(output_dir: Path = RESULTS / "summary") -> None:
         lines += ["", "Deterministic induced snapshots; same machine, warm-up and iteration policy."]
         (output_dir / "multiscale_benchmark.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
+        sizes = sorted({int(row["movie_count"]) for row in multiscale})
+        intents = list(dict.fromkeys(row["intent"] for row in multiscale))
+        colors = ["#2563eb", "#dc2626", "#16a34a", "#9333ea"]
+        maximum = max(float(row["median_ms"]) for row in multiscale)
+        width, height = 1100, 500
+        chart = [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}">',
+            '<rect width="100%" height="100%" fill="white"/>',
+            '<style>text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:20px;'
+            'font-weight:bold}.label{font-size:13px}.legend{font-size:12px}</style>',
+            '<text class="title" x="550" y="30" text-anchor="middle">'
+            'Độ trễ median theo quy mô induced snapshot</text>',
+        ]
+        for panel, backend in enumerate(("neo4j", "sqlite")):
+            left = 65 + panel * 535
+            right, top, bottom = left + 455, 65, 420
+            chart += [
+                f'<text class="label" x="{(left + right) / 2}" y="54" text-anchor="middle">'
+                f'{backend.upper()}</text>',
+                f'<line x1="{left}" y1="{top}" x2="{left}" y2="{bottom}" stroke="#667085"/>',
+                f'<line x1="{left}" y1="{bottom}" x2="{right}" y2="{bottom}" stroke="#667085"/>',
+            ]
+            for index, size in enumerate(sizes):
+                x = left + index * (right - left) / (len(sizes) - 1)
+                chart.append(f'<text class="label" x="{x:.1f}" y="444" text-anchor="middle">{size}</text>')
+            for intent_index, intent in enumerate(intents):
+                points = []
+                for index, size in enumerate(sizes):
+                    row = next(item for item in multiscale if item["backend"] == backend
+                               and item["intent"] == intent and int(item["movie_count"]) == size)
+                    x = left + index * (right - left) / (len(sizes) - 1)
+                    y = bottom - float(row["median_ms"]) / maximum * (bottom - top)
+                    points.append(f"{x:.1f},{y:.1f}")
+                color = colors[intent_index]
+                chart.append(f'<polyline points="{" ".join(points)}" fill="none" stroke="{color}" '
+                             'stroke-width="3"/>')
+                for point in points:
+                    x, y = point.split(",")
+                    chart.append(f'<circle cx="{x}" cy="{y}" r="4" fill="{color}"/>')
+        for index, intent in enumerate(intents):
+            x = 120 + index * 245
+            chart += [
+                f'<line x1="{x}" y1="474" x2="{x + 22}" y2="474" '
+                f'stroke="{colors[index]}" stroke-width="3"/>',
+                f'<text class="legend" x="{x + 28}" y="478">{intent}</text>',
+            ]
+        chart.append("</svg>")
+        (output_dir / "multiscale_benchmark.svg").write_text("\n".join(chart), encoding="utf-8")
+
 
 def main() -> None:
     global RESULTS
