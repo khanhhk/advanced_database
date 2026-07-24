@@ -14,5 +14,6 @@ memory in the same change.
 
 Repository-local skills live under `.agents/skills/`. Before creating, editing,
 validating, or exporting a draw.io diagram, read and follow
-`.agents/skills/drawio/SKILL.md`. Resolve referenced files relative to that skill
-directory and prefer its bundled validators/layout tools over hand-checking XML.
+`.agents/skills/drawio-skill/SKILL.md`. Resolve referenced files relative to that
+skill directory and prefer its bundled validators, layout tools and export
+workflow over hand-checking XML.

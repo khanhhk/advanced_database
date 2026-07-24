@@ -17,7 +17,7 @@ nộp/bảo vệ project **Advanced Database** về đồ thị tri thức phim.
 2. `report_latex/` là nguồn báo cáo chính thức để tải thủ công lên Overleaf.
 3. [Bản thảo Markdown](deliverables/report/draft.md) chỉ là tài liệu tham khảo.
 4. [Dàn ý báo cáo](deliverables/report/outline.md) và
-   [dàn ý trang chiếu](deliverables/defense/slide-outline.md) là danh sách kiểm tra nội dung.
+   [dàn ý trang chiếu](deliverables/slide/outline.md) là danh sách kiểm tra nội dung.
 5. [Hướng dẫn trình diễn](runbooks/demo.md) là tài liệu dùng trực tiếp khi trình bày.
 
 ## Quy ước thuật ngữ

@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+node_modules/
 data/raw/*
 !data/raw/.gitkeep
 data/interim/*
@@ -25,5 +26,5 @@ report_latex/*.toc
 report_latex/*.xdv
 report_latex/main.pdf
 
-# Presentation binaries are prepared manually outside this repository.
-slides/
+# Presentation QA renders are reproducible local intermediates.
+docs/deliverables/slide/rendered/*.jpg

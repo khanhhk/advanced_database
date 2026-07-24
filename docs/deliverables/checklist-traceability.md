@@ -25,7 +25,7 @@ trình bày nên repo chỉ có thể chuẩn bị và kiểm soát đầu vào.
 | 16 | Phân tích, hạn chế, hướng cải tiến | Báo cáo §5.3; trang chiếu 23 | Đủ bằng chứng repo |
 | 17 | Ứng dụng nghiệp vụ và trình diễn UI | Báo cáo chương 6; API/UI; `docs/runbooks/demo.md` | Đủ bằng chứng repo |
 | 18 | Chất lượng báo cáo, hình, tham khảo | `report_latex/`, 14 hình PDF/draw.io, `ref.bib` | Đủ bằng chứng repo; PDF cuối phải được kiểm tra trực quan |
-| 19 | Trang chiếu, thuyết trình, đúng thời gian | `docs/deliverables/defense/slide-outline.md`; `defense-script.md` | Người trình bày tự chuẩn bị trang chiếu và phải diễn tập |
+| 19 | Trang chiếu, thuyết trình, đúng thời gian | `docs/deliverables/slide/outline.md`; `defense-script.md` | Người trình bày tự chuẩn bị trang chiếu và phải diễn tập |
 | 20 | Trả lời phản biện | `docs/deliverables/defense/defense-qa.md` (25 câu), rehearsal checklist | Chuẩn bị đủ; chỉ hội đồng đánh giá trực tiếp |
 
 ## Cổng nộp bài

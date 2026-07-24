@@ -7,18 +7,18 @@ tại, dữ liệu nào đi qua mỗi đường nối và block nào chịu trá
 
 ## 1. Cách đọc sơ đồ
 
-Sơ đồ được đọc từ trái sang phải, gồm sáu vùng:
+Sơ đồ được đọc từ trái sang phải qua năm cột xử lý chính:
 
-1. Data Sources & Processing.
-2. Knowledge Layer.
-3. QA Planning & Safety.
-4. Graph Applications.
-5. API & User Experience.
-6. Verification & Reproducibility.
+1. Nguồn dữ liệu.
+2. Xử lý dữ liệu.
+3. Lớp tri thức.
+4. Dịch vụ đồ thị.
+5. Giao diện người dùng.
 
-Mũi tên biểu diễn dependency hoặc dữ liệu truyền giữa hai block. Đầu mũi tên kết
-thúc ở biên block đích. Đường nét đứt biểu diễn fallback, kiểm tra hoặc sản phẩm đầu ra
-không nằm trên request path chính.
+Bên dưới năm cột là lớp kiểm chứng và tái lập dùng chung cho toàn hệ thống.
+Mũi tên biểu diễn quan hệ phụ thuộc hoặc dữ liệu truyền giữa hai khối. Đầu mũi
+tên kết thúc ở biên khối đích. Đường nét đứt biểu diễn bước kiểm tra hoặc luồng
+không nằm trên đường xử lý chính của một yêu cầu.
 
 ## 2. Data Sources & Processing
 

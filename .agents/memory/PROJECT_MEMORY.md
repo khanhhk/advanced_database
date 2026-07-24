@@ -196,10 +196,8 @@ the graph when that processed checksum matches.
 The large Office lecture/source files used during initial synthesis are not
 stored in the demo repository. Current source code, configuration, Markdown
 documents and committed experiment artifacts are the verifiable project sources.
-- `docs/technical/implementation-plan.md`: repository layout, implementation order, API/query/test
-  requirements and engineering quality rules.
 - `docs/deliverables/report/outline.md` and
-  `docs/deliverables/defense/slide-outline.md`: expected report and
+  `docs/deliverables/slide/outline.md`: expected report and
   presentation story; keep final artifacts aligned with measured evidence.
 - `docs/deliverables/report/draft.md`: supporting Vietnamese manuscript snapshot. The
   authoritative submission source is edited directly under `report_latex/` and
@@ -227,9 +225,13 @@ documents and committed experiment artifacts are the verifiable project sources.
   criteria to report sections, source files and measured artifacts. Criteria 19
   and 20 remain human performance gates even though their preparation artifacts
   are complete.
-- Slide PDF/PPTX and automatic slide-generation scripts are not stored. Use
-  `docs/deliverables/defense/slide-outline.md` and the defense materials to
-  prepare slides manually.
+- `docs/deliverables/slide/` stores the editable presentation workflow:
+  `outline.md`, the PptxGenJS source `build.js`, high-resolution exports of the
+  report draw.io figures, the 24-slide defense deck plus two appendix slides,
+  embedded speaker notes, and a PDF fallback. Text, shapes, tables and charts
+  remain editable PowerPoint objects; complex diagrams retain their editable
+  `.drawio` sources under `report_latex/images/sources/`. Rebuild with `npm ci`
+  and `node docs/deliverables/slide/build.js`.
 - `docs/deliverables/defense/defense-script.md` and
   `docs/deliverables/defense/defense-qa.md`: timed presentation/demo
   sequence, fallback plan, rehearsal gate and 25 evidence-backed oral-defense
@@ -242,6 +244,11 @@ documents and committed experiment artifacts are the verifiable project sources.
 - `docs/technical/architecture-flow.drawio`: editable current-architecture flow.
 - `docs/technical/architecture.md`: block-by-block and request-path explanation
   of the draw.io architecture.
+- The 12 editable draw.io sources (the current-architecture flow plus 11 report
+  figures) share one academic visual system: Vietnamese labels, restrained
+  semantic colors, orthogonal connectors and explicit arrow directions. The QA
+  interaction figure is a UML sequence diagram. Report figures are exported as
+  vector PDFs with the same basenames as their sources.
 - `docs/runbooks/dbeaver-neo4j.md`: reproducible DBeaver Community demo runbook. It
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and
@@ -263,4 +270,6 @@ Keep raw external data and secrets out of Git. Preserve immutable raw inputs,
 checksums/manifests for processed outputs, demo independence from network APIs,
 and the ability to reproduce tests and experiments from documented commands.
 For draw.io work, use the repository-local skill at
-`.agents/skills/drawio/SKILL.md`; `AGENTS.md` makes this discovery rule explicit.
+`.agents/skills/drawio-skill/SKILL.md`; `AGENTS.md` makes this discovery rule
+explicit. The former repository-local draw.io skill was removed and must not be
+referenced.
