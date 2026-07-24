@@ -1,14 +1,16 @@
 % LaTeX source maintained directly for Overleaf.
 \chapter{Kết luận và hướng phát triển}
 
-Đề tài đã xây dựng một Movie Knowledge Graph đầu cuối từ thu thập dữ liệu đến hai
-ứng dụng. Neo4j phục vụ operational traversal; RDF/OWL cung cấp semantic standards
-view. Stable ID, provenance, catalog truy vấn an toàn, evidence-backed inference và
-explainable recommendation giúp kết quả không chỉ chạy được mà còn kiểm tra được.
+Đề tài đã xây dựng một đồ thị tri thức phim đầu cuối từ thu thập dữ liệu đến hai
+ứng dụng. Neo4j phục vụ duyệt đồ thị trong vận hành; RDF/OWL cung cấp cách biểu
+diễn theo chuẩn ngữ nghĩa. Mã định danh ổn định, nguồn gốc dữ liệu, danh mục truy
+vấn an toàn, suy diễn có bằng chứng và gợi ý có khả năng giải thích giúp kết quả
+không chỉ chạy được mà còn kiểm tra được.
 
-Hạn chế chính nằm ở coverage dữ liệu, phạm vi QA và external validity. Thứ tự phát
-triển hợp lý là: hoàn tất independent review; xây QA corpus lớn hơn; benchmark
-concurrency và snapshot lớn hơn; cải thiện
-ambiguity handling; sau đó mới mở rộng Wikidata/Award, temporal graph, vector
-retrieval, GraphRAG hoặc graph embedding. Mọi mở rộng phải giữ nguyên nguyên tắc: model lập kế hoạch,
-query catalog kiểm soát execution, graph cung cấp fact và evidence.
+Hạn chế chính nằm ở độ bao phủ dữ liệu, phạm vi QA và tính hợp lệ bên ngoài. Thứ
+tự phát triển hợp lý là: hoàn tất đánh giá độc lập; xây dựng tập câu hỏi QA lớn
+hơn; đo hiệu năng đồng thời và ảnh chụp dữ liệu lớn hơn; cải thiện cách xử lý
+nhập nhằng; sau đó mới mở rộng Wikidata/giải thưởng, đồ thị thời gian, truy xuất
+vectơ, GraphRAG hoặc biểu diễn nhúng đồ thị. Mọi mở rộng phải giữ nguyên nguyên
+tắc: bộ phân tích chọn ý định, danh mục truy vấn kiểm soát việc thực thi, còn đồ
+thị cung cấp sự kiện và bằng chứng.

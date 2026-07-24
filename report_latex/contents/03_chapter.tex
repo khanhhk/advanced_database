@@ -19,8 +19,9 @@ nguồn dữ liệu và bằng chứng của runtime.
 \subsection{Yêu cầu phi chức năng}
 
 Hệ thống phải idempotent, query-safe, có provenance, chạy demo không phụ thuộc
-Internet sau import, không commit API key/raw dataset, và có workflow tái lập.
-Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. Câu hỏi ngoài
+Internet sau khi nạp, không đưa khóa API/tập dữ liệu thô vào kho mã nguồn, và có
+quy trình tái lập.
+API công khai chỉ cho phép đọc; CRUD chỉ phục vụ bảo trì có kiểm soát. Câu hỏi ngoài
 chín intent phải được từ chối rõ ràng và không ảnh hưởng recommendation.
 
 \section{Chuẩn bị bộ dữ liệu thực nghiệm}
@@ -30,11 +31,13 @@ chín intent phải được từ chối rõ ràng và không ảnh hưởng rec
 Collector duyệt popular pages đến khi đủ số movie ID duy nhất, sau đó tải detail,
 credits, keywords và external IDs theo TMDB API \cite{tmdb2026api}. Response được cache nguyên dạng; request có
 timeout, retry và interval. Cache giúp chạy lại không tiêu tốn API quota và giữ
-snapshot nguồn cho reproducibility.
+ảnh chụp dữ liệu nguồn để bảo đảm khả năng tái lập.
 
 \subsection{Tích hợp IMDb}
 
-Pipeline chỉ tải \texttt{title.ratings.tsv.gz} từ bộ dữ liệu phi thương mại IMDb \cite{imdb2026datasets}, kiểm tra gzip/checksum và ghi metadata.
+Quy trình xử lý dữ liệu (pipeline) chỉ tải \texttt{title.ratings.tsv.gz} từ bộ dữ
+liệu phi thương mại IMDb \cite{imdb2026datasets}, kiểm tra gzip/mã kiểm tra và
+ghi siêu dữ liệu.
 File được stream từng dòng, chỉ giữ record có \texttt{tconst} thuộc tập IMDb ID của 5.000
 phim TMDB. Cách này không giải nén toàn bộ và không nạp IMDb đầy đủ vào RAM/Neo4j.
 \texttt{Movie.rating} và \texttt{Movie.imdb\_rating} không ghi đè nhau.
@@ -52,7 +55,8 @@ khoản hiện hành tại thời điểm chạy vì điều khoản dịch vụ
 Corpus chỉ chứa metadata nghề nghiệp công khai về phim và người tham gia, không
 thu thập lịch sử xem, hồ sơ người dùng hoặc dữ liệu nhạy cảm. Rating của nguồn là
 tín hiệu tổng hợp, không được diễn giải như sự thật khách quan về chất lượng phim.
-Sampling theo popular pages có popularity bias; giới hạn cast tạo coverage bias.
+Lấy mẫu theo các trang phổ biến gây thiên lệch về độ phổ biến; giới hạn dàn diễn
+viên gây thiên lệch về độ bao phủ.
 Hai bias này được công bố để tránh suy rộng kết quả sang toàn bộ điện ảnh hoặc
 mọi nhóm người dùng.
 
@@ -67,9 +71,9 @@ threshold và từ chối tied top score. Ambiguous case không được tự đ
 
 Pipeline tạo \texttt{movies.csv}, \texttt{people.csv}, \texttt{genres.csv}, \texttt{keywords.csv},
 \texttt{studios.csv} và năm edge CSV. Manifest ghi source checksum, thời điểm tạo, counts,
-IMDb coverage/match, invalid record, duplicate/missing rate và coverage cast,
+độ bao phủ/tỷ lệ khớp IMDb, bản ghi không hợp lệ, tỷ lệ trùng/thiếu và độ bao phủ dàn diễn viên,
 director, genre. Raw, interim và processed data được tách để tránh nhầm nguồn với
-artifact dẫn xuất.
+sản phẩm đầu ra dẫn xuất.
 
 \subsection{Thuật toán pipeline}
 \reportfigure{etl_pipeline.pdf}{Luồng xử lý dữ liệu từ nguồn đến các graph}{fig:etl-pipeline}
@@ -90,7 +94,8 @@ OUTPUT: normalized CSVs + manifest + invalid-record log
 
 Độ phức tạp bộ nhớ của IMDb join phụ thuộc số IMDb ID thuộc tập phim mục tiêu,
 không phụ thuộc toàn bộ file ratings. Entity maps phụ thuộc số entity trong
-2.000–5.000 phim. Cast limit kiểm soát kích thước nhưng đồng thời tạo coverage bias.
+2.000–5.000 phim. Giới hạn dàn diễn viên kiểm soát kích thước nhưng đồng thời gây
+thiên lệch về độ bao phủ.
 
 \subsection{Xử lý lỗi}
 
@@ -102,19 +107,21 @@ demo vô tình chạy fixture rồi báo như corpus thật.
 
 \subsection{Tái lập và thay đổi nguồn}
 
-TMDB/IMDb là nguồn động, nên chạy lại ngày khác có thể tạo snapshot khác.
-Reproducibility ở đây là tái lập workflow và truy vết snapshot, không cam kết API
-luôn trả byte giống nhau. Raw cache/checksum cho phép chạy transform trên snapshot
-cũ. Nếu data thay đổi, evaluation/benchmark phải chạy lại cùng snapshot.
+TMDB/IMDb là nguồn động, nên chạy lại ngày khác có thể tạo ảnh chụp dữ liệu khác.
+Khả năng tái lập ở đây là tái lập quy trình và truy vết ảnh chụp dữ liệu, không
+cam kết API luôn trả các byte giống nhau. Bộ nhớ đệm dữ liệu thô và mã kiểm tra
+cho phép biến đổi lại ảnh chụp dữ liệu cũ. Nếu dữ liệu thay đổi, việc đánh giá và
+đo hiệu năng phải được chạy lại trên cùng ảnh chụp dữ liệu.
 
 \subsection{Idempotency và reproducibility}
 
 Idempotency nghĩa là thực hiện cùng một import nhiều lần tạo cùng trạng thái logic,
-không nhân đôi node/edge. Reproducibility rộng hơn: người khác phải biết input,
-version, configuration, code path và protocol để tái tạo artifact/kết quả. \texttt{MERGE}
+không nhân đôi nút/cạnh. Khả năng tái lập rộng hơn: người khác phải biết đầu vào,
+phiên bản, cấu hình, đường thực thi mã và quy trình thực nghiệm để tái tạo sản
+phẩm đầu ra/kết quả. \texttt{MERGE}
 giải quyết một phần idempotency; checksum, manifest, metadata máy và command
-workflow giải quyết reproducibility. Import có thể idempotent nhưng không tái lập
-nếu nguồn thay đổi mà không có snapshot/checksum.
+quy trình giải quyết khả năng tái lập. Thao tác nạp có thể lũy đẳng nhưng không
+tái lập được nếu nguồn thay đổi mà không có ảnh chụp dữ liệu/mã kiểm tra.
 
 \section{Thiết kế và tinh chỉnh ontology hoặc lược đồ Knowledge Graph}
 
@@ -257,5 +264,6 @@ Jena chạy trong Docker profile \texttt{semantic}, đọc ontology và \texttt{
 assembler. \texttt{GenericRuleReasoner} ở chế độ forward nạp năm luật khai báo tường minh:
 domain, range, hai chiều của \texttt{owl:inverseOf} và \texttt{owl:SymmetricProperty}. Profile
 này cố ý khớp phạm vi mà báo cáo tuyên bố, tránh ngụ ý hỗ trợ toàn bộ OWL 2 DL.
-Fuseki chỉ phục vụ endpoint query cho workflow đánh giá, không nằm trên critical
+Fuseki chỉ phục vụ điểm cuối truy vấn cho quy trình đánh giá, không nằm trên
+đường thực thi trọng yếu
 path của \texttt{make demo}.

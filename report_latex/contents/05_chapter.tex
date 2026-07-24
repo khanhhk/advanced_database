@@ -20,11 +20,11 @@ yêu thích và không phải personalization theo người dùng.
 \subsection{Chỉ số đánh giá}
 
 \begin{itemize}
-\item Data quality: missing, duplicate, invalid edge, orphan và coverage.
+\item Chất lượng dữ liệu: giá trị thiếu, bản ghi trùng, cạnh không hợp lệ, nút mồ côi và độ bao phủ.
 \item Entity resolution: Precision, Recall, F1.
-\item Reasoning: precision của fact suy ra và evidence coverage.
-\item QA: intent accuracy, answer correctness và evidence.
-\item Recommendation: Precision@K, DCG/NDCG@K, explanation coverage.
+\item Suy diễn: độ chính xác của sự kiện suy ra và độ bao phủ bằng chứng.
+\item QA: độ chính xác ý định, tính đúng của câu trả lời và bằng chứng.
+\item Gợi ý: Precision@K, DCG/NDCG@K và độ bao phủ lời giải thích.
 \item Performance: median, p95 và standard deviation sau warm-up.
 \end{itemize}
 
@@ -32,9 +32,9 @@ yêu thích và không phải personalization theo người dùng.
 
 Các kết quả dưới đây được ghi kèm backend, số lượng phim, số case, K, số lần lặp
 và cấu hình cần thiết. Các bộ kiểm thử do nhóm chuẩn bị nhằm kiểm tra hệ thống
-trên snapshot hiện tại; số liệu QA và hiệu năng được lấy từ Neo4j thực tế.
+trên ảnh chụp dữ liệu hiện tại; số liệu QA và hiệu năng được lấy từ Neo4j thực tế.
 
-\section{Kịch bản thực nghiệm, benchmark, bảng biểu và baseline}
+\section{Kịch bản thực nghiệm, đo hiệu năng, bảng biểu và mốc so sánh}
 
 \subsection{Dataset và graph}
 \reportfigure{quality_metrics.pdf}{Tổng hợp chỉ số chất lượng dữ liệu và graph}{fig:quality-metrics}
@@ -51,8 +51,8 @@ Các số liệu này lấy từ \texttt{data/processed/manifest.json} và
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
 \caption{Tổng hợp dataset và graph}\label{tab:5-1} \\
 \hline
-\textbf{Chỉ số snapshot/graph} & \textbf{Giá trị cuối} \\ \hline
-\endfirsthead\hline \textbf{Chỉ số snapshot/graph} & \textbf{Giá trị cuối} \\ \hline\endhead
+\textbf{Chỉ số ảnh chụp dữ liệu/đồ thị} & \textbf{Giá trị cuối} \\ \hline
+\endfirsthead\hline \textbf{Chỉ số ảnh chụp dữ liệu/đồ thị} & \textbf{Giá trị cuối} \\ \hline\endhead
 Record TMDB đầu vào & 5.000 \\ \hline
 Movie hợp lệ sau quality gate & 4.999 \\ \hline
 Movie bị loại do không có quan hệ & 1 \\ \hline
@@ -71,28 +71,30 @@ Snapshot hiện tại ghi một lỗi \texttt{no\_graph\_relationships} cho TMDB
 
 \subsection{Entity resolution}
 
-Corpus kiểm thử gồm 100 case: 75 positive và 25 negative, có source ID/evidence.
+Tập kiểm thử gồm 100 trường hợp: 75 mẫu dương và 25 mẫu âm, có mã định danh
+nguồn/bằng chứng.
 Candidate set dùng bốn tên cùng loại gần nhất thay vì decoy tùy ý. Kết quả là
 TP=70, TN=25, FP=0, FN=5: precision=1,000, recall=0,933 và F1=0,966. Bốn missed
 match là typo ngắn dưới ngưỡng 0,90; case còn lại có hai phim cùng tên \texttt{Alter Ego}
 nên resolver từ chối tie thay vì merge tùy tiện. Chính sách này ưu tiên precision
 vì false merge làm ô nhiễm graph nghiêm trọng hơn một match bị bỏ lỡ.
 
-Audit toàn snapshot
+Kiểm tra toàn bộ ảnh chụp dữ liệu
 ghi nhận zero duplicate stable ID, conflicting required value, missing required
 field, invalid foreign key và duplicate endpoint pair; provenance coverage của
 node/edge có trường source đạt 100\%. Hai trăm linh chín tên Person trùng không bị merge
 vì stable source ID là identity key. Corpus silver là benchmark tất định dựa trên
 source ID, typo có kiểm soát và nearest-name hard negative; kết quả không đại diện
-cho mọi lỗi định danh có thể xuất hiện ngoài snapshot.
+cho mọi lỗi định danh có thể xuất hiện ngoài ảnh chụp dữ liệu.
 
 \subsection{Reasoning}
 
 Năm mươi fact \texttt{CO\_STARRED\_WITH} được kiểm tra bằng supporting movie và
 source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
-tra mọi derived edge phải có ít nhất một shared Movie. Semantic workflow trên
-full normalized snapshot materialize 86.509 triple, tăng từ 342.683 lên 429.192
-triple và không có semantic violation. RDF export dùng chính processed snapshot
+tra mọi cạnh suy ra phải có ít nhất một phim chung. Quy trình ngữ nghĩa trên ảnh
+chụp dữ liệu chuẩn hóa đầy đủ vật chất hóa 86.509 bộ ba, tăng từ 342.683 lên
+429.192 bộ ba và không có vi phạm ngữ nghĩa. Dữ liệu RDF xuất ra dùng chính ảnh
+chụp dữ liệu đã xử lý
 4.999 Movie như Neo4j. Apache Jena Fuseki 6.1.0 tái hiện đúng mức tăng 86.509
 triple bằng forward rule profile; 10/10 SPARQL query thực thi thành công trên cả
 RDFLib và endpoint Jena.
@@ -100,10 +102,10 @@ RDFLib và endpoint Jena.
 \subsection{QA}
 
 Corpus deterministic gồm 20 câu phủ chín intent, yêu cầu đúng intent, nội dung
-mong đợi và tối thiểu một evidence record (riêng top-5 yêu cầu đủ năm evidence).
+mong đợi và tối thiểu một bản ghi bằng chứng (riêng 5 kết quả đầu yêu cầu đủ năm bằng chứng).
 Đường thực thi trên Neo4j đạt 20/20. Quy tắc chấm shortest-path chấp nhận mọi
 đường hợp lệ thay vì khóa vào một node trung gian; câu hỏi recommendation kiểm tra contract
-và evidence, còn chất lượng ranking được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
+và bằng chứng, còn chất lượng xếp hạng được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
 bộ kiểm thử chức năng do nhóm xây dựng và có thể mở rộng thêm paraphrase hoặc câu
 mơ hồ trong các phiên bản sau.
 
@@ -115,26 +117,28 @@ mơ hồ trong các phiên bản sau.
 \hline
 \textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline
 \endfirsthead\hline \textbf{Phương pháp} & \textbf{P@10} & \textbf{NDCG@10} & \textbf{Vai trò} \\ \hline\endhead
-Overlap & 0,670 & 0,723 & baseline lịch sử \\ \hline
-Weighted Jaccard & 0,640 & 0,699 & baseline lịch sử \\ \hline
-Hybrid & 0,590 & 0,657 & baseline lịch sử \\ \hline
-IDF-weighted graph & \textbf{0,635} & \textbf{0,672} & production Neo4j hiện tại \\ \hline
+Độ chồng lấp (Overlap) & 0,670 & 0,723 & mốc so sánh lịch sử \\ \hline
+Jaccard có trọng số & 0,640 & 0,699 & mốc so sánh lịch sử \\ \hline
+Kết hợp (Hybrid) & 0,590 & 0,657 & mốc so sánh lịch sử \\ \hline
+Đồ thị có trọng số IDF & \textbf{0,635} & \textbf{0,672} & Neo4j hiện tại \\ \hline
 \end{longtable}
 
 IDF đạt P@10=0,635 và NDCG@10=0,672 trên 20 case hiện tại; mọi recommendation có
-explanation. Ba hàng baseline là lịch sử thiết kế trên snapshot/cấu hình trước,
-vì vậy không dùng để kết luận IDF tốt hơn nếu chưa tái chạy chung protocol. Corpus
+lời giải thích. Ba hàng mốc so sánh là lịch sử thiết kế trên ảnh chụp dữ
+liệu/cấu hình trước, vì vậy không dùng để kết luận IDF tốt hơn nếu chưa tái chạy
+cùng quy trình thực nghiệm. Tập dữ liệu
 nhỏ và quy tắc relevance dựa trên metadata graph; kết quả không đồng nghĩa người
 dùng thực sẽ ưa thích recommendation.
 
 \subsection{Hiệu năng}
-\reportfigure{query_latency.pdf}{Độ trễ Neo4j và SQLite theo quy mô induced snapshot}{fig:query-latency}
+\reportfigure{query_latency.pdf}{Độ trễ Neo4j và SQLite theo quy mô ảnh chụp dữ liệu con}{fig:query-latency}
 
-Benchmark đa quy mô dùng bốn induced snapshot tất định 500/1.000/2.000/4.999 Movie từ
+Phép đo hiệu năng đa quy mô dùng bốn ảnh chụp dữ liệu con tất định
+500/1.000/2.000/4.999 phim từ
 cùng processed order. Mỗi scale được import authoritative vào Neo4j test riêng;
 SQLite dựng bảng/index từ đúng các CSV cùng scale. Bốn query tương đương chạy trên
-cùng máy, một warm-up và 100 lần/query. Mỗi snapshot lưu checksum, count node/edge,
-phiên bản runtime và protocol trong metadata.
+cùng máy, một lần làm nóng và 100 lần/truy vấn. Mỗi ảnh chụp dữ liệu lưu mã kiểm
+tra, số nút/cạnh, phiên bản môi trường chạy và quy trình thực nghiệm trong siêu dữ liệu.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
 \caption{Tổng hợp hiệu năng}\label{tab:5-3} \\
@@ -161,17 +165,18 @@ phạm vi 500–4.999 Movie; chúng không phải tuyên bố scalability tổng
 \subsection{Protocol tái chạy thực nghiệm}
 
 \begin{enumerate}
-\item Cố định raw snapshot và ghi checksum.
+\item Cố định ảnh chụp dữ liệu thô và ghi mã kiểm tra.
 \item Transform/import authoritative, chạy validation và lưu counts.
 \item Chạy reasoning trước evaluation phụ thuộc derived edges.
 \item Chạy corpus bằng đúng backend được khai báo.
-\item Sinh induced snapshot 500/1.000/2.000/4.999; benchmark một warm-up và 100 iterations/query; không chạy workload khác song song.
+\item Sinh ảnh chụp dữ liệu con 500/1.000/2.000/4.999; làm nóng một lần rồi đo
+100 lần cho mỗi truy vấn; không chạy tải công việc khác song song.
 \item Lưu Python/Neo4j/platform/movie count trong metadata.
-\item Sinh bảng/biểu đồ từ JSON/CSV artifact, không nhập số bằng tay.
-\item Kiểm tra mọi bảng, biểu đồ và số liệu công bố dùng cùng phiên bản artifact.
+\item Sinh bảng/biểu đồ từ sản phẩm đầu ra JSON/CSV, không nhập số bằng tay.
+\item Kiểm tra mọi bảng, biểu đồ và số liệu công bố dùng cùng phiên bản sản phẩm đầu ra.
 \end{enumerate}
 
-Với relational baseline, snapshot và máy phải giống Neo4j run. Nếu không đáp ứng,
+Với mốc so sánh quan hệ, ảnh chụp dữ liệu và máy phải giống lần chạy Neo4j. Nếu không đáp ứng,
 kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
 
 \subsection{Kiểm thử và quy trình chạy}
@@ -194,7 +199,7 @@ container đã chạy nhưng driver chưa handshake được. Quy trình còn ch
 \begin{itemize}
 \item Popular-movie sampling tạo selection bias.
 \item Top-20 cast bỏ diễn viên phụ.
-\item Nguồn TMDB thay đổi theo thời gian; cache chỉ cố định một snapshot.
+\item Nguồn TMDB thay đổi theo thời gian; bộ nhớ đệm chỉ cố định một ảnh chụp dữ liệu.
 \item IMDb chỉ enrich Movie, chưa link Person.
 \item Các bộ case đánh giá được xây dựng nội bộ và còn nhỏ.
 \item QA corpus deterministic 20 câu chưa phủ paraphrase rộng.

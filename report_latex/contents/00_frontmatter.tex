@@ -2,22 +2,23 @@
 \chapter*{Lời mở đầu}
 \addcontentsline{toc}{chapter}{Lời mở đầu}
 
-Knowledge Graph là một hướng tiếp cận phù hợp với dữ liệu có nhiều loại thực thể
+Đồ thị tri thức (Knowledge Graph) là một hướng tiếp cận phù hợp với dữ liệu có nhiều loại thực thể
 và quan hệ liên kết. Trong miền phim, một bộ phim liên hệ với diễn viên, đạo diễn,
 thể loại, từ khóa và hãng sản xuất; các quan hệ này tạo ra nhiều câu hỏi mà cách
 biểu diễn đồ thị có thể mô tả trực tiếp và dễ theo dõi hơn.
 
-Báo cáo trình bày quá trình xây dựng Movie Knowledge Graph từ dữ liệu TMDB và
-IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế ontology và graph schema,
+Báo cáo trình bày quá trình xây dựng đồ thị tri thức phim từ dữ liệu TMDB và
+IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế bản thể (ontology) và lược đồ đồ thị,
 nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một số luật suy diễn.
 Trên nền tảng đó, hệ thống triển khai hai chức năng chính: hỏi–đáp về phim bằng
-ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong graph.
+ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong đồ thị.
 
-Mục tiêu của đề tài là xây dựng và đánh giá một quy trình Knowledge Graph đầu
+Mục tiêu của đề tài là xây dựng và đánh giá một quy trình đồ thị tri thức đầu
 cuối có thể vận hành và kiểm chứng. Trọng tâm nghiên cứu gồm tích hợp dữ liệu đa
 nguồn với định danh ổn định, truy vấn nhiều bước, suy diễn có bằng chứng, hỏi–đáp
-an toàn và gợi ý phim có khả năng giải thích. Các kết quả được gắn với snapshot,
-cấu hình và protocol cụ thể để phân biệt bằng chứng thực nghiệm với nhận định
+an toàn và gợi ý phim có khả năng giải thích. Các kết quả được gắn với ảnh chụp
+dữ liệu (snapshot), cấu hình và quy trình thực nghiệm (protocol) cụ thể để phân
+biệt bằng chứng thực nghiệm với nhận định
 khái quát.
 
 Nội dung báo cáo được tổ chức thành bảy chương:
@@ -25,19 +26,19 @@ Nội dung báo cáo được tổ chức thành bảy chương:
 \begin{enumerate}
 \item \textbf{Chương 1 – Đặt vấn đề và tổng quan:} trình bày bối cảnh, bài toán,
 câu hỏi nghiên cứu, phạm vi, các công trình liên quan và lý do lựa chọn mô hình
-Knowledge Graph.
+đồ thị tri thức.
 \item \textbf{Chương 2 – Lý thuyết và mô hình dữ liệu:} giới thiệu nền tảng về
-biểu diễn tri thức, RDF/RDFS/OWL, Property Graph, cơ chế suy diễn, entity
-resolution và provenance.
+biểu diễn tri thức, RDF/RDFS/OWL, đồ thị thuộc tính (Property Graph), cơ chế suy
+diễn, phân giải thực thể (entity resolution) và nguồn gốc dữ liệu (provenance).
 \item \textbf{Chương 3 – Thiết kế và cài đặt hệ thống:} mô tả kiến trúc, nguồn
-dữ liệu, pipeline xử lý, ontology, lược đồ Neo4j, RDF export và cấu hình các
-engine suy diễn.
+dữ liệu, quy trình xử lý dữ liệu (pipeline), bản thể, lược đồ Neo4j, xuất RDF và
+cấu hình các bộ máy suy diễn.
 \item \textbf{Chương 4 – Truy vấn, xử lý và nghiệp vụ:} trình bày các truy vấn
-Cypher/SPARQL, competency question, cơ chế bảo đảm an toàn truy vấn và các luật
+Cypher/SPARQL, câu hỏi năng lực (competency question), cơ chế bảo đảm an toàn truy vấn và các luật
 suy diễn có bằng chứng.
-\item \textbf{Chương 5 – Thực nghiệm và đánh giá:} mô tả dữ liệu, protocol,
-baseline, chỉ số đánh giá và kết quả về chất lượng graph, entity resolution,
-reasoning, hỏi–đáp, recommendation và hiệu năng.
+\item \textbf{Chương 5 – Thực nghiệm và đánh giá:} mô tả dữ liệu, quy trình thực
+nghiệm, mốc so sánh (baseline), chỉ số đánh giá và kết quả về chất lượng đồ thị,
+phân giải thực thể, suy diễn, hỏi–đáp, gợi ý và hiệu năng.
 \item \textbf{Chương 6 – Ứng dụng và vận hành hệ thống:} trình bày các chức năng
 hỏi–đáp, gợi ý phim, API, giao diện, cơ chế giải thích và các tình huống lỗi.
 \item \textbf{Chương 7 – Kết luận và hướng phát triển:} tổng hợp kết quả, trả lời

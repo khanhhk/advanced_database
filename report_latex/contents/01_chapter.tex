@@ -4,7 +4,7 @@
 \section{Mô tả bài toán, ngữ cảnh, phạm vi, mục tiêu và lý do lựa chọn công nghệ CSDL}
 
 \subsection{Bối cảnh}
-\reportfigure{movie_kg_overview.pdf}{Khái quát miền dữ liệu Movie Knowledge Graph}{fig:movie-kg-overview}
+\reportfigure{movie_kg_overview.pdf}{Khái quát miền dữ liệu đồ thị tri thức phim}{fig:movie-kg-overview}
 
 Một bộ phim không tồn tại như một bản ghi độc lập. Nó liên hệ nhiều–nhiều với
 diễn viên, đạo diễn, thể loại, từ khóa và hãng sản xuất. Một người có thể đồng
@@ -17,8 +17,8 @@ rating và vote count độc lập.
 Các câu hỏi như “đường liên hệ giữa hai diễn viên là gì?”, “đạo diễn nào thường
 làm phim thuộc một thể loại?” hoặc “phim nào tương tự và vì sao?” không chỉ là
 lookup một bản ghi. Chúng yêu cầu duyệt nhiều quan hệ và giữ lại bằng chứng của
-đường duyệt. Knowledge Graph phù hợp với bài toán này vì thực thể và quan hệ được
-biểu diễn tường minh, còn câu hỏi nghiệp vụ có thể ánh xạ thành graph pattern.
+đường duyệt. Đồ thị tri thức phù hợp với bài toán này vì thực thể và quan hệ được
+biểu diễn tường minh, còn câu hỏi nghiệp vụ có thể ánh xạ thành mẫu đồ thị.
 
 \subsection{Phát biểu bài toán}
 
@@ -57,7 +57,7 @@ Các câu hỏi phụ gồm:
 
 \subsection{Mục tiêu}
 
-Mục tiêu tổng quát là xây dựng một Movie Knowledge Graph chạy được từ dữ liệu
+Mục tiêu tổng quát là xây dựng một đồ thị tri thức phim chạy được từ dữ liệu
 nguồn đến ứng dụng. Các mục tiêu kiểm chứng được là:
 
 \begin{itemize}
@@ -97,12 +97,12 @@ hướng mở rộng, không được dùng để mô tả chức năng hiện c
 
 \subsection{Phương pháp khảo sát}
 
-Khảo sát tập trung vào ba cụm: Knowledge Graph construction/entity resolution,
-KG question answering và explainable KG recommendation. Từ khóa gồm “knowledge
+Khảo sát tập trung vào ba cụm: xây dựng đồ thị tri thức/phân giải thực thể,
+hỏi--đáp trên đồ thị tri thức và gợi ý có khả năng giải thích. Từ khóa gồm “knowledge
 graph question answering”, “knowledge graph recommender systems”, “explainable
 graph recommendation”, “movie knowledge graph recommendation” và “temporal
 knowledge graph QA”. Nguồn ưu tiên là W3C, tài liệu chính thức của nền tảng,
-proceedings hội nghị, tạp chí peer-reviewed và bản paper của tác giả. Khoảng thời
+ngữ hội nghị, tạp chí đã qua bình duyệt và bản thảo của tác giả. Khoảng thời
 gian ưu tiên là 2023–2026; nguồn nền tảng cũ hơn chỉ dùng cho định nghĩa chuẩn.
 
 Tiêu chí đưa vào gồm: liên quan trực tiếp tới KGQA/recommendation/construction;
@@ -114,15 +114,15 @@ cốt lõi.
 
 Guo và cộng sự khảo sát các hệ gợi ý dựa trên Knowledge Graph, phân loại cách
 khai thác graph và nhấn mạnh hai mục tiêu accuracy và explainability \cite{guo2023kgsurvey}. Kết quả
-này hỗ trợ quyết định đánh giá đồng thời ranking metric và explanation coverage.
+này hỗ trợ quyết định đánh giá đồng thời chỉ số xếp hạng và độ bao phủ lời giải thích.
 Các nghiên cứu về explainable graph recommendation cho thấy đường/feature graph
 có thể cung cấp lý do dễ kiểm tra hơn latent factor \cite{caro2023graph}, \cite{colas2023knowledge}. Tuy nhiên, nhiều
 phương pháp tối ưu personalization từ user–item interaction hoặc dùng embedding;
-đề tài này không có user history nên chỉ tuyên bố item-to-item recommendation.
+đề tài này không có lịch sử người dùng nên chỉ tuyên bố gợi ý giữa các phim.
 
 Các công trình conversational recommendation dùng explicit reasoning chain để
 tạo recommendation rationale \cite{ren2024explicit}. Đề tài chia QA và recommendation thành hai
-endpoint, nhưng chia sẻ nguyên tắc: mọi kết quả phải có graph evidence. Với miền
+điểm cuối, nhưng chia sẻ nguyên tắc: mọi kết quả phải có bằng chứng từ đồ thị. Với miền
 phim, các nghiên cứu kết hợp KG với time series hoặc topic model nhằm tăng độ
 chính xác \cite{zhang2023movie}, \cite{saat2024enhanced}. Đây là baseline khái niệm quan trọng, đồng thời chỉ ra giới
 hạn của đề tài: chưa mô hình hóa thời gian tương tác hoặc nội dung overview bằng
@@ -135,16 +135,16 @@ transaction time. BYOKG dùng LLM-backed symbolic agent để khám phá KG chư
 sinh query-program exemplar và tổng hợp chương trình truy vấn zero-shot \cite{agarwal2024byokg}.
 Khác với hướng đó, đề tài cố định schema/operation whitelist để ưu tiên safety và
 reproducibility trong phạm vi Movie KG. Vì vậy smoke test 10 câu của đề tài chỉ
-được dùng để kiểm tra hệ thống, không gọi là benchmark production.
+được dùng để kiểm tra hệ thống, không gọi là phép đo chuẩn cho môi trường thực tế.
 
 \subsection{Khoảng trống và vị trí đề tài}
 
 Đề tài không nhằm cạnh tranh với các mô hình KGQA/recommender quy mô lớn. Khoảng
-trống được lựa chọn là một workflow đầu cuối và kiểm chứng được: thu thập đa
-nguồn, identity/provenance, hai biểu diễn graph, suy diễn có evidence, API/UI,
-kiểm thử và artifact thực nghiệm. Điểm khác biệt quan trọng là QA chỉ thực thi
+trống được lựa chọn là một quy trình đầu cuối và kiểm chứng được: thu thập đa
+nguồn, định danh/nguồn gốc dữ liệu, hai biểu diễn đồ thị, suy diễn có bằng chứng,
+API/giao diện, kiểm thử và sản phẩm đầu ra thực nghiệm. Điểm khác biệt quan trọng là QA chỉ thực thi
 các intent và Cypher pattern đã xác định, recommendation score được giải thích bằng các quan
-hệ trong graph, và các kết quả đo đều gắn với snapshot cùng cấu hình cụ thể.
+hệ trong đồ thị, và các kết quả đo đều gắn với ảnh chụp dữ liệu cùng cấu hình cụ thể.
 
 \subsection{So sánh có cấu trúc các công trình liên quan}
 
@@ -163,28 +163,29 @@ Su et al. \cite{su2024temporal} & temporal KGQA studies & survey taxonomy & temp
 Agarwal et al. \cite{agarwal2024byokg} & unseen/domain KG & LLM program synthesis & query program/path & fixed schema/whitelist compiler \\ \hline
 \end{longtable}
 
-“Dùng Knowledge Graph” không phải một phương pháp duy nhất. KG có thể là nguồn
+“Dùng đồ thị tri thức” không phải một phương pháp duy nhất. KG có thể là nguồn
 side information cho model, không gian reasoning, cấu trúc explanation hoặc
 operational database. Trong đề tài, graph đồng thời là operational store và
-evidence substrate; model học sâu không trực tiếp quyết định ranking hoặc fact.
+nền tảng bằng chứng; mô hình học sâu không trực tiếp quyết định xếp hạng hoặc sự kiện.
 
 \subsection{Liên hệ survey với quyết định thiết kế}
 
 Survey dẫn đến bốn quyết định. Thứ nhất, explainability phải được định nghĩa bằng
-evidence có thể kiểm tra, không chỉ text nghe hợp lý. Thứ hai, metric recommendation
+bằng chứng có thể kiểm tra, không chỉ văn bản nghe hợp lý. Thứ hai, chỉ số gợi ý
 phải đi cùng corpus, quy tắc gán nhãn và K. Thứ ba, QA dùng intent và query
 catalog cố định để giữ execution surface có thể kiểm thử. Thứ tư, các
-phương pháp personalized không được dùng để quảng bá hệ thống không có user profile.
+phương pháp cá nhân hóa không được dùng để quảng bá hệ thống không có hồ sơ người dùng.
 
 \section{So sánh với mô hình quan hệ truyền thống và giải pháp thay thế}
 
 \subsection{Property Graph và Neo4j}
 
-Property Graph gồm node có label, relationship có type/hướng và property trên cả
-node lẫn relationship. Neo4j dùng Cypher để match graph pattern. Unique constraint
-bảo vệ stable key; index/full-text index tăng tốc lookup; transaction bảo đảm một
-batch import không ở trạng thái dở dang. Property trên \texttt{ACTED\_IN} như \texttt{character}
-và \texttt{cast\_order} là lý do thực dụng để chọn Property Graph làm operational store \cite{neo4j2026cypher}.
+Đồ thị thuộc tính gồm nút có nhãn, quan hệ có loại/hướng và thuộc tính trên cả
+nút lẫn quan hệ. Neo4j dùng Cypher để khớp mẫu đồ thị. Ràng buộc duy nhất bảo vệ
+khóa ổn định; chỉ mục/chỉ mục toàn văn tăng tốc tra cứu; giao dịch bảo đảm một lô
+nạp không ở trạng thái dở dang. Thuộc tính trên \texttt{ACTED\_IN} như
+\texttt{character} và \texttt{cast\_order} là lý do thực dụng để chọn đồ thị
+thuộc tính làm kho dữ liệu vận hành \cite{neo4j2026cypher}.
 
 \subsection{So sánh mô hình}
 
@@ -207,13 +208,14 @@ schema ổn định; document store phù hợp khi một aggregate thường đ�
 nguyên khối và ít quan hệ chéo; RDF phù hợp liên thông và semantics; Neo4j phù
 hợp traversal và ứng dụng graph. Đề tài không chọn document store vì cast,
 director, genre và keyword được dùng lại qua nhiều phim: nhúng gây lặp, còn tham
-chiếu lại đưa bài toán về nhiều phép lookup. Đề tài đo một SQLite baseline trên cùng snapshot thay vì dùng
+chiếu lại đưa bài toán về nhiều phép tra cứu. Đề tài đo một mốc so sánh SQLite
+trên cùng ảnh chụp dữ liệu thay vì dùng
 lập luận lý thuyết để tuyên bố Neo4j luôn nhanh hơn.
 
-Knowledge Graph cũng không nên được dùng chỉ vì dữ liệu “có quan hệ”. Nếu workload
+Đồ thị tri thức cũng không nên được dùng chỉ vì dữ liệu “có quan hệ”. Nếu tải công việc
 chủ yếu là transaction theo khóa, báo cáo tổng hợp cố định hoặc dữ liệu nhỏ với
 schema ổn định, CSDL quan hệ đơn giản hơn và có thể hiệu quả hơn. RDF/OWL chỉ đáng
 đổi chi phí khi interoperability, định danh toàn cục hoặc entailment là yêu cầu
-thật. Property Graph phù hợp đề tài vì competency question tập trung vào đường
+thật. Đồ thị thuộc tính phù hợp đề tài vì câu hỏi năng lực tập trung vào đường
 đi, neighborhood và bằng chứng trên quan hệ; lựa chọn này là workload-driven,
 không phải tuyên bố ưu thế phổ quát.

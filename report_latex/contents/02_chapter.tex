@@ -7,7 +7,7 @@
 
 Dữ liệu là các giá trị thô; thông tin xuất hiện khi dữ liệu được đặt trong ngữ
 cảnh; tri thức thể hiện các thực thể, quan hệ và quy tắc cho phép giải thích hoặc
-suy ra điều mới. Trong Knowledge Graph, một fact được biểu diễn bằng quan hệ giữa
+suy ra điều mới. Trong đồ thị tri thức, một sự kiện (fact) được biểu diễn bằng quan hệ giữa
 các thực thể có định danh. Fact có thể là \textbf{asserted fact}, lấy trực tiếp từ nguồn,
 hoặc \textbf{derived fact}, sinh bởi luật và phải truy ngược được về tiền đề \cite{hogan2021knowledge}.
 
@@ -18,7 +18,7 @@ object property, datatype property và axiom. Taxonomy chủ yếu biểu diễn
 “is-a”, trong khi ontology còn mô tả domain/range, inverse, disjointness,
 cardinality và các ràng buộc ngữ nghĩa khác. Đề tài thiết kế ontology từ
 competency question: chỉ đưa class/property cần thiết để trả lời câu hỏi, tránh
-mở rộng schema không có dữ liệu hoặc use case.
+mở rộng lược đồ khi không có dữ liệu hoặc trường hợp sử dụng.
 
 \subsection{RDF, RDFS, OWL và SPARQL}
 
@@ -83,23 +83,25 @@ so với yêu cầu, chẳng hạn tỷ lệ phim có cast, director, genre ho�
 
 Zero structural violation không chứng minh graph phản ánh hoàn hảo thế giới thật.
 Một phim có thể thiếu cast do giới hạn nguồn nhưng vẫn hợp lệ về schema. Ngược
-lại, graph có coverage cao vẫn có thể merge sai hai người trùng tên. Vì vậy đề tài
-báo cáo đồng thời constraint/validation, coverage và sample review thay vì gộp
+lại, đồ thị có độ bao phủ cao vẫn có thể hợp nhất sai hai người trùng tên. Vì vậy đề tài
+báo cáo đồng thời ràng buộc/kiểm tra hợp lệ, độ bao phủ và đánh giá mẫu thay vì gộp
 tất cả thành một “quality score”.
 
-Audit trên toàn bộ processed snapshot kiểm tra stable-ID trùng, required field,
+Kiểm tra trên toàn bộ ảnh chụp dữ liệu đã xử lý phát hiện mã định danh ổn định
+trùng, trường bắt buộc,
 foreign key của edge, endpoint pair trùng, conflicting value và provenance. Hai
 credit TMDB lặp cùng Person–Movie nhưng khác tên vai được gộp thành một
 \texttt{ACTED\_IN}: nối các character khác nhau và giữ \texttt{cast\_order} nhỏ nhất. Artifact
 sau chuẩn hóa có zero violation; 54 tên Person trùng được ghi nhận nhưng không
 merge vì tên không phải khóa. Corpus ER silver 100 case gồm 50 exact-ID, 25 fuzzy
-positive và 25 hard negative; metric chỉ được diễn giải trong phạm vi protocol
-tất định này, không khái quát thành độ chính xác production.
+dương và 25 mẫu âm khó; chỉ số chỉ được diễn giải trong phạm vi quy trình thực
+nghiệm tất định này, không khái quát thành độ chính xác trong môi trường thực tế.
 
 \subsection{Provenance}
 
 Provenance có ba mức. Mức source: node/edge gốc có \texttt{source=tmdb}, Movie giữ IMDb
-ID và ratings riêng. Mức snapshot: manifest giữ path/checksum/count và match
+ID và điểm đánh giá riêng. Ở mức ảnh chụp dữ liệu, tệp kê khai giữ đường dẫn, mã
+kiểm tra, số lượng và số bản ghi khớp
 method. Mức derivation: \texttt{CO\_STARRED\_WITH} giữ \texttt{derived}, count và supporting
 movie IDs. RDF export chưa dùng named graph đầy đủ cho từng nguồn; đây là giới
 hạn thay vì một claim provenance chuẩn hóa toàn diện.

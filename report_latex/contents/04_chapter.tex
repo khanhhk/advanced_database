@@ -7,7 +7,8 @@
 
 Mười query bao phủ phim theo đạo diễn, cast, shared genre, co-star aggregation,
 director–genre multi-hop, OPTIONAL IMDb enrichment, inverse \texttt{hasActor}, semantic
-path, ASK quality và CONSTRUCT recommendation evidence. Loader bắt buộc đúng 10
+đường đi, kiểm tra chất lượng bằng ASK và tạo bằng chứng gợi ý bằng CONSTRUCT.
+Bộ nạp bắt buộc đúng 10
 query, parse rồi chạy từng query trên graph đã materialize.
 
 \subsection{An toàn truy vấn}
@@ -15,7 +16,7 @@ query, parse rồi chạy từng query trên graph đã materialize.
 An toàn có nhiều tầng. Pydantic giới hạn request length/type; parser chỉ nhận
 chín intent; mỗi intent ánh xạ đến một Cypher pattern do ứng dụng sở hữu; entity
 value nằm trong Neo4j parameter; public API không có write operation. Không có
-raw user input nào được dùng làm cấu trúc Cypher.
+dữ liệu thô nào do người dùng nhập được dùng làm cấu trúc Cypher.
 
 Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
 vậy query catalog còn áp giới hạn kết quả, shortest-path depth~$\leq 8$,
@@ -74,7 +75,8 @@ MVP; một CQ không ánh xạ được query chỉ ra thiếu sót thiết kế
 Dataset phải đạt ít nhất 2.000 Movie; import hai lần không đổi counts; validation
 không có violation chưa giải thích; catalog Cypher/SPARQL phải parse/chạy; API trả
 schema hợp lệ; recommendation trả explanation; evaluation ghi backend, corpus và
-protocol; integration test phải kết nối Neo4j test riêng thay vì skip do graph
+quy trình thực nghiệm; kiểm thử tích hợp phải kết nối một Neo4j kiểm thử riêng
+thay vì bỏ qua do đồ thị
 demo có dữ liệu.
 
 \section{Truy vấn có suy luận và tri thức ẩn}
