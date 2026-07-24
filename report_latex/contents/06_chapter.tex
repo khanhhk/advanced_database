@@ -1,9 +1,7 @@
 % LaTeX source maintained directly for Overleaf.
 \chapter{VI. Ứng dụng và demo chương trình}
 
-\section{Ứng dụng nghiệp vụ và demo chương trình}
-
-\subsection{Stakeholder và use case}
+\section{Stakeholder và use case}
 
 \begin{itemize}
 \item Người dùng cuối hỏi thông tin phim và nhận recommendation có lý do.
@@ -12,7 +10,7 @@
 \item Người đánh giá chạy test, query, benchmark và truy vết evidence.
 \end{itemize}
 
-\subsection{Yêu cầu chức năng}
+\section{Yêu cầu chức năng}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
 \caption{Tổng hợp yêu cầu chức năng}\label{tab:6-1} \\
@@ -31,7 +29,7 @@ F09 & Recommendation + explanation & \texttt{/recommend} \\ \hline
 F10 & Search/stats/health và UI & FastAPI/static UI \\ \hline
 \end{longtable}
 
-\subsection{Hỏi–đáp}
+\section{Hỏi–đáp}
 \reportfigure{qa_sequence.pdf}{Luồng xử lý một yêu cầu hỏi--đáp}{fig:qa-sequence}
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
@@ -46,7 +44,7 @@ thức riêng. Entity linker canonicalize tên trước query và trả confiden
 evidence. Compiler chỉ phát sinh graph pattern đã whitelist; user input luôn nằm
 trong parameter. Khi không có LLM, parser deterministic hỗ trợ chín intent.
 
-\subsection{Recommendation}
+\section{Recommendation}
 \reportfigure{recommendation_explanation.pdf}{Luồng xếp hạng và tạo giải thích gợi ý phim}{fig:recommendation-flow}
 
 Neo4j tạo candidate bằng các phim chia sẻ ít nhất một director, actor, keyword,
@@ -55,7 +53,7 @@ góp IDF theo type weight. Query trả candidate, score và feature chung; Pytho
 định dạng \texttt{Recommendation} và explanation. Tie-break theo title giúp kết quả xác
 định. Endpoint nhận \texttt{movie\_id} thay vì title để tránh nhập nhằng.
 
-\subsection{API và UI}
+\section{API và UI}
 \reportfigure{web_ui.pdf}{Giao diện hỏi--đáp và gợi ý phim}{fig:web-ui}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
@@ -73,14 +71,14 @@ POST \texttt{/recommend} & top-K recommendation và explanation \\ \hline
 UI có hai tab QA và recommendation, autocomplete phim, lịch sử hiển thị và state
 loading/error/success. Lịch sử chỉ ở frontend; backend hiện stateless.
 
-\subsection{An toàn và vận hành}
+\section{An toàn và vận hành}
 
 Secret nằm trong \texttt{.env}; raw data không commit. LLM endpoint bind localhost;
 remote demo dùng SSH tunnel. Public API không có write endpoint. Hạn chế hiện tại
 là chưa có authentication/rate limiting, nên cấu hình phù hợp demo local chứ
 không phải public production deployment.
 
-\subsection{Failure modes}
+\section{Failure modes}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
 \caption{Tổng hợp failure modes}\label{tab:6-3} \\
@@ -99,7 +97,7 @@ tên fuzzy nhập nhằng & không tự chọn tied candidate \\ \hline
 Failure behavior là một phần correctness. Hệ QA an toàn nên thừa nhận không biết
 hoặc yêu cầu làm rõ thay vì chạy query với entity đoán sai.
 
-\subsection{Tính faithful của explanation}
+\section{Tính faithful của explanation}
 
 QA evidence gồm canonical entity/link confidence và record/path trả từ Neo4j.
 Recommendation explanation không được model sinh: nó tổng hợp từ shared feature

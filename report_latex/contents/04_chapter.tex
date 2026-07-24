@@ -19,7 +19,8 @@ dynamic label trong entity-link fallback được lấy từ enum nội bộ, kh
 user input. LLM error hoặc JSON sai bị bắt và fallback về parser.
 
 Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
-vậy compiler còn áp \texttt{limit≤50}, shortest-path depth \texttt{≤8}, fixed pattern và không
+vậy compiler còn áp \texttt{limit}~$\leq 50$, shortest-path depth~$\leq 8$,
+fixed pattern và không
 cho arbitrary Cypher. Query safety không thể chỉ mô tả bằng một câu “đã dùng
 parameter”.
 
