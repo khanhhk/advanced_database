@@ -249,6 +249,12 @@ documents and committed experiment artifacts are the verifiable project sources.
   semantic colors, orthogonal connectors and explicit arrow directions. The QA
   interaction figure is a UML sequence diagram. Report figures are exported as
   vector PDFs with the same basenames as their sources.
+- The ten diagrams reused by both the report and defense deck use presentation-
+  safe typography after the 2026-07-24 readability pass: edge labels are 16 px,
+  supporting text 17 px, main node text 20 px or larger, and diagram titles
+  28 px. The QA sequence uses 18 px participant/message labels with wider
+  lifeline headers. Re-export both report PDFs and slide PNGs whenever these
+  shared `.drawio` sources change.
 - `docs/runbooks/dbeaver-neo4j.md`: reproducible DBeaver Community demo runbook. It
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and
