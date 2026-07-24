@@ -1,4 +1,4 @@
-# Demo Movie Knowledge Graph trên DBeaver Community
+# Trình diễn đồ thị tri thức phim trên DBeaver Community
 
 Tài liệu này hướng dẫn kết nối DBeaver Community tới Neo4j của project, chạy
 SQL thông qua cơ chế SQL-to-Cypher và chạy Cypher trực tiếp. Quy trình đã được
@@ -36,7 +36,7 @@ docker compose up -d neo4j
 docker compose ps neo4j
 ```
 
-Đợi service chuyển sang trạng thái `healthy`. Cấu hình local demo hiện tại:
+Đợi service chuyển sang trạng thái `healthy`. Cấu hình local trình diễn hiện tại:
 
 | Trường | Giá trị |
 |---|---|
@@ -58,7 +58,7 @@ Kết quả đúng là một cột `ok` có giá trị `1`.
 
 > `NEO4J_AUTH` trong `docker-compose.yml` khởi tạo credential của server. Biến
 > `NEO4J_PASSWORD` trong `.env` được API sử dụng để kết nối tới server; chỉ sửa
-> `.env` không tự đổi mật khẩu đã lưu trong Neo4j volume. Với buổi demo local,
+> `.env` không tự đổi mật khẩu đã lưu trong Neo4j volume. Với buổi trình diễn local,
 > giữ hai phía đồng bộ với cấu hình repository.
 
 ## 3. Tạo Generic JDBC driver
@@ -79,7 +79,7 @@ Trong DBeaver:
 
 Không chọn `Embedded` hoặc `No Authentication`.
 
-### Cách A — tải bằng Maven artifact
+### Cách A — tải bằng Maven sản phẩm đầu ra
 
 1. Mở tab `Libraries`.
 2. Chọn `Add Artifact`.
@@ -89,16 +89,16 @@ Không chọn `Embedded` hoặc `No Authentication`.
    org.neo4j:neo4j-jdbc-full-bundle:6.9.1
    ```
 
-4. Xác nhận để artifact xuất hiện trong danh sách Libraries.
-5. Chọn artifact rồi nhấn `Download/Update`.
-6. Đợi đến khi artifact không còn biểu tượng lỗi hoặc màu đỏ.
+4. Xác nhận để sản phẩm đầu ra xuất hiện trong danh sách Libraries.
+5. Chọn sản phẩm đầu ra rồi nhấn `Download/Update`.
+6. Đợi đến khi sản phẩm đầu ra không còn biểu tượng lỗi hoặc màu đỏ.
 
 Phải dùng `neo4j-jdbc-full-bundle`. Gói `neo4j-jdbc-bundle` nhỏ hơn không chứa
 default SQL-to-Cypher translator.
 
 ### Cách B — thêm file JAR trực tiếp
 
-Dùng cách này nếu DBeaver không tải được Maven artifact:
+Dùng cách này nếu DBeaver không tải được Maven sản phẩm đầu ra:
 
 1. Tải
    [`neo4j-jdbc-full-bundle-6.9.1.jar`](https://repo.maven.apache.org/maven2/org/neo4j/neo4j-jdbc-full-bundle/6.9.1/neo4j-jdbc-full-bundle-6.9.1.jar).
@@ -174,7 +174,7 @@ SELECT count(*) AS movie_count
 FROM Movie AS m;
 ```
 
-Đây không phải một relational schema thực. SQL translation phù hợp cho demo
+Đây không phải một relational schema thực. SQL translation phù hợp cho trình diễn
 truy vấn dạng bảng đơn giản; nó không thay thế Cypher cho traversal graph.
 
 ## 6. Chạy Cypher trên cùng connection
@@ -193,7 +193,7 @@ ORDER BY node_count DESC;
 Nếu DBeaver chỉ gạch chân cú pháp vì editor đang dùng SQL dialect nhưng câu lệnh
 vẫn chạy thành công, có thể bỏ qua cảnh báo syntax của editor.
 
-## 7. Kịch bản demo đề xuất
+## 7. Kịch bản trình diễn đề xuất
 
 ### 7.1. Thống kê các loại node
 
@@ -262,7 +262,7 @@ ORDER BY collaboration.movie_count DESC, co_star.name
 LIMIT 10;
 ```
 
-Mục đích: trình bày relationship suy diễn và evidence truy vết về phim nguồn.
+Mục đích: trình bày relationship suy diễn và bằng chứng truy vết về phim nguồn.
 
 ### 7.6. Đường đi ngắn nhất giữa hai người
 
@@ -289,7 +289,7 @@ Generic JDBC driver theo mục 3 rồi chọn driver `Neo4j JDBC` khi tạo conn
 
 JAR chưa được tải hoặc chưa được DBeaver nhận diện:
 
-1. chọn artifact trong Libraries;
+1. chọn sản phẩm đầu ra trong Libraries;
 2. nhấn `Download/Update`;
 3. nếu vẫn lỗi, dùng `Add File` với full-bundle JAR;
 4. có thể nhập thủ công `org.neo4j.jdbc.Neo4jDriver` mà không dùng `Find Class`.
@@ -338,7 +338,7 @@ SQL-to-Cypher chỉ hỗ trợ những cấu trúc có ánh xạ hợp lý sang 
 vào lớp dịch cho `OUTER JOIN`, traversal nhiều hop hoặc thuật toán đường đi. Dùng
 Cypher với `/*+ NEO4J FORCE_CYPHER */` cho các trường hợp đó.
 
-## 9. Checklist trước buổi demo
+## 9. Checklist trước buổi trình diễn
 
 - [ ] `docker compose ps neo4j` báo service `healthy`.
 - [ ] `cypher-shell` trả về `ok = 1`.
@@ -346,7 +346,7 @@ Cypher với `/*+ NEO4J FORCE_CYPHER */` cho các trường hợp đó.
 - [ ] `Test Connection` trong DBeaver thành công.
 - [ ] SQL ở mục 5 trả về dữ liệu.
 - [ ] Cypher thống kê node ở mục 7.1 chạy được.
-- [ ] Các câu demo cần trình bày đã được mở sẵn trong SQL Editor.
+- [ ] Các câu trình diễn cần trình bày đã được mở sẵn trong SQL Editor.
 - [ ] Không dùng connector Neo4j PRO trên DBeaver Community.
 
 ## 10. Tài liệu tham khảo
@@ -356,4 +356,3 @@ Cypher với `/*+ NEO4J FORCE_CYPHER */` cho các trường hợp đó.
 - [Neo4j JDBC Driver — distribution và full bundle](https://neo4j.com/docs/jdbc-manual/current/distribution/)
 - [Neo4j JDBC Driver — cấu hình URL và driver class](https://neo4j.com/docs/jdbc-manual/current/configuration/)
 - [Neo4j JDBC Driver — SQL-to-Cypher](https://neo4j.com/docs/jdbc-manual/current/sql2cypher/)
-

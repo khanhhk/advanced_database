@@ -1,16 +1,16 @@
-# Hướng dẫn demo Movie Knowledge Graph
+# Hướng dẫn trình diễn đồ thị tri thức phim
 
-Mục tiêu của buổi demo là chứng minh toàn bộ chuỗi:
+Mục tiêu của buổi trình diễn là chứng minh toàn bộ chuỗi:
 
 ```text
 TMDB + IMDb → xử lý dữ liệu → Neo4j → truy vấn/suy diễn
             → QA → recommendation → RDF/OWL/SPARQL → đánh giá
 ```
 
-Thời lượng đề xuất: 12–15 phút. Không chạy `make data` trong buổi demo vì bước
-thu thập phụ thuộc Internet. Dùng snapshot 4.999 phim hợp lệ đã chuẩn bị sẵn.
+Thời lượng đề xuất: 12–15 phút. Không chạy `make data` trong buổi trình diễn vì bước
+thu thập phụ thuộc Internet. Dùng ảnh chụp dữ liệu 4.999 phim hợp lệ đã chuẩn bị sẵn.
 
-## A. Chuẩn bị trước buổi demo
+## A. Chuẩn bị trước buổi trình diễn
 
 ### Bước A1 — Kiểm tra dữ liệu và Docker image
 
@@ -27,7 +27,7 @@ Dataset: OK
 Neo4j image: OK
 ```
 
-Nếu thiếu image, tải trước khi đến buổi demo:
+Nếu thiếu image, tải trước khi đến buổi trình diễn:
 
 ```bash
 docker pull neo4j:5.26-community
@@ -44,7 +44,7 @@ Chỉ tiếp tục khi terminal hiển thị:
 
 - container Neo4j `Healthy`;
 - graph có trạng thái `reused` hoặc `imported`;
-- validation có `"valid": true`;
+- kiểm tra hợp lệ có `"valid": true`;
 - Uvicorn chạy tại `http://127.0.0.1:8000`.
 
 Mở thử ba địa chỉ:
@@ -59,7 +59,7 @@ Sau khi kiểm tra, nhấn `Ctrl+C` rồi chạy:
 make stop
 ```
 
-### Bước A3 — Chuẩn bị artifact RDF/OWL/SPARQL
+### Bước A3 — Chuẩn bị sản phẩm đầu ra RDF/OWL/SPARQL
 
 Chạy trước để không phải chờ materialization trong lúc trình bày:
 
@@ -79,23 +79,23 @@ cd ~/VNPTAI/advanced_database
   --output data/processed/demo_sparql_execution.json
 ```
 
-Kiểm tra hai report đã được tạo:
+Kiểm tra hai báo cáo đã được tạo:
 
 ```bash
 test -f data/processed/demo_semantic_reasoning.json && echo "Semantic report: OK"
 test -f data/processed/demo_sparql_execution.json && echo "SPARQL report: OK"
 ```
 
-## B. Trình tự demo trực tiếp
+## B. Trình tự trình diễn trực tiếp
 
 | Bước | Nội dung | Thời gian |
 |---:|---|---:|
-| 1 | Khởi động và validation | 1 phút |
+| 1 | Khởi động và kiểm tra hợp lệ | 1 phút |
 | 2 | Dataset đa nguồn và provenance | 1 phút |
 | 3 | Schema và truy vấn graph | 3 phút |
 | 4 | Suy diễn có bằng chứng | 2 phút |
 | 5 | QA và entity linking | 2 phút |
-| 6 | Recommendation có giải thích | 2 phút |
+| 6 | Gợi ý có giải thích | 2 phút |
 | 7 | RDF/OWL/SPARQL | 2 phút |
 | 8 | Kết quả đánh giá và kết luận | 2 phút |
 
@@ -108,14 +108,14 @@ cd ~/VNPTAI/advanced_database
 make demo
 ```
 
-Giữ terminal này chạy trong suốt buổi demo.
+Giữ terminal này chạy trong suốt buổi trình diễn.
 
 Điểm cần nói:
 
 - `runtime.prepare` so checksum và số Movie với graph hiện tại;
-- nếu snapshot không đổi, graph được tái sử dụng thay vì import lại;
-- validation kiểm tra orphan, duplicate ID, property bắt buộc, kiểu/hướng quan hệ
-  và supporting evidence của derived fact.
+- nếu ảnh chụp dữ liệu không đổi, graph được tái sử dụng thay vì import lại;
+- kiểm tra hợp lệ kiểm tra orphan, duplicate ID, property bắt buộc, kiểu/hướng quan hệ
+  và supporting bằng chứng của derived fact.
 
 Kết quả mong đợi: `movies: 4999`, `graph: reused` và `valid: true`.
 
@@ -130,10 +130,10 @@ python3 -m json.tool data/processed/manifest.json
 
 Chỉ vào các trường:
 
-- `source_sha256`: định danh chính xác snapshot TMDB;
+- `source_sha256`: định danh chính xác ảnh chụp dữ liệu TMDB;
 - `tmdb_movies_with_imdb_id` và `matched_ratings`: exact join IMDb;
 - `counts`: số node/edge table đã chuẩn hóa;
-- `quality`: duplicate, missing, invalid edge và coverage.
+- `quality`: duplicate, missing, invalid edge và độ bao phủ.
 
 Điểm cần nói: TMDB là nguồn graph chính; IMDb chỉ enrich Movie bằng exact
 `imdb_id`. `rating` của TMDB và `imdb_rating` không bị trộn.
@@ -254,18 +254,18 @@ Phim chung của Christian Bale và Tom Hardy?
 Phim tương tự Inception?
 ```
 
-Với mỗi câu, chỉ vào evidence và giải thích:
+Với mỗi câu, chỉ vào bằng chứng và giải thích:
 
-1. câu hỏi được nhận diện thành một trong chín intent;
+1. câu hỏi được nhận diện thành một trong chín ý định;
 2. tên được link về canonical entity và stable ID;
 3. backend chỉ chạy Cypher có tham số trong query catalog cố định;
 4. câu trả lời được dựng từ record/path Neo4j.
 
-### Bước 6 — Trình bày recommendation có giải thích
+### Bước 6 — Trình bày gợi ý có giải thích
 
 Trong Web UI:
 
-1. chuyển sang tab recommendation;
+1. chuyển sang tab gợi ý;
 2. nhập `Inception`;
 3. chọn đúng phim theo năm phát hành;
 4. chọn top 5 và chạy gợi ý;
@@ -281,8 +281,8 @@ type_weight × (1 + ln((N + 1) / (df + 1)))
 
 - feature phổ biến bị giảm ảnh hưởng, feature hiếm được ưu tiên;
 - director, actor, keyword, genre và studio có trọng số khác nhau;
-- explanation liệt kê đúng các feature đã đóng góp vào score;
-- đây là graph-native recommendation chạy trực tiếp trong Neo4j.
+- lời giải thích liệt kê đúng các feature đã đóng góp vào score;
+- đây là graph-native gợi ý chạy trực tiếp trong Neo4j.
 
 Nếu cần chứng minh bằng API, mở Swagger và chạy `POST /recommend` với:
 
@@ -295,14 +295,14 @@ Nếu cần chứng minh bằng API, mở Swagger và chạy `POST /recommend` v
 
 ### Bước 7 — Trình bày RDF/OWL và SPARQL
 
-Trong Terminal 2, hiển thị report đã chuẩn bị:
+Trong Terminal 2, hiển thị báo cáo đã chuẩn bị:
 
 ```bash
 python3 -m json.tool data/processed/demo_semantic_reasoning.json
 python3 -m json.tool data/processed/demo_sparql_execution.json
 ```
 
-Kết quả đã kiểm tra trên snapshot hiện tại:
+Kết quả đã kiểm tra trên ảnh chụp dữ liệu hiện tại:
 
 ```text
 Triples trước materialization: 156491
@@ -314,7 +314,7 @@ SPARQL queries thực thi:            10
 
 Điểm cần nói:
 
-- Neo4j/property graph phục vụ truy vấn vận hành và traversal;
+- Neo4j/đồ thị thuộc tính phục vụ truy vấn vận hành và traversal;
 - RDF/OWL là standards view có thể trao đổi;
 - materializer minh họa domain/range, inverse và symmetric property;
 - validator kiểm tra functional property, disjoint class và title bắt buộc;
@@ -332,23 +332,23 @@ sed -n '1,80p' experiments/results/summary/benchmark_comparison.md
 
 Các số cần nhấn mạnh:
 
-- QA smoke: 20/20 có evidence;
-- recommendation: P@10 `0,635`, NDCG@10 `0,672` trên 20 case silver;
-- entity resolution đạt P=`1,000`, R=`0,933`, F1=`0,966`; co-star precision `1,00`;
+- QA smoke: 20/20 có bằng chứng;
+- gợi ý: P@10 `0,635`, NDCG@10 `0,672` trên 20 case silver;
+- phân giải thực thể đạt P=`1,000`, R=`0,933`, F1=`0,966`; co-star precision `1,00`;
   quality audit có zero identity/consistency violation và 100% provenance;
-- semantic và structural validation không có violation;
-- SQLite nhanh hơn trong bốn query baseline đã đo.
+- semantic và structural kiểm tra hợp lệ không có violation;
+- SQLite nhanh hơn trong bốn query mốc so sánh đã đo.
 
-Phải nói rõ: metric corpus silver chỉ áp dụng cho case/rubric/snapshot đã khai
-báo; benchmark có bốn induced snapshot 500/1.000/2.000/4.999 nhưng chưa chứng minh
+Phải nói rõ: metric corpus silver chỉ áp dụng cho case/rubric/ảnh chụp dữ liệu đã khai
+báo; phép đo hiệu năng có bốn ảnh chụp dữ liệu con 500/1.000/2.000/4.999 nhưng chưa chứng minh
 scalability tổng quát hay khẳng định một database luôn nhanh hơn database còn
-lại. Jena/Fuseki là workflow evaluation riêng, không cần bật trong `make demo`.
+lại. Jena/Fuseki thuộc quy trình đánh giá riêng, không cần bật trong `make demo`.
 
-Số node/relationship live có thể khác artifact đánh giá cũ nếu snapshot được tạo
-lại. Khi trình bày, lấy số live từ output `make demo`; chỉ dùng file evaluation
-cho đúng experiment snapshot đã ghi trong artifact.
+Số node/relationship live có thể khác sản phẩm đầu ra đánh giá cũ nếu ảnh chụp dữ liệu được tạo
+lại. Khi trình bày, lấy số trực tiếp từ đầu ra `make demo`; chỉ dùng tệp đánh giá
+cho đúng experiment ảnh chụp dữ liệu đã ghi trong sản phẩm đầu ra.
 
-## C. Kết thúc demo
+## C. Kết thúc trình diễn
 
 Nhấn `Ctrl+C` trong Terminal 1, sau đó chạy:
 
@@ -359,17 +359,17 @@ make stop
 Ba câu kết luận:
 
 1. Graph phù hợp tự nhiên với dữ liệu phim nhiều–nhiều và truy vấn multi-hop.
-2. Answer, recommendation và derived fact đều có evidence truy ngược được.
-3. Dự án kết hợp property graph vận hành với RDF/OWL tiêu chuẩn và công bố rõ
-   giới hạn của evaluation, benchmark.
+2. Answer, gợi ý và derived fact đều có bằng chứng truy ngược được.
+3. Dự án kết hợp đồ thị thuộc tính vận hành với RDF/OWL tiêu chuẩn và công bố rõ
+   giới hạn của evaluation, phép đo hiệu năng.
 
 ## D. Phương án dự phòng
 
-- Không có Internet: vẫn demo được vì raw/processed snapshot và Docker image đã
+- Không có Internet: vẫn trình diễn được vì raw/ảnh chụp dữ liệu đã xử lý và Docker image đã
   chuẩn bị local.
 - Web UI lỗi: dùng Swagger tại `/docs` để gọi `/health`, `/stats`, `/ask` và
   `/recommend`.
-- API lỗi nhưng Neo4j còn chạy: tiếp tục demo schema, Cypher, suy diễn và artifact
+- API lỗi nhưng Neo4j còn chạy: tiếp tục trình diễn schema, Cypher, suy diễn và sản phẩm đầu ra
   semantic/evaluation.
 - Neo4j Browser khó trình chiếu: dùng runbook DBeaver tại
   `docs/runbooks/dbeaver-neo4j.md` làm phương án thay thế.

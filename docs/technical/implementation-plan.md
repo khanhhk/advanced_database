@@ -76,7 +76,7 @@ movie-knowledge-graph/
 - Chuẩn hóa schema dữ liệu.
 - Validate các trường bắt buộc.
 - Tách node table và relationship table.
-- Entity resolution ưu tiên ID chính xác.
+- Phân giải thực thể ưu tiên ID chính xác.
 - Ghi log fuzzy matches và confidence score.
 
 ### Giai đoạn 4 — Graph loading
@@ -85,7 +85,7 @@ movie-knowledge-graph/
 - Import node trước, relationship sau.
 - Dùng transaction batch.
 - Dùng `MERGE` theo stable ID.
-- Tạo validation query sau import.
+- Tạo kiểm tra hợp lệ query sau import.
 
 ### Giai đoạn 5 — Query và reasoning
 
@@ -105,25 +105,25 @@ movie-knowledge-graph/
 
 ### Giai đoạn 7 — QA
 
-- Định nghĩa danh sách intent.
-- Viết rule/pattern nhận diện intent.
+- Định nghĩa danh sách ý định.
+- Viết rule/pattern nhận diện ý định.
 - Trích slot và liên kết entity với KG.
-- Ánh xạ intent sang Cypher template.
-- Trả answer cùng evidence.
+- Ánh xạ ý định sang Cypher template.
+- Trả answer cùng bằng chứng.
 
-### Giai đoạn 8 — Recommendation
+### Giai đoạn 8 — Gợi ý
 
-- Cài đặt IDF-weighted graph similarity, ưu tiên quan hệ chung hiếm và trả evidence theo từng loại quan hệ.
+- Cài đặt IDF-weighted graph similarity, ưu tiên quan hệ chung hiếm và trả bằng chứng theo từng loại quan hệ.
 - Thử weighted Jaccard.
 - Trả danh sách shared actors/directors/genres/keywords.
-- Benchmark và chọn công thức cuối cùng dựa trên thực nghiệm.
+- Phép đo hiệu năng và chọn công thức cuối cùng dựa trên thực nghiệm.
 
 ### Giai đoạn 9 — Testing và evaluation
 
-- Unit test cleaning, matching, intent và scoring.
+- Unit test cleaning, matching, ý định và scoring.
 - Integration test Neo4j repository và API.
-- Test pipeline idempotency.
-- Benchmark query ở nhiều quy mô.
+- Test quy trình xử lý dữ liệu idempotency.
+- Phép đo hiệu năng query ở nhiều quy mô.
 - Lưu kết quả thí nghiệm dưới CSV/JSON để tái lập biểu đồ.
 
 ## 3. API tối thiểu
@@ -193,9 +193,9 @@ Mỗi kết quả cần có:
 - Chuẩn hóa tên và ngày.
 - Loại bản ghi lỗi.
 - ID matching và fuzzy matching.
-- Nhận diện intent.
+- Nhận diện ý định.
 - Trích slot.
-- Tính recommendation score.
+- Tính gợi ý score.
 
 ### Integration test
 
@@ -222,7 +222,7 @@ python -m src.kg.load_neo4j
 uvicorn src.api.main:app
 ```
 
-Các lệnh ingestion và processing nên tách riêng để demo không cần gọi lại API bên ngoài.
+Các lệnh ingestion và processing nên tách riêng để trình diễn không cần gọi lại API bên ngoài.
 
 ## 7. Quy tắc chất lượng
 
@@ -233,4 +233,4 @@ Các lệnh ingestion và processing nên tách riêng để demo không cần g
 - Import phải idempotent.
 - Mỗi fact cần truy được nguồn hoặc cách suy diễn.
 - Thí nghiệm phải lưu được cấu hình và kết quả.
-- Seed dataset phải đủ nhỏ để chạy demo nhanh.
+- Seed dataset phải đủ nhỏ để chạy trình diễn nhanh.

@@ -5,17 +5,17 @@ File hiện tại giữ vai trò quality checklist/cấu trúc; `draft.md` là n
 biên tập và xuất báo cáo cuối.
 
 Nguồn triển khai cho từng chương: code/README theo hiện trạng,
-`docs/technical/architecture.md`, `docs/runbooks/demo.md` và các artifact đo trong
+`docs/technical/architecture.md`, `docs/runbooks/demo.md` và các sản phẩm đầu ra đo trong
 `experiments/results/`.
 
 Độ dài mục tiêu: **40–55 trang nội dung chính**, chưa tính phụ lục. Báo cáo phải
 phân biệt rõ: thiết kế dự kiến, chức năng đã triển khai, kết quả đã đo và phần còn
 chờ đánh giá. Source code/config/test là căn cứ cho hiện trạng; số liệu lấy từ
-manifest, Neo4j validation và artifact thực nghiệm cuối.
+manifest, Neo4j kiểm tra hợp lệ và sản phẩm đầu ra thực nghiệm cuối.
 
 Quality gate bắt buộc: đối chiếu từng chương với `ChecklistCSDLNCv2.XLS` ở thư
 mục gốc. Tài liệu bài giảng chỉ cung cấp kiến thức tham khảo; không được mô tả
-như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
+như báo cáo, trang chiếu hoặc bằng chứng thực nghiệm của dự án.
 
 ## Phần đầu báo cáo
 
@@ -26,7 +26,7 @@ như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 ### Tóm tắt tiếng Việt (250–350 từ)
 
 - Bối cảnh dữ liệu phim đa nguồn và multi-hop.
-- Phương pháp: TMDB + IMDb, ontology, Neo4j, QA template, graph recommendation.
+- Phương pháp: TMDB + IMDb, ontology, Neo4j, QA template, graph gợi ý.
 - Kết quả định lượng đã xác nhận; không đưa metric pending.
 - Hạn chế và một câu kết luận về explainability.
 
@@ -45,22 +45,22 @@ như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 
 - Dữ liệu phim tăng nhanh, phân tán và có quan hệ nhiều-nhiều.
 - Vai trò của TMDB, IMDb và nhu cầu tích hợp.
-- Nhu cầu truy vấn multi-hop và recommendation có giải thích.
+- Nhu cầu truy vấn multi-hop và gợi ý có giải thích.
 
 ### 1.2. Phát biểu bài toán
 
 - Xây một biểu diễn thống nhất cho Movie/Person/Genre/Keyword/Studio.
 - Giải quyết identity, provenance, truy vấn và suy diễn.
-- Cung cấp hai ứng dụng: QA và recommendation.
+- Cung cấp hai ứng dụng: QA và gợi ý.
 
 ### 1.3. Câu hỏi nghiên cứu
 
 - Câu hỏi chính như trong project memory.
 - Câu hỏi phụ:
   1. Exact-ID enrichment đảm bảo tính đúng/provenance thế nào?
-  2. Property Graph hỗ trợ competency questions ra sao?
-  3. Evidence path cải thiện khả năng giải thích như thế nào?
-  4. Hệ thống có giới hạn gì về coverage, accuracy và scalability?
+  2. Đồ thị thuộc tính hỗ trợ competency questions ra sao?
+  3. Đường đi bằng chứng cải thiện khả năng giải thích như thế nào?
+  4. Hệ thống có giới hạn gì về độ bao phủ, accuracy và scalability?
 
 ### 1.4. Mục tiêu
 
@@ -78,10 +78,10 @@ như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 
 ### 1.6. Đóng góp
 
-- Pipeline đa nguồn storage-bounded, tái lập được.
+- Quy trình xử lý dữ liệu đa nguồn storage-bounded, tái lập được.
 - Stable source IDs và provenance.
-- Graph schema + rule suy diễn có evidence.
-- QA/recommendation graph-native và bộ evaluation workflow.
+- Graph schema + rule suy diễn có bằng chứng.
+- QA/gợi ý graph-native và bộ evaluation quy trình.
 
 ### 1.7. Cấu trúc báo cáo
 
@@ -89,7 +89,7 @@ như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 
 ## Chương 2 — Cơ sở lý thuyết (6–8 trang)
 
-### 2.1. Biểu diễn tri thức và Knowledge Graph
+### 2.1. Biểu diễn tri thức và đồ thị tri thức
 
 - Data–information–knowledge; entity, relation, fact, provenance.
 - Asserted fact và derived fact.
@@ -103,35 +103,35 @@ như báo cáo, slide hoặc bằng chứng thực nghiệm của dự án.
 
 - Triple, quad/named graph, URI/IRI, namespace và nguyên tắc Linked Data.
 - Phân biệt RDF dataset với một RDF graph và cách dùng named graph cho provenance.
-- Vai trò RDFS/OWL; giới hạn Open World Assumption khi validation dữ liệu.
+- Vai trò RDFS/OWL; giới hạn Open World Assumption khi kiểm tra hợp lệ dữ liệu.
 - SPARQL graph pattern, aggregation, OPTIONAL, CONSTRUCT và inference-enabled query.
 
-### 2.4. Property Graph và Neo4j
+### 2.4. Đồ thị thuộc tính và Neo4j
 
 - Node, relationship, property, label.
 - Constraint/index, transaction, Cypher pattern matching, shortest path.
 
-### 2.5. RDF graph và Property Graph
+### 2.5. RDF graph và đồ thị thuộc tính
 
 So sánh semantics, interoperability, property trên edge, traversal, reasoning và
 độ thuận tiện triển khai. Giải thích lựa chọn kết hợp thay vì tuyên bố một mô
 hình luôn tốt hơn.
 
-### 2.6. Entity resolution
+### 2.6. Phân giải thực thể
 
 - Deterministic matching bằng source ID.
 - Fuzzy name fallback, threshold, confidence và ambiguity policy.
 - Precision, Recall, F1.
 
-### 2.7. Knowledge-based recommendation
+### 2.7. Knowledge-based gợi ý
 
 - Content/graph neighborhood similarity.
-- IDF-weighted graph similarity là phương pháp recommendation duy nhất.
-- Explainability qua shared entities/evidence path.
+- IDF-weighted graph similarity là phương pháp gợi ý duy nhất.
+- Explainability qua shared entities/đường đi bằng chứng.
 
 ### 2.8. Chỉ số đánh giá
 
-- Data quality, median/p95/stdev, QA accuracy, P@K, DCG/NDCG, explanation coverage.
+- Data quality, median/p95/stdev, QA accuracy, P@K, DCG/NDCG, độ bao phủ lời giải thích.
 
 ## Chương 3 — Công trình, nền tảng và dữ liệu liên quan (4–5 trang)
 
@@ -140,7 +140,7 @@ hình luôn tốt hơn.
 - Loại dữ liệu, định danh, giấy phép/phạm vi sử dụng, điểm mạnh/yếu.
 - Lý do chọn TMDB + IMDb Ratings; lý do chưa dùng MovieLens/Wikidata trong MVP.
 
-### 3.2. Movie Knowledge Graph và hệ QA liên quan
+### 3.2. Đồ thị tri thức phim và hệ QA liên quan
 
 - Trình bày protocol survey: database tìm kiếm, chuỗi từ khóa, mốc thời gian,
   inclusion/exclusion criteria và ngày tìm kiếm.
@@ -150,39 +150,39 @@ hình luôn tốt hơn.
 
 ### 3.3. Graph-based recommender liên quan
 
-- Neighborhood và path-based explanation.
+- Neighborhood và path-based lời giải thích.
 
 ### 3.4. Khoảng trống và vị trí của đề tài
 
 - Đề tài tập trung end-to-end reproducibility và explainability ở quy mô học phần,
   không cạnh tranh với recommender production.
 
-### 3.5. Literature matrix phải được điền trong report
+### 3.5. Literature matrix phải được điền trong báo cáo
 
 Dùng các nguồn dưới đây làm tập khởi đầu, sau đó xác minh metadata/DOI và định
 dạng IEEE trước khi đưa vào bibliography:
 
-| Nguồn | Năm | Nội dung dùng trong report | Điểm đối chiếu với đề tài |
+| Nguồn | Năm | Nội dung dùng trong báo cáo | Điểm đối chiếu với đề tài |
 |---|---:|---|---|
 | Hogan et al., *Knowledge Graphs* | 2021 | Định nghĩa, construction, query và reasoning | Nền tảng; không dùng làm recent-work quota |
-| Guo et al., *A Survey on Knowledge Graph-Based Recommender Systems*, ICDE | 2023 | Taxonomy KG recommender và explainability | Đề tài chọn neighborhood/IDF thay vì embedding/GNN |
-| *A graph-based approach for minimising the knowledge requirement of explainable recommender systems*, KAIS | 2023 | Graph evidence và interpretability | So sánh cách tạo explanation path |
-| *Knowledge-grounded Natural Language Recommendation Explanation* | 2023 | Explanation bằng tri thức | Đề tài không sinh explanation tự do; trả evidence xác định |
-| *Explicit Knowledge Graph Reasoning for Conversational Recommendation* | 2023 | Reasoning chain trong conversational recommendation | QA và recommendation của đề tài tách endpoint/scope |
-| *A movie recommendation method based on knowledge graph and time series* | 2023 | Movie KG recommendation | Đề tài không có user/time-series signal; tránh claim personalization |
-| *Enhanced Content-Based Recommendation Using Topic Modelling and Knowledge Graph* | 2024 | Movie content + KG | Đề tài dùng structured TMDB features, không topic model |
-| *Temporal Knowledge Graph Question Answering: A Survey* | 2024 | KGQA và temporal limitation | Release date chỉ là property/filter, chưa là temporal KG |
-| ICLR paper về KGQA | 2024 | Benchmark/split và multi-hop QA | Đề tài dùng constrained plan/template, không open-domain KGQA |
+| Guo et al., *A Survey on Knowledge Graph-Based Recommender Systems*, ICDE | 2023 | Phân loại hệ gợi ý KG và khả năng giải thích | Đề tài chọn lân cận/IDF thay vì biểu diễn nhúng/GNN |
+| *A graph-based approach for minimising the knowledge requirement of explainable recommender systems*, KAIS | 2023 | Bằng chứng từ đồ thị và interpretability | So sánh cách tạo lời giải thích path |
+| *Knowledge-grounded Natural Language Recommendation Explanation* | 2023 | Lời giải thích dựa trên tri thức | Đề tài không sinh lời giải thích tự do; trả bằng chứng xác định |
+| *Explicit đồ thị tri thức Reasoning for Conversational gợi ý* | 2023 | Reasoning chain trong conversational gợi ý | QA và gợi ý của đề tài tách endpoint/scope |
+| *A movie recommendation method based on knowledge graph and time series* | 2023 | Gợi ý trên đồ thị tri thức phim | Đề tài không có tín hiệu người dùng/chuỗi thời gian; tránh tuyên bố cá nhân hóa |
+| *Enhanced Content-Based gợi ý Using Topic Modelling and đồ thị tri thức* | 2024 | Movie content + KG | Đề tài dùng structured TMDB features, không topic model |
+| *Temporal đồ thị tri thức Hỏi--đáp: A Survey* | 2024 | KGQA và temporal limitation | Release date chỉ là property/filter, chưa là temporal KG |
+| ICLR paper về KGQA | 2024 | Phép đo hiệu năng/split và multi-hop QA | Đề tài dùng constrained plan/template, không open-domain KGQA |
 
-Ma trận chính trong report phải thêm cột dataset, graph model, task, metric,
+Ma trận chính trong báo cáo phải thêm cột dataset, graph model, task, metric,
 explainability, reproducibility và limitation. Không dùng GraphRAG làm related
 work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ## Chương 4 — Phân tích yêu cầu (4–5 trang)
 
-### 4.1. Stakeholder và use case
+### 4.1. Bên liên quan và trường hợp sử dụng
 
-- Người dùng hỏi graph, nhận recommendation; nhóm phát triển thu thập/import;
+- Người dùng hỏi graph, nhận gợi ý; nhóm phát triển thu thập/import;
   người đánh giá kiểm tra facts/metrics.
 
 ### 4.2. Yêu cầu chức năng
@@ -193,17 +193,17 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 4.3. Yêu cầu phi chức năng
 
-- Idempotency, reproducibility, query safety, offline demo, provenance, giới hạn
+- Idempotency, reproducibility, query safety, offline trình diễn, provenance, giới hạn
   dung lượng, không commit secret/raw data.
 
 ### 4.4. Competency questions
 
-- Liệt kê 10 câu; ánh xạ mỗi câu sang intent/query và số hop.
+- Liệt kê 10 câu; ánh xạ mỗi câu sang ý định/query và số hop.
 - Dùng bảng: ID, câu hỏi, entity/relationship liên quan, Cypher template, output.
 
 ### 4.5. Tiêu chí hoàn thành và traceability
 
-- Ma trận requirement → implementation file → test/evidence.
+- Ma trận requirement → implementation file → test/bằng chứng.
 - Đánh dấu `Done`, `Partial`, `Pending evaluation`.
 
 ## Chương 5 — Thiết kế ontology và graph schema (5–6 trang)
@@ -218,7 +218,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Functional source IDs; domain/range.
 - Hình ontology diagram xuất từ Protégé hoặc công cụ tương đương.
 
-### 5.3. Property Graph schema
+### 5.3. Đồ thị thuộc tính schema
 
 - Sơ đồ node/edge có hướng.
 - Bảng data dictionary đầy đủ cho node và relationship.
@@ -239,7 +239,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Bảng class-label, object property-relationship, datatype-property.
 - Khác biệt hướng `actedIn`, edge properties và URI strategy.
 
-## Chương 6 — Kiến trúc và pipeline dữ liệu (7–9 trang)
+## Chương 6 — Kiến trúc và quy trình xử lý dữ liệu dữ liệu (7–9 trang)
 
 ### 6.1. Kiến trúc tổng thể
 
@@ -252,7 +252,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 6.3. Tích hợp IMDb tiết kiệm dung lượng
 
-- Chỉ `title.ratings.tsv.gz`; downloader `.part` → gzip validation → atomic rename.
+- Chỉ `title.ratings.tsv.gz`; downloader `.part` → gzip kiểm tra hợp lệ → atomic rename.
 - Streaming join bằng set 2.000–5.000 IDs.
 - Checksum, byte count, download timestamp; chính sách giữ/xóa raw.
 
@@ -261,7 +261,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Unicode/name/date/numeric normalization.
 - Required fields, duplicate TMDB ID và invalid-record logging.
 
-### 6.5. Entity resolution
+### 6.5. Phân giải thực thể
 
 - Exact Movie join, stable TMDB Person ID, fuzzy QA linking.
 - Pseudocode; confidence và review policy.
@@ -278,11 +278,11 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 6.8. Import Neo4j
 
-- Constraints/index → nodes → edges → reasoning → validation.
+- Constraints/index → nodes → edges → reasoning → kiểm tra hợp lệ.
 - Batch transaction, parameterized `UNWIND`, `MERGE`.
 - Incremental idempotency so với authoritative `--replace` rebuild.
 
-### 6.9. Rủi ro pipeline
+### 6.9. Rủi ro quy trình xử lý dữ liệu
 
 - API rate limit, source update hằng ngày, missing IMDb IDs, tên trùng, partial
   download và migration stale nodes; biện pháp tương ứng.
@@ -298,21 +298,21 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - Nhóm 10 query; trình bày 4 query tiêu biểu với input/output.
 - Ít nhất hai multi-hop, một aggregation, một shortest path.
 - Ánh xạ CRUD parameterized trong `cypher/crud.cypher`; giải thích DELETE chỉ là
-  administrative workflow và ingestion production dùng authoritative rebuild.
+  administrative quy trình và ingestion production dùng authoritative rebuild.
 
 ### 7.3. Query safety
 
-- Whitelist template; parameter binding; validation request bằng Pydantic.
+- Whitelist template; parameter binding; kiểm tra hợp lệ request bằng Pydantic.
 
 ### 7.4. Rule `CO_STARRED_WITH`
 
-- Tiền đề, Cypher materialization, hướng cạnh, idempotency và evidence.
+- Tiền đề, Cypher materialization, hướng cạnh, idempotency và bằng chứng.
 - Phân biệt rule này với OWL entailment.
 
-### 7.5. Graph validation
+### 7.5. Graph kiểm tra hợp lệ
 
 - Orphan, duplicate stable IDs, missing required property, invalid relationship.
-- Nêu giới hạn của validation hiện tại và khả năng bổ sung SHACL.
+- Nêu giới hạn của kiểm tra hợp lệ hiện tại và khả năng bổ sung SHACL.
 
 ### 7.6. RDF export và SPARQL
 
@@ -320,7 +320,7 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - 10 SPARQL query gồm SELECT/ASK/CONSTRUCT, OPTIONAL, aggregation, multi-hop và
   inference-enabled inverse relation; ghi input/output chạy thật.
 
-### 7.7. Semantic entailment và validation
+### 7.7. Semantic entailment và kiểm tra hợp lệ
 
 - Cấu hình profile RDFS/OWL-RL subset; domain/range, inverse và symmetric rules.
 - Đếm triple trước/sau materialization; minh họa `actedIn` suy ra `hasActor`.
@@ -336,37 +336,37 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 8.2. QA service
 
-- Parser tất định nhận diện 9 intent và trích xuất slot.
+- Parser tất định nhận diện 9 ý định và trích xuất slot.
 - Entity linking, query catalog cố định và Cypher có tham số.
 - Slot extraction, candidate search, exact/fuzzy linking, confidence.
-- Catalog Cypher, answer formatting, evidence và latency.
-- Failure behavior: unknown intent, entity not found, ambiguity.
+- Catalog Cypher, answer formatting, bằng chứng và latency.
+- Failure behavior: unknown ý định, entity not found, ambiguity.
 
-### 8.3. Recommendation service
+### 8.3. Gợi ý service
 
 - Công thức IDF-weighted graph similarity và trọng số theo loại quan hệ.
 - Query graph-native; top-K và deterministic tie-break.
-- Explanation từ shared directors/actors/genres/keywords.
+- Lời giải thích từ shared directors/actors/genres/keywords.
 
 ### 8.4. API contract
 
 - Request/response mẫu cho `/ask`, `/recommend`, `/entities/search`, `/stats`.
-- Error status 404/503 và validation constraints.
+- Error status 404/503 và kiểm tra hợp lệ constraints.
 
-### 8.5. Giao diện demo
+### 8.5. Giao diện trình diễn
 
 - Luồng tương tác, state loading/error/success, autocomplete và giới hạn giao diện.
   Hình chụp là tùy chọn; bằng chứng bắt buộc là API/UI chạy được và test.
 
 ### 8.6. Bảo mật và vận hành
 
-- Không ghép Cypher; `.env`; local demo password; Docker/network assumptions.
+- Không ghép Cypher; `.env`; local trình diễn password; Docker/network assumptions.
 
 ## Chương 9 — Thực nghiệm và kết quả (7–10 trang)
 
 ### 9.1. Câu hỏi và giả thuyết thực nghiệm
 
-- RQ về data quality, correctness, QA, recommendation, explainability, latency.
+- RQ về data quality, correctness, QA, gợi ý, explainability, latency.
 
 ### 9.2. Môi trường
 
@@ -375,16 +375,16 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 9.3. Thống kê dataset
 
-- Bảng node/edge counts và coverage IMDb.
+- Bảng node/edge counts và độ bao phủ IMDb.
 - Biểu đồ phân bố genre/cast/degree nếu sinh thêm.
 
 ### 9.4. Data quality và graph correctness
 
 - Input/valid/invalid/duplicate rates.
-- Neo4j validation: node/relationship total, orphan, duplicate, missing required.
-- Không suy ra chất lượng ngữ nghĩa chỉ từ structural validation.
+- Neo4j kiểm tra hợp lệ: node/relationship total, orphan, duplicate, missing required.
+- Không suy ra chất lượng ngữ nghĩa chỉ từ structural kiểm tra hợp lệ.
 
-### 9.5. Entity resolution
+### 9.5. Phân giải thực thể
 
 - Cách tạo 100 cặp silver (75 positive/25 negative), provenance và protocol tất định.
 - Confusion matrix, Precision/Recall/F1 và error analysis.
@@ -394,34 +394,34 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 9.6. Reasoning
 
-- Sample ~50 `CO_STARRED_WITH` facts; kiểm tra evidence movies.
+- Sample ~50 `CO_STARRED_WITH` facts; kiểm tra bằng chứng movies.
 - Silver precision 50/50=1,00 nhờ audit cast/source ID; chỉ diễn giải trong corpus.
 
 ### 9.7. QA
 
 - Tách smoke test 10 câu và reviewed corpus 20–30 câu.
-- Đánh giá intent và answer correctness riêng.
+- Đánh giá ý định và answer correctness riêng.
 - Nêu vấn đề nhiều shortest paths đúng và expected substring quá chặt.
 - Hiện trạng smoke: 20/20 trên 4.999 phim, chỉ dùng như tín hiệu kiểm tra.
 
-### 9.8. Recommendation
+### 9.8. Gợi ý
 
 - Relevance-label protocol hoặc manual review có rubric.
-- P@K, NDCG@K và explanation coverage cho IDF-weighted graph similarity.
-- Với 20 case silver, K=10: P@10=0,64; NDCG@10=0,699; explanation coverage=1,00.
+- P@K, NDCG@K và độ bao phủ lời giải thích cho IDF-weighted graph similarity.
+- Với 20 case silver, K=10: P@10=0,64; NDCG@10=0,699; độ bao phủ lời giải thích=1,00.
 - IDF-weighted graph similarity trên Neo4j thật đạt P@10 0,635 và NDCG@10 0,672
   trên 20 case silver; nêu rõ quy mô và không coi silver corpus là gold label.
 
 ### 9.9. Hiệu năng và scalability
 
-- Benchmark Neo4j thật tại các quy mô dataset có thật nếu có thể.
+- Phép đo hiệu năng Neo4j thật tại các quy mô dataset có thật nếu có thể.
 - Median/p95/stdev, ≥100 iterations/query, warm/cold cache ghi rõ.
-- Neo4j 5.26 ở 4.999 phim, một warm-up và 100 lần/câu; median/p95 theo intent
-  được lưu trong artifact benchmark cùng metadata máy chạy.
+- Neo4j 5.26 ở 4.999 phim, một warm-up và 100 lần/câu; median/p95 theo ý định
+  được lưu trong sản phẩm đầu ra phép đo hiệu năng cùng metadata máy chạy.
 - Shortest-path outlier/error analysis.
-- Baseline quan hệ phải chạy trên cùng snapshot/máy với các truy vấn tương đương;
+- Mốc so sánh quan hệ phải chạy trên cùng ảnh chụp dữ liệu/máy với các truy vấn tương đương;
   không dùng khác engine/cache policy để kết luận Neo4j “nhanh hơn”.
-- Recommendation ablation gồm overlap, weighted Jaccard, hybrid và production IDF;
+- Gợi ý ablation gồm overlap, weighted Jaccard, hybrid và production IDF;
   báo effect size và error cases, không chỉ chọn số lớn nhất.
 - Dùng bảng CSV/Markdown và SVG sinh bởi `build_evidence_summary.py`; không nhập số tay.
 
@@ -444,26 +444,26 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 10.2. Trả lời câu hỏi nghiên cứu
 
-- Một đoạn cho mỗi câu hỏi; chỉ dùng evidence đã đo.
+- Một đoạn cho mỗi câu hỏi; chỉ dùng bằng chứng đã đo.
 
 ### 10.3. Hạn chế
 
 - Quy mô hiện tại, corpus nhãn, QA template, Person IMDb chưa liên kết, top-20
-  cast, ontology/semantic validation còn tối giản.
+  cast, ontology/semantic kiểm tra hợp lệ còn tối giản.
 
 ### 10.4. Hướng phát triển
 
-- Hoàn thiện corpus/evaluation và Neo4j benchmark trước.
-- Sau đó mới mở rộng Wikidata/Award, robust entity resolution, full-text search,
+- Hoàn thiện corpus/evaluation và Neo4j phép đo hiệu năng trước.
+- Sau đó mới mở rộng Wikidata/Award, robust phân giải thực thể, full-text search,
   LLM-to-Cypher có guardrail và GraphRAG.
 
 ## Tài liệu tham khảo
 
 - Dùng một chuẩn nhất quán như IEEE.
-- Ưu tiên W3C, Neo4j manual, TMDB/IMDb official docs và bài báo peer-reviewed.
+- Ưu tiên W3C, Neo4j manual, TMDB/IMDb official docs và bài báo đã qua bình duyệt.
 - Mọi hình/số liệu ngoài repo phải có nguồn; tránh trích blog cho định nghĩa cốt lõi.
 - Bibliography tối thiểu gồm chuẩn W3C, tài liệu chính thức Neo4j/TMDB/IMDb và
-  các bài peer-reviewed gần đây đã đi qua survey protocol ở Chương 3.
+  các bài đã qua bình duyệt gần đây đã đi qua survey protocol ở Chương 3.
 
 ## Phụ lục
 
@@ -473,27 +473,27 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 - D. Test cases và lệnh tái lập.
 - E. Evaluation label schema/rubric và raw result tables.
 - F. Manifest/checksum, cấu hình máy và commit hash.
-- G. Bộ câu hỏi phản biện, câu trả lời ngắn/dài, truy vấn live và backup evidence.
+- G. Bộ câu hỏi phản biện, câu trả lời ngắn/dài, truy vấn live và backup bằng chứng.
 
 ### Nội dung tối thiểu Phụ lục G — phản biện
 
 1. **Vì sao không dùng thuần SQL?** Quan hệ nhiều-nhiều và multi-hop phù hợp
-   traversal; SQL vẫn phù hợp OLTP/aggregate có schema ổn định, nên baseline được
+   traversal; SQL vẫn phù hợp OLTP/aggregate có schema ổn định, nên mốc so sánh được
    đo thay vì tuyên bố graph luôn nhanh hơn.
 2. **Đây có phải OWL reasoning đầy đủ?** Không. Standards path chạy profile
-   RDFS/OWL-RL subset được khai báo; nghiệp vụ co-star là Cypher rule có evidence.
+   RDFS/OWL-RL subset được khai báo; nghiệp vụ co-star là Cypher rule có bằng chứng.
 3. **Vì sao ER precision=1 nhưng recall=0,933?** Hard-negative corpus dùng nearest
    names; resolver ưu tiên abstain ở typo dưới ngưỡng hoặc tied candidate để tránh
    false merge. Metric chỉ đại diện cho protocol silver đã khai báo.
-4. **Tại sao dùng query catalog cố định?** Cách này giới hạn intent, graph
+4. **Tại sao dùng query catalog cố định?** Cách này giới hạn ý định, graph
    pattern và parameter, đồng thời cho phép kiểm thử từng đường thực thi.
 5. **Câu hỏi ngoài phạm vi thì sao?** Parser trả `unknown` và không sinh Cypher
    tùy ý; Neo4j chỉ thực thi các query đã công bố.
-6. **Recommendation có phải personalization?** Không. Đây là item-to-item graph
-   similarity, không có user history; score không phải xác suất yêu thích.
+6. **Gợi ý có phải personalization?** Không. Đây là item-to-item graph
+   similarity, không có lịch sử người dùng; score không phải xác suất yêu thích.
 7. **Tại sao dùng IDF?** Feature phổ biến có ít khả năng phân biệt; contribution
    vẫn truy ngược được về feature và frequency trong graph.
-8. **Benchmark chứng minh scalability chưa?** Chưa; bốn mốc đến 4.999 Movie chỉ
+8. **Phép đo hiệu năng chứng minh scalability chưa?** Chưa; bốn mốc đến 4.999 Movie chỉ
    mô tả workload/máy hiện tại, không ngoại suy concurrency hay quy mô lớn hơn.
 9. **Dữ liệu có cập nhật và tái lập không?** Raw cache bất biến, checksum/manifest,
    exact IMDb join, atomic download và runtime manifest kiểm soát rebuild.
@@ -506,40 +506,40 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 1. Kiến trúc tổng thể.
 2. Ontology diagram.
-3. Property Graph schema.
-4. Pipeline sequence/data flow.
+3. Đồ thị thuộc tính schema.
+4. Quy trình xử lý dữ liệu sequence/data flow.
 5. Entity-resolution decision flow.
-6. `CO_STARRED_WITH` inference/evidence.
+6. `CO_STARRED_WITH` inference/bằng chứng.
 7. QA sequence diagram.
-8. Recommendation scoring/explanation.
-9. Sơ đồ trạng thái UI/demo hoặc ảnh chụp tùy chọn.
+8. Gợi ý scoring/lời giải thích.
+9. Sơ đồ trạng thái UI/trình diễn hoặc ảnh chụp tùy chọn.
 10. Biểu đồ kết quả thực nghiệm cuối.
 
 ### Bảng
 
 1. So sánh nguồn dữ liệu.
-2. RDF/OWL và Property Graph.
+2. RDF/OWL và đồ thị thuộc tính.
 3. Node/relationship data dictionary.
 4. Competency-question traceability.
 5. Dataset/graph statistics.
-6. Data-quality/validation results.
+6. Data-quality/kiểm tra hợp lệ results.
 7. Entity-resolution results.
 8. QA results/error analysis.
-9. Recommendation results.
+9. Gợi ý results.
 10. Query latency/scalability.
 
 ## Checklist trước khi nộp
 
 - [x] Dataset đạt ≥2.000 phim: 4.999 Movie hợp lệ từ 5.000 record đầu vào.
 - [ ] Hoàn thành corpus nhãn và reviewer protocol cho metric được báo cáo.
-- [ ] Chạy benchmark Neo4j thật với cấu hình/iterations rõ ràng.
-- [ ] Số liệu report = slide = manifest/result artifacts.
-- [ ] Chỉ dùng QA và benchmark chạy trên production Neo4j cho claim chính.
+- [ ] Chạy phép đo hiệu năng Neo4j thật với cấu hình/iterations rõ ràng.
+- [ ] Số liệu báo cáo = trang chiếu = manifest/result artifacts.
+- [ ] Chỉ dùng QA và phép đo hiệu năng chạy trên production Neo4j cho claim chính.
 - [ ] Ontology mở được, RDF parse được, mọi Cypher/SPARQL đã chạy kiểm tra.
-- [ ] Semantic materialization sinh report conforms và có before/after count.
+- [ ] Semantic materialization sinh báo cáo conforms và có before/after count.
 - [ ] Survey đạt quota nguồn, literature matrix và mọi citation resolve được.
-- [ ] CRUD/query traceability và relational baseline đã chạy cùng điều kiện.
-- [ ] Mọi metric silver đều ghi rõ case, rubric, snapshot và giới hạn khái quát.
-- [ ] Report đã qua spellcheck, citation check và kiểm tra 100% hình/bảng được gọi trong nội dung.
+- [ ] CRUD/query traceability và relational mốc so sánh đã chạy cùng điều kiện.
+- [ ] Mọi metric silver đều ghi rõ case, rubric, ảnh chụp dữ liệu và giới hạn khái quát.
+- [ ] Báo cáo đã qua spellcheck, citation check và kiểm tra 100% hình/bảng được gọi trong nội dung.
 - [ ] Hướng dẫn chạy trên môi trường sạch được rehearsal.
 - [ ] Không chứa API key, raw dataset hoặc mật khẩu production.

@@ -1,4 +1,4 @@
-# Report
+# Báo cáo
 
 Tài liệu hỗ trợ biên soạn báo cáo:
 
@@ -8,4 +8,3 @@ Tài liệu hỗ trợ biên soạn báo cáo:
 `report_latex/` tại root repository mới là nguồn báo cáo chính thức. Hãy chỉnh
 trực tiếp các file `.tex` tại đó và tải thủ công lên Overleaf; không sửa
 `draft.md` với kỳ vọng báo cáo LaTeX tự đồng bộ.
-
