@@ -33,16 +33,49 @@ F10 & Search/stats/health và UI & FastAPI/static UI \\ \hline
 \reportfigure{qa_sequence.pdf}{Luồng xử lý một yêu cầu hỏi--đáp}{fig:qa-sequence}
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
-Question → Qwen QueryPlan hoặc parser fallback → entity linking
-         → whitelist compiler/catalog → parameterized Cypher
+Question → parser 9 intent → trích xuất slot → entity linking
+         → fixed query catalog → parameterized Cypher
          → Neo4j → answer + evidence + latency
 \end{Verbatim}
 
-QueryPlan giới hạn operation, target, entity type, filter field/operator, sort và
-limit bằng Pydantic JSON Schema. Qwen không sinh Cypher và không trả lời bằng kiến
-thức riêng. Entity linker canonicalize tên trước query và trả confidence trong
-evidence. Compiler chỉ phát sinh graph pattern đã whitelist; user input luôn nằm
-trong parameter. Khi không có LLM, parser deterministic hỗ trợ chín intent.
+Parser tất định nhận diện chín intent và trích xuất các slot thực thể hoặc ngưỡng
+rating. Entity linker canonicalize tên trước query và trả confidence trong
+evidence. Mỗi intent ánh xạ tới một graph pattern cố định trong query catalog;
+user input luôn nằm trong parameter. Câu hỏi ngoài phạm vi trả intent
+\texttt{unknown} thay vì tạo truy vấn tùy ý.
+
+\subsection{Giá trị của lớp hỏi--đáp đối với Cypher}
+
+Lớp hỏi--đáp không thay thế Cypher mà cung cấp một giao diện có kiểm soát cho
+query catalog. Mỗi intent chọn một graph pattern cụ thể; entity linker bổ sung
+stable ID; repository truyền slot qua parameter và giữ nguyên cấu trúc truy vấn.
+Nhờ đó, người dùng không cần viết Cypher nhưng kết quả vẫn thể hiện trực tiếp các
+năng lực traversal, aggregation, variable-length path và truy vấn fact suy ra
+của Neo4j.
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.22\textwidth}|>{\raggedright\arraybackslash}p{0.28\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|}
+\caption{Ánh xạ intent hỏi--đáp sang năng lực Cypher}\label{tab:6-2} \\
+\hline
+\textbf{Intent} & \textbf{Graph pattern chính} & \textbf{Năng lực Cypher} & \textbf{Evidence} \\ \hline
+\endfirsthead\hline \textbf{Intent} & \textbf{Graph pattern chính} & \textbf{Năng lực Cypher} & \textbf{Evidence} \\ \hline\endhead
+\texttt{movies\_by\_director} & Person-\texttt{DIRECTED}-Movie & pattern matching, parameter & Movie ID/title và relationship \\ \hline
+\texttt{movies\_by\_person} & Person-\texttt{ACTED\_IN|DIRECTED}-Movie & relationship alternative, \texttt{DISTINCT} & loại vai trò thực tế \\ \hline
+\texttt{actors\_in\_movie} & Person-\texttt{ACTED\_IN}-Movie & edge-property projection, sort & character và cast order \\ \hline
+\texttt{common\_movies} & Person-Movie-Person & multi-hop shared neighbor & phim chung \\ \hline
+\texttt{movies\_by\_genre\_rating} & Movie-\texttt{HAS\_GENRE}-Genre & filter, \texttt{coalesce}, ordering & rating được dùng \\ \hline
+\texttt{co\_stars} & Person-\texttt{CO\_STARRED\_WITH}-Person & derived-edge traversal & movie count và evidence IDs \\ \hline
+\texttt{directors\_by\_genre} & Person-Movie-Genre & multi-hop aggregation, \texttt{count/collect} & số lượng và Movie IDs \\ \hline
+\texttt{shortest\_path} & Person-\texttt{[*..8]}-Person & variable-length shortest path & node và relationship path \\ \hline
+\texttt{similar\_movies} & Movie-feature-Movie & candidate traversal và ranking & shared feature và contribution \\ \hline
+\end{longtable}
+
+Ví dụ, câu hỏi “Đường liên hệ giữa Leonardo DiCaprio và Christian Bale?” không
+được trả lời bằng luật chuỗi trong Python. Parser chỉ chọn
+\texttt{shortest\_path}; hai tên được liên kết về \texttt{person\_id}; sau đó
+Neo4j thực thi \texttt{shortestPath((a:Person)-[*..8]-(b:Person))}. Response trả
+lại chính danh sách node và relationship trên đường tìm được. Vì vậy impact của
+tính năng nằm ở việc đưa các truy vấn Cypher nhiều bước đến người dùng cuối mà
+không mất parameterization và khả năng truy vết evidence.
 
 \section{Recommendation}
 \reportfigure{recommendation_explanation.pdf}{Luồng xếp hạng và tạo giải thích gợi ý phim}{fig:recommendation-flow}
@@ -57,7 +90,7 @@ góp IDF theo type weight. Query trả candidate, score và feature chung; Pytho
 \reportfigure{web_ui.pdf}{Giao diện hỏi--đáp và gợi ý phim}{fig:web-ui}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
-\caption{Tổng hợp api và ui}\label{tab:6-2} \\
+\caption{Tổng hợp api và ui}\label{tab:6-3} \\
 \hline
 \textbf{Endpoint} & \textbf{Chức năng} \\ \hline
 \endfirsthead\hline \textbf{Endpoint} & \textbf{Chức năng} \\ \hline\endhead
@@ -73,21 +106,20 @@ loading/error/success. Lịch sử chỉ ở frontend; backend hiện stateless.
 
 \section{An toàn và vận hành}
 
-Secret nằm trong \texttt{.env}; raw data không commit. LLM endpoint bind localhost;
-remote demo dùng SSH tunnel. Public API không có write endpoint. Hạn chế hiện tại
+Secret nằm trong \texttt{.env}; raw data không commit. Public API không có write
+endpoint. Hạn chế hiện tại
 là chưa có authentication/rate limiting, nên cấu hình phù hợp demo local chứ
 không phải public production deployment.
 
 \section{Failure modes}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
-\caption{Tổng hợp failure modes}\label{tab:6-3} \\
+\caption{Tổng hợp failure modes}\label{tab:6-4} \\
 \hline
 \textbf{Tình huống} & \textbf{Hành vi} \\ \hline
 \endfirsthead\hline \textbf{Tình huống} & \textbf{Hành vi} \\ \hline\endhead
-LLM chưa cấu hình & dùng parser 9 intent \\ \hline
-LLM timeout/JSON sai & fallback parser \\ \hline
-confidence thấp/thiếu slot & trả clarification \\ \hline
+Câu hỏi ngoài 9 intent & trả intent \texttt{unknown} và gợi ý dạng câu hỏi hỗ trợ \\ \hline
+Thiếu slot bắt buộc & không chạy Cypher tùy ý; trả không hiểu/không tìm thấy \\ \hline
 entity không tồn tại & trả entity-not-found/không tìm thấy \\ \hline
 movie ID recommend sai & HTTP 404 \\ \hline
 Neo4j không sẵn sàng & health 503 \\ \hline

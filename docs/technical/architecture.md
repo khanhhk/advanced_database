@@ -108,90 +108,40 @@ property-rich relationships trong phạm vi triển khai.
 Validation kiểm tra duplicate, orphan, invalid edge và constraint. Đây là quality
 gate sau import, không phải chức năng người dùng.
 
-## 4. QA Planning & Safety
-
-Đây là vùng dễ hiểu nhầm nhất. Qwen không thay Neo4j và không phải chatbot trả
-lời trực tiếp.
+## 4. QA Parsing & Safety
 
 ### 4.1. Natural-language question
 
-Người dùng được phép diễn đạt tự nhiên bằng tiếng Việt, không cần nhớ câu mẫu.
+Người dùng đặt câu hỏi tiếng Việt thuộc chín intent đã công bố. Parser tất định
+nhận diện intent và trích xuất các slot như tên phim, tên người, thể loại hoặc
+ngưỡng rating. Câu hỏi ngoài phạm vi trả `unknown` thay vì sinh truy vấn tùy ý.
 
-### 4.2. Qwen3-8B-AWQ
+### 4.2. Entity linker
 
-Qwen nhận câu hỏi và schema giới hạn, rồi trả `QueryPlan` JSON. Model chạy trong
-non-thinking mode và bị ràng buộc bằng Pydantic JSON Schema.
-
-Đầu ra của Qwen là kế hoạch, ví dụ:
-
-```json
-{
-  "operation": "find",
-  "target": "Movie",
-  "entities": [
-    {"type": "Person", "name": "Christopher Nolan", "role": "director"}
-  ],
-  "filters": [],
-  "sort": null,
-  "limit": 10,
-  "confidence": 0.95,
-  "clarification": ""
-}
-```
-
-Không có Cypher và không có câu trả lời điện ảnh trong output này.
-
-### 4.3. Validated QueryPlan
-
-Pydantic kiểm tra operation, target, entity type, filter field, operator, sort và
-limit. JSON đúng cú pháp nhưng sai schema vẫn bị từ chối.
-
-QueryPlan đóng vai trò DSL trung gian:
-
-- Linh hoạt hơn danh sách intent phẳng.
-- An toàn hơn LLM-to-Cypher.
-- Có thể unit test độc lập với model.
-- Có thể thay model mà không đổi compiler.
-
-### 4.4. 9-intent fallback
-
-Regex parser cũ được giữ để hệ thống vẫn hoạt động khi:
-
-- chưa cấu hình LLM;
-- vLLM không chạy;
-- model timeout;
-- model trả QueryPlan không hợp lệ.
-
-Fallback không thông minh bằng Qwen nhưng có tính deterministic và dễ kiểm thử.
-
-### 4.5. Entity linker
-
-Tên trong QueryPlan chưa chắc đúng canonical spelling. Entity linker tìm
-candidate trong Neo4j, exact match trước rồi fuzzy rerank.
+Tên trong slot chưa chắc đúng canonical spelling. Entity linker tìm candidate
+trong Neo4j, exact match trước rồi fuzzy rerank.
 
 Ví dụ `Cristopher Nolan` có thể liên kết về `Christopher Nolan`. Confidence của
 quá trình này được trả làm evidence thay vì che giấu việc hệ thống đã chuẩn hóa.
 
-### 4.6. Safe Cypher compiler
+### 4.3. Fixed parameterized query catalog
 
-Compiler ánh xạ QueryPlan sang Cypher bằng whitelist. Model không được truyền
-chuỗi query vào đây.
+Mỗi intent ánh xạ đến một Cypher pattern cố định trong query catalog. Giá trị
+trích xuất từ câu hỏi chỉ được truyền qua parameter.
 
 Các lớp bảo vệ:
 
-- Node type là Pydantic `Literal`.
-- Relationship lấy từ mapping cố định.
-- Field/operator lấy từ dictionary cố định.
+- Intent thuộc danh sách cố định.
+- Label và relationship nằm trong source code của catalog.
 - Giá trị dùng `$parameter`.
 - Query chỉ đọc.
-- `limit` bị chặn ở 50.
+- Shortest path bị giới hạn tối đa tám edge.
 
-### 4.7. Safety boundary
+### 4.4. Safety boundary
 
-Thông điệp kiến trúc cần nhấn mạnh khi làm report/slide:
-
-> LLM chịu trách nhiệm hiểu câu hỏi; application chịu trách nhiệm xây query;
-> Neo4j chịu trách nhiệm cung cấp dữ liệu và bằng chứng.
+Parser chỉ chọn intent và slot; query catalog quyết định cấu trúc Cypher; Neo4j
+cung cấp dữ liệu và bằng chứng. Ranh giới này giữ execution surface nhỏ, xác định
+và có thể kiểm thử.
 
 ## 5. Graph Applications
 
@@ -206,12 +156,18 @@ bằng fixture/fake.
 
 ### 5.2. QA service
 
-QA service điều phối planner/fallback, entity linking, compiler, query execution
-và answer formatting. Response gồm answer, operation/intent, evidence và latency.
+QA service điều phối intent parser, entity linking, query catalog, query execution
+và answer formatting. Response gồm answer, intent, evidence và latency.
+
+Giá trị của QA nằm ở việc mở các năng lực Cypher cho người dùng không viết
+truy vấn: lookup một bước, shared-neighbor nhiều bước, aggregation với
+`count/collect`, traversal trên quan hệ suy ra và `shortestPath` có giới hạn.
+Parser chỉ chọn intent và slot; Neo4j vẫn thực hiện traversal, filter, aggregation
+và trả graph evidence.
 
 ### 5.3. Recommendation service
 
-Recommendation không dùng LLM. Nó chạy IDF-weighted graph similarity trực tiếp
+Recommendation chạy IDF-weighted graph similarity trực tiếp
 trong Neo4j dựa trên director, actor, keyword, genre và studio chung.
 
 Tách recommendation khỏi QA vì:
@@ -270,7 +226,7 @@ khái quát thành độ chính xác production.
 
 ### 7.4. Reproducible artifacts
 
-Manifest, checksum, labels, result JSON/CSV, Make workflows và pinned LLM runtime
+Manifest, checksum, labels, result JSON/CSV và Make workflows
 cho phép người khác truy ngược claim trong báo cáo về artifact tương ứng.
 
 ## 8. Hai request path hoàn chỉnh
@@ -280,18 +236,16 @@ cho phép người khác truy ngược claim trong báo cáo về artifact tươ
 ```text
 Browser
 → POST /ask
-→ Qwen QuestionPlanner
-→ QueryPlan/Pydantic
+→ deterministic 9-intent parser
+→ extracted slots
 → entity candidate search
 → canonical linking
-→ safe Cypher compiler
+→ fixed parameterized Cypher catalog
 → Neo4j Repository
 → graph rows/path
 → answer + evidence
 → Browser
 ```
-
-Nếu Qwen lỗi, nhánh đi qua 9-intent fallback rồi tiếp tục bằng query catalog.
 
 ### 8.2. Recommendation request
 
@@ -309,7 +263,7 @@ Browser title input
 
 ## 9. Câu kết luận dùng cho report/slide
 
-Kiến trúc được thiết kế để tăng khả năng hiểu ngôn ngữ mà không đánh đổi tính
-kiểm soát: Qwen tạo một kế hoạch có schema; compiler quyết định query hợp lệ;
-Neo4j thực thi và trả bằng chứng. Recommendation tiếp tục là graph-native và có
-thể giải thích bằng các quan hệ chung được discount theo IDF.
+Kiến trúc ưu tiên tính xác định và khả năng kiểm chứng: parser nhận diện intent,
+query catalog quyết định cấu trúc truy vấn, còn Neo4j thực thi và trả bằng chứng.
+Recommendation là graph-native và có thể giải thích bằng các quan hệ chung được
+discount theo IDF.

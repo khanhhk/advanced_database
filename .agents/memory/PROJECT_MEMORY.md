@@ -68,21 +68,12 @@ plus representative SPARQL equivalents.
 
 ## Applications
 
-`POST /ask` optionally uses a configured LLM only as a constrained question
-planner: natural language → validated `QueryPlan` JSON → entity linking → a
-whitelist Cypher compiler → answer plus graph evidence. The LLM never writes
-Cypher or answers from its own knowledge. Without LLM configuration, the current
-9-intent deterministic parser remains the runtime fallback, including
-role-agnostic lookup of movies associated with a person. Never concatenate user
-input into Cypher.
-
-Local planner runtime (updated 2026-07-13): `Qwen/Qwen3-8B-AWQ` is served by
-vLLM 0.25.0 on an RTX 3060 12 GB at `127.0.0.1:8001`. It uses a 4,096-token
-context, 0.85 GPU-memory utilization and native sampling via
-`VLLM_USE_FLASHINFER_SAMPLER=0`, avoiding a system CUDA toolkit/nvcc dependency.
-The isolated `.venv-llm` is prepared with `make llm-setup`; `make llm-run`
-starts the server. Pydantic JSON Schema is passed as constrained output, and
-`/no_think` keeps the planner concise.
+`POST /ask` uses one deterministic runtime path: natural-language question →
+9-intent parser and slot extraction → canonical entity linking → fixed
+parameterized Cypher catalog → answer plus graph evidence. Questions outside
+the supported intents return `unknown`; the application never generates
+arbitrary Cypher or concatenates user input into a query. The former optional
+model-planner path and its GPU runtime were removed on 2026-07-24.
 
 `POST /recommend` uses one explainable IDF-weighted graph similarity ranker. A
 shared feature contributes `type_weight * (1 + ln((N+1)/(df+1)))`, so common
@@ -121,13 +112,12 @@ character and cast order. Genre, keyword, and studio source IDs are preserved as
 well. QA entity slots are linked to canonical Movie/Person entities before
 parameterized Cypher execution, and link confidence is returned as evidence.
 Full-text entity candidates now precede fuzzy reranking. Linked entities retain
-their stable `tmdb_id`/source-qualified ID through deterministic catalog and LLM
-compiler execution; canonical-name equality is only a fallback for legacy
+their stable `tmdb_id`/source-qualified ID through deterministic catalog
+execution; canonical-name equality is only a fallback for legacy
 fixtures without IDs. This prevents substring contamination such as querying
 `The Dark Knight` and also matching `The Dark Knight Rises`, and prevents query
 execution from expanding to every same-name entity after one candidate is linked.
-The nine known intents remain fixed parameterized Cypher templates; unrestricted
-LLM-to-Cypher is deliberately not enabled.
+The nine known intents remain fixed parameterized Cypher templates.
 Deterministic silver corpora cover 100 entity-resolution cases (75 positive/25
 negative), 50 evidence-backed co-star facts, and 20 recommendation cases with
 an explicit relevance rubric. Entity candidates now use the four nearest
@@ -156,8 +146,8 @@ materialization. Administrative Movie CRUD is parameterized and tested but is
 not exposed through the public API. Integration tests use a dedicated temporary
 Neo4j service on Bolt 7688, so they can verify reset/import/idempotency, QA,
 recommendation and CRUD without touching the demo graph.
-The root `Makefile` is intentionally limited to demo, setup, test and optional
-LLM operations. Reproducible research workflows are organized as Python modules
+The root `Makefile` is intentionally limited to demo, setup, test and stop
+operations. Reproducible research workflows are organized as Python modules
 under `experiments/{corpora,evaluation,benchmarks,semantic,reporting}`; measured
 artifacts are grouped under matching `experiments/results/` subdirectories.
 Every experiments subdirectory has a README describing its purpose, input,
@@ -168,7 +158,7 @@ Current reproducible evidence (full rerun 2026-07-24): the pipeline receives
 relationships is rejected. The loaded graph validates at 76,612 nodes/846,309
 relationships with zero structural violations. Exact IMDb ratings match 4,351
 of 4,558 movies carrying an IMDb ID.
-The final repository gate passes 37/37 tests, compileall and all tracked source
+The final repository gate passes 33/33 tests, compileall and all tracked source
 checksums.
 The full-snapshot knowledge-quality audit has zero stable-ID duplicates,
 conflicting required values, missing required fields, invalid foreign keys and
@@ -252,8 +242,6 @@ documents and committed experiment artifacts are the verifiable project sources.
 - `docs/technical/architecture-flow.drawio`: editable current-architecture flow.
 - `docs/technical/architecture.md`: block-by-block and request-path explanation
   of the draw.io architecture.
-- `docs/runbooks/qwen-vllm.md`: reproducible GPU/vLLM/Qwen setup and
-  troubleshooting runbook.
 - `docs/runbooks/dbeaver-neo4j.md`: reproducible DBeaver Community demo runbook. It
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and

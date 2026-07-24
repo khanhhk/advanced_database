@@ -95,11 +95,10 @@ dùng Neo4j test riêng trên cổng 7688 và storage tạm, không reset graph 
 
 ## Hỏi đáp và recommendation
 
-QA ưu tiên dùng một LLM làm Question Planner: câu hỏi tự nhiên được chuyển thành
-Query Plan JSON, kiểm tra bằng Pydantic, liên kết thực thể rồi biên dịch thành
-Cypher tham số hóa từ whitelist. LLM không viết Cypher và không tự trả lời.
-Parser 9 intent được giữ làm fallback khi chưa cấu hình LLM. Recommendation dùng
-trọng số IDF để giảm ảnh hưởng của quan
+QA dùng parser tất định để nhận diện chín intent và trích xuất slot từ câu hỏi
+tiếng Việt. Các slot được liên kết với thực thể canonical trước khi chạy Cypher
+cố định có tham số trong query catalog. Câu trả lời và evidence đều lấy từ
+Neo4j. Recommendation dùng trọng số IDF để giảm ảnh hưởng của quan
 hệ quá phổ biến và ưu tiên đặc trưng chung hiếm, có tính phân biệt. Điểm của mỗi
 đặc trưng chung là `type_weight * (1 + ln((N+1)/(df+1)))`; kết quả trả lại chính
 các đạo diễn, diễn viên, keyword, thể loại và studio chung làm bằng chứng. Đây là
@@ -110,28 +109,6 @@ thật, phương pháp đạt P@10 `0,635` và NDCG@10 `0,672`.
 dùng stamp dependency theo `pyproject.toml`; runtime manifest so checksum toàn bộ
 processed CSV và số Movie. Graph chỉ dựng lại khi các giá trị này thay đổi. `pip check` vẫn
 chạy nhanh nhưng không tải hoặc cài package.
-
-Để bật Question Planner, đặt các biến sau trong `.env` rồi chạy lại `make demo`:
-
-```dotenv
-LLM_API_KEY=local
-LLM_BASE_URL=http://127.0.0.1:8001/v1
-LLM_MODEL=Qwen/Qwen3-8B-AWQ
-LLM_TIMEOUT=60
-```
-
-Endpoint phải tương thích `POST /chat/completions` và JSON response format. Nếu
-không có `LLM_API_KEY` hoặc `LLM_MODEL`, QA vẫn chạy bằng parser deterministic.
-
-GPU runtime được tách khỏi `.venv` của ứng dụng. Trên RTX 3060 12 GB:
-
-```bash
-make llm-setup  # chạy một lần; cài vLLM 0.25.0 trong .venv-llm
-make llm-run    # phục vụ Qwen3-8B-AWQ tại 127.0.0.1:8001
-```
-
-Giữ terminal model hoạt động rồi chạy `make demo` ở terminal khác. Lệnh dùng
-native sampler vì máy chỉ có NVIDIA driver, không yêu cầu CUDA toolkit/nvcc.
 
 ## Dữ liệu ngoài
 
@@ -152,7 +129,7 @@ vào RAM/Neo4j. `Movie.rating` giữ rating TMDB; `Movie.imdb_rating` và
 
 Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset lớn và API key không được commit theo yêu cầu của đề tài.
 
-`/ask` chạy Query Plan compiler hoặc catalog fallback có tham số và `/recommend` tính độ tương đồng
+`/ask` chạy parser 9 intent, entity linker và catalog Cypher có tham số; `/recommend` tính độ tương đồng
 trong Neo4j; ứng dụng không tải toàn bộ graph về Python. Memory repository chỉ
 được dùng nội bộ bởi test, không phải backend chạy ứng dụng.
 

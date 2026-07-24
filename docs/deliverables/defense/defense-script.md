@@ -19,7 +19,7 @@ là cơ sở để chuẩn bị slide thủ công khi cần.
 | 12 | 40s | Exact ID trước, fuzzy fallback có confidence; metric 1,0 chỉ là silver corpus. |
 | 13 | 45s | Minh họa CRUD, multi-hop, aggregation, shortest path và parameterized Cypher. |
 | 14 | 40s | `CO_STARRED_WITH` là fact suy ra có supporting movie; không suy diễn hộp đen. |
-| 15 | 45s | Planner chỉ sinh QueryPlan có schema; linker + whitelist compiler quyết định Cypher. |
+| 15 | 45s | Parser nhận diện 9 intent; entity linker + query catalog quyết định Cypher. |
 | 16 | 40s | IDF giảm trọng số feature phổ biến; explanation lấy từ contribution thật. |
 | 17 | 35s | Cùng snapshot được xuất sang RDF/Turtle với namespace và ontology. |
 | 18 | 40s | RDFLib và Jena/Fuseki cùng tăng 86.509 triple; 10/10 SPARQL chạy trên endpoint thật. |
@@ -50,7 +50,9 @@ Trình tự demo:
 2. **QA lookup (35s):** hỏi “Ai đóng trong The Dark Knight?”; chỉ vào canonical
    movie, link confidence và evidence.
 3. **QA multi-hop (45s):** hỏi phim chung của hai diễn viên hoặc đường liên hệ;
-   giải thích query plan được biên dịch từ catalog cố định.
+   mở Cypher tương ứng và chỉ ra shared-neighbor pattern hoặc
+   `shortestPath([*..8])`; giải thích intent chỉ chọn query, còn Neo4j thực hiện
+   traversal và trả path evidence.
 4. **Recommendation (50s):** chọn một phim bằng autocomplete; chỉ vào shared
    director/actor/genre/keyword/studio và contribution.
 5. **Neo4j Browser (50s):** chạy một query trong `cypher/queries.cypher`, ví dụ

@@ -2,7 +2,6 @@ SHELL := /bin/bash
 
 PYTHON ?= python3
 VENV ?= .venv
-LLM_VENV ?= .venv-llm
 BIN := $(VENV)/bin
 PY := $(BIN)/python
 PIP := $(BIN)/pip
@@ -15,7 +14,7 @@ API_HOST ?= 127.0.0.1
 API_PORT ?= 8000
 
 .DEFAULT_GOAL := help
-.PHONY: help setup data demo test stop llm-setup llm-run \
+.PHONY: help setup data demo test stop \
 	_env _imdb-data _neo4j _neo4j-test _runtime-prepare
 
 help: ## Liệt kê các lệnh phục vụ demo
@@ -26,11 +25,7 @@ help: ## Liệt kê các lệnh phục vụ demo
 		'  make data       Thu thập, enrich và chuẩn hóa dữ liệu' \
 		'  make demo       Dựng Neo4j, import khi cần và chạy API/UI' \
 		'  make test       Chạy unit/API và integration test riêng' \
-		'  make stop       Dừng các service Docker, giữ dữ liệu' \
-		'' \
-		'Optional local LLM planner:' \
-		'  make llm-setup  Cài Qwen/vLLM vào .venv-llm' \
-		'  make llm-run    Chạy planner tại 127.0.0.1:8001'
+		'  make stop       Dừng các service Docker, giữ dữ liệu'
 
 $(PY):
 	$(PYTHON) -m venv $(VENV)
@@ -83,19 +78,6 @@ test: setup _neo4j-test ## Chạy toàn bộ kiểm thử trên Neo4j test riên
 		$(PYTEST) -q
 	$(PY) -m compileall -q src experiments tests
 	sha256sum -c .agents/memory/SOURCES.sha256
-
-llm-setup: ## Cài optional local Qwen planner
-	$(PYTHON) -m venv $(LLM_VENV)
-	$(LLM_VENV)/bin/pip install --upgrade pip 'vllm==0.25.0'
-	$(LLM_VENV)/bin/pip uninstall -y torchcodec
-
-llm-run: ## Chạy optional local Qwen planner
-	VLLM_USE_FLASHINFER_SAMPLER=0 $(LLM_VENV)/bin/vllm serve \
-		Qwen/Qwen3-8B-AWQ \
-		--host 127.0.0.1 \
-		--port 8001 \
-		--max-model-len 4096 \
-		--gpu-memory-utilization 0.85
 
 stop: ## Dừng service demo và giữ data volume
 	docker compose down

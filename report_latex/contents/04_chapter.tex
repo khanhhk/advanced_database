@@ -12,14 +12,13 @@ query, parse rồi chạy từng query trên graph đã materialize.
 
 \subsection{An toàn truy vấn}
 
-An toàn có nhiều tầng. Pydantic giới hạn request length/type; QueryPlan giới hạn
-operation/target/filter; compiler ánh xạ enum sang fragment do ứng dụng sở hữu;
-entity value nằm trong Neo4j parameter; public API không có write operation. Chỉ
-dynamic label trong entity-link fallback được lấy từ enum nội bộ, không từ raw
-user input. LLM error hoặc JSON sai bị bắt và fallback về parser.
+An toàn có nhiều tầng. Pydantic giới hạn request length/type; parser chỉ nhận
+chín intent; mỗi intent ánh xạ đến một Cypher pattern do ứng dụng sở hữu; entity
+value nằm trong Neo4j parameter; public API không có write operation. Không có
+raw user input nào được dùng làm cấu trúc Cypher.
 
 Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
-vậy compiler còn áp \texttt{limit}~$\leq 50$, shortest-path depth~$\leq 8$,
+vậy query catalog còn áp giới hạn kết quả, shortest-path depth~$\leq 8$,
 fixed pattern và không
 cho arbitrary Cypher. Query safety không thể chỉ mô tả bằng một câu “đã dùng
 parameter”.

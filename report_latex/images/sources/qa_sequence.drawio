@@ -11,13 +11,13 @@
         <mxCell id="api" value="FastAPI&#10;POST /ask" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE8E7;strokeColor=#C85452;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="190" y="105" width="145" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="planner" value="Planner&#10;LLM / 9 intents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="planner" value="Parser&#10;9 intent cố định" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="365" y="105" width="185" height="105" as="geometry" />
         </mxCell>
         <mxCell id="link" value="Liên kết&#10;canonical entity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="585" y="105" width="170" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="compile" value="Biên dịch&#10;Cypher whitelist" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="compile" value="Query catalog&#10;Cypher có tham số" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="790" y="105" width="175" height="105" as="geometry" />
         </mxCell>
         <mxCell id="neo" value="Neo4j&#10;parameterized&#10;query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3E5;strokeColor=#4D8B52;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">

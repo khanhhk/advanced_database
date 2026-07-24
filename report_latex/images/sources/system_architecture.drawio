@@ -20,7 +20,7 @@
         <mxCell id="rdf" value="RDF / OWL&#10;SPARQL&#10;entailment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="595" y="330" width="165" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="qa" value="Hỏi–đáp&#10;planner · linker&#10;compiler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
+        <mxCell id="qa" value="Hỏi–đáp&#10;9 intent · linker&#10;query catalog" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3D6;strokeColor=#C58A18;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="795" y="35" width="180" height="105" as="geometry" />
         </mxCell>
         <mxCell id="rec" value="Gợi ý phim&#10;IDF graph&#10;similarity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F7;strokeColor=#7B5AA6;strokeWidth=2;fontSize=15;fontColor=#1F2937;fontStyle=1;spacing=8;shadow=1;" vertex="1" parent="1">

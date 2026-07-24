@@ -1,6 +1,5 @@
 .env
 .venv/
-.venv-llm/
 __pycache__/
 .pytest_cache/
 .coverage

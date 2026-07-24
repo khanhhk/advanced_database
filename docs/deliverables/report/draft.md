@@ -134,7 +134,7 @@ hướng mở rộng, không được dùng để mô tả chức năng hiện c
 - Chiến lược identity dựa trên stable source ID thay vì tên.
 - Mô hình kết hợp Neo4j operational graph và RDF/OWL standards view.
 - Rule suy diễn lưu evidence, cùng semantic materializer/validator chạy được.
-- QA có LLM planner nhưng execution surface được kiểm soát.
+- QA tất định với entity linking và catalog Cypher có tham số.
 - Recommendation graph-native với explanation từ chính feature đóng góp.
 - Bộ test/evaluation phân loại rõ evidence và giới hạn validity.
 
@@ -187,8 +187,8 @@ reproducibility trong phạm vi Movie KG. Vì vậy smoke test 10 câu của đ�
 Đề tài không cố cạnh tranh với KGQA/recommender quy mô nghiên cứu. Khoảng trống
 được chọn là một workflow học phần nhưng đầu cuối và kiểm chứng được: thu thập
 đa nguồn, identity/provenance, hai biểu diễn graph, suy diễn có evidence, API/UI,
-test và artifact thực nghiệm. Điểm khác biệt quan trọng là LLM không trực tiếp
-sinh Cypher hoặc câu trả lời, recommendation score được giải thích bằng các quan
+test và artifact thực nghiệm. Điểm khác biệt quan trọng là QA chỉ thực thi các
+intent và Cypher pattern đã xác định, recommendation score được giải thích bằng các quan
 hệ trong graph, và các kết quả đo đều gắn với snapshot cùng cấu hình cụ thể.
 
 ### So sánh có cấu trúc các công trình liên quan
@@ -367,15 +367,15 @@ IMDb ratings.gz -+                          +-> Neo4j -> QA/recommend -> FastAPI
                                             +-> RDF -> entailment -> SPARQL
 ```
 
-Qwen là service tùy chọn tại localhost, chỉ nhận câu hỏi và trả QueryPlan JSON.
-Neo4j luôn là nguồn dữ liệu/câu trả lời của runtime.
+QA dùng parser chín intent, entity linker và query catalog có tham số. Neo4j là
+nguồn dữ liệu và bằng chứng của runtime.
 
 ### Yêu cầu phi chức năng
 
 Hệ thống phải idempotent, query-safe, có provenance, chạy demo không phụ thuộc
 Internet sau import, không commit API key/raw dataset, và có workflow tái lập.
-Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. LLM failure
-không được làm mất QA fallback hoặc recommendation.
+Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. Câu hỏi ngoài
+chín intent phải được từ chối rõ ràng và không ảnh hưởng recommendation.
 
 ## 3.2. Chuẩn bị bộ dữ liệu thực nghiệm
 
@@ -605,14 +605,13 @@ query, parse rồi chạy từng query trên graph đã materialize.
 
 ### An toàn truy vấn
 
-An toàn có nhiều tầng. Pydantic giới hạn request length/type; QueryPlan giới hạn
-operation/target/filter; compiler ánh xạ enum sang fragment do ứng dụng sở hữu;
-entity value nằm trong Neo4j parameter; public API không có write operation. Chỉ
-dynamic label trong entity-link fallback được lấy từ enum nội bộ, không từ raw
-user input. LLM error hoặc JSON sai bị bắt và fallback về parser.
+An toàn có nhiều tầng. Pydantic giới hạn request length/type; parser chỉ nhận
+chín intent; mỗi intent ánh xạ đến một Cypher pattern do ứng dụng sở hữu; entity
+value nằm trong Neo4j parameter; public API không có write operation. Không có
+raw user input nào được dùng làm cấu trúc Cypher.
 
 Parameterized query ngăn injection qua value nhưng không tự ngăn query đắt. Vì
-vậy compiler còn áp `limit≤50`, shortest-path depth `≤8`, fixed pattern và không
+vậy query catalog còn áp giới hạn kết quả, shortest-path depth `≤8`, fixed pattern và không
 cho arbitrary Cypher. Query safety không thể chỉ mô tả bằng một câu “đã dùng
 parameter”.
 
@@ -854,8 +853,8 @@ kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
 
 ### Kiểm thử và quy trình chạy
 
-Lần chạy cuối của `make test` đạt 37/37 test. Bộ test gồm unit test cho cleaning,
-entity resolution, query planning/compiler, RDF export, semantic materialization,
+Lần chạy cuối của `make test` đạt 33/33 test. Bộ test gồm unit test cho cleaning,
+entity resolution, intent parsing, RDF export, semantic materialization,
 SPARQL catalog, CRUD, relational benchmark và evidence summary. Integration test
 dùng Neo4j riêng ở Bolt 7688, thực hiện import hai lần để xác nhận idempotency,
 sau đó kiểm tra QA, recommendation và vòng đời CRUD trước khi dọn graph test.
@@ -950,16 +949,14 @@ concurrency, CPU/RAM và scale lớn hơn trước khi tối ưu.
 ### Hỏi–đáp
 
 ```text
-Question → Qwen QueryPlan hoặc parser fallback → entity linking
-         → whitelist compiler/catalog → parameterized Cypher
+Question → parser 9 intent → trích xuất slot → entity linking
+         → fixed query catalog → parameterized Cypher
          → Neo4j → answer + evidence + latency
 ```
 
-QueryPlan giới hạn operation, target, entity type, filter field/operator, sort và
-limit bằng Pydantic JSON Schema. Qwen không sinh Cypher và không trả lời bằng kiến
-thức riêng. Entity linker canonicalize tên trước query và trả confidence trong
-evidence. Compiler chỉ phát sinh graph pattern đã whitelist; user input luôn nằm
-trong parameter. Khi không có LLM, parser deterministic hỗ trợ chín intent.
+Parser tất định nhận diện chín intent và trích xuất slot. Entity linker
+canonicalize tên trước query và trả confidence trong evidence. Mỗi intent ánh xạ
+tới một graph pattern cố định; user input luôn nằm trong parameter.
 
 ### Recommendation
 
@@ -984,8 +981,8 @@ loading/error/success. Lịch sử chỉ ở frontend; backend hiện stateless.
 
 ### An toàn và vận hành
 
-Secret nằm trong `.env`; raw data không commit. LLM endpoint bind localhost;
-remote demo dùng SSH tunnel. Public API không có write endpoint. Hạn chế hiện tại
+Secret nằm trong `.env`; raw data không commit. Public API không có write
+endpoint. Hạn chế hiện tại
 là chưa có authentication/rate limiting, nên cấu hình phù hợp demo local chứ
 không phải public production deployment.
 
@@ -993,8 +990,7 @@ không phải public production deployment.
 
 | Tình huống | Hành vi |
 |---|---|
-| LLM chưa cấu hình | dùng parser 9 intent |
-| LLM timeout/JSON sai | fallback parser |
+| Câu hỏi ngoài 9 intent | trả intent `unknown` và gợi ý dạng câu hỏi hỗ trợ |
 | confidence thấp/thiếu slot | trả clarification |
 | entity không tồn tại | trả entity-not-found/không tìm thấy |
 | movie ID recommend sai | HTTP 404 |

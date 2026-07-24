@@ -169,11 +169,13 @@ A -[:CO_STARRED_WITH {movie_count, evidence_movie_ids, derived:true}]-> B
 ## Slide 15 — Hệ hỏi–đáp (55 giây)
 
 ```text
-Question → LLM Query Plan → Entity linking → Safe Cypher compiler
+Question → parser 9 intent → Entity linking → Fixed Cypher catalog
          → Neo4j → Answer + evidence + latency
 ```
 
-- 9 intent deterministic được dùng làm fallback khi chưa cấu hình LLM.
+- Chỉ chín intent đã công bố được phép ánh xạ sang query catalog.
+- Nhấn mạnh giá trị Cypher: lookup, shared-neighbor multi-hop, aggregation,
+  derived-edge traversal và `shortestPath([*..8])`.
 - Ví dụ typo `Cristopher Nolan` → canonical `Christopher Nolan`.
 - Response minh họa gồm intent, answer, entity-link confidence và evidence.
 - Nêu giới hạn: chỉ truy vấn schema whitelist, không phải open-domain QA.
@@ -293,7 +295,7 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 ## Backup slide không tính vào 24 slide chính
 
-### B1 — QueryPlan và guardrail
+### B1 — Intent parser và guardrail
 
 - JSON Schema rút gọn; operation/target/entity/filter whitelist.
 - Một ví dụ question → plan → parameterized Cypher; chỉ rõ user value không nằm
@@ -322,6 +324,7 @@ Chuẩn bị dữ liệu đã import và tập câu hỏi/lệnh cố định; k
 
 ### B6 — Bộ câu hỏi phản biện nhanh
 
-- Vì sao KG/Neo4j? Vì sao không LLM-to-Cypher? Đây có phải OWL reasoning đầy đủ?
+- Vì sao KG/Neo4j? Vì sao dùng intent/query catalog cố định? Đây có phải OWL
+  reasoning đầy đủ?
 - Score recommendation nghĩa là gì? Model chết ra sao? Tên trùng xử lý thế nào?
 - Mỗi câu trả lời 20–30 giây; nội dung chi tiết lấy từ Phụ lục G của report outline.

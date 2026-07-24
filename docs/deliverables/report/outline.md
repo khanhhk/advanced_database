@@ -5,7 +5,7 @@ File hiện tại giữ vai trò quality checklist/cấu trúc; `draft.md` là n
 biên tập và xuất báo cáo cuối.
 
 Nguồn triển khai cho từng chương: code/README theo hiện trạng,
-`docs/technical/architecture.md`, `docs/runbooks/qwen-vllm.md` và các artifact đo trong
+`docs/technical/architecture.md`, `docs/runbooks/demo.md` và các artifact đo trong
 `experiments/results/`.
 
 Độ dài mục tiêu: **40–55 trang nội dung chính**, chưa tính phụ lục. Báo cáo phải
@@ -336,8 +336,8 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 
 ### 8.2. QA service
 
-- LLM Question Planner tạo Query Plan có schema; 9 intent regex là fallback.
-- Entity linking, whitelist compiler và Cypher tham số hóa; LLM không sinh Cypher.
+- Parser tất định nhận diện 9 intent và trích xuất slot.
+- Entity linking, query catalog cố định và Cypher có tham số.
 - Slot extraction, candidate search, exact/fuzzy linking, confidence.
 - Catalog Cypher, answer formatting, evidence và latency.
 - Failure behavior: unknown intent, entity not found, ambiguity.
@@ -485,10 +485,10 @@ work cốt lõi vì nó nằm ngoài implementation hiện tại.
 3. **Vì sao ER precision=1 nhưng recall=0,933?** Hard-negative corpus dùng nearest
    names; resolver ưu tiên abstain ở typo dưới ngưỡng hoặc tied candidate để tránh
    false merge. Metric chỉ đại diện cho protocol silver đã khai báo.
-4. **Tại sao Qwen không sinh Cypher?** QueryPlan + compiler giới hạn schema,
-   operation và parameters; giảm hallucinated label, write query và injection.
-5. **GPU/model chết thì sao?** Parser deterministic vẫn phục vụ 9 intent; Neo4j
-   và recommendation không phụ thuộc model.
+4. **Tại sao dùng query catalog cố định?** Cách này giới hạn intent, graph
+   pattern và parameter, đồng thời cho phép kiểm thử từng đường thực thi.
+5. **Câu hỏi ngoài phạm vi thì sao?** Parser trả `unknown` và không sinh Cypher
+   tùy ý; Neo4j chỉ thực thi các query đã công bố.
 6. **Recommendation có phải personalization?** Không. Đây là item-to-item graph
    similarity, không có user history; score không phải xác suất yêu thích.
 7. **Tại sao dùng IDF?** Feature phổ biến có ít khả năng phân biệt; contribution

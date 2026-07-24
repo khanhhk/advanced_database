@@ -7,7 +7,7 @@ nộp/bảo vệ project **Advanced Database** về Movie Knowledge Graph.
 
 - [Technical](technical/README.md): kiến trúc hệ thống, sơ đồ và kế hoạch triển
   khai code.
-- [Runbooks](runbooks/README.md): quy trình chạy demo, DBeaver và Qwen/vLLM.
+- [Runbooks](runbooks/README.md): quy trình chạy demo và DBeaver.
 - [Deliverables](deliverables/README.md): ma trận tiêu chí, nội dung báo cáo và
   tài liệu chuẩn bị bảo vệ.
 

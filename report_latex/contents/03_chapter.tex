@@ -13,15 +13,15 @@ IMDb ratings.gz -+                          +-> Neo4j -> QA/recommend -> FastAPI
                                             +-> RDF -> entailment -> SPARQL
 \end{Verbatim}
 
-Qwen là service tùy chọn tại localhost, chỉ nhận câu hỏi và trả QueryPlan JSON.
-Neo4j luôn là nguồn dữ liệu/câu trả lời của runtime.
+QA dùng parser chín intent, entity linker và query catalog có tham số. Neo4j là
+nguồn dữ liệu và bằng chứng của runtime.
 
 \subsection{Yêu cầu phi chức năng}
 
 Hệ thống phải idempotent, query-safe, có provenance, chạy demo không phụ thuộc
 Internet sau import, không commit API key/raw dataset, và có workflow tái lập.
-Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. LLM failure
-không được làm mất QA fallback hoặc recommendation.
+Public API là read-only; CRUD chỉ phục vụ maintenance có kiểm soát. Câu hỏi ngoài
+chín intent phải được từ chối rõ ràng và không ảnh hưởng recommendation.
 
 \section{Chuẩn bị bộ dữ liệu thực nghiệm}
 
@@ -194,7 +194,7 @@ entity đã có, không thay stable identity trong storage.
 
 Hai rating có population và thời điểm cập nhật khác nhau. Gộp vào một property sẽ
 mất provenance. Vì vậy \texttt{rating}, \texttt{imdb\_rating}, \texttt{imdb\_votes} được giữ riêng. Khi
-QA cần một rating ưu tiên, compiler dùng \texttt{coalesce(imdb\_rating,rating)} theo quyết
+QA cần một rating ưu tiên, query catalog dùng \texttt{coalesce(imdb\_rating,rating)} theo quyết
 định công khai.
 
 \subsubsection{Materialize co-star}

@@ -44,12 +44,14 @@
 14. **Truy vấn inference-enabled là gì?** Query dùng inverse property hoặc derived
     relation chỉ xuất hiện sau materialization để rút tri thức không assert trực tiếp.
 15. **Có nguy cơ Cypher injection không?** Input được link thành entity, plan qua
-    Pydantic schema và compiler whitelist; Cypher dùng parameter, không nối chuỗi.
+    parser chỉ nhận chín intent và query catalog cố định; Cypher dùng parameter,
+    không nối chuỗi.
 
 ## QA, recommendation và đánh giá
 
-16. **LLM có bịa câu trả lời không?** LLM tùy chọn chỉ lập QueryPlan JSON; Neo4j
-    trả fact/evidence. Khi không có LLM, parser deterministic vẫn chạy.
+16. **Hệ thống xử lý câu hỏi ngoài phạm vi thế nào?** Parser trả intent
+    `unknown`; hệ thống không sinh Cypher tùy ý. Mọi fact/evidence đều do Neo4j
+    trả về.
 17. **Vì sao recommendation gọi là explainable?** Mỗi shared feature đóng góp một
     số điểm xác định; response trả chính feature, loại edge và contribution đó.
 18. **Tại sao IDF?** Feature xuất hiện ở nhiều phim ít phân biệt; IDF tăng đóng

@@ -256,13 +256,10 @@ Phim tương tự Inception?
 
 Với mỗi câu, chỉ vào evidence và giải thích:
 
-1. câu hỏi được nhận diện thành intent hoặc constrained QueryPlan;
+1. câu hỏi được nhận diện thành một trong chín intent;
 2. tên được link về canonical entity và stable ID;
-3. backend chỉ chạy Cypher tham số hóa trong whitelist;
-4. câu trả lời được dựng từ record/path Neo4j, không lấy từ kiến thức của LLM.
-
-Nếu không chạy Qwen local, parser 9 intent là fallback chính thức. Demo vẫn đầy
-đủ và không phụ thuộc Internet.
+3. backend chỉ chạy Cypher có tham số trong query catalog cố định;
+4. câu trả lời được dựng từ record/path Neo4j.
 
 ### Bước 6 — Trình bày recommendation có giải thích
 
@@ -370,7 +367,6 @@ Ba câu kết luận:
 
 - Không có Internet: vẫn demo được vì raw/processed snapshot và Docker image đã
   chuẩn bị local.
-- Qwen không chạy: dùng parser deterministic 9 intent.
 - Web UI lỗi: dùng Swagger tại `/docs` để gọi `/health`, `/stats`, `/ask` và
   `/recommend`.
 - API lỗi nhưng Neo4j còn chạy: tiếp tục demo schema, Cypher, suy diễn và artifact

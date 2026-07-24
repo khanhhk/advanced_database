@@ -32,7 +32,7 @@ trình bày nên repo chỉ có thể chuẩn bị và kiểm soát đầu vào.
 
 - [x] Đồng bộ MSSV 20252307M giữa bản thảo và trang bìa.
 - [ ] Tải `report_latex/` lên Overleaf, biên dịch bằng XeLaTeX và kiểm tra trực quan bản PDF cuối.
-- [x] Chạy `make test`: 37/37 cùng compileall và checksum pass.
+- [x] Chạy `make test`: 33/33 cùng compileall và checksum pass.
 - [ ] Chạy `make demo` không Internet trên máy sẽ dùng để bảo vệ.
 - [ ] Hoàn thành nhật ký diễn tập trong `docs/deliverables/defense/defense-script.md`.
 - [ ] Không khái quát silver corpus thành production accuracy và không dùng baseline lịch

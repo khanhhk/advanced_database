@@ -1,18 +1,13 @@
 from src.qa.neo4j_service import answer
 
 
-def _disable_llm(monkeypatch):
-    monkeypatch.setattr("src.qa.neo4j_service.configured_planner", lambda settings: None)
-
-
 class FakeRepository:
     def __init__(self, rows): self.rows, self.calls = rows, []
     def run(self, query, **parameters):
         self.calls.append((query, parameters)); return self.rows
 
 
-def test_neo4j_qa_uses_parameterized_catalog_query(monkeypatch):
-    _disable_llm(monkeypatch)
+def test_neo4j_qa_uses_parameterized_catalog_query():
     repository = FakeRepository([{"movie_id": 1, "title": "Inception", "relationship": "DIRECTED"}])
     text, intent, evidence = answer("Những phim nào do Christopher Nolan đạo diễn?", repository)
     assert intent == "movies_by_director" and "Inception" in text and evidence
@@ -21,8 +16,7 @@ def test_neo4j_qa_uses_parameterized_catalog_query(monkeypatch):
     assert parameters == {"director": "christopher nolan", "director_id": None}
 
 
-def test_neo4j_qa_links_entity_to_canonical_name(monkeypatch):
-    _disable_llm(monkeypatch)
+def test_neo4j_qa_links_entity_to_canonical_name():
     repository = FakeRepository([{"movie_id": 1, "title": "Inception", "relationship": "DIRECTED"}])
     repository.search_entities = lambda query, limit: [
         {"id": "tmdb:525", "name": "Christopher Nolan", "type": "Person"}]
@@ -32,8 +26,7 @@ def test_neo4j_qa_links_entity_to_canonical_name(monkeypatch):
     assert evidence[0]["entity_links"][0]["confidence"] >= .7
 
 
-def test_movie_lookup_uses_exact_canonical_title(monkeypatch):
-    _disable_llm(monkeypatch)
+def test_movie_lookup_uses_exact_canonical_title():
     repository = FakeRepository([{"movie_id": 155, "name": "Christian Bale",
                                   "relationship": "ACTED_IN"}])
     repository.search_entities = lambda query, limit: [
@@ -50,8 +43,7 @@ def test_movie_lookup_uses_exact_canonical_title(monkeypatch):
     assert parameters == {"movie": "The Dark Knight", "movie_id": 155}
 
 
-def test_neo4j_qa_understands_movies_by_person_without_role(monkeypatch):
-    _disable_llm(monkeypatch)
+def test_neo4j_qa_understands_movies_by_person_without_role():
     repository = FakeRepository([{"movie_id": 1, "title": "The Great Mouse Detective",
                                   "relationship": "ACTED_IN"}])
     repository.search_entities = lambda query, limit: [
@@ -63,8 +55,7 @@ def test_neo4j_qa_understands_movies_by_person_without_role(monkeypatch):
     assert repository.calls[0][1] == {"person": "Elisa Gabrielli", "person_id": "tmdb:1219"}
 
 
-def test_same_name_person_query_executes_by_linked_stable_id(monkeypatch):
-    _disable_llm(monkeypatch)
+def test_same_name_person_query_executes_by_linked_stable_id():
     repository = FakeRepository([{"movie_id": 1, "title": "Selected Person Movie",
                                   "relationship": "ACTED_IN"}])
     repository.search_entities = lambda query, limit: [
