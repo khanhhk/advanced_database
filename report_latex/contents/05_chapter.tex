@@ -101,8 +101,8 @@ RDFLib và endpoint Jena.
 
 Corpus deterministic gồm 20 câu phủ chín intent, yêu cầu đúng intent, nội dung
 mong đợi và tối thiểu một evidence record (riêng top-5 yêu cầu đủ năm evidence).
-Production path trên Neo4j đạt 20/20. Rubric shortest-path chấp nhận mọi đường hợp
-lệ thay vì khóa vào một intermediate; recommendation question kiểm tra contract
+Đường thực thi trên Neo4j đạt 20/20. Quy tắc chấm shortest-path chấp nhận mọi
+đường hợp lệ thay vì khóa vào một node trung gian; câu hỏi recommendation kiểm tra contract
 và evidence, còn chất lượng ranking được chấm riêng bằng P@10/NDCG@10. Đây vẫn là
 bộ kiểm thử chức năng do nhóm xây dựng và có thể mở rộng thêm paraphrase hoặc câu
 mơ hồ trong các phiên bản sau.
@@ -124,7 +124,7 @@ IDF-weighted graph & \textbf{0,635} & \textbf{0,672} & production Neo4j hiện t
 IDF đạt P@10=0,635 và NDCG@10=0,672 trên 20 case hiện tại; mọi recommendation có
 explanation. Ba hàng baseline là lịch sử thiết kế trên snapshot/cấu hình trước,
 vì vậy không dùng để kết luận IDF tốt hơn nếu chưa tái chạy chung protocol. Corpus
-nhỏ và relevance rubric dựa trên metadata graph; kết quả không đồng nghĩa người
+nhỏ và quy tắc relevance dựa trên metadata graph; kết quả không đồng nghĩa người
 dùng thực sẽ ưa thích recommendation.
 
 \subsection{Hiệu năng}
@@ -168,7 +168,7 @@ phạm vi 500–4.999 Movie; chúng không phải tuyên bố scalability tổng
 \item Sinh induced snapshot 500/1.000/2.000/4.999; benchmark một warm-up và 100 iterations/query; không chạy workload khác song song.
 \item Lưu Python/Neo4j/platform/movie count trong metadata.
 \item Sinh bảng/biểu đồ từ JSON/CSV artifact, không nhập số bằng tay.
-\item Kiểm tra report/slide dùng cùng artifact version.
+\item Kiểm tra mọi bảng, biểu đồ và số liệu công bố dùng cùng phiên bản artifact.
 \end{enumerate}
 
 Với relational baseline, snapshot và máy phải giống Neo4j run. Nếu không đáp ứng,
@@ -196,7 +196,7 @@ container đã chạy nhưng driver chưa handshake được. Quy trình còn ch
 \item Top-20 cast bỏ diễn viên phụ.
 \item Nguồn TMDB thay đổi theo thời gian; cache chỉ cố định một snapshot.
 \item IMDb chỉ enrich Movie, chưa link Person.
-\item Các bộ case đánh giá do nhóm xây dựng và còn nhỏ.
+\item Các bộ case đánh giá được xây dựng nội bộ và còn nhỏ.
 \item QA corpus deterministic 20 câu chưa phủ paraphrase rộng.
 \item Recommendation không có user interaction, nên không đánh giá personalization.
 \item Benchmark có bốn quy mô nhưng vẫn phụ thuộc phần cứng/warm cache, chưa đo concurrency.
@@ -213,7 +213,7 @@ và type entailment, đồng thời validator phát hiện conflict.
 \textbf{RQ4:} IDF giảm ảnh hưởng feature phổ biến, đạt P@10=0,635 và NDCG@10=0,672,
 đồng thời giữ explanation coverage. Ba baseline lịch sử chỉ cung cấp design
 history, không dùng để khẳng định production vượt trội nếu chưa tái chạy chung protocol.
-\textbf{RQ5:} Hệ thống đạt mục tiêu demo và khả năng chạy lại ở 4.999 phim; phạm vi
+\textbf{RQ5:} Hệ thống vận hành và có khả năng chạy lại ở 4.999 phim; phạm vi
 hiện tại chưa gồm cá nhân hóa; benchmark bốn quy mô mới mô tả trend trong phạm vi
 500–4.999 Movie, chưa chứng minh scalability tổng quát.
 
@@ -221,8 +221,9 @@ hiện tại chưa gồm cá nhân hóa; benchmark bốn quy mô mới mô tả 
 
 \subsubsection{QA}
 
-Rubric cũ khóa shortest path vào một intermediate và đã được thay bằng yêu cầu
-đúng intent, có đường/evidence hợp lệ. Recommendation question chỉ kiểm tra API
+Phiên bản kiểm thử trước đây khóa shortest path vào một node trung gian cụ thể;
+điều kiện hiện tại yêu cầu đúng intent và có đường/evidence hợp lệ.
+Recommendation question chỉ kiểm tra API
 contract; relevance dùng corpus P@10/NDCG@10 riêng. Bước tiếp theo là bổ sung
 paraphrase, câu mơ hồ và expected abstention thay vì chỉ dùng các câu gần template.
 

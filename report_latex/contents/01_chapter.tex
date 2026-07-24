@@ -139,10 +139,10 @@ reproducibility trong phạm vi Movie KG. Vì vậy smoke test 10 câu của đ�
 
 \subsection{Khoảng trống và vị trí đề tài}
 
-Đề tài không cố cạnh tranh với KGQA/recommender quy mô nghiên cứu. Khoảng trống
-được chọn là một workflow học phần nhưng đầu cuối và kiểm chứng được: thu thập
-đa nguồn, identity/provenance, hai biểu diễn graph, suy diễn có evidence, API/UI,
-test và artifact thực nghiệm. Điểm khác biệt quan trọng là LLM không trực tiếp
+Đề tài không nhằm cạnh tranh với các mô hình KGQA/recommender quy mô lớn. Khoảng
+trống được lựa chọn là một workflow đầu cuối và kiểm chứng được: thu thập đa
+nguồn, identity/provenance, hai biểu diễn graph, suy diễn có evidence, API/UI,
+kiểm thử và artifact thực nghiệm. Điểm khác biệt quan trọng là LLM không trực tiếp
 sinh Cypher hoặc câu trả lời, recommendation score được giải thích bằng các quan
 hệ trong graph, và các kết quả đo đều gắn với snapshot cùng cấu hình cụ thể.
 
@@ -172,8 +172,9 @@ evidence substrate; model học sâu không trực tiếp quyết định rankin
 
 Survey dẫn đến bốn quyết định. Thứ nhất, explainability phải được định nghĩa bằng
 evidence có thể kiểm tra, không chỉ text nghe hợp lý. Thứ hai, metric recommendation
-phải đi cùng corpus/rubric và K. Thứ ba, QA sinh query tự do có flexibility nhưng
-execution risk cao; constrained plan phù hợp phạm vi học phần hơn. Thứ tư, các
+phải đi cùng corpus, quy tắc gán nhãn và K. Thứ ba, QA sinh query tự do có
+flexibility nhưng execution risk cao; constrained plan phù hợp hơn với phạm vi
+chức năng đã xác định. Thứ tư, các
 phương pháp personalized không được dùng để quảng bá hệ thống không có user profile.
 
 \section{So sánh với mô hình quan hệ truyền thống và giải pháp thay thế}
