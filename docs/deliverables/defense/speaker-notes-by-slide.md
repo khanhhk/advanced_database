@@ -1,6 +1,6 @@
 # Nội dung thuyết trình theo từng slide
 
-Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **30 slide,
+Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **28 slide,
 không có phụ lục**. Phần **Có thể nói gần như nguyên văn** là kịch bản chính;
 **Cần chỉ vào** và **Chuyển ý** hỗ trợ thao tác trình bày.
 
@@ -18,8 +18,8 @@ Mỗi slide được trình bày theo một mạch thống nhất:
 4. Kết luận bằng một câu nêu điều người nghe cần ghi nhớ.
 5. Dùng câu chuyển ý để mở ra câu hỏi của slide tiếp theo.
 
-Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 8 và
-22; không cần xóa chúng vì các slide này hữu ích khi phản biện.
+Tổng thời gian gợi ý: 20–25 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 7 và
+21; không cần xóa chúng vì các slide này hữu ích khi phản biện.
 
 ## Slide 1 — Knowledge Graph: Nền tảng lý thuyết
 
@@ -116,44 +116,22 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 > Điều cần nhớ ở slide này là một Knowledge Graph không chỉ có node và cạnh:
 > node phải đại diện cho thực thể có định danh, còn cạnh phải biểu diễn một quan
 > hệ có ý nghĩa.
-
-**Cần chỉ vào:** Nolan → DIRECTED → Inception và ba khối bên phải.
-
-**Chuyển ý:** “Để fact không được tạo tùy ý, ta cần schema.”
-
-## Slide 4 — Schema và instance
-
-**Mục tiêu:** phân biệt lớp khái niệm và dữ liệu cụ thể.
-
-**Có thể nói gần như nguyên văn:**
-
-> Schema, hay TBox theo cách gọi khái niệm, mô tả các lớp và loại quan hệ được
-> phép. Sau khi đã biết một sự kiện gồm entity và relationship, câu hỏi tiếp
-> theo là: điều gì ngăn graph tạo ra những quan hệ tùy ý hoặc không nhất quán?
-> Câu trả lời là schema.
 >
-> Ở nửa trái của slide, schema quy định Person và Movie là hai lớp thực thể, còn
-> DIRECTED là loại quan hệ đi từ Person tới Movie. Đây là mô tả ở mức khái niệm:
-> nó chưa nói đến một người hay một bộ phim cụ thể. Domain là Person và range là
-> Movie giúp xác định đúng loại node ở hai đầu quan hệ.
->
-> Ở nửa phải, instance là dữ liệu cụ thể tuân theo schema đó: Nolan là một
-> instance của Person, Inception là một instance của Movie và sự kiện Nolan
-> DIRECTED Inception là một instance của quan hệ đã định nghĩa. Vì vậy, schema
-> trả lời “dữ liệu được phép có hình dạng nào”, còn instance trả lời “những sự
-> kiện cụ thể nào đang tồn tại”.
->
-> Ba khối phía dưới thể hiện quan hệ giữa các khái niệm: graph schema định nghĩa
-> cấu trúc; knowledge base kết hợp schema với tập instance; và Knowledge Graph
-> tổ chức knowledge base đó thành các liên kết có thể truy vấn. Dự án không vận
-> hành TBox và ABox như hai hệ thống tách biệt; hai thuật ngữ này được dùng để
-> phân biệt mức mô hình và mức dữ liệu.
+> Khối phía dưới phân biệt ngắn gọn schema với instance. Schema
+> `Person -[DIRECTED]-> Movie` quy định hình dạng quan hệ được phép, còn
+> `Nolan -[DIRECTED]-> Inception` là một sự kiện cụ thể tuân theo schema đó.
+> Nói cách khác, schema trả lời “dữ liệu được phép có hình dạng nào”, còn
+> instance trả lời “sự kiện cụ thể nào đang tồn tại”. Dự án không vận hành TBox
+> và ABox như hai hệ thống riêng nên em không đưa hai thuật ngữ đó vào mạch
+> trình bày chính.
 
-**Cần chỉ vào:** schema bên trái, instance bên phải.
+**Cần chỉ vào:** Nolan → DIRECTED → Inception, ba khối bên phải và khối
+“Schema và instance” phía dưới.
 
-**Chuyển ý:** “Project hiện thực hóa hai lớp này bằng Property Graph.”
+**Chuyển ý:** “Các thành phần này được hiện thực hóa trong Neo4j bằng mô hình
+Property Graph.”
 
-## Slide 5 — Property Graph
+## Slide 4 — Property Graph
 
 **Mục tiêu:** giải thích mô hình graph duy nhất của dự án.
 
@@ -182,13 +160,12 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Từ node và cạnh, ta hình thành các cấu trúc lớn hơn.”
 
-## Slide 6 — Neighborhood, path và subgraph
+## Slide 5 — Neighborhood, path và subgraph
 
 **Mục tiêu:** giới thiệu ba đơn vị cấu trúc của tư duy đồ thị.
 
 **Có thể nói gần như nguyên văn:**
 
-> Neighborhood là tập node lân cận một node qua các quan hệ được chọn. Path là
 > Sau khi có node và cạnh, ta không chỉ đọc từng sự kiện riêng lẻ mà bắt đầu
 > khai thác cấu trúc được hình thành bởi nhiều liên kết. Slide này trình bày ba
 > cấu trúc cơ bản theo mức độ mở rộng dần.
@@ -214,7 +191,7 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Nhưng có graph chưa đủ để gọi là Knowledge Graph hữu dụng.”
 
-## Slide 7 — Bốn điều kiện của Knowledge Graph hữu dụng
+## Slide 6 — Bốn điều kiện của Knowledge Graph hữu dụng
 
 **Mục tiêu:** trình bày identity, schema, provenance và competency questions.
 
@@ -243,39 +220,9 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Cần chỉ vào:** lần lượt bốn thẻ.
 
-**Chuyển ý:** “Một phần schema được bảo đảm trực tiếp bằng constraint và index.”
-
-## Slide 8 — Constraint, validation và index
-
-**Mục tiêu:** phân biệt ràng buộc đúng đắn với cơ chế tăng tốc.
-
-**Có thể nói gần như nguyên văn:**
-
-> Uniqueness constraint bảo đảm một stable ID không xuất hiện hai lần trong
-> cùng label. Ví dụ, một `Movie.tmdb_id` chỉ được phép thuộc về một node Movie.
-> Constraint bảo vệ identity ngay tại tầng lưu trữ và giúp lệnh MERGE xác định
-> đúng node thay vì tạo bản sao.
->
-> Tuy nhiên, constraint trong cơ sở dữ liệu không biểu diễn được mọi quy tắc của
-> miền. Vì vậy, validation trong pipeline kiểm tra thêm Movie không có quan hệ,
-> thuộc tính bắt buộc bị thiếu, cạnh nối sai loại node và sự kiện suy ra không có
-> bằng chứng. Hai lớp kiểm tra bổ sung cho nhau: constraint chặn lỗi có thể khai
-> báo trong Neo4j, còn validation kiểm tra các quy tắc rộng hơn.
->
-> Khối cuối là index. Index thường được tạo cùng constraint nhưng có mục đích
-> khác: nó tăng tốc việc tìm node theo thuộc tính. Full-text index còn tạo danh
-> sách ứng viên khi tên người dùng nhập không hoàn toàn trùng với tên chuẩn.
-> Index không làm dữ liệu đúng hơn và không thay đổi ngữ nghĩa; nó chỉ giúp tìm
-> điểm bắt đầu nhanh hơn trước khi traversal.
->
-> Vì vậy, cần nhớ: constraint bảo vệ tính đúng đắn, validation kiểm tra quy tắc
-> nghiệp vụ, còn index phục vụ hiệu năng tra cứu.
-
-**Cần chỉ vào:** ba thẻ Uniqueness, Validation, Index.
-
 **Chuyển ý:** “Ngôn ngữ dùng để mô tả pattern và luật là Cypher.”
 
-## Slide 9 — Cypher cho truy vấn và suy diễn
+## Slide 7 — Cypher cho truy vấn và suy diễn
 
 **Mục tiêu:** giải thích hai vai trò của Cypher.
 
@@ -301,7 +248,7 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Để đọc các query này, ta cần một số thuật ngữ traversal.”
 
-## Slide 10 — Hop, degree, common neighbor và shortest path
+## Slide 8 — Hop, degree, common neighbor và shortest path
 
 **Mục tiêu:** giải thích từ vựng duyệt đồ thị.
 
@@ -332,7 +279,7 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Đây là lý do mô hình đồ thị phù hợp với miền phim.”
 
-## Slide 11 — Vì sao chọn Neo4j?
+## Slide 9 — Vì sao chọn Neo4j?
 
 **Mục tiêu:** nêu lợi ích đúng mức.
 
@@ -357,7 +304,7 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Tiếp theo là cách các khái niệm này đi vào kiến trúc dự án.”
 
-## Slide 12 — Kiến trúc đầu cuối
+## Slide 10 — Kiến trúc đầu cuối
 
 **Mục tiêu:** giải thích các lớp của hệ thống.
 
@@ -386,7 +333,7 @@ Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói 
 **Chuyển ý:** “Sau kiến trúc tổng thể, em đi vào schema dùng để tổ chức các
 thực thể và quan hệ trong Neo4j.”
 
-## Slide 13 — Schema Movie Knowledge Graph
+## Slide 11 — Schema Movie Knowledge Graph
 
 **Mục tiêu:** giải thích node, edge và stable ID.
 
@@ -413,7 +360,7 @@ thực thể và quan hệ trong Neo4j.”
 **Chuyển ý:** “Sau khi xác định schema, em kiểm tra dữ liệu thực tế có tuân thủ
 mô hình đó hay không.”
 
-## Slide 14 — Chất lượng graph
+## Slide 12 — Chất lượng graph
 
 **Mục tiêu:** trình bày quy mô và phạm vi của quality claim.
 
@@ -437,7 +384,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Một bài toán trung tâm khi tích hợp là phân giải thực thể.”
 
-## Slide 15 — Entity resolution
+## Slide 13 — Entity resolution
 
 **Mục tiêu:** giải thích exact, fuzzy, threshold và abstention.
 
@@ -462,7 +409,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Entity linking liên quan đến identity nhưng xảy ra ở thời điểm khác.”
 
-## Slide 16 — Entity resolution và entity linking
+## Slide 14 — Entity resolution và entity linking
 
 **Mục tiêu:** phân biệt hai bài toán dễ bị gọi lẫn.
 
@@ -490,7 +437,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Khi entity đã được liên kết, catalog chạy pattern Cypher.”
 
-## Slide 17 — Cypher và pattern nhiều bước
+## Slide 15 — Cypher và pattern nhiều bước
 
 **Mục tiêu:** đọc query và giải thích parameterization.
 
@@ -515,7 +462,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Ngoài đọc cạnh gốc, hệ thống còn tạo cạnh suy ra.”
 
-## Slide 18 — Suy diễn CO_STARRED_WITH
+## Slide 16 — Suy diễn CO_STARRED_WITH
 
 **Mục tiêu:** phân biệt asserted và derived fact.
 
@@ -540,7 +487,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Để kiểm chứng đầy đủ, cần phân biệt ba lớp truy vết.”
 
-## Slide 19 — Provenance, lineage và evidence
+## Slide 17 — Provenance, lineage và evidence
 
 **Mục tiêu:** phân biệt ba khái niệm truy vết.
 
@@ -567,7 +514,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Các graph pattern được đưa tới người dùng qua hai ứng dụng.”
 
-## Slide 20 — Hỏi–đáp an toàn
+## Slide 18 — Hỏi–đáp an toàn
 
 **Mục tiêu:** giải thích QA không sinh Cypher tự do.
 
@@ -593,7 +540,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Ứng dụng thứ hai dùng neighborhood để xếp hạng.”
 
-## Slide 21 — Gợi ý phim có giải thích
+## Slide 19 — Gợi ý phim có giải thích
 
 **Mục tiêu:** giải thích weighted graph similarity và IDF.
 
@@ -618,7 +565,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Để đọc kết quả đánh giá, cần hiểu từng metric đo điều gì.”
 
-## Slide 22 — Các metric đánh giá
+## Slide 20 — Các metric đánh giá
 
 **Mục tiêu:** phân biệt P, R, F1, P@K và NDCG@K.
 
@@ -646,7 +593,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Vì vậy mỗi claim trong dự án có một phép đánh giá riêng.”
 
-## Slide 23 — Thiết kế evaluation
+## Slide 21 — Thiết kế evaluation
 
 **Mục tiêu:** nối claim với dataset và metric.
 
@@ -670,7 +617,7 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Kết quả chính trên snapshot hiện tại như sau.”
 
-## Slide 24 — Kết quả chính
+## Slide 22 — Kết quả chính
 
 **Mục tiêu:** trình bày metric và giới hạn diễn giải.
 
@@ -695,7 +642,7 @@ mô hình đó hay không.”
 **Chuyển ý:** “Sau các kết quả, em quay lại nguyên tắc thiết kế: schema phải
 bắt đầu từ câu hỏi cần trả lời.”
 
-## Slide 25 — Competency question
+## Slide 23 — Competency question
 
 **Mục tiêu:** cho thấy câu hỏi dẫn dắt schema và query.
 
@@ -722,7 +669,7 @@ bắt đầu từ câu hỏi cần trả lời.”
 **Chuyển ý:** “Ba slide tiếp theo biến nguyên lý này thành sáu bước demo: mỗi
 kết quả trên Web UI đều được kiểm chứng ngay trong Neo4j Browser.”
 
-## Slide 26 — Demo 1: Tra cứu diễn viên
+## Slide 24 — Demo 1: Tra cứu diễn viên
 
 **Mục tiêu:** thực hiện bước 1–2 trong `defense-script.md`.
 
@@ -733,18 +680,20 @@ kết quả trên Web UI đều được kiểm chứng ngay trong Neo4j Browser
 > Movie đã được entity linking, danh sách Person và thông tin vai diễn lấy từ
 > cạnh ACTED_IN.
 >
-> Ở bước 2, em chuyển sang Neo4j Browser và chạy pattern
-> Person -[ACTED_IN]-> Movie cho Inception. Em đối chiếu tên diễn viên và
-> character với Web UI. Hai giao diện sử dụng hai đường truy cập khác nhau:
+> Ở bước 2, em copy nguyên câu Cypher bên phải slide vào Neo4j Browser và chạy.
+> Query tìm các cạnh ACTED_IN đi vào Movie có title là Inception, sau đó trả tên
+> diễn viên và nhân vật theo `cast_order`. Em đối chiếu hai cột `actor` và
+> `character` với Web UI. Hai giao diện sử dụng hai đường truy cập khác nhau:
 > Web UI đi qua FastAPI, còn Browser truy vấn trực tiếp; nhưng cả hai phải thống
 > nhất vì cùng đọc một graph Neo4j.
 
-**Cần chỉ vào:** câu hỏi, evidence ACTED_IN và hai đường truy cập.
+**Cần chỉ vào:** câu hỏi, toàn bộ query bên phải, hai cột `actor` và
+`character`.
 
 **Chuyển ý:** “Sau fact một bước, em chuyển sang một truy vấn nhiều bước có
 đường đi bằng chứng.”
 
-## Slide 27 — Demo 2: Phim chung
+## Slide 25 — Demo 2: Phim chung
 
 **Mục tiêu:** thực hiện bước 3–4 trong `defense-script.md`.
 
@@ -754,17 +703,20 @@ kết quả trên Web UI đều được kiểm chứng ngay trong Neo4j Browser
 > Hệ thống phải liên kết đúng hai Person, chọn intent `common_movies` và trả về
 > The Dark Knight Rises.
 >
-> Ở bước 4, em chạy shared-neighbor pattern trong Neo4j Browser. Trên graph,
-> Christian Bale và Tom Hardy cùng nối tới một Movie qua ACTED_IN. Movie chung
-> chính là bằng chứng cho câu trả lời. Em chuyển giữa dạng bảng và dạng graph để
-> cho thấy kết quả và đường đi là hai cách nhìn của cùng một pattern.
+> Ở bước 4, em copy nguyên query bên phải slide vào Neo4j Browser. Hai điều kiện
+> WHERE xác định đúng Christian Bale và Tom Hardy; pattern ở dòng MATCH yêu cầu
+> cả hai cùng nối tới một Movie qua ACTED_IN. Kết quả bảng phải có
+> The Dark Knight Rises. Nếu muốn minh họa trực quan, em đổi dòng RETURN thành
+> `RETURN a, m, b` rồi chuyển sang chế độ graph để chỉ ra Movie là láng giềng
+> chung của hai Person.
 
-**Cần chỉ vào:** hai Person, Movie chung và pattern Person → Movie ← Person.
+**Cần chỉ vào:** toàn bộ query, kết quả `common_movie` và cách đổi thành
+`RETURN a, m, b`.
 
 **Chuyển ý:** “Hai demo đầu kiểm chứng câu trả lời; demo cuối kiểm chứng lời
 giải thích của một kết quả xếp hạng.”
 
-## Slide 28 — Demo 3: Gợi ý phim
+## Slide 26 — Demo 3: Gợi ý phim
 
 **Mục tiêu:** thực hiện bước 5–6 trong `defense-script.md`.
 
@@ -774,21 +726,25 @@ giải thích của một kết quả xếp hạng.”
 > em mở phần giải thích để quan sát tổng điểm, các đặc trưng chung và contribution
 > của từng đặc trưng.
 >
-> Ở bước 6, em dùng đúng tên phim đứng đầu làm candidate trong Neo4j Browser rồi
-> truy vấn các đạo diễn, diễn viên, thể loại, từ khóa và hãng phim chung với
-> Inception. Các shared feature phải khớp với explanation trên Web UI.
+> Ở bước 6, em nhìn dòng `:param candidate_title` ở đầu query. Nếu Top-1 hiện
+> tại không phải Interstellar, em thay bằng đúng tên vừa ghi lại. Sau đó em copy
+> toàn bộ query bên phải slide vào Neo4j Browser. Các nhánh UNION lần lượt tìm
+> đạo diễn, diễn viên, thể loại, từ khóa và hãng phim chung giữa Inception và
+> candidate. Hai cột `kind` và `shared_features` phải khớp với explanation trên
+> Web UI.
 >
 > Query trong Browser dùng để kiểm chứng bằng chứng graph. Điểm và thứ hạng vẫn
 > do công thức IDF đầy đủ của ứng dụng tính. Vì vậy, demo không thay thế thuật
 > toán xếp hạng mà chứng minh lời giải thích xuất phát từ dữ liệu thật trong
 > graph.
 
-**Cần chỉ vào:** phim nguồn, phim đứng đầu, contribution và shared features.
+**Cần chỉ vào:** dòng `:param`, năm nhánh UNION, `kind`, `shared_features` và
+phần explanation trên Web UI.
 
 **Chuyển ý:** “Sau sáu bước demo, em quay lại phạm vi hiệu lực và những giới
 hạn của kết quả.”
 
-## Slide 29 — Giới hạn và hướng phát triển
+## Slide 27 — Giới hạn và hướng phát triển
 
 **Mục tiêu:** nêu phạm vi hiệu lực của kết luận.
 
@@ -810,7 +766,7 @@ hạn của kết quả.”
 
 **Chuyển ý:** “Em xin kết luận bằng ba giá trị chính.”
 
-## Slide 30 — Kết luận
+## Slide 28 — Kết luận
 
 **Mục tiêu:** khép lại bằng thông điệp lý thuyết.
 

@@ -172,32 +172,11 @@ function lightSlide(title, kicker, section) {
   s.addText("subject", { x: 1.55, y: 4.58, w: 0.9, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
   s.addText("predicate", { x: 3.72, y: 3.62, w: 1.1, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
   s.addText("object", { x: 6.15, y: 4.58, w: 0.9, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
-  notes(s, "Không có một định nghĩa duy nhất được mọi tài liệu dùng giống hệt nhau. Trong phạm vi này, Knowledge Graph là mô hình đồ thị của các thực thể có định danh, các quan hệ có ngữ nghĩa và schema đủ để máy diễn giải. Mệnh đề cơ bản có thể đọc theo subject–predicate–object.");
+  card(s, 0.98, 5.15, 6.62, 1.12, "Schema và instance", "Schema: Person -[DIRECTED]-> Movie quy định hình dạng được phép.\nInstance: Nolan -[DIRECTED]-> Inception là một sự kiện cụ thể tuân theo schema.", { shadow: false, fill: C.amberBg, stroke: "F1D5AA", titleColor: C.amber, titleSize: 14, bodySize: 10.2 });
+  notes(s, "Knowledge Graph gồm thực thể có định danh, quan hệ có ngữ nghĩa và thuộc tính mô tả. Schema Person-DIRECTED-Movie quy định hình dạng được phép; Nolan-DIRECTED-Inception là một instance cụ thể tuân theo schema. Tên phục vụ hiển thị, còn identifier xác định identity.");
 }
 
-// 4 — Schema and instance
-{
-  const s = lightSlide("Schema nói điều gì được phép; instance nói điều gì đang đúng", "Tách lớp khái niệm khỏi dữ liệu cụ thể giúp kiểm tra tính nhất quán và tái sử dụng mô hình.", "Nền tảng");
-  s.addText("LỚP KHÁI NIỆM · TBOX / SCHEMA", { x: 0.75, y: 1.92, w: 4.2, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: C.purple, charSpacing: 1.1, margin: 0 });
-  card(s, 0.75, 2.35, 2.3, 1.25, "Person", "Một lớp thực thể", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple });
-  card(s, 4.0, 2.35, 2.3, 1.25, "Movie", "Một lớp thực thể", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal });
-  s.addShape(pptx.ShapeType.line, { x: 3.08, y: 2.98, w: 0.87, h: 0, line: { color: C.green, width: 2, endArrowType: "triangle" } });
-  s.addText("directed", { x: 3.08, y: 2.58, w: 0.87, h: 0.2, fontFace: "Arial", fontSize: 9, bold: true, color: C.green, align: "center", margin: 0 });
-  s.addText("Domain: Person · Range: Movie", { x: 1.55, y: 3.92, w: 3.9, h: 0.28, fontFace: "Calibri", fontSize: 13, bold: true, color: C.navy, align: "center", margin: 0 });
-  s.addShape(pptx.ShapeType.chevron, { x: 6.65, y: 2.25, w: 1.0, h: 2.05, fill: { color: C.amberBg }, line: { color: C.amber } });
-  s.addText("thể hiện", { x: 6.7, y: 3.02, w: 0.7, h: 0.25, fontFace: "Arial", fontSize: 9, bold: true, color: C.amber, align: "center", margin: 0, rotate: 90 });
-  s.addText("LỚP SỰ KIỆN · ABOX / INSTANCE", { x: 8.05, y: 1.92, w: 4.2, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: C.teal, charSpacing: 1.1, margin: 0 });
-  card(s, 8.05, 2.35, 2.05, 1.25, "Nolan", "instanceOf Person", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple });
-  card(s, 10.95, 2.35, 1.7, 1.25, "Inception", "instanceOf Movie", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 15 });
-  s.addShape(pptx.ShapeType.line, { x: 10.12, y: 2.98, w: 0.8, h: 0, line: { color: C.green, width: 2, endArrowType: "triangle" } });
-  s.addText("directed", { x: 10.12, y: 2.58, w: 0.8, h: 0.2, fontFace: "Arial", fontSize: 9, bold: true, color: C.green, align: "center", margin: 0 });
-  card(s, 1.1, 5.12, 3.35, 1.05, "Schema của đồ thị", "Quy định dữ liệu được phép có những lớp, quan hệ và ràng buộc nào.", { badge: "1", shadow: false, bodySize: 9.5 });
-  card(s, 5.0, 5.12, 3.35, 1.05, "Cơ sở tri thức", "Kết hợp schema với tập thực thể và sự kiện đang được lưu.", { badge: "2", badgeColor: C.purple, shadow: false, fill: C.purpleBg, bodySize: 9.5 });
-  card(s, 8.9, 5.12, 3.35, 1.05, "Đồ thị tri thức", "Tổ chức cơ sở tri thức thành các đường liên kết có thể truy vấn và kiểm chứng.", { badge: "3", badgeColor: C.green, shadow: false, fill: C.greenBg, bodySize: 9.5 });
-  notes(s, "Schema mô tả label, loại quan hệ, thuộc tính và constraint chung. Instance chứa các node, edge và fact cụ thể, ví dụ Nolan DIRECTED Inception. Knowledge Graph kết hợp mô hình và dữ liệu thực tế để truy vấn.");
-}
-
-// 5 — Property Graph
+// 4 — Property Graph
 {
   const s = lightSlide("Property Graph biểu diễn trực tiếp node, cạnh và thuộc tính", "Đây là mô hình đồ thị duy nhất được triển khai trong dự án.", "Mô hình biểu diễn");
   s.addShape(pptx.ShapeType.roundRect, { x: 0.68, y: 1.92, w: 7.72, h: 4.7, rectRadius: 0.05, fill: { color: C.white }, line: { color: C.line }, shadow: shadow() });
@@ -238,15 +217,6 @@ function lightSlide(title, kicker, section) {
   card(s, 0.68, 4.38, 5.85, 2.15, "3 · Nguồn gốc — biết sự kiện đến từ đâu", "Sự kiện nhập trực tiếp phải chỉ ra nguồn; sự kiện suy ra phải giữ luật và các sự kiện hỗ trợ. Nhờ đó, người dùng có thể kiểm tra và tái tạo kết quả thay vì phải tin vào một hộp đen.", { fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 18, bodySize: 12.2 });
   card(s, 6.8, 4.38, 5.85, 2.15, "4 · Câu hỏi năng lực — biết graph được xây để làm gì", "Câu hỏi năng lực xác định tri thức tối thiểu cần biểu diễn. Nếu schema không trả lời được các câu hỏi đã công bố, việc có nhiều node và cạnh vẫn chưa tạo ra giá trị cho bài toán.", { fill: C.amberBg, stroke: "F1D5AA", titleColor: C.amber, titleSize: 18, bodySize: 12.2 });
   notes(s, "Bốn nguyên tắc này là tiêu chí xuyên suốt của project. Identity tránh nhập nhằng; schema tạo ngữ nghĩa chung; provenance cho phép kiểm chứng; competency questions bảo đảm mô hình phục vụ mục tiêu. Đây cũng là lý do Knowledge Graph không nên được định nghĩa đơn giản là một mạng node và edge.");
-}
-
-// 8 — Constraints and indexes
-{
-  const s = lightSlide("Constraint bảo vệ tính đúng đắn; index phục vụ tốc độ tra cứu", "Hai cơ chế thường được tạo cùng lúc nhưng giải quyết hai vấn đề khác nhau và không thể thay thế cho nhau.", "Ràng buộc dữ liệu");
-  card(s, 0.68, 1.95, 3.75, 4.5, "Ràng buộc duy nhất", "Bảo đảm một khóa ổn định không xuất hiện hai lần trong cùng một nhãn.\n\nVí dụ:\nMovie.tmdb_id\nPerson.person_id\nGenre.genre_id\n\nNhờ đó, dữ liệu trùng bị chặn ngay tại tầng lưu trữ và lệnh MERGE luôn xác định đúng node cần dùng.", { badge: "U", fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 19, bodySize: 12.5 });
-  card(s, 4.79, 1.95, 3.75, 4.5, "Kiểm tra tính hợp lệ", "ID và tên bắt buộc được kiểm tra trước hoặc sau khi nhập. Dự án còn phát hiện Movie không có quan hệ, cạnh nối sai loại node và sự kiện suy ra không có bằng chứng.\n\nRàng buộc trong Neo4j và cổng chất lượng của pipeline bổ sung cho nhau.", { badge: "V", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 19, bodySize: 12.2 });
-  card(s, 8.9, 1.95, 3.75, 4.5, "Index và chỉ mục toàn văn", "Index tăng tốc tra cứu chính xác theo thuộc tính; chỉ mục toàn văn tạo danh sách ứng viên khi tên người dùng nhập không hoàn toàn trùng khớp.\n\nIndex không chứng minh dữ liệu đúng. Nó chỉ giúp tìm node bắt đầu nhanh hơn trước khi duyệt tiếp các quan hệ.", { badge: "I", badgeColor: C.teal, fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 19, bodySize: 12.7 });
-  notes(s, "Schema khái niệm cần được nối với cơ chế bảo đảm vận hành. Uniqueness constraint bảo vệ identity; pipeline validation kiểm tra các quy tắc phức tạp hơn; index và full-text index hỗ trợ tìm điểm bắt đầu. Index chỉ tối ưu lookup, còn traversal vẫn dựa trên cấu trúc relationship.");
 }
 
 // 6 — Reasoning and Cypher
@@ -524,25 +494,68 @@ function lightSlide(title, kicker, section) {
 // 26 — Demo lookup: steps 1–2 in defense-script.md
 {
   const s = lightSlide("Demo 1 · Tra cứu diễn viên và kiểm chứng fact", "Hai giao diện khác nhau phải trả về cùng sự kiện vì cùng đọc một graph Neo4j.", "Trình diễn");
-  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 1 · Hỏi trên Web UI", "Câu hỏi:\n“Diễn viên nào đóng trong phim Inception?”\n\nQuan sát trên kết quả:\n• Movie đã được entity linking;\n• danh sách Person;\n• character và cast_order;\n• bằng chứng ACTED_IN.", { badge: "1", fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 20, bodySize: 14 });
-  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 2 · Kiểm chứng trong Neo4j Browser", "Chạy pattern:\nPerson -[ACTED_IN]-> Movie\n\nĐối chiếu tên diễn viên và nhân vật với Web UI. UI đi qua FastAPI, còn Browser truy vấn trực tiếp; hai đường truy cập phải thống nhất về fact.", { badge: "2", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 20, bodySize: 14 });
-  notes(s, "Bước một, hỏi trên Web UI: Diễn viên nào đóng trong phim Inception? Chỉ vào Movie đã được liên kết, danh sách diễn viên và bằng chứng. Bước hai, chạy truy vấn ACTED_IN trong Neo4j Browser rồi đối chiếu tên và character. Hai giao diện khác nhau nhưng phải đọc cùng một fact trong Neo4j.");
+  card(s, 0.68, 1.95, 3.75, 4.72, "Bước 1 · Web UI", "Nhập câu hỏi:\n“Diễn viên nào đóng trong phim Inception?”\n\nQuan sát:\n• Movie đã được liên kết;\n• tên diễn viên;\n• nhân vật;\n• evidence ACTED_IN.", { badge: "1", fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 19, bodySize: 13.2 });
+  s.addShape(pptx.ShapeType.roundRect, { x: 4.72, y: 1.95, w: 7.93, h: 4.72, rectRadius: 0.04, fill: { color: "10283D" }, line: { color: "10283D" }, shadow: shadow() });
+  s.addText("BƯỚC 2 · COPY VÀ CHẠY TRONG NEO4J BROWSER", { x: 5.02, y: 2.2, w: 6.9, h: 0.25, fontFace: "Arial", fontSize: 9.5, bold: true, color: "8FD0CC", charSpacing: 0.8, margin: 0 });
+  const lookupDemoQuery = [
+    "MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)",
+    "WHERE toLower(m.title) = toLower('Inception')",
+    "RETURN p.name AS actor,",
+    "       r.character AS character",
+    "ORDER BY r.cast_order",
+    "LIMIT 50;"
+  ].join("\n");
+  s.addText(lookupDemoQuery, { x: 5.02, y: 2.72, w: 7.25, h: 2.6, fontFace: "Courier New", fontSize: 14, color: "D9E8F2", margin: 0, fit: "shrink" });
+  s.addText("Đối chiếu `actor` và `character` với kết quả trên Web UI.", { x: 5.02, y: 5.68, w: 7.0, h: 0.45, fontFace: "Calibri", fontSize: 13, bold: true, color: "8FD0CC", margin: 0, fit: "shrink" });
+  notes(s, "Bước một, hỏi trên Web UI: Diễn viên nào đóng trong phim Inception? Bước hai, copy nguyên query trên slide vào Neo4j Browser và chạy. Đối chiếu hai cột actor, character với tên và vai diễn trên Web UI. Nếu cần xem graph, bỏ phần RETURN hiện tại và trả p, r, m.");
 }
 
 // 27 — Demo multi-hop: steps 3–4 in defense-script.md
 {
   const s = lightSlide("Demo 2 · Truy vấn nhiều bước và kiểm chứng đường đi", "Kết quả phim chung được chứng minh bằng shared-neighbor pattern Person → Movie ← Person.", "Trình diễn");
-  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 3 · Hỏi trên Web UI", "Câu hỏi:\n“Phim chung của Christian Bale và Tom Hardy?”\n\nHệ thống phải:\n• link đúng hai Person;\n• chọn intent common_movies;\n• trả The Dark Knight Rises;\n• giữ Movie chung làm evidence.", { badge: "3", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 20, bodySize: 14 });
-  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 4 · Kiểm chứng trong Neo4j Browser", "Chạy pattern:\nPerson → ACTED_IN → Movie\nPerson → ACTED_IN → cùng Movie\n\nChuyển giữa bảng và graph để chỉ ra Movie là láng giềng chung của hai Person.", { badge: "4", badgeColor: C.amber, fill: C.amberBg, stroke: "F1D5AA", titleColor: C.amber, titleSize: 20, bodySize: 14 });
-  notes(s, "Bước ba, hỏi phim chung của Christian Bale và Tom Hardy trên Web UI và chỉ vào The Dark Knight Rises. Bước bốn, chạy shared-neighbor pattern trong Neo4j Browser. Chuyển giữa bảng và graph để cho thấy cùng một Movie nối tới hai Person qua ACTED_IN.");
+  card(s, 0.68, 1.95, 3.75, 4.72, "Bước 3 · Web UI", "Nhập câu hỏi:\n“Phim chung của Christian Bale và Tom Hardy?”\n\nQuan sát:\n• hai Person đã được link;\n• intent common_movies;\n• The Dark Knight Rises;\n• Movie chung làm evidence.", { badge: "3", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 19, bodySize: 13 });
+  s.addShape(pptx.ShapeType.roundRect, { x: 4.72, y: 1.95, w: 7.93, h: 4.72, rectRadius: 0.04, fill: { color: "10283D" }, line: { color: "10283D" }, shadow: shadow() });
+  s.addText("BƯỚC 4 · COPY VÀ CHẠY TRONG NEO4J BROWSER", { x: 5.02, y: 2.2, w: 6.9, h: 0.25, fontFace: "Arial", fontSize: 9.5, bold: true, color: "8FD0CC", charSpacing: 0.8, margin: 0 });
+  const multiHopDemoQuery = [
+    "MATCH (a:Person)-[:ACTED_IN]->(m:Movie)",
+    "      <-[:ACTED_IN]-(b:Person)",
+    "WHERE toLower(a.name) = toLower('Christian Bale')",
+    "  AND toLower(b.name) = toLower('Tom Hardy')",
+    "RETURN DISTINCT m.title AS common_movie;"
+  ].join("\n");
+  s.addText(multiHopDemoQuery, { x: 5.02, y: 2.72, w: 7.25, h: 2.75, fontFace: "Courier New", fontSize: 12.5, color: "D9E8F2", margin: 0, fit: "shrink" });
+  s.addText("Kết quả cần có: The Dark Knight Rises. Trả `a, m, b` nếu muốn xem dạng graph.", { x: 5.02, y: 5.68, w: 7.0, h: 0.48, fontFace: "Calibri", fontSize: 12.5, bold: true, color: "8FD0CC", margin: 0, fit: "shrink" });
+  notes(s, "Bước ba, hỏi phim chung của Christian Bale và Tom Hardy trên Web UI. Bước bốn, copy nguyên query trên slide vào Neo4j Browser. Kết quả bảng phải có The Dark Knight Rises. Muốn trình bày graph, thay RETURN bằng RETURN a, m, b rồi chỉ ra Movie là láng giềng chung.");
 }
 
 // 28 — Demo recommendation: steps 5–6 in defense-script.md
 {
   const s = lightSlide("Demo 3 · Gợi ý phim và kiểm chứng lời giải thích", "Điểm xếp hạng và lời giải thích phải dựa trên cùng các đặc trưng chung trong graph.", "Trình diễn");
-  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 5 · Gợi ý trên Web UI", "Chọn Inception và yêu cầu Top-5.\n\nVới kết quả đứng đầu, mở phần giải thích và ghi nhận:\n• tổng điểm;\n• đạo diễn hoặc diễn viên chung;\n• thể loại, từ khóa hoặc hãng phim chung;\n• contribution của từng đặc trưng.", { badge: "5", badgeColor: C.teal, fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 20, bodySize: 14 });
-  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 6 · Kiểm chứng trong Neo4j Browser", "Dùng đúng phim đứng đầu làm candidate, rồi truy vấn các shared feature giữa candidate và Inception.\n\nĐối chiếu kết quả Browser với explanation trên UI. Browser kiểm chứng bằng chứng; query IDF của ứng dụng quyết định điểm và thứ hạng.", { badge: "6", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 20, bodySize: 14 });
-  notes(s, "Bước năm, chọn Inception, chạy Top-5 và mở explanation của kết quả đứng đầu. Bước sáu, dùng chính tên phim đó trong query kiểm chứng shared features trên Neo4j Browser. Đối chiếu feature giữa hai giao diện; Browser chỉ kiểm chứng bằng chứng, còn query IDF đầy đủ của ứng dụng tính điểm và thứ hạng.");
+  card(s, 0.55, 1.86, 3.2, 4.9, "Bước 5 · Web UI", "Chọn Inception → Top-5.\n\nGhi lại đúng tên phim đứng đầu và mở explanation.\n\nQuan sát:\n• tổng điểm;\n• shared features;\n• contribution.", { badge: "5", badgeColor: C.teal, fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 18, bodySize: 12.5 });
+  s.addShape(pptx.ShapeType.roundRect, { x: 4.0, y: 1.86, w: 8.78, h: 4.9, rectRadius: 0.04, fill: { color: "10283D" }, line: { color: "10283D" }, shadow: shadow() });
+  s.addText("BƯỚC 6 · THAY TÊN TOP-1, COPY VÀ CHẠY TRONG NEO4J BROWSER", { x: 4.25, y: 2.08, w: 7.95, h: 0.24, fontFace: "Arial", fontSize: 8.8, bold: true, color: "8FD0CC", charSpacing: 0.5, margin: 0 });
+  const recommendationDemoQuery = [
+    ":param candidate_title => 'Interstellar';",
+    "MATCH (source:Movie {tmdb_id: 27205})",
+    "MATCH (candidate:Movie {title: $candidate_title})",
+    "CALL (source, candidate) {",
+    " MATCH (source)<-[:DIRECTED]-(f:Person)-[:DIRECTED]->(candidate)",
+    " RETURN 'director' AS kind, f.name AS feature UNION",
+    " MATCH (source)<-[:ACTED_IN]-(f:Person)-[:ACTED_IN]->(candidate)",
+    " RETURN 'actor' AS kind, f.name AS feature UNION",
+    " MATCH (source)-[:HAS_GENRE]->(f:Genre)<-[:HAS_GENRE]-(candidate)",
+    " RETURN 'genre' AS kind, f.name AS feature UNION",
+    " MATCH (source)-[:HAS_KEYWORD]->(f:Keyword)<-[:HAS_KEYWORD]-(candidate)",
+    " RETURN 'keyword' AS kind, f.name AS feature UNION",
+    " MATCH (source)-[:PRODUCED_BY]->(f:Studio)<-[:PRODUCED_BY]-(candidate)",
+    " RETURN 'studio' AS kind, f.name AS feature",
+    "}",
+    "RETURN candidate.title AS recommended_movie,",
+    "       kind, collect(DISTINCT feature) AS shared_features;"
+  ].join("\n");
+  s.addText(recommendationDemoQuery, { x: 4.25, y: 2.45, w: 8.12, h: 3.82, fontFace: "Courier New", fontSize: 8.8, color: "D9E8F2", margin: 0, fit: "shrink" });
+  s.addText("Đổi `Interstellar` thành đúng tên Top-1 nếu kết quả hiện tại khác.", { x: 4.25, y: 6.35, w: 7.8, h: 0.22, fontFace: "Calibri", fontSize: 10.5, bold: true, color: "8FD0CC", margin: 0, fit: "shrink" });
+  notes(s, "Bước năm, chọn Inception, chạy Top-5 và ghi đúng tên phim đứng đầu. Bước sáu, thay giá trị Interstellar trong dòng param nếu Top-1 hiện tại khác, sau đó copy toàn bộ query trên slide vào Neo4j Browser. Đối chiếu kind và shared_features với explanation trên UI. Query này kiểm chứng bằng chứng; điểm và thứ hạng do query IDF đầy đủ của ứng dụng tính.");
 }
 
 // 23 — Limits
