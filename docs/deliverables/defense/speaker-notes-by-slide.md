@@ -248,37 +248,6 @@ Property Graph.”
 
 **Chuyển ý:** “Để đọc các query này, ta cần một số thuật ngữ traversal.”
 
-## Slide 8 — Hop, degree, common neighbor và shortest path
-
-**Mục tiêu:** giải thích từ vựng duyệt đồ thị.
-
-**Có thể nói gần như nguyên văn:**
-
-> Hop là một lần đi qua cạnh. Degree là số cạnh kề một node. Common neighbor là
-> Để đọc đúng các pattern Cypher vừa trình bày, ta cần bốn thuật ngữ mô tả cách
-> duyệt đồ thị.
->
-> Hop là một lần đi qua cạnh. Person → Movie là một hop; Person → Movie → Genre
-> là hai hop. Degree là số cạnh kề một node. Node có degree cao thường là thực
-> thể phổ biến, nhưng chính sự phổ biến đó có thể gây thiên lệch khi xếp hạng.
->
-> Common neighbor là node được hai node cùng chia sẻ. Ví dụ, một Movie là láng
-> giềng chung của hai Person cùng tham gia phim đó; một diễn viên hoặc thể loại
-> cũng có thể là láng giềng chung của hai Movie. Đây là nền tảng của truy vấn
-> phim chung, quan hệ đồng diễn và gợi ý tương tự.
->
-> Shortest path là đường có số cạnh nhỏ nhất trong phạm vi quan hệ cho phép.
-> Trong dự án, truy vấn này được giới hạn tối đa tám cạnh để kiểm soát phạm vi.
-> Tuy nhiên, đường ít cạnh nhất chưa chắc là đường có ý nghĩa nhất; vì vậy kết
-> quả phải giữ cả loại relationship để người dùng đọc được ngữ nghĩa.
->
-> Tóm lại, hop đo số bước, degree đo mức kết nối, common neighbor đo phần lân cận
-> chung và shortest path tìm cách nối ngắn nhất.
-
-**Cần chỉ vào:** bốn khái niệm và dòng liên hệ với project.
-
-**Chuyển ý:** “Đây là lý do mô hình đồ thị phù hợp với miền phim.”
-
 ## Slide 9 — Vì sao chọn Neo4j?
 
 **Mục tiêu:** nêu lợi ích đúng mức.
@@ -384,59 +353,6 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Một bài toán trung tâm khi tích hợp là phân giải thực thể.”
 
-## Slide 13 — Entity resolution
-
-**Mục tiêu:** giải thích exact, fuzzy, threshold và abstention.
-
-**Có thể nói gần như nguyên văn:**
-
-> Entity resolution quyết định hai record có mô tả cùng một thực thể hay không.
-> Đây là bước cần thiết trước khi nhập graph, vì nếu hai record của cùng một
-> người bị tách thành hai node, quan hệ sẽ bị phân mảnh; ngược lại, nếu hai người
-> khác nhau bị gộp, nhiều đường đi phía sau sẽ trở thành sai.
->
-> Quy trình trên hình đi từ tín hiệu chắc chắn tới tín hiệu yếu hơn. Trước hết,
-> hệ thống ưu tiên exact source ID. Chỉ khi thiếu ID mới dùng fuzzy matching như
-> một phương án dự phòng, có confidence và log. Nếu ứng viên mơ hồ hoặc điểm
-> dưới threshold, hệ thống abstain, tức là từ chối nối thay vì đoán.
->
-> Trên 100 cặp silver, precision đạt 1, recall đạt 0,933 và F1 đạt 0,966. Năm
-> false negative là các trường hợp hệ thống từ chối bảo thủ; tập này không có
-> false positive. Kết quả thể hiện lựa chọn thiết kế: chấp nhận bỏ sót một số
-> liên kết để tránh tạo liên kết sai làm ô nhiễm graph.
-
-**Cần chỉ vào:** flow exact → fuzzy → abstain và ba metric.
-
-**Chuyển ý:** “Entity linking liên quan đến identity nhưng xảy ra ở thời điểm khác.”
-
-## Slide 14 — Entity resolution và entity linking
-
-**Mục tiêu:** phân biệt hai bài toán dễ bị gọi lẫn.
-
-**Có thể nói gần như nguyên văn:**
-
-> Entity resolution diễn ra lúc xây graph: nó hợp nhất hoặc giữ tách các record
-> nguồn và ảnh hưởng dữ liệu lâu dài. Đầu vào của bước này là các record dữ liệu;
-> đầu ra là các node canonical được nhập vào graph. Vì hậu quả kéo dài qua mọi
-> truy vấn, false positive ở bước này đặc biệt nguy hiểm.
->
-> Entity linking diễn ra ở thời điểm người dùng đặt câu hỏi. Đầu vào không phải
-> record nguồn mà là một chuỗi như “Cristopher Nolan”; mục tiêu là nối chuỗi đó
-> tới node Christopher Nolan đã tồn tại.
->
-> Linker trước hết xác định loại slot như Person, Movie hoặc Genre; sau đó dùng
-> full-text index tạo candidate, fuzzy rerank, áp dụng threshold và trả stable
-> ID, canonical name cùng confidence. Query phía sau sử dụng ID đã chọn, không
-> mở rộng lại bằng so khớp tên.
->
-> Vì vậy, hai bài toán cùng xử lý identity nhưng khác thời điểm và mục tiêu:
-> resolution xây identity của graph, còn linking tìm đúng identity khi khai
-> thác graph.
-
-**Cần chỉ vào:** hai cột và thời điểm xử lý.
-
-**Chuyển ý:** “Khi entity đã được liên kết, catalog chạy pattern Cypher.”
-
 ## Slide 15 — Cypher và pattern nhiều bước
 
 **Mục tiêu:** đọc query và giải thích parameterization.
@@ -486,33 +402,6 @@ mô hình đó hay không.”
 **Cần chỉ vào:** hai ACTED_IN và cạnh CO_STARRED_WITH.
 
 **Chuyển ý:** “Để kiểm chứng đầy đủ, cần phân biệt ba lớp truy vết.”
-
-## Slide 17 — Provenance, lineage và evidence
-
-**Mục tiêu:** phân biệt ba khái niệm truy vết.
-
-**Có thể nói gần như nguyên văn:**
-
-> Provenance trả lời fact đến từ nguồn nào, ví dụ `source=tmdb` hoặc checksum
-> IMDb. Đây là thông tin về nguồn gốc của sự kiện.
->
-> Lineage trả lời một câu hỏi khác: sự kiện đã đi qua chuỗi biến đổi nào, từ raw
-> cache, làm sạch, CSV, import cho tới luật suy diễn. Nó mô tả lịch sử xử lý,
-> không chỉ nguồn ban đầu.
->
-> Evidence lại gắn với một kết quả cụ thể: câu trả lời hoặc gợi ý này dựa trên
-> node, edge, path hay shared feature nào. Vì vậy, cùng một dữ liệu có thể có
-> provenance và lineage cố định, nhưng mỗi câu trả lời sử dụng một tập evidence
-> khác nhau.
->
-> Ba thẻ phía dưới cho thấy yêu cầu tương ứng: asserted fact cần provenance;
-> derived fact cần luật và supporting facts; explainable result cần đường đi
-> hoặc đặc trưng đủ để kiểm tra ngược. Ba lớp này bổ sung cho nhau chứ không phải
-> ba cách gọi của cùng một khái niệm.
-
-**Cần chỉ vào:** ba hàng trong bảng và ba thẻ cuối.
-
-**Chuyển ý:** “Các graph pattern được đưa tới người dùng qua hai ứng dụng.”
 
 ## Slide 18 — Hỏi–đáp an toàn
 
@@ -565,109 +454,6 @@ mô hình đó hay không.”
 
 **Chuyển ý:** “Để đọc kết quả đánh giá, cần hiểu từng metric đo điều gì.”
 
-## Slide 20 — Các metric đánh giá
-
-**Mục tiêu:** phân biệt P, R, F1, P@K và NDCG@K.
-
-**Có thể nói gần như nguyên văn:**
-
-> Precision hỏi trong các kết quả hệ thống chấp nhận, bao nhiêu là đúng. Recall
-> hỏi trong các trường hợp đúng cần tìm, hệ thống tìm được bao nhiêu. Hai metric
-> nhìn lỗi từ hai phía: precision phạt false positive, còn recall phạt false
-> negative.
->
-> F1 là trung bình điều hòa của precision và recall, dùng khi cần một con số cân
-> bằng. Tuy nhiên, F1 vẫn phải được đọc cùng số TP, FP và FN để hiểu hệ thống sai
-> theo hướng nào.
->
-> Với recommendation, Precision@K đo tỷ lệ mục liên quan trong K vị trí đầu,
-> nhưng coi các vị trí trong Top-K như nhau. NDCG@K giảm trọng số của kết quả ở
-> vị trí thấp và chuẩn hóa theo thứ tự lý tưởng, nên phản ánh cả mức liên quan và
-> chất lượng sắp xếp.
->
-> Mỗi metric trả lời một câu hỏi khác nhau; không có một con số duy nhất đánh giá
-> toàn bộ Knowledge Graph. Mọi giá trị chỉ có nghĩa khi đọc cùng corpus, rubric
-> và protocol.
-
-**Cần chỉ vào:** ba công thức và hai khối ranking.
-
-**Chuyển ý:** “Vì vậy mỗi claim trong dự án có một phép đánh giá riêng.”
-
-## Slide 21 — Thiết kế evaluation
-
-**Mục tiêu:** nối claim với dataset và metric.
-
-**Có thể nói gần như nguyên văn:**
-
-> Slide này ánh xạ từng tuyên bố của dự án tới một tập đánh giá và metric cụ thể.
->
-> Chất lượng dữ liệu được kiểm tra trên toàn corpus bằng tỷ lệ thiếu, trùng và
-> node mồ côi. Entity resolution dùng 100 cặp silver với precision, recall và
-> F1. Suy diễn dùng 50 sự kiện co-star để đo precision. QA dùng 20 câu smoke và
-> yêu cầu cả câu trả lời lẫn evidence. Recommendation dùng 20 trường hợp với
-> P@10 và NDCG@10. Hiệu năng dùng bốn query trên bốn quy mô, báo cáo median và
-> p95 sau warm-up.
->
-> Ba lưu ý bên phải giới hạn cách diễn giải: silver corpus có provenance và
-> protocol nhưng không phải ground truth độc lập; mọi kết quả phải đi kèm
-> snapshot và cấu hình đã dùng; kết luận không được vượt ra ngoài những gì thí
-> nghiệm đã đo.
-
-**Cần chỉ vào:** từng hàng của bảng.
-
-**Chuyển ý:** “Kết quả chính trên snapshot hiện tại như sau.”
-
-## Slide 22 — Kết quả chính
-
-**Mục tiêu:** trình bày metric và giới hạn diễn giải.
-
-**Có thể nói gần như nguyên văn:**
-
-> QA smoke pass 20 trên 20; entity resolution F1 0,966; co-star precision 1;
-> recommendation đạt P@10 0,635 và NDCG@10 0,672. Năm thẻ phía trên tương ứng
-> với năm tuyên bố đã nêu ở slide thiết kế đánh giá.
->
-> Biểu đồ phía dưới giúp so sánh quy mô tương đối, nhưng các cột không hoàn toàn
-> cùng loại metric nên không nên dùng để kết luận tác vụ nào “tốt hơn”. Khối bên
-> phải mới là cách đọc cần giữ: QA 20/20 chỉ chứng minh luồng đóng hoạt động trên
-> smoke corpus; entity precision cao một phần nhờ abstention bảo thủ;
-> recommendation được đo trên 20 case silver và chưa thay thế đánh giá người
-> dùng.
->
-> Điểm mạnh xuyên suốt không chỉ là giá trị metric, mà là kết quả QA và
-> recommendation đều giữ evidence để kiểm tra.
-
-**Cần chỉ vào:** năm metric và khối “Cách đọc thận trọng”.
-
-**Chuyển ý:** “Sau các kết quả, em quay lại nguyên tắc thiết kế: schema phải
-bắt đầu từ câu hỏi cần trả lời.”
-
-## Slide 23 — Competency question
-
-**Mục tiêu:** cho thấy câu hỏi dẫn dắt schema và query.
-
-**Có thể nói gần như nguyên văn:**
-
-> Câu hỏi “hai diễn viên có phim nào cùng tham gia” xác định ba thành phần tối
-> thiểu: Person, Movie và ACTED_IN. Điều kiện hai Person phải khác nhau cũng xuất
-> phát trực tiếp từ ý nghĩa của câu hỏi.
->
-> Phần Cypher bên phải chuyển câu hỏi thành shared-neighbor pattern:
-> Person → Movie ← Person. Hai ID người được truyền bằng parameter, còn Movie
-> chung là kết quả trả về.
->
-> Ba thẻ phía dưới tạo thành một phép kiểm tra thiết kế. Schema coverage hỏi mô
-> hình có đủ lớp và quan hệ hay không. Query answerability hỏi pattern có thực sự
-> trả lời câu hỏi hay không. Evidence hỏi kết quả có lần ngược được đường đi hay
-> không.
->
-> Như vậy, competency question không chỉ dùng để demo; nó là điểm xuất phát để
-> thiết kế và kiểm chứng schema.
-
-**Cần chỉ vào:** câu hỏi, pattern và ba tiêu chí cuối.
-
-**Chuyển ý:** “Ba slide tiếp theo biến nguyên lý này thành sáu bước demo: mỗi
-kết quả trên Web UI đều được kiểm chứng ngay trong Neo4j Browser.”
 
 ## Slide 24 — Demo 1: Tra cứu diễn viên
 
