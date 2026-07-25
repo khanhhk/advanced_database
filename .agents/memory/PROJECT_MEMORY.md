@@ -211,12 +211,12 @@ documents and committed experiment artifacts are the verifiable project sources.
   are complete.
 - `docs/deliverables/slide/` stores the editable presentation workflow:
   `outline.md`, the PptxGenJS source `build.js`, high-resolution exports of the
-  report draw.io figures, the 31-slide defense deck,
+  report draw.io figures, the 30-slide defense deck,
   embedded speaker notes, and a PDF fallback. Text, shapes, tables and charts
   remain editable PowerPoint objects; complex diagrams retain their editable
   `.drawio` sources under `report_latex/images/sources/`. Rebuild with `npm ci`
   and `node docs/deliverables/slide/build.js`.
-  The defense deck was expanded on 2026-07-25 into a denser, 31-slide academic
+  The defense deck was expanded on 2026-07-25 into a denser academic
   narrative covering the concepts actually used by the project: identity,
   schema/instance, Property Graph semantics, neighborhood/path/subgraph,
   constraints and indexes, traversal vocabulary, entity resolution versus
@@ -226,12 +226,22 @@ documents and committed experiment artifacts are the verifiable project sources.
   in the LaTeX report rather than the main slide narrative. On 2026-07-25, the
   visible prose was revised again so that cards state complete claims in the
   form definition → role → project example or consequence, instead of relying
-  on isolated English labels or keyword lists. The committed PDF fallback is
+  on isolated English labels or keyword lists. The Neo4j–SQLite comparison
+  slide was removed from the presentation on 2026-07-25; benchmark details
+  remain in the report and experiment artifacts. The detailed ETL/reproducibility
+  slide was also removed; cache, manifest and idempotent-import details remain
+  in the report. The detailed TMDB–IMDb integration slide was removed as well;
+  exact join, streaming and rating-coverage details remain in the report. The
+  former single consolidated demo slide was expanded back into three concise
+  demo slides aligned one-to-one with steps 1–6 of `defense-script.md`: QA
+  lookup, multi-hop QA and recommendation, each followed by Neo4j Browser
+  verification. The
+  committed PDF fallback is
   not automatically regenerated on every PPTX content revision.
 - `docs/deliverables/defense/speaker-notes-by-slide.md`,
   `docs/deliverables/defense/defense-script.md` and
   `docs/deliverables/defense/defense-qa.md`: slide-by-slide speaking notes are
-  synchronized with the 31-slide academic deck; the separate timed
+  synchronized with the 30-slide academic deck; the separate timed
   presentation/demo script, fallback plan and rehearsal gate support delivery;
   the QA document contains 25 evidence-backed oral-defense questions. A
   rehearsal result must never be claimed until a human completes it.

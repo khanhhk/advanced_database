@@ -293,7 +293,7 @@ function lightSlide(title, kicker, section) {
   s.addShape(pptx.ShapeType.roundRect, { x: 8.35, y: 4.15, w: 4.3, h: 1.72, rectRadius: 0.06, fill: { color: C.purpleBg }, line: { color: "D5C9E8" }, shadow: shadow() });
   s.addText("Quan hệ có thể mang thuộc tính", { x: 8.65, y: 4.45, w: 3.7, h: 0.35, fontFace: "Calibri", fontSize: 20, bold: true, color: C.purple, margin: 0 });
   s.addText("Cạnh ACTED_IN và CO_STARRED_WITH mang thuộc tính và bằng chứng trực tiếp.", { x: 8.65, y: 4.96, w: 3.45, h: 0.52, fontFace: "Calibri", fontSize: 13, color: C.ink, margin: 0, fit: "shrink" });
-  notes(s, "Neo4j là kho graph duy nhất vì thuận tiện cho traversal, relationship có property và ứng dụng. SQLite chỉ là mốc so sánh được kiểm soát. Em không kết luận đồ thị luôn nhanh hơn quan hệ; giá trị chính là mô hình và bằng chứng.");
+  notes(s, "Neo4j là kho graph duy nhất vì phù hợp với traversal, relationship có property và các đường đi bằng chứng. Lựa chọn tập trung vào độ phù hợp của mô hình với miền phim, không dựa trên tuyên bố graph luôn nhanh hơn mô hình quan hệ.");
 }
 
 // 7 — Architecture
@@ -319,24 +319,7 @@ function lightSlide(title, kicker, section) {
   notes(s, "Luồng chính đi từ TMDB và IMDb qua cache bất biến, xử lý và chuẩn hóa sang Neo4j. FastAPI cung cấp QA và recommendation. Manifest, checksum và các phép kiểm tra bao quanh toàn bộ quy trình.");
 }
 
-// 8 — Sources and IMDb
-{
-  const s = lightSlide("Tích hợp IMDb theo chiến lược tiết kiệm lưu trữ", "Chỉ đọc tuần tự tệp rating nén và ghép chính xác theo IMDb ID; không tải toàn bộ IMDb vào đồ thị.", "Dữ liệu");
-  const x0 = 0.75, y0 = 2.0;
-  ["TMDB\nexternal_ids", "imdb_id = tconst", "IMDb ratings.gz", "Movie\nenrichment"].forEach((t, i) => {
-    const x = x0 + i * 2.85;
-    s.addShape(i === 1 ? pptx.ShapeType.chevron : pptx.ShapeType.roundRect, { x, y: y0, w: 2.2, h: 1.2, rectRadius: 0.06, fill: { color: i === 1 ? C.amberBg : (i === 3 ? C.greenBg : "EAF2F8") }, line: { color: i === 1 ? C.amber : (i === 3 ? C.green : C.teal), width: 1.4 } });
-    s.addText(t, { x: x + 0.15, y: y0 + 0.32, w: 1.9, h: 0.52, fontFace: "Calibri", fontSize: 14, bold: true, color: C.navy, align: "center", margin: 0, fit: "shrink" });
-    if (i < 3) s.addShape(pptx.ShapeType.line, { x: x + 2.22, y: y0 + 0.6, w: 0.55, h: 0, line: { color: C.muted, width: 1.8, beginArrowType: "none", endArrowType: "triangle" } });
-  });
-  metric(s, 0.75, 4.1, 2.55, "4.558", "Movie có IMDb ID", C.teal);
-  metric(s, 3.55, 4.1, 2.55, "4.351", "Rating ghép chính xác", C.green);
-  metric(s, 6.35, 4.1, 2.55, "95,5%", "Tỷ lệ ghép trên IMDb ID", C.purple);
-  card(s, 9.15, 4.1, 3.45, 1.38, "Không ghi đè", "`rating`, `imdb_rating` và `imdb_votes` được giữ riêng.", { fill: C.amberBg, stroke: "F1D5AA", titleSize: 15, bodySize: 11 });
-  notes(s, "Để giữ quy mô lưu trữ hợp lý, hệ thống chỉ tải tệp title.ratings.tsv.gz và đọc streaming. Phép nối là exact ID giữa imdb_id của TMDB và tconst của IMDb. Trong 4.558 phim có IMDb ID, 4.351 phim ghép được rating; hai thang rating được giữ riêng.");
-}
-
-// 9 — Model
+// 13 — Model
 {
   const s = lightSlide("Mô hình dữ liệu đặt định danh lên trước tên gọi", "Một Person có thể vừa là diễn viên vừa là đạo diễn; vai trò được biểu diễn bằng quan hệ.", "Mô hình tri thức");
   addImageContain(s, A("property_graph_schema"), 0.62, 1.9, 8.15, 4.72);
@@ -347,28 +330,7 @@ function lightSlide(title, kicker, section) {
   notes(s, "Mô hình có năm loại nút và năm quan hệ gốc. Person chỉ dùng một label vì cùng một người có thể có nhiều vai trò. Stable source ID là khóa; ACTED_IN giữ metadata trên cạnh. Constraint và index được tạo trước khi nạp.");
 }
 
-// 10 — ETL
-{
-  const s = lightSlide("Quy trình dữ liệu có thể chạy lại và kiểm tra", "Raw cache bất biến → dữ liệu chuẩn hóa tất định → import idempotent → validation.", "Quy trình xử lý");
-  const steps = ["Thu thập", "Lưu nguồn", "Làm sạch", "Nối IMDb", "Chuẩn hóa", "Nhập Neo4j", "Suy diễn", "Kiểm tra"];
-  steps.forEach((label, i) => {
-    const x = 0.5 + i * 1.57;
-    const color = i < 2 ? C.teal : (i < 5 ? C.amber : (i < 7 ? C.purple : C.green));
-    s.addShape(pptx.ShapeType.roundRect, { x, y: 2.4, w: 1.25, h: 1.0, rectRadius: 0.04, fill: { color: i % 2 ? C.white : C.pale }, line: { color, width: 1.4 }, shadow: shadow() });
-    s.addText(label, { x: x + 0.1, y: 2.74, w: 1.05, h: 0.28, fontFace: "Calibri", fontSize: 13, bold: true, color, align: "center", margin: 0, fit: "shrink" });
-    if (i < steps.length - 1) s.addShape(pptx.ShapeType.line, { x: x + 1.27, y: 2.9, w: 0.26, h: 0, line: { color: C.muted, width: 1.4, endArrowType: "triangle" } });
-  });
-  const captions = [
-    ["Bộ nhớ đệm nguồn", "Giữ nguyên dữ liệu gốc để có thể xử lý lại cùng một snapshot."],
-    ["Manifest thực nghiệm", "Ghi số lượng, checksum và kết quả kiểm tra của mỗi lần chạy."],
-    ["Nhập idempotent", "`MERGE` theo stable ID giúp chạy lại mà không nhân bản node và cạnh."],
-    ["Cổng chất lượng", "Chặn dữ liệu mồ côi, thiếu khóa hoặc có cạnh không hợp lệ."],
-  ];
-  captions.forEach((d, i) => card(s, 0.68 + i * 3.03, 5.42, 2.72, 1.28, d[0], d[1], { shadow: false, titleSize: 11.5, bodySize: 8.7, fill: i % 2 ? "F0F6F8" : C.white }));
-  notes(s, "Quy trình gồm collect, cache, clean, exact-ID enrich, normalize, load, reason và validate. Raw cache là bất biến; manifest ghi checksum và số lượng. Import dùng batch và MERGE nên có thể chạy lặp. Runtime chỉ import lại khi checksum processed hoặc số Movie thay đổi.");
-}
-
-// 11 — Quality
+// 15 — Quality
 {
   const s = lightSlide("Đồ thị cuối cùng vượt qua toàn bộ quality gate", "Một bản ghi Movie không có quan hệ bị loại; ảnh chụp hợp lệ còn 4.999 phim.", "Chất lượng dữ liệu");
   metric(s, 0.65, 1.98, 2.2, "76.612", "Tổng số nút", C.teal);
@@ -509,7 +471,7 @@ function lightSlide(title, kicker, section) {
   ];
   s.addTable(rows, { x: 0.67, y: 1.94, w: 8.2, h: 4.75, border: { type: "solid", color: C.line, pt: 1 }, fill: C.white, color: C.ink, fontFace: "Calibri", fontSize: 11.2, margin: 0.08, rowH: 0.6, valign: "mid", colW: [2.3, 2.6, 3.3], autoFit: false });
   card(s, 9.22, 1.96, 3.42, 1.25, "Silver ≠ ground truth độc lập", "Corpus được sinh tất định, có provenance và rubric công bố.", { fill: C.amberBg, stroke: "F1D5AA", titleColor: C.amber, titleSize: 14, bodySize: 10.5 });
-  card(s, 9.22, 3.54, 3.42, 1.25, "So sánh công bằng", "Neo4j và SQLite dùng cùng snapshot, máy, warm-up và số lần chạy.", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 14, bodySize: 10.5 });
+  card(s, 9.22, 3.54, 3.42, 1.25, "Protocol được cố định", "Mỗi kết quả đi kèm snapshot, cấu hình, số lần chạy và tiêu chí chấm.", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 14, bodySize: 10.5 });
   card(s, 9.22, 5.12, 3.42, 1.25, "Không vượt quá bằng chứng", "Không suy rộng sang concurrency, cold cache hay production scale.", { fill: C.redBg, stroke: "E9C3C6", titleColor: C.red, titleSize: 14, bodySize: 10.5 });
   notes(s, "Mỗi tuyên bố có một tập đánh giá riêng. Entity resolution và recommendation dùng silver corpus có provenance. QA là smoke test 20 câu. Benchmark chạy cùng snapshot, máy, warm-up và 100 iterations. Vì vậy em không suy rộng kết quả thành độ chính xác sản xuất hoặc scalability tổng quát.");
 }
@@ -539,45 +501,7 @@ function lightSlide(title, kicker, section) {
   notes(s, "QA smoke đạt 20/20; entity resolution F1 0.966; co-star precision 1.0; recommendation đạt P@10 0.635 và NDCG@10 0.672. Các metric silver phản ánh protocol đã công bố, chưa thay thế đánh giá người dùng độc lập.");
 }
 
-// 21 — Benchmark and ablation
-{
-  const s = lightSlide("Phép đo so sánh cho thấy sự đánh đổi", "SQLite nhanh hơn ở toàn bộ cặp truy vấn/quy mô; Neo4j đổi lại mô hình duyệt đồ thị và bằng chứng trực tiếp.", "Phân tích");
-  s.addChart(pptx.ChartType.line, [
-    { name: "Neo4j · common_movies", labels: ["500", "1.000", "2.000", "4.999"], values: [15.16, 16.90, 25.67, 44.31] },
-    { name: "SQLite · common_movies", labels: ["500", "1.000", "2.000", "4.999"], values: [2.77, 7.31, 14.19, 40.00] },
-  ], {
-    x: 0.65, y: 1.96, w: 6.2, h: 3.55,
-    showTitle: true, title: "Median latency · common_movies (ms)",
-    titleFontFace: "Calibri", titleFontSize: 14, titleColor: C.navy,
-    catAxisLabelFontFace: "Arial", catAxisLabelFontSize: 9,
-    valAxisLabelFontFace: "Arial", valAxisLabelFontSize: 9,
-    showLegend: true, legendPos: "b", legendFontSize: 9,
-    chartColors: [C.teal, C.amber], showValue: false,
-    valGridLine: { color: "D7DEE8", width: 1 }, catGridLine: { style: "none" },
-    showBorder: false,
-  });
-  s.addChart(pptx.ChartType.bar, [
-    { name: "P@10", labels: ["Overlap", "Weighted Jaccard", "Hybrid", "IDF production"], values: [0.67, 0.64, 0.59, 0.635] },
-    { name: "NDCG@10", labels: ["Overlap", "Weighted Jaccard", "Hybrid", "IDF production"], values: [0.723, 0.699, 0.657, 0.672] },
-  ], {
-    x: 7.15, y: 1.96, w: 5.5, h: 3.55,
-    showTitle: true, title: "Lịch sử thiết kế ranker · 20 case",
-    titleFontFace: "Calibri", titleFontSize: 14, titleColor: C.navy,
-    catAxisLabelFontFace: "Arial", catAxisLabelFontSize: 8.5,
-    valAxisLabelFontFace: "Arial", valAxisLabelFontSize: 9,
-    valAxisMinVal: 0, valAxisMaxVal: 0.8, valAxisMajorUnit: 0.2,
-    showLegend: true, legendPos: "b", legendFontSize: 9,
-    chartColors: [C.teal, C.purple], showValue: false,
-    valGridLine: { color: "D7DEE8", width: 1 }, catGridLine: { style: "none" },
-    showBorder: false,
-  });
-  card(s, 0.75, 5.5, 5.95, 1.05, "Kết luận hiệu năng", "Đo warm-cache, 100 lần/query, không đo concurrency hoặc cold cache.", { shadow: false, titleSize: 13, bodySize: 10, fill: C.amberBg, stroke: "F1D5AA" });
-  card(s, 7.15, 5.5, 5.48, 1.05, "Kết luận gợi ý", "Các mốc cũ là lịch sử thiết kế, không phải lựa chọn runtime.", { shadow: false, titleSize: 13, bodySize: 10, fill: C.purpleBg, stroke: "D9CFE8" });
-  addSource(s, "Nguồn: multiscale_benchmark.csv · recommendation_ablation.json · recommendation.json");
-  notes(s, "SQLite nhanh hơn trên tất cả query và quy mô đã đo. Điều đó cho thấy không nên bán đồ thị bằng tốc độ tuyệt đối; lợi ích là biểu diễn và bằng chứng traversal. Với recommendation, các phương pháp cũ chỉ là lịch sử thiết kế; runtime hiện dùng IDF-weighted graph.");
-}
-
-// 21 — Competency questions
+// 27 — Competency questions
 {
   const s = lightSlide("Competency question dẫn dắt schema và truy vấn", "Mỗi câu hỏi nghiệp vụ phải ánh xạ được thành một graph pattern có thể kiểm chứng.", "Từ lý thuyết đến mô hình");
   card(s, 0.68, 1.95, 4.0, 3.65, "Câu hỏi năng lực", "Phim nào có hai diễn viên cùng tham gia?\n\nKhái niệm cần có:\nPerson · Movie · ACTED_IN\n\nRàng buộc:\nhai Person khác nhau cùng nối tới một Movie.", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 18, bodySize: 15 });
@@ -597,26 +521,28 @@ function lightSlide(title, kicker, section) {
   notes(s, "Competency question không chỉ dùng để demo. Nó là công cụ thiết kế schema: xác định loại thực thể, quan hệ và thuộc tính tối thiểu; sau đó kiểm tra bằng một graph pattern. Ví dụ phim chung ánh xạ trực tiếp thành shared-neighbor Person–Movie–Person.");
 }
 
-// 22 — Consolidated demonstration
+// 26 — Demo lookup: steps 1–2 in defense-script.md
 {
-  const s = lightSlide("Demo tổng hợp · từ câu hỏi đến đường đi bằng chứng", "Ứng dụng chỉ là bề mặt minh họa; trọng tâm là phép ánh xạ từ ngôn ngữ sang graph pattern.", "Minh họa nguyên lý");
-  card(s, 0.62, 1.85, 3.45, 4.72, "① Câu hỏi tự nhiên", "“Christian Bale và Tom Hardy cùng đóng phim nào?”\n\nTừ câu hỏi, hệ thống phải xác định:\n• hai thực thể thuộc lớp Person;\n• quan hệ cần duyệt là ACTED_IN;\n• Movie chung là node cần trả về;\n• đường Person → Movie ← Person là bằng chứng.", { fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 17, bodySize: 13.2 });
-  s.addShape(pptx.ShapeType.roundRect, { x: 4.32, y: 1.85, w: 8.38, h: 4.72, rectRadius: 0.04, fill: { color: C.navy }, line: { color: C.navy }, shadow: shadow() });
-  s.addText("② ÁNH XẠ AN TOÀN VÀ KIỂM CHỨNG", { x: 4.58, y: 2.08, w: 5.8, h: 0.25, fontFace: "Arial", fontSize: 9.5, bold: true, color: "8FD0CC", charSpacing: 0.9, margin: 0 });
-  const demoQuery = [
-    "Intent: common_movies\n",
-    "Entity links: tmdb:3894 · tmdb:2524\n\n",
-    "MATCH (a:Person)-[:ACTED_IN]->(m:Movie)\n",
-    "      <-[:ACTED_IN]-(b:Person)\n",
-    "WHERE a.person_id = $person1_id\n",
-    "  AND b.person_id = $person2_id\n",
-    "RETURN m.title, m.tmdb_id;\n\n",
-    "Evidence path:\n",
-    "Christian Bale → The Dark Knight Rises ← Tom Hardy"
-  ].join("");
-  s.addText(demoQuery, { x: 4.58, y: 2.5, w: 7.72, h: 3.45, fontFace: "Courier New", fontSize: 12.2, color: "D9E8F2", margin: 0, fit: "shrink" });
-  s.addText("Chi tiết parser, API response và giao diện: xem Chương 4–5 của báo cáo.", { x: 4.58, y: 6.08, w: 7.72, h: 0.28, fontFace: "Calibri", fontSize: 10.5, bold: true, color: "8FD0CC", margin: 0, fit: "shrink" });
-  notes(s, "Demo chỉ minh họa ba bước lý thuyết: xác định intent và thực thể, chọn graph pattern có tham số, rồi đối chiếu đường đi bằng chứng. Em không đi sâu giao diện hay cấu trúc API trên slide; các chi tiết đó nằm trong chương triển khai của báo cáo.");
+  const s = lightSlide("Demo 1 · Tra cứu diễn viên và kiểm chứng fact", "Hai giao diện khác nhau phải trả về cùng sự kiện vì cùng đọc một graph Neo4j.", "Trình diễn");
+  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 1 · Hỏi trên Web UI", "Câu hỏi:\n“Diễn viên nào đóng trong phim Inception?”\n\nQuan sát trên kết quả:\n• Movie đã được entity linking;\n• danh sách Person;\n• character và cast_order;\n• bằng chứng ACTED_IN.", { badge: "1", fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 20, bodySize: 14 });
+  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 2 · Kiểm chứng trong Neo4j Browser", "Chạy pattern:\nPerson -[ACTED_IN]-> Movie\n\nĐối chiếu tên diễn viên và nhân vật với Web UI. UI đi qua FastAPI, còn Browser truy vấn trực tiếp; hai đường truy cập phải thống nhất về fact.", { badge: "2", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 20, bodySize: 14 });
+  notes(s, "Bước một, hỏi trên Web UI: Diễn viên nào đóng trong phim Inception? Chỉ vào Movie đã được liên kết, danh sách diễn viên và bằng chứng. Bước hai, chạy truy vấn ACTED_IN trong Neo4j Browser rồi đối chiếu tên và character. Hai giao diện khác nhau nhưng phải đọc cùng một fact trong Neo4j.");
+}
+
+// 27 — Demo multi-hop: steps 3–4 in defense-script.md
+{
+  const s = lightSlide("Demo 2 · Truy vấn nhiều bước và kiểm chứng đường đi", "Kết quả phim chung được chứng minh bằng shared-neighbor pattern Person → Movie ← Person.", "Trình diễn");
+  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 3 · Hỏi trên Web UI", "Câu hỏi:\n“Phim chung của Christian Bale và Tom Hardy?”\n\nHệ thống phải:\n• link đúng hai Person;\n• chọn intent common_movies;\n• trả The Dark Knight Rises;\n• giữ Movie chung làm evidence.", { badge: "3", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 20, bodySize: 14 });
+  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 4 · Kiểm chứng trong Neo4j Browser", "Chạy pattern:\nPerson → ACTED_IN → Movie\nPerson → ACTED_IN → cùng Movie\n\nChuyển giữa bảng và graph để chỉ ra Movie là láng giềng chung của hai Person.", { badge: "4", badgeColor: C.amber, fill: C.amberBg, stroke: "F1D5AA", titleColor: C.amber, titleSize: 20, bodySize: 14 });
+  notes(s, "Bước ba, hỏi phim chung của Christian Bale và Tom Hardy trên Web UI và chỉ vào The Dark Knight Rises. Bước bốn, chạy shared-neighbor pattern trong Neo4j Browser. Chuyển giữa bảng và graph để cho thấy cùng một Movie nối tới hai Person qua ACTED_IN.");
+}
+
+// 28 — Demo recommendation: steps 5–6 in defense-script.md
+{
+  const s = lightSlide("Demo 3 · Gợi ý phim và kiểm chứng lời giải thích", "Điểm xếp hạng và lời giải thích phải dựa trên cùng các đặc trưng chung trong graph.", "Trình diễn");
+  card(s, 0.68, 1.95, 5.75, 4.5, "Bước 5 · Gợi ý trên Web UI", "Chọn Inception và yêu cầu Top-5.\n\nVới kết quả đứng đầu, mở phần giải thích và ghi nhận:\n• tổng điểm;\n• đạo diễn hoặc diễn viên chung;\n• thể loại, từ khóa hoặc hãng phim chung;\n• contribution của từng đặc trưng.", { badge: "5", badgeColor: C.teal, fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 20, bodySize: 14 });
+  card(s, 6.9, 1.95, 5.75, 4.5, "Bước 6 · Kiểm chứng trong Neo4j Browser", "Dùng đúng phim đứng đầu làm candidate, rồi truy vấn các shared feature giữa candidate và Inception.\n\nĐối chiếu kết quả Browser với explanation trên UI. Browser kiểm chứng bằng chứng; query IDF của ứng dụng quyết định điểm và thứ hạng.", { badge: "6", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 20, bodySize: 14 });
+  notes(s, "Bước năm, chọn Inception, chạy Top-5 và mở explanation của kết quả đứng đầu. Bước sáu, dùng chính tên phim đó trong query kiểm chứng shared features trên Neo4j Browser. Đối chiếu feature giữa hai giao diện; Browser chỉ kiểm chứng bằng chứng, còn query IDF đầy đủ của ứng dụng tính điểm và thứ hạng.");
 }
 
 // 23 — Limits

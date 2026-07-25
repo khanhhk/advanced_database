@@ -1,6 +1,6 @@
 # Nội dung thuyết trình theo từng slide
 
-Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **31 slide,
+Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **30 slide,
 không có phụ lục**. Phần **Có thể nói gần như nguyên văn** là kịch bản chính;
 **Cần chỉ vào** và **Chuyển ý** hỗ trợ thao tác trình bày.
 
@@ -18,8 +18,8 @@ Mỗi slide được trình bày theo một mạch thống nhất:
 4. Kết luận bằng một câu nêu điều người nghe cần ghi nhớ.
 5. Dùng câu chuyển ý để mở ra câu hỏi của slide tiếp theo.
 
-Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 8, 13,
-15, 24 và 27; không cần xóa chúng vì các slide này hữu ích khi phản biện.
+Tổng thời gian gợi ý: 20–26 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 8 và
+22; không cần xóa chúng vì các slide này hữu ích khi phản biện.
 
 ## Slide 1 — Knowledge Graph: Nền tảng lý thuyết
 
@@ -351,8 +351,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 >
 > Lợi ích quan trọng nhất là kết quả có thể đi kèm chính đường liên kết đã tạo ra
 > nó. Neo4j được chọn vì sự phù hợp giữa mô hình miền phim, traversal và Cypher,
-> chứ không phải vì graph luôn nhanh hơn SQL. Phần benchmark sau thậm chí cho
-> thấy SQLite nhanh hơn trong toàn bộ phép đo đã thực hiện.
+> không dựa trên một tuyên bố rằng graph luôn nhanh hơn SQL.
 
 **Cần chỉ vào:** bảng so sánh và “Property-rich relationships”.
 
@@ -384,44 +383,19 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Cần chỉ vào:** sáu lớp từ trái sang phải.
 
-**Chuyển ý:** “Trong hai nguồn, IMDb được tích hợp theo một phạm vi rất hẹp.”
+**Chuyển ý:** “Sau kiến trúc tổng thể, em đi vào schema dùng để tổ chức các
+thực thể và quan hệ trong Neo4j.”
 
-## Slide 13 — Tích hợp TMDB–IMDb
-
-**Mục tiêu:** giải thích exact join và streaming.
-
-**Có thể nói gần như nguyên văn:**
-
-> TMDB là nguồn graph chính. IMDb chỉ bổ sung rating và vote. Hệ thống đọc trực
-> tiếp file ratings đang nén và chỉ giữ những dòng có ID nằm trong tập phim của
-> TMDB. Cách này tránh tải hoặc giải nén toàn bộ dữ liệu IMDb khi dự án chỉ cần
-> một phần rất nhỏ.
->
-> Điểm quan trọng nhất là phép nối dùng chính xác `imdb_id = tconst`, không ghép
-> theo title. Nối theo tên phim có thể sai vì tên trùng, tên dịch hoặc khác năm
-> phát hành; nối theo ID giữ được identity giữa hai nguồn.
->
-> Trong snapshot hiện tại, 4.558 Movie có IMDb ID và 4.351 Movie ghép được
-> rating, đạt 95,5 phần trăm trên nhóm có ID. `rating` của TMDB,
-> `imdb_rating` và `imdb_votes` được giữ thành các thuộc tính riêng, vì chúng
-> đến từ nguồn và thang đo khác nhau. Như vậy, tích hợp không đồng nghĩa với hòa
-> lẫn dữ liệu; mỗi giá trị vẫn giữ được ngữ nghĩa nguồn.
-
-**Cần chỉ vào:** exact ID và ba con số.
-
-**Chuyển ý:** “Dữ liệu sau tích hợp được tổ chức theo schema sau.”
-
-## Slide 14 — Schema Movie Knowledge Graph
+## Slide 13 — Schema Movie Knowledge Graph
 
 **Mục tiêu:** giải thích node, edge và stable ID.
 
 **Có thể nói gần như nguyên văn:**
 
-> Schema có năm node chính: Movie, Person, Genre, Keyword và Studio; cùng năm
-> Sau khi hai nguồn đã được nối bằng ID, dữ liệu cần được đưa vào một schema
-> thống nhất. Movie là node trung tâm; Person nối tới Movie qua ACTED_IN hoặc
-> DIRECTED; Movie nối tới Genre, Keyword và Studio qua HAS_GENRE, HAS_KEYWORD và
-> PRODUCED_BY.
+> Trong kiến trúc vừa trình bày, Neo4j là lớp tổ chức và khai thác tri thức.
+> Slide này cho thấy schema cụ thể được dùng trong lớp đó. Movie là node trung
+> tâm; Person nối tới Movie qua ACTED_IN hoặc DIRECTED; Movie nối tới Genre,
+> Keyword và Studio qua HAS_GENRE, HAS_KEYWORD và PRODUCED_BY.
 >
 > Dự án chỉ dùng một label Person vì cùng một người có thể vừa là diễn viên vừa
 > là đạo diễn. Vai trò không phải bản chất cố định của người đó mà được thể hiện
@@ -436,37 +410,10 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Cần chỉ vào:** Person, Movie và năm quan hệ.
 
-**Chuyển ý:** “Schema này được tạo bởi pipeline có thể chạy lại.”
+**Chuyển ý:** “Sau khi xác định schema, em kiểm tra dữ liệu thực tế có tuân thủ
+mô hình đó hay không.”
 
-## Slide 15 — Pipeline dữ liệu
-
-**Mục tiêu:** giải thích reproducibility và idempotency.
-
-**Có thể nói gần như nguyên văn:**
-
-> Pipeline gồm collect, cache, clean, IMDb join, normalize, Neo4j load, reason
-> và validate. Tám bước này biến schema vừa trình bày thành một graph có thể tái
-> tạo.
->
-> Collect lấy dữ liệu từ nguồn; cache giữ nguyên dữ liệu gốc; clean loại hoặc
-> chuẩn hóa giá trị không hợp lệ; IMDb join bổ sung rating bằng exact ID;
-> normalize tạo các bảng node–edge; Neo4j load nhập dữ liệu; reason tạo quan hệ
-> suy ra; và validate kiểm tra graph cuối.
->
-> Bốn cơ chế phía dưới bảo đảm có thể chạy lại. Raw cache giữ cùng snapshot.
-> Manifest ghi số lượng, checksum và quality metrics. Import tạo node trước edge
-> và dùng MERGE theo stable ID, nên chạy lặp không nhân bản dữ liệu. Quality gate
-> chặn dữ liệu mồ côi, thiếu khóa hoặc có cạnh không hợp lệ.
->
-> Runtime chỉ nhập lại khi checksum của dữ liệu đã xử lý hoặc số Movie trong
-> graph thay đổi. Vì vậy, “có thể chạy lại” ở đây không chỉ là chạy lại câu
-> lệnh, mà là nhận được cùng cấu trúc từ cùng đầu vào.
-
-**Cần chỉ vào:** tám bước và bốn khối Cache–Manifest–MERGE–Gate.
-
-**Chuyển ý:** “Trước khi ứng dụng sử dụng graph, dữ liệu phải vượt quality gate.”
-
-## Slide 16 — Chất lượng graph
+## Slide 14 — Chất lượng graph
 
 **Mục tiêu:** trình bày quy mô và phạm vi của quality claim.
 
@@ -490,7 +437,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Một bài toán trung tâm khi tích hợp là phân giải thực thể.”
 
-## Slide 17 — Entity resolution
+## Slide 15 — Entity resolution
 
 **Mục tiêu:** giải thích exact, fuzzy, threshold và abstention.
 
@@ -515,7 +462,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Entity linking liên quan đến identity nhưng xảy ra ở thời điểm khác.”
 
-## Slide 18 — Entity resolution và entity linking
+## Slide 16 — Entity resolution và entity linking
 
 **Mục tiêu:** phân biệt hai bài toán dễ bị gọi lẫn.
 
@@ -543,13 +490,12 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Khi entity đã được liên kết, catalog chạy pattern Cypher.”
 
-## Slide 19 — Cypher và pattern nhiều bước
+## Slide 17 — Cypher và pattern nhiều bước
 
 **Mục tiêu:** đọc query và giải thích parameterization.
 
 **Có thể nói gần như nguyên văn:**
 
-> Query ví dụ đi từ Person qua DIRECTED tới Movie, rồi qua HAS_GENRE tới Genre,
 > Sau khi entity linking đã trả đúng stable ID hoặc slot cần thiết, catalog mới
 > thực thi pattern tương ứng.
 >
@@ -569,7 +515,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Ngoài đọc cạnh gốc, hệ thống còn tạo cạnh suy ra.”
 
-## Slide 20 — Suy diễn CO_STARRED_WITH
+## Slide 18 — Suy diễn CO_STARRED_WITH
 
 **Mục tiêu:** phân biệt asserted và derived fact.
 
@@ -594,7 +540,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Để kiểm chứng đầy đủ, cần phân biệt ba lớp truy vết.”
 
-## Slide 21 — Provenance, lineage và evidence
+## Slide 19 — Provenance, lineage và evidence
 
 **Mục tiêu:** phân biệt ba khái niệm truy vết.
 
@@ -621,7 +567,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Các graph pattern được đưa tới người dùng qua hai ứng dụng.”
 
-## Slide 22 — Hỏi–đáp an toàn
+## Slide 20 — Hỏi–đáp an toàn
 
 **Mục tiêu:** giải thích QA không sinh Cypher tự do.
 
@@ -647,7 +593,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Ứng dụng thứ hai dùng neighborhood để xếp hạng.”
 
-## Slide 23 — Gợi ý phim có giải thích
+## Slide 21 — Gợi ý phim có giải thích
 
 **Mục tiêu:** giải thích weighted graph similarity và IDF.
 
@@ -672,7 +618,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Để đọc kết quả đánh giá, cần hiểu từng metric đo điều gì.”
 
-## Slide 24 — Các metric đánh giá
+## Slide 22 — Các metric đánh giá
 
 **Mục tiêu:** phân biệt P, R, F1, P@K và NDCG@K.
 
@@ -700,13 +646,12 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Vì vậy mỗi claim trong dự án có một phép đánh giá riêng.”
 
-## Slide 25 — Thiết kế evaluation
+## Slide 23 — Thiết kế evaluation
 
 **Mục tiêu:** nối claim với dataset và metric.
 
 **Có thể nói gần như nguyên văn:**
 
-> Chất lượng dữ liệu dùng toàn corpus và các tỷ lệ lỗi. Entity resolution dùng
 > Slide này ánh xạ từng tuyên bố của dự án tới một tập đánh giá và metric cụ thể.
 >
 > Chất lượng dữ liệu được kiểm tra trên toàn corpus bằng tỷ lệ thiếu, trùng và
@@ -717,15 +662,15 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 > p95 sau warm-up.
 >
 > Ba lưu ý bên phải giới hạn cách diễn giải: silver corpus có provenance và
-> protocol nhưng không phải ground truth độc lập; so sánh Neo4j–SQLite chỉ công
-> bằng khi dùng cùng snapshot và điều kiện; kết luận không được vượt ra ngoài
-> những gì thí nghiệm đã đo.
+> protocol nhưng không phải ground truth độc lập; mọi kết quả phải đi kèm
+> snapshot và cấu hình đã dùng; kết luận không được vượt ra ngoài những gì thí
+> nghiệm đã đo.
 
 **Cần chỉ vào:** từng hàng của bảng.
 
 **Chuyển ý:** “Kết quả chính trên snapshot hiện tại như sau.”
 
-## Slide 26 — Kết quả chính
+## Slide 24 — Kết quả chính
 
 **Mục tiêu:** trình bày metric và giới hạn diễn giải.
 
@@ -747,33 +692,10 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Cần chỉ vào:** năm metric và khối “Cách đọc thận trọng”.
 
-**Chuyển ý:** “Phần benchmark cũng cần được đọc với cùng mức thận trọng.”
+**Chuyển ý:** “Sau các kết quả, em quay lại nguyên tắc thiết kế: schema phải
+bắt đầu từ câu hỏi cần trả lời.”
 
-## Slide 27 — Neo4j–SQLite và trade-off
-
-**Mục tiêu:** diễn giải benchmark không thiên lệch.
-
-**Có thể nói gần như nguyên văn:**
-
-> Trên cùng snapshot, máy, warm-up và 100 lần chạy, SQLite nhanh hơn ở toàn bộ
-> cặp query–quy mô đã đo. Biểu đồ bên trái minh họa xu hướng độ trễ của truy vấn
-> common_movies khi số Movie tăng; nó không cho thấy Neo4j vượt SQLite.
->
-> Biểu đồ bên phải là lịch sử thử nghiệm các công thức gợi ý. Những phương pháp
-> overlap, weighted Jaccard và hybrid chỉ là mốc thiết kế; runtime hiện tại dùng
-> IDF-weighted ranker. Không nên trình bày các cột này như những lựa chọn mà
-> người dùng có thể chuyển đổi.
->
-> Vì vậy, dự án không dùng tốc độ tuyệt đối để biện minh cho Neo4j. Lợi ích được
-> lựa chọn là biểu diễn relationship, traversal và evidence trực tiếp.
-> Benchmark chưa đo concurrency, cold cache, tài nguyên khác nhau hoặc quy mô
-> lớn hơn, nên không thể khái quát thành xếp hạng hai engine.
-
-**Cần chỉ vào:** hai đường latency và phần giới hạn.
-
-**Chuyển ý:** “Quay lại câu hỏi thiết kế: schema phải bắt đầu từ nhu cầu trả lời.”
-
-## Slide 28 — Competency question
+## Slide 25 — Competency question
 
 **Mục tiêu:** cho thấy câu hỏi dẫn dắt schema và query.
 
@@ -797,38 +719,81 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Cần chỉ vào:** câu hỏi, pattern và ba tiêu chí cuối.
 
-**Chuyển ý:** “Demo sau minh họa toàn bộ phép ánh xạ này.”
+**Chuyển ý:** “Ba slide tiếp theo biến nguyên lý này thành sáu bước demo: mỗi
+kết quả trên Web UI đều được kiểm chứng ngay trong Neo4j Browser.”
 
-## Slide 29 — Demo tổng hợp
+## Slide 26 — Demo 1: Tra cứu diễn viên
 
-**Mục tiêu:** minh họa question → link → query → evidence.
+**Mục tiêu:** thực hiện bước 1–2 trong `defense-script.md`.
 
 **Có thể nói gần như nguyên văn:**
 
-> Em dùng câu hỏi về phim chung của Christian Bale và Tom Hardy. Parser chọn
-> intent `common_movies` vì câu hỏi yêu cầu tìm Movie được hai Person cùng tham
-> gia.
+> Trước tiên, em kiểm tra một fact một bước. Ở bước 1, em hỏi trên Web UI:
+> “Diễn viên nào đóng trong phim Inception?”. Khi kết quả xuất hiện, em chỉ vào
+> Movie đã được entity linking, danh sách Person và thông tin vai diễn lấy từ
+> cạnh ACTED_IN.
 >
-> Entity linker nối hai tên người tới stable ID của Christian Bale và Tom Hardy.
-> Catalog sau đó chọn pattern Person → Movie ← Person và truyền hai ID dưới dạng
-> parameter. Neo4j thực hiện traversal rồi trả về The Dark Knight Rises.
+> Ở bước 2, em chuyển sang Neo4j Browser và chạy pattern
+> Person -[ACTED_IN]-> Movie cho Inception. Em đối chiếu tên diễn viên và
+> character với Web UI. Hai giao diện sử dụng hai đường truy cập khác nhau:
+> Web UI đi qua FastAPI, còn Browser truy vấn trực tiếp; nhưng cả hai phải thống
+> nhất vì cùng đọc một graph Neo4j.
+
+**Cần chỉ vào:** câu hỏi, evidence ACTED_IN và hai đường truy cập.
+
+**Chuyển ý:** “Sau fact một bước, em chuyển sang một truy vấn nhiều bước có
+đường đi bằng chứng.”
+
+## Slide 27 — Demo 2: Phim chung
+
+**Mục tiêu:** thực hiện bước 3–4 trong `defense-script.md`.
+
+**Có thể nói gần như nguyên văn:**
+
+> Ở bước 3, em hỏi trên Web UI: “Phim chung của Christian Bale và Tom Hardy?”.
+> Hệ thống phải liên kết đúng hai Person, chọn intent `common_movies` và trả về
+> The Dark Knight Rises.
 >
-> Evidence path là Christian Bale → The Dark Knight Rises ← Tom Hardy. Đường đi
-> này cho thấy trực tiếp vì sao bộ phim được trả về. Điều cần quan sát không phải
-> giao diện, mà là toàn bộ chuỗi câu hỏi → intent → entity ID → Cypher → evidence
-> đều có biểu diễn xác định và có thể kiểm tra.
+> Ở bước 4, em chạy shared-neighbor pattern trong Neo4j Browser. Trên graph,
+> Christian Bale và Tom Hardy cùng nối tới một Movie qua ACTED_IN. Movie chung
+> chính là bằng chứng cho câu trả lời. Em chuyển giữa dạng bảng và dạng graph để
+> cho thấy kết quả và đường đi là hai cách nhìn của cùng một pattern.
 
-**Cần chỉ vào:** intent, entity IDs, Cypher và evidence path.
+**Cần chỉ vào:** hai Person, Movie chung và pattern Person → Movie ← Person.
 
-**Chuyển ý:** “Dù đạt mục tiêu, nghiên cứu vẫn có những giới hạn rõ ràng.”
+**Chuyển ý:** “Hai demo đầu kiểm chứng câu trả lời; demo cuối kiểm chứng lời
+giải thích của một kết quả xếp hạng.”
 
-## Slide 30 — Giới hạn và hướng phát triển
+## Slide 28 — Demo 3: Gợi ý phim
+
+**Mục tiêu:** thực hiện bước 5–6 trong `defense-script.md`.
+
+**Có thể nói gần như nguyên văn:**
+
+> Ở bước 5, em chọn Inception trên Web UI và yêu cầu Top-5. Với phim đứng đầu,
+> em mở phần giải thích để quan sát tổng điểm, các đặc trưng chung và contribution
+> của từng đặc trưng.
+>
+> Ở bước 6, em dùng đúng tên phim đứng đầu làm candidate trong Neo4j Browser rồi
+> truy vấn các đạo diễn, diễn viên, thể loại, từ khóa và hãng phim chung với
+> Inception. Các shared feature phải khớp với explanation trên Web UI.
+>
+> Query trong Browser dùng để kiểm chứng bằng chứng graph. Điểm và thứ hạng vẫn
+> do công thức IDF đầy đủ của ứng dụng tính. Vì vậy, demo không thay thế thuật
+> toán xếp hạng mà chứng minh lời giải thích xuất phát từ dữ liệu thật trong
+> graph.
+
+**Cần chỉ vào:** phim nguồn, phim đứng đầu, contribution và shared features.
+
+**Chuyển ý:** “Sau sáu bước demo, em quay lại phạm vi hiệu lực và những giới
+hạn của kết quả.”
+
+## Slide 29 — Giới hạn và hướng phát triển
 
 **Mục tiêu:** nêu phạm vi hiệu lực của kết luận.
 
 **Có thể nói gần như nguyên văn:**
 
-> QA hiện chỉ có chín intent, chưa phải open-domain. Corpus chủ yếu là silver và
 > Mỗi giới hạn ở cột giữa được nối với một hướng phát triển tương ứng ở cột bên
 > phải.
 >
@@ -845,7 +810,7 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
 
 **Chuyển ý:** “Em xin kết luận bằng ba giá trị chính.”
 
-## Slide 31 — Kết luận
+## Slide 30 — Kết luận
 
 **Mục tiêu:** khép lại bằng thông điệp lý thuyết.
 
@@ -877,7 +842,6 @@ Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói 
   mỗi slide khái niệm.
 - Không gọi entity linking và entity resolution là cùng một bước.
 - Không nói constraint và index có cùng chức năng.
-- Không nói Neo4j luôn nhanh hơn SQL.
 - Không khái quát metric silver thành độ chính xác production.
 - Khi được hỏi chi tiết implementation, dẫn sang Chương 4–5 và phụ lục tái lập
   trong báo cáo.

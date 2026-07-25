@@ -6,7 +6,7 @@ Thư mục này quản lý nội dung dành riêng cho bộ trang chiếu:
   của từng trang chiếu.
 - `build.js`: nguồn PptxGenJS tạo bộ trang chiếu.
 - `assets/`: ảnh xuất từ các nguồn draw.io của báo cáo.
-- `movie_knowledge_graph_defense.pptx`: bản PowerPoint hoàn chỉnh gồm 31 trang
+- `movie_knowledge_graph_defense.pptx`: bản PowerPoint hoàn chỉnh gồm 30 trang
   và ghi chú thuyết trình. Deck giải thích tương đối đầy đủ các khái niệm được
   dùng trong project, gồm identity, schema/instance, Property Graph, traversal,
   constraint/index, entity resolution/linking, inference, provenance/evidence,

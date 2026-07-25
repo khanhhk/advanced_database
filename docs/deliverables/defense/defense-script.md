@@ -1,36 +1,41 @@
 # Kịch bản bảo vệ và trình diễn
 
-Mục tiêu: 14 phút trình bày + 4 phút trình diễn, giữ 2 phút dự phòng. Nội dung dưới đây
+Mục tiêu: khoảng 18 phút trình bày + 4 phút trình diễn, giữ 2 phút dự phòng. Nội dung dưới đây
 là bảng nhắc nhanh. Nội dung nói chi tiết theo từng slide nằm tại
 [speaker-notes-by-slide.md](speaker-notes-by-slide.md).
 
 | Trang chiếu | Thời lượng | Thông điệp phải nói |
 |---:|---:|---|
-| 1 | 20s | Tên đề tài, phần lý thuyết và nghiên cứu tình huống phim. |
-| 2 | 40s | Phân biệt dữ liệu, thông tin, tri thức và suy luận. |
-| 3 | 45s | Entity, relationship, property và stable identifier. |
-| 4 | 40s | Schema quy định cấu trúc; instance chứa các fact cụ thể. |
-| 5 | 40s | Property Graph là mô hình duy nhất; node và cạnh đều có property. |
-| 6 | 45s | Cypher vừa query pattern vừa materialize luật `CO_STARRED_WITH`. |
-| 7 | 40s | Neo4j phù hợp traversal; không tuyên bố luôn nhanh hơn SQL. |
-| 8 | 45s | Đi theo luồng nguồn → cache/processing → Neo4j → FastAPI/UI. |
-| 9 | 40s | IMDb chỉ enrich Movie bằng exact ID và streaming gzip. |
-| 10 | 40s | Stable ID là khóa; vai trò và metadata được đặt trên cạnh. |
-| 11 | 45s | Cache bất biến, manifest, MERGE và import idempotent. |
-| 12 | 40s | Đọc đúng quy mô graph và bốn quality gate bằng không. |
-| 13 | 45s | Exact trước, fuzzy có kiểm soát; metric chỉ thuộc silver corpus. |
-| 14 | 40s | Pattern multi-hop và Cypher có tham số từ catalog cố định. |
-| 15 | 40s | Phân biệt asserted fact và derived fact có supporting movie. |
-| 16 | 45s | Chín intent; entity linker + query catalog; không sinh Cypher tự do. |
-| 17 | 45s | IDF giảm trọng số feature phổ biến; explanation từ contribution thật. |
-| 18 | 35s | Giải thích silver/review gate và phép đo hiệu năng 500/1.000/2.000/4.999 cùng protocol. |
-| 19 | 45s | QA 20/20; ER P=1,000/R=0,933/F1=0,966; P@10=0,635; NDCG@10=0,672. |
-| 20 | 45s | SQLite nhanh hơn cả bốn query; giá trị graph nằm ở mô hình/bằng chứng, không phải luôn nhanh hơn SQL. |
-| 21 | 35s | Copy câu QA lookup sang Web UI rồi dùng Cypher bên phải kiểm chứng trong Browser. |
-| 22 | 35s | Copy câu QA multi-hop và chỉ ra shared-neighbor pattern trong Browser. |
-| 23 | 50s | Chạy gợi ý Inception, thay tên top-1 vào parameter và kiểm chứng shared features. |
-| 24 | 35s | Nêu selection bias, corpus nhỏ, warm-cache/concurrency limit và hướng nâng cấp. |
-| 25 | 30s | Trả lời RQ bằng ba kết luận, sau đó mời phản biện. |
+| 1 | 35s | Giới thiệu phạm vi lý thuyết, Property Graph, identity và traversal. |
+| 2 | 50s | Dẫn từ dữ liệu tới thông tin, tri thức và suy luận có luật. |
+| 3 | 45s | Entity, relationship, property và identifier tạo nên một sự kiện có nghĩa. |
+| 4 | 45s | Schema quy định cấu trúc; instance chứa các sự kiện cụ thể. |
+| 5 | 45s | Property Graph cho phép cả node và relationship mang thuộc tính. |
+| 6 | 45s | Neighborhood, path và subgraph phục vụ ba cách khai thác cấu trúc. |
+| 7 | 50s | Identity, schema, provenance và competency question tạo lớp tri thức. |
+| 8 | 45s | Constraint bảo vệ tính đúng; validation kiểm tra miền; index tăng tốc tìm kiếm. |
+| 9 | 45s | Cypher vừa đọc pattern vừa vật chất hóa luật `CO_STARRED_WITH`. |
+| 10 | 45s | Hop, degree, common neighbor và shortest path mô tả traversal. |
+| 11 | 40s | Neo4j được chọn vì độ phù hợp với quan hệ, traversal và evidence. |
+| 12 | 45s | Đi theo luồng nguồn → xử lý → Neo4j → FastAPI/UI. |
+| 13 | 45s | Stable ID là khóa; vai trò và metadata được đặt trên quan hệ. |
+| 14 | 40s | Đọc đúng quy mô graph và bốn quality gate bằng không. |
+| 15 | 45s | Entity resolution ưu tiên exact, fuzzy có kiểm soát và có thể abstain. |
+| 16 | 45s | Phân biệt resolution khi xây graph với linking khi xử lý câu hỏi. |
+| 17 | 45s | Đọc pattern multi-hop và cách tham số hóa catalog Cypher. |
+| 18 | 40s | Phân biệt asserted fact với derived fact có supporting movie. |
+| 19 | 45s | Provenance, lineage và evidence trả lời ba câu hỏi truy vết khác nhau. |
+| 20 | 45s | Chín intent, entity linker và query catalog; không sinh Cypher tự do. |
+| 21 | 45s | IDF giảm ảnh hưởng feature phổ biến; explanation dùng contribution thật. |
+| 22 | 45s | Phân biệt precision, recall, F1, P@K và NDCG@K. |
+| 23 | 40s | Mỗi claim có corpus, metric, protocol và giới hạn diễn giải riêng. |
+| 24 | 45s | Trình bày QA, ER, co-star và recommendation metrics một cách thận trọng. |
+| 25 | 40s | Competency question dẫn từ yêu cầu tới schema, query và evidence. |
+| 26 | 40s | Demo bước 1–2: QA lookup trên UI và kiểm chứng `ACTED_IN` trong Browser. |
+| 27 | 40s | Demo bước 3–4: QA multi-hop và shared-neighbor pattern trong Browser. |
+| 28 | 50s | Demo bước 5–6: gợi ý Inception và kiểm chứng shared features. |
+| 29 | 40s | Nêu giới hạn và hướng phát triển tương ứng. |
+| 30 | 30s | Kết luận bằng tích hợp nhất quán, khai thác quan hệ và evidence. |
 
 ## Trình diễn trực tiếp — 4 phút
 
