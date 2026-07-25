@@ -1,7 +1,7 @@
 % LaTeX source maintained directly for Overleaf.
 \chapter{II. Lý thuyết và mô hình dữ liệu}
 
-\section{Biểu diễn tri thức và ngữ nghĩa}
+\section{Biểu diễn tri thức bằng Property Graph}
 
 \subsection{Tri thức và Knowledge Graph}
 
@@ -11,59 +11,7 @@ suy ra điều mới. Trong đồ thị tri thức, một sự kiện (fact) đ�
 các thực thể có định danh. Fact có thể là \textbf{asserted fact}, lấy trực tiếp từ nguồn,
 hoặc \textbf{derived fact}, sinh bởi luật và phải truy ngược được về tiền đề \cite{hogan2021knowledge}.
 
-\subsection{Ontology}
-
-Ontology là đặc tả hình thức cho một miền tri thức, gồm class, individual,
-object property, datatype property và axiom. Taxonomy chủ yếu biểu diễn phân cấp
-“is-a”, trong khi ontology còn mô tả domain/range, inverse, disjointness,
-cardinality và các ràng buộc ngữ nghĩa khác. Đề tài thiết kế ontology từ
-competency question: chỉ đưa class/property cần thiết để trả lời câu hỏi, tránh
-mở rộng lược đồ khi không có dữ liệu hoặc trường hợp sử dụng.
-
-\subsection{RDF, RDFS, OWL và SPARQL}
-
-RDF biểu diễn phát biểu bằng triple \texttt{(subject, predicate, object)} \cite{w3c2014rdf}. Subject và
-predicate là IRI; object có thể là IRI hoặc literal. Một quad bổ sung graph name,
-cho phép tổ chức nhiều named graph trong một RDF dataset, hữu ích khi tách nguồn
-hoặc provenance. Namespace rút gọn IRI và giúp tránh xung đột định danh. Linked
-Data nhấn mạnh IRI ổn định, có thể tham chiếu và liên kết giữa các nguồn.
-
-RDFS cung cấp class, subclass, domain và range \cite{w3c2014rdfs}. OWL bổ sung inverse property,
-symmetric property, disjoint class, functional property và nhiều axiom mạnh hơn \cite{w3c2012owl}.
-Ontology vận hành theo Open World Assumption: thiếu một fact không có nghĩa fact
-đó sai. Vì vậy OWL reasoning và data validation là hai nhiệm vụ khác nhau. Đề tài
-materialize tập con RDFS/OWL-RL đã khai báo, đồng thời dùng validation đóng để
-kiểm tra functional conflict, disjoint type và required title.
-
-SPARQL truy vấn graph bằng basic graph pattern \cite{w3c2013sparql}. \texttt{OPTIONAL} xử lý thuộc tính có thể
-thiếu; \texttt{GROUP BY/COUNT} hỗ trợ aggregation; \texttt{ASK} kiểm tra sự tồn tại; \texttt{CONSTRUCT}
-tạo một graph kết quả. Catalog của đề tài bao phủ cả bốn dạng này và có query dùng
-inverse fact sau materialization.
-
-\section{Cơ chế suy diễn và lập luận}
-
-Hai cơ chế được phân biệt rõ: suy diễn cấu trúc trong property graph và
-entailment ngữ nghĩa trên RDF/OWL. Mỗi cơ chế có luật, engine thực thi và bằng
-chứng kiểm chứng riêng.
-
-\subsection{Hai loại suy diễn}
-
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
-\caption{Tổng hợp hai loại suy diễn}\label{tab:2-1} \\
-\hline
-\textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline
-\endfirsthead\hline \textbf{Thuộc tính} & \textbf{Semantic entailment} & \textbf{Business rule} \\ \hline\endhead
-Engine & RDFLib materializer + Apache Jena/Fuseki & Neo4j/Cypher \\ \hline
-Ví dụ & \texttt{actedIn} → inverse \texttt{hasActor} & shared Movie → co-star \\ \hline
-Cơ sở & ontology axiom & domain-specific rule \\ \hline
-Output & inferred RDF triple & materialized relationship \\ \hline
-Validation & functional/disjoint/required & supporting movie audit \\ \hline
-\end{longtable}
-
-Có ontology file không đồng nghĩa hệ thống tự động chạy OWL reasoning; ngược lại,
-Cypher materialization sinh tri thức mới nhưng không phải OWL entailment.
-
-\section{Chất lượng tri thức: liên kết thực thể, tính nhất quán và tính đầy đủ}
+\section{Chất lượng tri thức: liên kết thực thể, tính hợp lệ và tính đầy đủ}
 
 \subsection{Entity resolution}
 
@@ -73,13 +21,12 @@ confidence và từ chối trường hợp hai candidate có top score bằng nh
 Recall và F1 được tính từ TP, FP, FN; accuracy riêng lẻ không phù hợp khi class
 phân bố lệch.
 
-\subsection{Tính đúng, tính đầy đủ và tính nhất quán}
+\subsection{Tính đúng cấu trúc và tính đầy đủ}
 
-Ba khái niệm này cần được phân biệt. \textbf{Tính đúng cấu trúc} trả lời liệu node/edge
-có tuân theo schema và constraint hay không. \textbf{Tính nhất quán ngữ nghĩa} trả lời
-liệu một individual có đồng thời thuộc hai class disjoint, hoặc một functional
-property có nhiều value xung đột hay không. \textbf{Tính đầy đủ} đo mức phủ của dữ liệu
-so với yêu cầu, chẳng hạn tỷ lệ phim có cast, director, genre hoặc IMDb rating.
+Hai khái niệm này cần được phân biệt. \textbf{Tính đúng cấu trúc} trả lời liệu node/edge
+có tuân theo graph schema, constraint và khóa tham chiếu hay không.
+\textbf{Tính đầy đủ} đo mức phủ của dữ liệu so với yêu cầu, chẳng hạn tỷ lệ phim
+có cast, director, genre hoặc IMDb rating.
 
 Zero structural violation không chứng minh graph phản ánh hoàn hảo thế giới thật.
 Một phim có thể thiếu cast do giới hạn nguồn nhưng vẫn hợp lệ về schema. Ngược
@@ -103,5 +50,4 @@ Provenance có ba mức. Mức source: node/edge gốc có \texttt{source=tmdb},
 ID và điểm đánh giá riêng. Ở mức ảnh chụp dữ liệu, tệp kê khai giữ đường dẫn, mã
 kiểm tra, số lượng và số bản ghi khớp
 method. Mức derivation: \texttt{CO\_STARRED\_WITH} giữ \texttt{derived}, count và supporting
-movie IDs. RDF export chưa dùng named graph đầy đủ cho từng nguồn; đây là giới
-hạn thay vì một claim provenance chuẩn hóa toàn diện.
+movie IDs.

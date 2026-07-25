@@ -1,2 +1,1 @@
-"""Knowledge graph persistence and export."""
-
+"""Knowledge graph persistence."""

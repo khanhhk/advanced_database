@@ -20,9 +20,6 @@ make test
 .venv/bin/python -m experiments.evaluation.evaluate_entity_resolution \
   experiments/corpora/silver/entity_resolution.json \
   --output experiments/results/evaluation/entity_resolution.json
-docker compose --profile semantic up -d --build jena
-.venv/bin/python -m experiments.semantic.evaluate_jena
-docker compose --profile semantic stop jena
 docker compose --profile test up -d --wait neo4j-test
 RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
   ALLOW_MULTISCALE_BENCHMARK=1 NEO4J_URI=bolt://localhost:7688 \
@@ -34,7 +31,7 @@ RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
 Dữ liệu Neo4j kiểm thử chạy ở Bolt 7688 và tách biệt với graph demo. Bốn lệnh đánh
 giá phía trên không cần chạy trong buổi trình diễn; chúng tái tạo kiểm tra chất
 lượng, đánh giá
-pack, Jena/Fuseki result và benchmark đa quy mô.
+pack và benchmark đa quy mô.
 
 \chapter{API và ví dụ sử dụng}
 
@@ -90,16 +87,7 @@ RETURN b.name, r.movie_count, r.evidence_movie_ids
 ORDER BY r.movie_count DESC
 \end{Verbatim}
 
-Truy vấn SPARQL sử dụng inverse relation sau semantic materialization:
-
-\begin{Verbatim}[fontsize=\scriptsize,frame=single]
-PREFIX : <https://example.org/movie-kg/>
-SELECT ?movie ?actor
-WHERE { ?movie :hasActor ?actor }
-\end{Verbatim}
-
-Catalog đầy đủ gồm 10 truy vấn Cypher tại \texttt{cypher/queries.cypher} và 10 truy vấn
-SPARQL tại \texttt{sparql/queries.rq}. Các truy vấn do ứng dụng thực thi được tham số hóa
+Catalog đầy đủ gồm 10 truy vấn Cypher tại \texttt{cypher/queries.cypher}. Các truy vấn do ứng dụng thực thi được tham số hóa
 và quản lý tập trung trong \texttt{src/kg/query\_catalog.py}.
 
 \chapter{Cấu trúc dữ liệu và kết quả thực nghiệm}
@@ -113,15 +101,12 @@ Các đường dẫn kết quả trong bảng được tính tương đối từ
 \endfirsthead\hline \textbf{Đường dẫn} & \textbf{Nội dung} \\ \hline\endhead
 \texttt{data/processed/}\linebreak{}\texttt{manifest.json} & Checksum nguồn, số lượng bản ghi và chỉ số chất lượng dữ liệu \\ \hline
 \texttt{data/processed/}\linebreak{}\texttt{*.csv} & Năm bảng node và năm bảng relationship đã chuẩn hóa \\ \hline
-\texttt{data/processed/}\linebreak{}\texttt{movies.ttl} & RDF export từ processed snapshot \\ \hline
-\texttt{data/processed/}\linebreak{}\texttt{movies.inferred.ttl} & RDF sau semantic materialization \\ \hline
 \texttt{quality/}\linebreak{}\texttt{neo4j\_validation.json} & Kết quả kiểm tra cấu trúc graph \\ \hline
 \texttt{evaluation/}\linebreak{}\texttt{qa\_neo4j.json} & Kết quả bộ câu hỏi QA trên Neo4j \\ \hline
 \texttt{evaluation/}\linebreak{}\texttt{recommendation.json} & P@10 và NDCG@10 của recommendation \\ \hline
 \texttt{benchmarks/}\linebreak{}\texttt{neo4j\_benchmark.csv} & Median, p95 và độ lệch chuẩn theo truy vấn \\ \hline
 \texttt{benchmarks/}\linebreak{}\texttt{relational\_benchmark.csv} & Baseline SQLite trên cùng processed snapshot \\ \hline
 \texttt{quality/}\linebreak{}\texttt{knowledge\_quality\_audit.json} & Audit identity, consistency, completeness và provenance \\ \hline
-\texttt{semantic/}\linebreak{}\texttt{jena\_semantic\_evaluation.json} & Jena/Fuseki reasoner và kết quả 10 SPARQL \\ \hline
 \texttt{benchmarks/}\linebreak{}\texttt{multiscale\_benchmark.csv} & Neo4j–SQLite tại 500/1.000/2.000/4.999 Movie \\ \hline
 \end{longtable}
 

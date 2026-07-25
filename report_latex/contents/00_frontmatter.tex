@@ -8,8 +8,8 @@ thể loại, từ khóa và hãng sản xuất; các quan hệ này tạo ra nh
 biểu diễn đồ thị có thể mô tả trực tiếp và dễ theo dõi hơn.
 
 Báo cáo trình bày quá trình xây dựng đồ thị tri thức phim từ dữ liệu TMDB và
-IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế bản thể (ontology) và lược đồ đồ thị,
-nạp dữ liệu vào Neo4j, truy vấn Cypher, biểu diễn RDF/OWL và một số luật suy diễn.
+IMDb, bao gồm thu thập và chuẩn hóa dữ liệu, thiết kế lược đồ Property Graph,
+nạp dữ liệu vào Neo4j, truy vấn Cypher và luật suy diễn có bằng chứng.
 Trên nền tảng đó, hệ thống triển khai hai chức năng chính: hỏi–đáp về phim bằng
 ngôn ngữ tự nhiên và gợi ý phim kèm lý do dựa trên các quan hệ chung trong đồ thị.
 
@@ -28,13 +28,12 @@ Nội dung báo cáo được tổ chức thành bảy chương:
 câu hỏi nghiên cứu, phạm vi, các công trình liên quan và lý do lựa chọn mô hình
 đồ thị tri thức.
 \item \textbf{Chương 2 – Lý thuyết và mô hình dữ liệu:} giới thiệu nền tảng về
-biểu diễn tri thức, RDF/RDFS/OWL, đồ thị thuộc tính (Property Graph), cơ chế suy
+biểu diễn tri thức, đồ thị thuộc tính (Property Graph), cơ chế suy
 diễn, phân giải thực thể (entity resolution) và nguồn gốc dữ liệu (provenance).
 \item \textbf{Chương 3 – Thiết kế và cài đặt hệ thống:} mô tả kiến trúc, nguồn
-dữ liệu, quy trình xử lý dữ liệu (pipeline), bản thể, lược đồ Neo4j, xuất RDF và
-cấu hình các bộ máy suy diễn.
+dữ liệu, quy trình xử lý dữ liệu (pipeline), lược đồ Neo4j, import và validation.
 \item \textbf{Chương 4 – Truy vấn, xử lý và nghiệp vụ:} trình bày các truy vấn
-Cypher/SPARQL, câu hỏi năng lực (competency question), cơ chế bảo đảm an toàn truy vấn và các luật
+Cypher, câu hỏi năng lực (competency question), cơ chế bảo đảm an toàn truy vấn và các luật
 suy diễn có bằng chứng.
 \item \textbf{Chương 5 – Thực nghiệm và đánh giá:} mô tả dữ liệu, quy trình thực
 nghiệm, mốc so sánh (baseline), chỉ số đánh giá và kết quả về chất lượng đồ thị,

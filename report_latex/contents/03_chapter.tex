@@ -4,13 +4,11 @@
 \section{Lựa chọn, cấu hình và triển khai DBMS/công cụ}
 
 \subsection{Kiến trúc tổng thể}
-\reportfigure{system_architecture.pdf}{Kiến trúc tổng thể của hệ thống}{fig:system-architecture}
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
 TMDB API/cache --+
                  +-> clean/normalize/exact-ID enrich -> CSV + manifest
 IMDb ratings.gz -+                          +-> Neo4j -> QA/recommend -> FastAPI/UI
-                                            +-> RDF -> entailment -> SPARQL
 \end{Verbatim}
 
 QA dùng parser chín intent, entity linker và query catalog có tham số. Neo4j là
@@ -76,7 +74,6 @@ director, genre. Raw, interim và processed data được tách để tránh nh�
 sản phẩm đầu ra dẫn xuất.
 
 \subsection{Thuật toán pipeline}
-\reportfigure{etl_pipeline.pdf}{Luồng xử lý dữ liệu từ nguồn đến các graph}{fig:etl-pipeline}
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=single]
 INPUT: raw TMDB records, optional compressed IMDb ratings
@@ -123,10 +120,9 @@ giải quyết một phần idempotency; checksum, manifest, metadata máy và c
 quy trình giải quyết khả năng tái lập. Thao tác nạp có thể lũy đẳng nhưng không
 tái lập được nếu nguồn thay đổi mà không có ảnh chụp dữ liệu/mã kiểm tra.
 
-\section{Thiết kế và tinh chỉnh ontology hoặc lược đồ Knowledge Graph}
+\section{Thiết kế và tinh chỉnh lược đồ Knowledge Graph}
 
 \subsection{Các lớp và định danh}
-\reportfigure{ontology_diagram.pdf}{Sơ đồ lớp của ontology miền phim}{fig:ontology-diagram}
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|>{\raggedright\arraybackslash}p{0.29\textwidth}|}
 \caption{Tổng hợp các lớp và định danh}\label{tab:3-1} \\
@@ -158,28 +154,6 @@ HAS\_GENRE & Movie → Genre & source \\ \hline
 HAS\_KEYWORD & Movie → Keyword & source \\ \hline
 PRODUCED\_BY & Movie → Studio & source \\ \hline
 CO\_STARRED\_WITH & Person → Person & movie\_count, evidence\_movie\_ids, derived \\ \hline
-\end{longtable}
-
-\subsection{Ontology RDF/OWL}
-
-Ontology khai báo năm class disjoint, object property với domain/range, inverse
-\texttt{actedIn/hasActor}, inverse \texttt{directed/directedBy}, symmetric \texttt{coStarredWith}, và
-functional \texttt{tmdbId/imdbId}. Datatype property mô tả title, ratings, votes và name.
-Functional property không đồng nghĩa global inverse-functional identity; stable
-URI vẫn được tạo từ source ID.
-
-\subsection{Ánh xạ RDF–Neo4j}
-
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.44\textwidth}|>{\raggedright\arraybackslash}p{0.44\textwidth}|}
-\caption{Tổng hợp ánh xạ rdf–neo4j}\label{tab:3-3} \\
-\hline
-\textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline
-\endfirsthead\hline \textbf{Neo4j} & \textbf{RDF/OWL} \\ \hline\endhead
-\texttt{(:Movie \{tmdb\_id\})} & \texttt{:movie/<id> a :Movie; :tmdbId ...} \\ \hline
-\texttt{(:Person)-[:ACTED\_IN]->(:Movie)} & \texttt{:person/... :actedIn :movie/...} \\ \hline
-\texttt{[:DIRECTED]} & \texttt{:directed} / inverse \texttt{:directedBy} \\ \hline
-edge property & cần reification/RDF-star nếu xuất đầy đủ \\ \hline
-constraint & ontology axiom + validation đóng \\ \hline
 \end{longtable}
 
 \subsection{Các quyết định mô hình hóa}
@@ -231,16 +205,11 @@ Movie.rating & số 0–10 & không & TMDB & giữ riêng với IMDb rating \\ \
 \texttt{CO\_STARRED\_WITH.}\linebreak{}\texttt{evidence\_}\linebreak{}\texttt{movie\_ids} & danh sách ID & có & luật & đường truy vết về các Movie tiền đề \\ \hline
 \end{longtable}
 
-Các miền giá trị được kiểm tra ở pipeline/validation thay vì xem OWL là cơ chế
-kiểm tra dữ liệu đóng. Required field là yêu cầu của ứng dụng; functional và
-disjoint axiom là yêu cầu ngữ nghĩa; constraint Neo4j bảo vệ identity/storage.
-Ba lớp ràng buộc bổ sung cho nhau nhưng không được đánh đồng.
+Các miền giá trị và trường bắt buộc được kiểm tra ở pipeline, Neo4j constraints và validation sau import.
 
-\section{Cài đặt trên Knowledge Graph engine và cấu hình reasoner}
+\section{Cài đặt trên Neo4j Knowledge Graph engine}
 
-Neo4j là operational Knowledge Graph engine. RDFLib cung cấp nhánh kiểm thử semantic
-nhẹ; Apache Jena Fuseki 6.1.0 là triple-store/SPARQL endpoint độc lập dùng để chạy
-cùng tập luật suy diễn trên full RDF snapshot.
+Neo4j là Knowledge Graph engine duy nhất của hệ thống.
 
 \subsection{Import và validation Neo4j}
 
@@ -259,11 +228,3 @@ tạo duplicate. \texttt{--replace} dành cho authoritative rebuild. Validation 
 
 Integration test dùng Neo4j test riêng ở cổng 7688 với storage tạm, import hai lần
 và kiểm tra QA, recommendation, CRUD; graph demo không bị reset.
-
-Jena chạy trong Docker profile \texttt{semantic}, đọc ontology và \texttt{movies.ttl} qua
-assembler. \texttt{GenericRuleReasoner} ở chế độ forward nạp năm luật khai báo tường minh:
-domain, range, hai chiều của \texttt{owl:inverseOf} và \texttt{owl:SymmetricProperty}. Profile
-này cố ý khớp phạm vi mà báo cáo tuyên bố, tránh ngụ ý hỗ trợ toàn bộ OWL 2 DL.
-Fuseki chỉ phục vụ điểm cuối truy vấn cho quy trình đánh giá, không nằm trên
-đường thực thi trọng yếu
-path của \texttt{make demo}.

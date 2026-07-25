@@ -7,7 +7,8 @@ Thư mục này quản lý nội dung dành riêng cho bộ trang chiếu:
 - `build.js`: nguồn PptxGenJS tạo bộ trang chiếu.
 - `assets/`: ảnh xuất từ các nguồn draw.io của báo cáo.
 - `movie_knowledge_graph_defense.pptx`: bản PowerPoint hoàn chỉnh gồm 24 trang
-  chính, hai trang phụ lục và ghi chú thuyết trình.
+  và ghi chú thuyết trình. Bảy trang đầu xây dựng nền tảng Property Graph; phần
+  Movie Knowledge Graph bắt đầu sau slide chuyển cảnh.
 - `rendered/movie_knowledge_graph_defense.pdf`: bản kết xuất dùng để kiểm tra
   bố cục và trình chiếu dự phòng.
 

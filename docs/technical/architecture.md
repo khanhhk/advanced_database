@@ -52,7 +52,7 @@ phân giải thực thể và tạo node/edge tables.
 
 Quy trình xử lý dữ liệu tách khỏi importer vì hai trách nhiệm khác nhau:
 
-- Processing giải quyết chất lượng và semantics của dữ liệu.
+- Processing giải quyết chất lượng và ý nghĩa miền của dữ liệu.
 - Importer giải quyết cách ghi dữ liệu đã chuẩn hóa vào Neo4j.
 
 Nếu viết tất cả trực tiếp vào Neo4j, việc kiểm tra đầu ra trung gian, chạy lại và
@@ -97,13 +97,7 @@ Tại sao chọn Neo4j thay vì relational database:
 Neo4j không được chọn vì “graph luôn nhanh hơn SQL”; lựa chọn dựa trên độ phù hợp
 mô hình và truy vấn.
 
-### 3.3. RDF / OWL / SPARQL
-
-RDF/OWL là sản phẩm đầu ra standards-oriented để minh họa ontology, interoperability và
-SPARQL equivalent. Nó không phục vụ API vì Neo4j đơn giản hơn cho traversal và
-property-rich relationships trong phạm vi triển khai.
-
-### 3.4. Graph kiểm tra hợp lệ
+### 3.3. Graph kiểm tra hợp lệ
 
 kiểm tra hợp lệ kiểm tra duplicate, orphan, invalid edge và constraint. Đây là quality
 gate sau import, không phải chức năng người dùng.
@@ -195,9 +189,6 @@ UI chỉ giữ hai chức năng graph-native:
 
 - Hỏi kiến thức/quan hệ từ graph.
 - Tìm phim tương tự một phim đã biết.
-
-Semantic vector search bị loại vì overlap với gợi ý và làm mờ đóng góp
-của đồ thị tri thức.
 
 ### 6.3. User-visible result
 

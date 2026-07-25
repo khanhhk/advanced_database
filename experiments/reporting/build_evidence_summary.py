@@ -20,7 +20,6 @@ def build(output_dir: Path = RESULTS / "summary") -> None:
     reasoning = _load("evaluation/reasoning.json")
     recommendation = _load("evaluation/recommendation.json")["result"]
     qa = _load("evaluation/qa_neo4j.json")
-    semantic = _load("semantic/semantic_reasoning.json")
     validation = _load("quality/neo4j_validation.json")
     rows = [
         ("Entity resolution precision", entity["precision"], "silver", entity["cases"]),
@@ -30,8 +29,6 @@ def build(output_dir: Path = RESULTS / "summary") -> None:
         ("Recommendation P@10", recommendation["precision_at_k"], "silver/neo4j", recommendation["cases"]),
         ("Recommendation NDCG@10", recommendation["ndcg_at_k"], "silver/neo4j", recommendation["cases"]),
         ("QA smoke accuracy", qa["accuracy"], "smoke/neo4j", qa["cases"]),
-        ("Semantic conformance", 1.0 if semantic["validation"]["conforms"] else 0.0,
-         "semantic-validation", semantic["triples_before"]),
         ("Neo4j structural validity", 1.0 if validation["valid"] else 0.0,
          "graph-validation", validation["nodes"]),
     ]

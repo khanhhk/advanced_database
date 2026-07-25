@@ -1,6 +1,6 @@
 # Thực nghiệm và đánh giá
 
-Thư mục này chứa corpus, evaluator, benchmark, semantic runtime và các artifact
+Thư mục này chứa corpus, evaluator, benchmark và các artifact
 được dùng để kiểm chứng các tuyên bố trong báo cáo. Đây không phải runtime của
 API; các lệnh demo chính vẫn nằm trong `Makefile` ở repository root.
 
@@ -9,7 +9,6 @@ API; các lệnh demo chính vẫn nằm trong `Makefile` ở repository root.
 - `corpora/`: sinh corpus silver tất định có evidence và rubric.
 - `evaluation/`: đánh giá chất lượng dữ liệu, QA, reasoning và recommendation.
 - `benchmarks/`: benchmark Neo4j/SQLite và tạo snapshot đa quy mô.
-- `semantic/`: đánh giá RDF/SPARQL bằng Apache Jena/Fuseki.
 - `reporting/`: tổng hợp kết quả thành bảng và biểu đồ bằng chứng.
 - `results/`: artifact đo được, phân nhóm theo loại thực nghiệm.
 

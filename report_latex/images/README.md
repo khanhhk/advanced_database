@@ -4,13 +4,9 @@ Các chương gọi sẵn các tệp dưới đây bằng `\reportfigure`. Đây
 nguồn LaTeX và phải được tải lên Overleaf cùng các file `.tex`.
 
 - `movie_kg_overview.pdf`
-- `ontology_diagram.pdf`
 - `property_graph_schema.pdf`
-- `system_architecture.pdf`
 - `entity_resolution_flow.pdf`
-- `etl_pipeline.pdf`
 - `costar_reasoning.pdf`
-- `semantic_reasoning.pdf`
 - `qa_sequence.pdf`
 - `recommendation_explanation.pdf`
 - `web_ui.pdf`

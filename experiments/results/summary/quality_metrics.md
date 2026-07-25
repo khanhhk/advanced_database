@@ -7,5 +7,4 @@
 | Recommendation P@10 | 0.635 | silver/neo4j | 20 |
 | Recommendation NDCG@10 | 0.672 | silver/neo4j | 20 |
 | QA smoke accuracy | 1.000 | smoke/neo4j | 20 |
-| Semantic conformance | 1.000 | semantic-validation | 342683 |
 | Neo4j structural validity | 1.000 | graph-validation | 76612 |

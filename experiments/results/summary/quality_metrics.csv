@@ -6,5 +6,4 @@ Co-star precision,1.0,silver,50
 Recommendation P@10,0.635,silver/neo4j,20
 Recommendation NDCG@10,0.6724691106028089,silver/neo4j,20
 QA smoke accuracy,1.0,smoke/neo4j,20
-Semantic conformance,1.0,semantic-validation,342683
 Neo4j structural validity,1.0,graph-validation,76612

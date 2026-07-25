@@ -3,14 +3,6 @@
 
 \section{Ngôn ngữ truy vấn và suy diễn đặc thù}
 
-\subsection{SPARQL}
-
-Mười query bao phủ phim theo đạo diễn, cast, shared genre, co-star aggregation,
-director–genre multi-hop, OPTIONAL IMDb enrichment, inverse \texttt{hasActor}, semantic
-đường đi, kiểm tra chất lượng bằng ASK và tạo bằng chứng gợi ý bằng CONSTRUCT.
-Bộ nạp bắt buộc đúng 10
-query, parse rồi chạy từng query trên graph đã materialize.
-
 \subsection{An toàn truy vấn}
 
 An toàn có nhiều tầng. Pydantic giới hạn request length/type; parser chỉ nhận
@@ -73,7 +65,7 @@ MVP; một CQ không ánh xạ được query chỉ ra thiếu sót thiết kế
 \subsection{Acceptance criteria}
 
 Dataset phải đạt ít nhất 2.000 Movie; import hai lần không đổi counts; validation
-không có violation chưa giải thích; catalog Cypher/SPARQL phải parse/chạy; API trả
+không có violation chưa giải thích; catalog Cypher phải parse/chạy; API trả
 schema hợp lệ; recommendation trả explanation; evaluation ghi backend, corpus và
 quy trình thực nghiệm; kiểm thử tích hợp phải kết nối một Neo4j kiểm thử riêng
 thay vì bỏ qua do đồ thị
@@ -93,23 +85,4 @@ Person A -[:ACTED_IN]-> Movie <-[:ACTED_IN]- Person B
 
 Điều kiện sắp thứ tự ID tránh cặp trùng/ngược. Relationship lưu \texttt{movie\_count},
 \texttt{evidence\_movie\_ids} và \texttt{derived=true}. \texttt{MERGE} bảo đảm materialization idempotent.
-Đây là rule nghiệp vụ bằng Cypher, không được gọi là OWL reasoning.
-
-\subsection{Semantic entailment}
-\reportfigure{semantic_reasoning.pdf}{Luồng materialization và kiểm tra ngữ nghĩa}{fig:semantic-reasoning}
-
-RDFLib materializer và Jena Generic Rule Reasoner cùng chạy profile RDFS/OWL
-subset xác định:
-
-\begin{itemize}
-\item property domain → type của subject;
-\item property range → type của object;
-\item \texttt{owl:inverseOf} → inverse triple;
-\item \texttt{owl:SymmetricProperty} → triple chiều ngược.
-\end{itemize}
-
-Validator kiểm tra functional property, disjoint class và Movie thiếu title. RDFLib
-ghi data graph 342.683 → 429.192 triple. Jena tính trên union data + 70 ontology
-triple, do đó 342.753 → 429.262; cả hai engine đều suy ra đúng 86.509 triple mới.
-Fuseki thực thi 10/10 query, trong đó có 81.030 inverse \texttt{hasActor}. Profile này
-chạy được và test được, nhưng không thay thế OWL 2 DL reasoner đầy đủ.
+Đây là rule nghiệp vụ được vật chất hóa trực tiếp bằng Cypher.

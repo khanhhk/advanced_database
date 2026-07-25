@@ -4,7 +4,6 @@ from pathlib import Path
 
 from experiments.benchmarks.snapshot_subset import build_induced_snapshot
 from experiments.evaluation.audit_knowledge_quality import audit
-from experiments.semantic.evaluate_jena import _bounded
 from src.processing.pipeline import transform
 
 
@@ -52,10 +51,3 @@ def test_pipeline_collapses_repeated_actor_credit_without_losing_roles(tmp_path)
     assert rows[0]["character"] == "Voice B | Voice A"
     assert manifest["quality"]["duplicate_edges_collapsed"]["acted_in"] == 1
     assert len(manifest["processed_sha256"]) == 64
-
-
-def test_jena_catalog_query_is_bounded_and_bound():
-    query = "PREFIX : <https://example.org/movie-kg/> SELECT ?movie WHERE { ?movie a :Movie }"
-    result = _bounded(query)
-    assert "VALUES (?name ?movieTitle ?movieId ?wantedGenre)" in result
-    assert result.rstrip().endswith("LIMIT 5")

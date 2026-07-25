@@ -1,6 +1,29 @@
 # Movie Knowledge Graph
 
-Project Knowledge Graph hoàn chỉnh cho miền phim: thu thập TMDB/IMDb, pipeline chuẩn hóa, Neo4j Property Graph, RDF/OWL, reasoning, hỏi–đáp theo intent/template, gợi ý có giải thích, UI và evaluation. Ứng dụng chỉ chạy trên dữ liệu TMDB thật đã được thu thập và import vào Neo4j.
+Project Knowledge Graph hoàn chỉnh cho miền phim: thu thập TMDB/IMDb, pipeline
+chuẩn hóa, Neo4j Property Graph, suy diễn bằng Cypher, hỏi–đáp theo
+intent/template, gợi ý có giải thích, UI và evaluation. Ứng dụng chỉ chạy trên
+dữ liệu TMDB thật đã được thu thập và import vào Neo4j.
+
+## Mới tiếp cận repository?
+
+Nếu chưa biết Knowledge Graph, Neo4j hoặc chưa rõ các thư mục đang làm gì, hãy
+đọc [Hướng dẫn hiểu project từ con số 0](docs/getting-started-for-beginners.md).
+Tài liệu đó giải thích bằng ví dụ:
+
+- bài toán và mô hình node/relationship;
+- đường đi của dữ liệu từ TMDB/IMDb đến Neo4j và giao diện;
+- cách hỏi–đáp và gợi ý hoạt động;
+- cách chạy theo từng tình huống;
+- bản đồ source code và lỗi thường gặp.
+
+Đường đọc ngắn nhất:
+
+```text
+docs/getting-started-for-beginners.md
+  → docs/technical/architecture.md
+  → docs/runbooks/demo.md
+```
 
 ## Chạy nhanh
 
@@ -27,7 +50,7 @@ Swagger UI: `http://localhost:8000/docs`.
 Web demo: `http://localhost:8000/`.
 
 Kịch bản trình bày đầy đủ gồm graph, multi-hop query, inference, QA,
-recommendation, RDF/OWL/SPARQL và evidence đánh giá nằm tại
+recommendation và evidence đánh giá nằm tại
 [docs/runbooks/demo.md](docs/runbooks/demo.md).
 
 Giao diện gồm hai tab: hội thoại Knowledge Graph nhiều lượt và gợi ý phim có
@@ -61,19 +84,15 @@ dịch SQL-to-Cypher, chạy Cypher trực tiếp và xử lý lỗi kết nối
 make test
 ```
 
-Ontology nằm tại `ontology/movie_ontology.ttl`; 10 truy vấn mẫu và luật
-`CO_STARRED_WITH` nằm trong `cypher/`; SPARQL mẫu nằm trong `sparql/`. Các workflow
-RDF, evaluation và benchmark vẫn được giữ dưới dạng module/script trong `src/kg/`
-và `experiments/`. Các lệnh đánh giá tách khỏi luồng demo:
+Mười truy vấn mẫu, constraint và luật `CO_STARRED_WITH` nằm trong `cypher/`.
+Các workflow evaluation và benchmark được tổ chức dưới dạng module/script trong
+`experiments/`. Các lệnh đánh giá tách khỏi luồng demo:
 
 ```bash
 .venv/bin/python -m experiments.evaluation.audit_knowledge_quality
 .venv/bin/python -m experiments.evaluation.evaluate_entity_resolution \
   experiments/corpora/silver/entity_resolution.json \
   --output experiments/results/evaluation/entity_resolution.json
-docker compose --profile semantic up -d --build jena
-.venv/bin/python -m experiments.semantic.evaluate_jena
-docker compose --profile semantic stop jena
 docker compose --profile test up -d --wait neo4j-test
 RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
   ALLOW_MULTISCALE_BENCHMARK=1 NEO4J_URI=bolt://localhost:7688 \
@@ -124,7 +143,6 @@ vào RAM/Neo4j. `Movie.rating` giữ rating TMDB; `Movie.imdb_rating` và
 - `data/raw`: response bất biến từ nguồn.
 - `data/processed`: CSV node/edge cùng `manifest.json` chứa checksum, counts và quality metrics.
 - `cypher`: constraint, query catalog và reasoning rule.
-- `ontology` / `sparql`: ontology Turtle chuẩn duy nhất và query semantic tương đương.
 - `experiments/results`: kết quả QA và benchmark có thể sinh lại bằng các lệnh trên.
 
 Quy mô 2.000–5.000 phim được điều khiển bằng `DATA_COUNT`; dataset lớn và API key không được commit theo yêu cầu của đề tài.
@@ -139,9 +157,7 @@ QA được đánh giá trực tiếp trên Neo4j production tại
 end-to-end Neo4j thật được lưu tại `experiments/results/benchmarks/neo4j_benchmark.csv`
 (100 lần/câu, một warm-up) và cấu hình tại file `.metadata.json` tương ứng.
 Benchmark kiểm soát đa quy mô 500/1.000/2.000/4.999 Movie nằm trong
-`experiments/results/benchmarks/multiscale_benchmark.csv`. Apache Jena Fuseki 6.1.0 chạy
-forward rule profile trên full RDF snapshot; kết quả 10/10 SPARQL nằm tại
-`experiments/results/semantic/jena_semantic_evaluation.json`.
+`experiments/results/benchmarks/multiscale_benchmark.csv`.
 
 TMDB credits được giữ dưới dạng object có source ID; `Person.person_id` ưu tiên
 `tmdb:<id>` thay vì hash tên, và `ACTED_IN` giữ `character`/`cast_order`. QA

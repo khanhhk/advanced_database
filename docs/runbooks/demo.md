@@ -4,7 +4,7 @@ Mục tiêu của buổi trình diễn là chứng minh toàn bộ chuỗi:
 
 ```text
 TMDB + IMDb → xử lý dữ liệu → Neo4j → truy vấn/suy diễn
-            → QA → recommendation → RDF/OWL/SPARQL → đánh giá
+            → QA → recommendation → đánh giá
 ```
 
 Thời lượng đề xuất: 12–15 phút. Không chạy `make data` trong buổi trình diễn vì bước
@@ -59,33 +59,6 @@ Sau khi kiểm tra, nhấn `Ctrl+C` rồi chạy:
 make stop
 ```
 
-### Bước A3 — Chuẩn bị sản phẩm đầu ra RDF/OWL/SPARQL
-
-Chạy trước để không phải chờ materialization trong lúc trình bày:
-
-```bash
-cd ~/VNPTAI/advanced_database
-
-.venv/bin/python -m src.kg.export_rdf \
-  --output data/processed/demo_movies.ttl
-
-.venv/bin/python -m src.kg.semantic_reasoning \
-  --input data/processed/demo_movies.ttl \
-  --output data/processed/demo_movies.inferred.ttl \
-  --report data/processed/demo_semantic_reasoning.json
-
-.venv/bin/python -m src.kg.sparql_catalog \
-  --input data/processed/demo_movies.inferred.ttl \
-  --output data/processed/demo_sparql_execution.json
-```
-
-Kiểm tra hai báo cáo đã được tạo:
-
-```bash
-test -f data/processed/demo_semantic_reasoning.json && echo "Semantic report: OK"
-test -f data/processed/demo_sparql_execution.json && echo "SPARQL report: OK"
-```
-
 ## B. Trình tự trình diễn trực tiếp
 
 | Bước | Nội dung | Thời gian |
@@ -96,8 +69,7 @@ test -f data/processed/demo_sparql_execution.json && echo "SPARQL report: OK"
 | 4 | Suy diễn có bằng chứng | 2 phút |
 | 5 | QA và entity linking | 2 phút |
 | 6 | Gợi ý có giải thích | 2 phút |
-| 7 | RDF/OWL/SPARQL | 2 phút |
-| 8 | Kết quả đánh giá và kết luận | 2 phút |
+| 7 | Kết quả đánh giá và kết luận | 2 phút |
 
 ### Bước 1 — Khởi động hệ thống
 
@@ -293,35 +265,7 @@ Nếu cần chứng minh bằng API, mở Swagger và chạy `POST /recommend` v
 }
 ```
 
-### Bước 7 — Trình bày RDF/OWL và SPARQL
-
-Trong Terminal 2, hiển thị báo cáo đã chuẩn bị:
-
-```bash
-python3 -m json.tool data/processed/demo_semantic_reasoning.json
-python3 -m json.tool data/processed/demo_sparql_execution.json
-```
-
-Kết quả đã kiểm tra trên ảnh chụp dữ liệu hiện tại:
-
-```text
-Triples trước materialization: 156491
-Triples sau materialization:   192692
-Triples suy diễn thêm:          36201
-Semantic violation:                 0
-SPARQL queries thực thi:            10
-```
-
-Điểm cần nói:
-
-- Neo4j/đồ thị thuộc tính phục vụ truy vấn vận hành và traversal;
-- RDF/OWL là standards view có thể trao đổi;
-- materializer minh họa domain/range, inverse và symmetric property;
-- validator kiểm tra functional property, disjoint class và title bắt buộc;
-- query SPARQL inference-enabled sử dụng inverse relation `hasActor` chỉ xuất
-  hiện sau materialization.
-
-### Bước 8 — Trình bày kết quả đánh giá
+### Bước 7 — Trình bày kết quả đánh giá
 
 Trong Terminal 2:
 
@@ -336,13 +280,13 @@ Các số cần nhấn mạnh:
 - gợi ý: P@10 `0,635`, NDCG@10 `0,672` trên 20 case silver;
 - phân giải thực thể đạt P=`1,000`, R=`0,933`, F1=`0,966`; co-star precision `1,00`;
   quality audit có zero identity/consistency violation và 100% provenance;
-- semantic và structural kiểm tra hợp lệ không có violation;
+- Neo4j structural validation không có violation;
 - SQLite nhanh hơn trong bốn query mốc so sánh đã đo.
 
 Phải nói rõ: metric corpus silver chỉ áp dụng cho case/rubric/ảnh chụp dữ liệu đã khai
 báo; phép đo hiệu năng có bốn ảnh chụp dữ liệu con 500/1.000/2.000/4.999 nhưng chưa chứng minh
 scalability tổng quát hay khẳng định một database luôn nhanh hơn database còn
-lại. Jena/Fuseki thuộc quy trình đánh giá riêng, không cần bật trong `make demo`.
+lại.
 
 Số node/relationship live có thể khác sản phẩm đầu ra đánh giá cũ nếu ảnh chụp dữ liệu được tạo
 lại. Khi trình bày, lấy số trực tiếp từ đầu ra `make demo`; chỉ dùng tệp đánh giá
@@ -360,8 +304,7 @@ Ba câu kết luận:
 
 1. Graph phù hợp tự nhiên với dữ liệu phim nhiều–nhiều và truy vấn multi-hop.
 2. Answer, gợi ý và derived fact đều có bằng chứng truy ngược được.
-3. Dự án kết hợp đồ thị thuộc tính vận hành với RDF/OWL tiêu chuẩn và công bố rõ
-   giới hạn của evaluation, phép đo hiệu năng.
+3. Dự án công bố rõ giới hạn của evaluation và phép đo hiệu năng.
 
 ## D. Phương án dự phòng
 
@@ -369,7 +312,7 @@ Ba câu kết luận:
   chuẩn bị local.
 - Web UI lỗi: dùng Swagger tại `/docs` để gọi `/health`, `/stats`, `/ask` và
   `/recommend`.
-- API lỗi nhưng Neo4j còn chạy: tiếp tục trình diễn schema, Cypher, suy diễn và sản phẩm đầu ra
-  semantic/evaluation.
+- API lỗi nhưng Neo4j còn chạy: tiếp tục trình diễn schema, Cypher, suy diễn và
+  các artifact evaluation.
 - Neo4j Browser khó trình chiếu: dùng runbook DBeaver tại
   `docs/runbooks/dbeaver-neo4j.md` làm phương án thay thế.

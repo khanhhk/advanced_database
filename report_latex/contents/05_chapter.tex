@@ -91,13 +91,7 @@ cho mọi lỗi định danh có thể xuất hiện ngoài ảnh chụp dữ li
 
 Năm mươi fact \texttt{CO\_STARRED\_WITH} được kiểm tra bằng supporting movie và
 source cast; 50/50 fact hợp lệ, precision bằng 1,00. Validation bổ sung còn kiểm
-tra mọi cạnh suy ra phải có ít nhất một phim chung. Quy trình ngữ nghĩa trên ảnh
-chụp dữ liệu chuẩn hóa đầy đủ vật chất hóa 86.509 bộ ba, tăng từ 342.683 lên
-429.192 bộ ba và không có vi phạm ngữ nghĩa. Dữ liệu RDF xuất ra dùng chính ảnh
-chụp dữ liệu đã xử lý
-4.999 Movie như Neo4j. Apache Jena Fuseki 6.1.0 tái hiện đúng mức tăng 86.509
-triple bằng forward rule profile; 10/10 SPARQL query thực thi thành công trên cả
-RDFLib và endpoint Jena.
+tra mọi cạnh suy ra phải có ít nhất một phim chung.
 
 \subsection{QA}
 
@@ -182,8 +176,7 @@ kết quả chỉ được báo riêng, không dùng để xếp hạng engine.
 \subsection{Kiểm thử và quy trình chạy}
 
 Lần chạy cuối của \texttt{make test} đạt 33/33 test. Bộ test gồm unit test cho cleaning,
-entity resolution, intent parsing, RDF export, semantic materialization,
-SPARQL catalog, CRUD, relational benchmark và evidence summary. Integration test
+entity resolution, intent parsing, CRUD, relational benchmark và evidence summary. Integration test
 dùng Neo4j riêng ở Bolt 7688, thực hiện import hai lần để xác nhận idempotency,
 sau đó kiểm tra QA, recommendation và vòng đời CRUD trước khi dọn graph test.
 
@@ -213,8 +206,7 @@ container đã chạy nhưng driver chưa handshake được. Quy trình còn ch
 rating; checksum/manifest cung cấp provenance ở mức snapshot.
 \textbf{RQ2:} Mười competency question được biểu diễn bằng pattern trực tiếp, multi-hop,
 aggregation và shortest path; evidence là node/relationship thực thi.
-\textbf{RQ3:} Cypher rule tạo co-star có supporting movie; semantic profile tạo inverse
-và type entailment, đồng thời validator phát hiện conflict.
+\textbf{RQ3:} Cypher rule tạo co-star có supporting movie và validation kiểm tra mọi cạnh suy ra có tiền đề hợp lệ.
 \textbf{RQ4:} IDF giảm ảnh hưởng feature phổ biến, đạt P@10=0,635 và NDCG@10=0,672,
 đồng thời giữ explanation coverage. Ba baseline lịch sử chỉ cung cấp design
 history, không dùng để khẳng định production vượt trội nếu chưa tái chạy chung protocol.

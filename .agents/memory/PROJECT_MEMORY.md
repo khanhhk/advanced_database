@@ -1,13 +1,13 @@
 # Movie Knowledge Graph — project memory
 
-Last reviewed: 2026-07-22. This briefing summarizes the original Office sources,
+Last reviewed: 2026-07-25. This briefing summarizes the original Office sources,
 the project Markdown documents and the current implementation artifacts.
 
 ## Mission and thesis
 
 Build an end-to-end Knowledge Graph for the movie domain that demonstrates why
 graphs are natural for heterogeneous, highly connected and multi-hop data. The
-system integrates movie data, models explicit semantics, supports traversal and
+system integrates movie data, models explicit graph relationships, supports traversal and
 rule-based inference, and exposes two explainable applications: question
 answering and movie recommendation.
 
@@ -29,23 +29,14 @@ and recommendations than conventional data models?
 ## Architecture and technology choices
 
 Data flow: TMDB API + IMDb datasets → immutable cached raw JSON/TSV → cleaning
-and validation → entity resolution → normalized node/edge tables → Neo4j. A
-subset is exported as RDF/Turtle for OWL/SPARQL comparison.
+and validation → entity resolution → normalized node/edge tables → Neo4j.
 
 - Python 3.11, FastAPI/Pydantic, pytest.
 - Neo4j 5/property graph/Cypher is the operational store because traversal and
   implementation are straightforward.
-- RDF/RDFS/OWL, RDFLib and Apache Jena/Fuseki illustrate standards, semantic
-  constraints, SPARQL and reasoner capabilities.
-- The standards path is executable: RDFLib materializes the declared RDFS/OWL-RL
-  subset (domain/range, inverse and symmetric properties) and validates functional
-  properties, disjoint classes and required Movie titles. It reports before/after
-  triple counts and violations. A separate Apache Jena Fuseki 6.1.0 Docker profile
-  loads the full RDF snapshot through an assembler-backed GenericRuleReasoner in
-  forward mode and executes the ten-query SPARQL catalog. Both paths deliberately
-  implement the same declared subset and are not presented as full OWL 2 DL.
-  Its isolated runtime configuration lives under `experiments/semantic/jena/` because Jena
-  is an evaluation engine, not part of the application's production path.
+- Neo4j Property Graph is the only graph model and execution engine. The former
+  RDF/OWL/SPARQL/RDFLib/Jena evaluation branch was removed on 2026-07-25 because
+  it was not used by the application.
 - Stable source IDs are keys. Match TMDB↔IMDb by exact IDs first; fuzzy matching
   is a logged, confidence-scored fallback, never a name-based primary key.
 - Import nodes before edges, create constraints/indexes first, use parameterized
@@ -63,8 +54,7 @@ birthday)`, `Genre(genre_id, name)`, `Keyword(keyword_id, name)`, and
 Competency questions cover movies by director; cast of a movie; co-stars and
 shared movies; genre/rating conditions; director–genre patterns; shortest paths
 between people; frequent collaborator pairs; and similar/top-N movies with an
-explanation. Maintain at least 10 Cypher queries, including 4–5 multi-hop ones,
-plus representative SPARQL equivalents.
+explanation. Maintain at least 10 Cypher queries, including 4–5 multi-hop ones.
 
 ## Applications
 
@@ -141,14 +131,13 @@ Neo4j test service and built in SQLite from the same filtered CSV set. The workf
 generates CSV/Markdown/SVG evidence summaries.
 Neo4j/SQLite comparisons are valid only when run on the same machine, dataset,
 warm-up policy and iteration count.
-The RDF workflow parses and executes all ten numbered SPARQL queries after
-materialization. Administrative Movie CRUD is parameterized and tested but is
+Administrative Movie CRUD is parameterized and tested but is
 not exposed through the public API. Integration tests use a dedicated temporary
 Neo4j service on Bolt 7688, so they can verify reset/import/idempotency, QA,
 recommendation and CRUD without touching the demo graph.
 The root `Makefile` is intentionally limited to demo, setup, test and stop
 operations. Reproducible research workflows are organized as Python modules
-under `experiments/{corpora,evaluation,benchmarks,semantic,reporting}`; measured
+under `experiments/{corpora,evaluation,benchmarks,reporting}`; measured
 artifacts are grouped under matching `experiments/results/` subdirectories.
 Every experiments subdirectory has a README describing its purpose, input,
 output, dependencies and safety limits. Docker Compose commands remain explicit.
@@ -158,8 +147,8 @@ Current reproducible evidence (full rerun 2026-07-24): the pipeline receives
 relationships is rejected. The loaded graph validates at 76,612 nodes/846,309
 relationships with zero structural violations. Exact IMDb ratings match 4,351
 of 4,558 movies carrying an IMDb ID.
-The final repository gate passes 33/33 tests, compileall and all tracked source
-checksums.
+The repository gate passed 29/29 tests after the 2026-07-25 scope reduction,
+including the dedicated Neo4j integration test.
 The full-snapshot knowledge-quality audit has zero stable-ID duplicates,
 conflicting required values, missing required fields, invalid foreign keys and
 duplicate endpoint pairs, plus 100% provenance coverage for rows carrying a
@@ -172,10 +161,7 @@ short-name typo abstentions and one is a tied same-title Movie abstention. Silve
 co-star precision is 1.00;
 the strengthened 20-question Neo4j QA smoke corpus passes 20/20 with evidence,
 including a negative assertion that `The Dark Knight` cast lookup excludes actors
-linked only to `The Dark Knight Rises`; semantic
-materialization adds 86,509 triples (342,683 to 429,192) with zero violations.
-Jena evaluates the ontology+data union (342,753 to 429,262), exposes 81,030 inverse
-`hasActor` triples and executes all ten SPARQL queries successfully.
+linked only to `The Dark Knight Rises`.
 The controlled Neo4j/SQLite benchmark uses one warm-up and 100 iterations for four
 equivalent queries on 500/1,000/2,000/4,999 Movie induced snapshots. SQLite is faster on
 all measured query/scale pairs. The four-scale trend supports a trade-off and
@@ -196,11 +182,10 @@ the graph when that processed checksum matches.
 The large Office lecture/source files used during initial synthesis are not
 stored in the demo repository. Current source code, configuration, Markdown
 documents and committed experiment artifacts are the verifiable project sources.
-- `docs/deliverables/report/outline.md` and
-  `docs/deliverables/slide/outline.md`: expected report and
-  presentation story; keep final artifacts aligned with measured evidence.
-- `docs/deliverables/report/draft.md`: supporting Vietnamese manuscript snapshot. The
-  authoritative submission source is edited directly under `report_latex/` and
+- `docs/deliverables/slide/outline.md`: expected presentation story; keep final
+  artifacts aligned with measured evidence. The former Markdown report outline
+  and draft were removed; `report_latex/` is the only report source.
+- The authoritative submission source is edited directly under `report_latex/` and
   is organized into six content chapters aligned with the applicable
   report-content criteria in `ChecklistCSDLNCv2.XLS`, followed by a conclusion
   chapter. Rubric items for report quality, presentation and oral defense remain
@@ -213,8 +198,7 @@ documents and committed experiment artifacts are the verifiable project sources.
   upload to Overleaf.
   `main.tex` assembles the six content chapters, conclusion and appendices;
   `ref.bib` is the normalized
-  bibliography, and all 14 image calls resolve to vector PDF assets under
-  `report_latex/images/`. Eleven editable diagram sources live in
+  bibliography. Editable diagram sources live in
   `report_latex/images/sources/*.drawio`; three measured charts reflect the
   committed experiment CSV/JSON. `web_ui.pdf` is explicitly a
   source-aligned wireframe and may later be replaced by a real screenshot with
@@ -227,7 +211,7 @@ documents and committed experiment artifacts are the verifiable project sources.
   are complete.
 - `docs/deliverables/slide/` stores the editable presentation workflow:
   `outline.md`, the PptxGenJS source `build.js`, high-resolution exports of the
-  report draw.io figures, the 24-slide defense deck plus two appendix slides,
+  report draw.io figures, the 24-slide defense deck,
   embedded speaker notes, and a PDF fallback. Text, shapes, tables and charts
   remain editable PowerPoint objects; complex diagrams retain their editable
   `.drawio` sources under `report_latex/images/sources/`. Rebuild with `npm ci`
@@ -244,7 +228,7 @@ documents and committed experiment artifacts are the verifiable project sources.
 - `docs/technical/architecture-flow.drawio`: editable current-architecture flow.
 - `docs/technical/architecture.md`: block-by-block and request-path explanation
   of the draw.io architecture.
-- The 12 editable draw.io sources (the current-architecture flow plus 11 report
+- The editable draw.io sources
   figures) share one academic visual system: Vietnamese labels, restrained
   semantic colors, orthogonal connectors and explicit arrow directions. The QA
   interaction figure is a UML sequence diagram. Report figures are exported as
@@ -259,9 +243,9 @@ documents and committed experiment artifacts are the verifiable project sources.
   configures the official Neo4j JDBC full bundle as a custom Generic driver,
   documents SQL-to-Cypher versus native Cypher use, and covers connection and
   authentication troubleshooting for the local Compose graph.
-- `docs/runbooks/demo.md`: the presentation-ready 12–15 minute demo sequence,
-  covering manifest/provenance, Neo4j schema and multi-hop queries, derived facts,
-  QA, explainable recommendation, RDF/OWL/SPARQL and measured evidence.
+- `docs/runbooks/demo.md`: the presentation-ready demo sequence covering
+  manifest/provenance, Neo4j schema and multi-hop queries, derived facts, QA,
+  explainable recommendation and measured evidence.
 - Root `ChecklistCSDLNCv2.XLS`: grading rubric used to order the report chapters
   and review the final report, slides and oral defense.
 

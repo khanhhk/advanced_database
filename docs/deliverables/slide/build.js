@@ -5,8 +5,8 @@ const { imageSize } = require("image-size");
 const pptx = new pptxgen();
 pptx.layout = "LAYOUT_WIDE";
 pptx.author = "Hoàng Kim Khánh";
-pptx.subject = "Báo cáo cuối kỳ Cơ sở dữ liệu nâng cao";
-pptx.title = "Xây dựng đồ thị tri thức phim đa nguồn";
+pptx.subject = "Cơ sở lý thuyết Knowledge Graph và nghiên cứu tình huống phim";
+pptx.title = "Knowledge Graph: Cơ sở lý thuyết và ứng dụng trên dữ liệu phim";
 pptx.company = "Đại học Bách khoa Hà Nội";
 pptx.lang = "vi-VN";
 pptx.theme = {
@@ -19,7 +19,7 @@ pptx.defineSlideMaster({
   background: { color: "F6F8FB" },
   objects: [
     { rect: { x: 0, y: 0, w: 13.333, h: 7.5, line: { color: "F6F8FB", transparency: 100 }, fill: { color: "F6F8FB" } } },
-    { text: { text: "MOVIE KNOWLEDGE GRAPH", options: { x: 0.58, y: 0.18, w: 3.3, h: 0.22, fontFace: "Arial", fontSize: 9, bold: true, color: "337B80", charSpacing: 1.5, margin: 0 } } },
+    { text: { text: "KNOWLEDGE GRAPH · THEORY TO PRACTICE", options: { x: 0.58, y: 0.18, w: 4.3, h: 0.22, fontFace: "Arial", fontSize: 9, bold: true, color: "337B80", charSpacing: 1.5, margin: 0 } } },
     { text: { text: "Đại học Bách khoa Hà Nội · Khoa Toán – Tin", options: { x: 8.75, y: 7.12, w: 3.85, h: 0.18, fontFace: "Arial", fontSize: 8, color: "697586", align: "right", margin: 0 } } },
   ],
   slideNumber: { x: 12.72, y: 7.08, w: 0.25, h: 0.2, fontFace: "Arial", fontSize: 9, color: "697586", align: "right", margin: 0 },
@@ -125,71 +125,121 @@ function lightSlide(title, kicker, section) {
 {
   const s = darkSlide();
   s.addText("BÁO CÁO CUỐI KỲ · CƠ SỞ DỮ LIỆU NÂNG CAO", { x: 0.72, y: 0.62, w: 6.5, h: 0.3, fontFace: "Arial", fontSize: 10, bold: true, color: "8FD0CC", charSpacing: 1.7, margin: 0 });
-  s.addText("Xây dựng đồ thị tri thức\nphim đa nguồn", { x: 0.72, y: 1.22, w: 7.2, h: 1.55, fontFace: "Calibri", fontSize: 34, bold: true, color: C.white, margin: 0, breakLine: false, fit: "shrink" });
-  s.addText("Tích hợp dữ liệu · Truy vấn nhiều bước · Suy diễn · Hỏi–đáp và gợi ý có bằng chứng", { x: 0.75, y: 3.02, w: 6.45, h: 0.62, fontFace: "Calibri", fontSize: 16, color: "D6E3ED", margin: 0, fit: "shrink" });
+  s.addText("Knowledge Graph\nTừ lý thuyết đến ứng dụng", { x: 0.72, y: 1.22, w: 7.2, h: 1.55, fontFace: "Calibri", fontSize: 34, bold: true, color: C.white, margin: 0, breakLine: false, fit: "shrink" });
+  s.addText("Khái niệm · Property Graph · Schema · Suy diễn · Cypher\nNghiên cứu tình huống: đồ thị tri thức phim đa nguồn", { x: 0.75, y: 3.02, w: 6.45, h: 0.82, fontFace: "Calibri", fontSize: 15.5, color: "D6E3ED", margin: 0, fit: "shrink" });
   addImageContain(s, A("movie_kg_overview"), 7.55, 1.15, 5.15, 3.95, false);
   s.addText("Học viên", { x: 0.75, y: 5.35, w: 1.1, h: 0.24, fontFace: "Arial", fontSize: 9, bold: true, color: "8FD0CC", margin: 0 });
   s.addText("Hoàng Kim Khánh · 20252307M", { x: 0.75, y: 5.68, w: 4.4, h: 0.34, fontFace: "Calibri", fontSize: 15, bold: true, color: C.white, margin: 0 });
   s.addText("Giảng viên hướng dẫn", { x: 6.8, y: 5.35, w: 1.8, h: 0.24, fontFace: "Arial", fontSize: 9, bold: true, color: "8FD0CC", margin: 0 });
   s.addText("TS. Trần Ngọc Thăng", { x: 6.8, y: 5.68, w: 3.4, h: 0.34, fontFace: "Calibri", fontSize: 15, bold: true, color: C.white, margin: 0 });
   s.addText("ĐẠI HỌC BÁCH KHOA HÀ NỘI · KHOA TOÁN – TIN · 07/2026", { x: 0.75, y: 6.92, w: 8, h: 0.2, fontFace: "Arial", fontSize: 8.5, color: "9FB2C3", margin: 0 });
-  notes(s, "Kính thưa thầy, em xin trình bày đề tài xây dựng đồ thị tri thức phim đa nguồn. Trọng tâm không chỉ là lưu dữ liệu, mà là tạo một quy trình tích hợp có thể tái lập, hỗ trợ truy vấn nhiều bước, suy diễn và hai ứng dụng có bằng chứng.");
+  notes(s, "Kính thưa thầy, phần đầu em trình bày nền tảng của Knowledge Graph theo mô hình Property Graph: thực thể, quan hệ, schema, suy diễn và Cypher. Phần sau em dùng Movie Knowledge Graph như một nghiên cứu tình huống để cho thấy các khái niệm đó được hiện thực hóa, kiểm thử và đánh giá như thế nào.");
 }
 
-// 2 — Motivation
+// 2 — From data to knowledge
 {
-  const s = lightSlide("Dữ liệu phim vốn là một mạng quan hệ", "Tra cứu một bảng không đủ khi câu hỏi đi qua nhiều thực thể và nhiều nguồn.", "Bài toán");
-  addImageContain(s, A("movie_kg_overview"), 0.62, 1.95, 7.25, 4.55);
-  card(s, 8.2, 1.98, 4.42, 1.15, "Quan hệ dày đặc", "Movie kết nối Person, Genre, Keyword và Studio theo cấu trúc nhiều–nhiều.", { badge: "1", fill: "F0F6F8", stroke: "BDDADD" });
-  card(s, 8.2, 3.35, 4.42, 1.15, "Nguồn phân tán", "TMDB cung cấp metadata/credits; IMDb cung cấp rating và số lượt đánh giá độc lập.", { badge: "2", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8" });
-  card(s, 8.2, 4.72, 4.42, 1.15, "Cần bằng chứng", "Câu trả lời và gợi ý phải chỉ ra thực thể, quan hệ hoặc đường đi đã tạo nên kết quả.", { badge: "3", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1" });
-  addSource(s, "Nguồn hình: report_latex/images/sources/movie_kg_overview.drawio");
-  notes(s, "Dữ liệu phim là một mạng nhiều–nhiều. Một phim liên hệ với nhiều người, thể loại, từ khóa và hãng; một người lại tham gia nhiều phim với nhiều vai trò. Khi tích hợp TMDB và IMDb, câu hỏi không chỉ là lấy một dòng dữ liệu mà là đi qua mạng quan hệ và giữ được nguồn gốc.");
+  const s = lightSlide("Từ dữ liệu đến tri thức có thể sử dụng", "Knowledge Graph không chỉ lưu giá trị; nó đặt giá trị vào ngữ cảnh, quan hệ và ngữ nghĩa.", "Nền tảng");
+  const levels = [
+    ["DỮ LIỆU", "“2010”, “Inception”, “Nolan”", C.muted, C.pale],
+    ["THÔNG TIN", "Inception là một phim phát hành năm 2010.", C.teal, "EAF2F8"],
+    ["TRI THỨC", "Christopher Nolan đạo diễn Inception.", C.purple, C.purpleBg],
+    ["SUY LUẬN", "Nolan là đạo diễn của một phim khoa học viễn tưởng.", C.green, C.greenBg],
+  ];
+  levels.forEach((d, i) => {
+    const x = 0.72 + i * 3.12;
+    const y = 4.9 - i * 0.78;
+    s.addShape(pptx.ShapeType.roundRect, { x, y, w: 2.62, h: 1.42 + i * 0.78, rectRadius: 0.05, fill: { color: d[3] }, line: { color: d[2], width: 1.3 }, shadow: shadow() });
+    s.addText(d[0], { x: x + 0.2, y: y + 0.22, w: 2.2, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: d[2], charSpacing: 1.1, margin: 0 });
+    s.addText(d[1], { x: x + 0.2, y: y + 0.7, w: 2.18, h: 0.72, fontFace: "Calibri", fontSize: 13, bold: i > 1, color: C.ink, margin: 0, fit: "shrink" });
+    if (i < 3) s.addShape(pptx.ShapeType.line, { x: x + 2.66, y: y + 0.7, w: 0.38, h: -0.25, line: { color: C.muted, width: 1.4, endArrowType: "triangle" } });
+  });
+  s.addText("Ngữ cảnh + quan hệ + quy tắc làm cho dữ liệu trở thành tri thức có thể truy vấn và suy luận.", { x: 1.4, y: 6.48, w: 10.5, h: 0.34, fontFace: "Calibri", fontSize: 15, bold: true, color: C.navy, align: "center", margin: 0 });
+  notes(s, "Ta phân biệt bốn mức. Dữ liệu là các ký hiệu rời rạc. Thông tin thêm ngữ cảnh. Tri thức nối các thực thể bằng một quan hệ có nghĩa. Khi có schema và quy tắc, hệ thống còn có thể suy ra sự kiện mới. Knowledge Graph chủ yếu hoạt động ở hai tầng cuối.");
 }
 
-// 3 — Gap
+// 3 — Definition and anatomy
 {
-  const s = lightSlide("Ba khoảng trống cần giải quyết đồng thời", "Nếu thiếu một trong ba, hệ thống có thể trả lời được nhưng không đáng tin hoặc không giải thích được.", "Bài toán");
-  card(s, 0.65, 2.05, 3.78, 3.95, "Định danh đúng", "209 người trùng tên vẫn phải là các thực thể khác nhau.\n\nKhông dùng tên làm khóa chính; ưu tiên định danh nguồn ổn định.", { badge: "ID", badgeColor: C.teal, titleSize: 19, bodySize: 14 });
-  card(s, 4.78, 2.05, 3.78, 3.95, "Duyệt nhiều bước", "Bạn diễn, phim chung, đạo diễn–thể loại và đường liên hệ đều cần duyệt đồ thị (traversal) qua nhiều cạnh.\n\nMô hình phải phản ánh trực tiếp các quan hệ.", { badge: "↗", badgeColor: C.amber, titleSize: 19, bodySize: 14, fill: C.amberBg, stroke: "F1D5AA" });
-  card(s, 8.91, 2.05, 3.78, 3.95, "Giải thích được", "Kết quả cần gắn với nguồn, thực thể đã liên kết, cạnh hỗ trợ và đóng góp điểm.\n\nKhông chấp nhận suy diễn hộp đen.", { badge: "✓", badgeColor: C.green, titleSize: 19, bodySize: 14, fill: C.greenBg, stroke: "C4E2D1" });
-  notes(s, "Đề tài tập trung vào ba khoảng trống. Thứ nhất là identity: trùng tên không đồng nghĩa cùng người. Thứ hai là traversal: nhiều câu hỏi thực chất là mẫu đường đi. Thứ ba là provenance: mỗi kết quả phải lần ngược được về nguồn hoặc phép suy diễn.");
+  const s = lightSlide("Knowledge Graph là gì?", "Một mô hình tri thức dạng đồ thị, trong đó thực thể và quan hệ mang ngữ nghĩa có thể đọc bởi cả người và máy.", "Nền tảng");
+  s.addShape(pptx.ShapeType.ellipse, { x: 1.0, y: 2.35, w: 2.0, h: 2.0, fill: { color: C.purpleBg }, line: { color: C.purple, width: 2 }, shadow: shadow() });
+  s.addText("Christopher\nNolan", { x: 1.25, y: 2.95, w: 1.5, h: 0.55, fontFace: "Calibri", fontSize: 18, bold: true, color: C.purple, align: "center", margin: 0 });
+  s.addShape(pptx.ShapeType.ellipse, { x: 5.6, y: 2.35, w: 2.0, h: 2.0, fill: { color: "EAF2F8" }, line: { color: C.teal, width: 2 }, shadow: shadow() });
+  s.addText("Inception", { x: 5.85, y: 3.08, w: 1.5, h: 0.28, fontFace: "Calibri", fontSize: 18, bold: true, color: C.teal, align: "center", margin: 0 });
+  s.addShape(pptx.ShapeType.line, { x: 3.05, y: 3.33, w: 2.48, h: 0, line: { color: C.green, width: 2.5, endArrowType: "triangle" } });
+  s.addText("DIRECTED", { x: 3.52, y: 2.88, w: 1.55, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: C.green, align: "center", margin: 0 });
+  card(s, 8.25, 1.95, 4.35, 1.25, "Thực thể (entity)", "Đối tượng có định danh: người, phim, địa điểm, tổ chức…", { badge: "N", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8" });
+  card(s, 8.25, 3.48, 4.35, 1.25, "Quan hệ (relationship)", "Liên kết có nghĩa và có hướng giữa các thực thể.", { badge: "E", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1" });
+  card(s, 8.25, 5.01, 4.35, 1.25, "Thuộc tính & định danh", "Tên, ngày, rating… mô tả node/cạnh; ID phân biệt identity.", { badge: "P", badgeColor: C.teal, fill: "EAF2F8", stroke: "BDD4E5" });
+  s.addText("subject", { x: 1.55, y: 4.58, w: 0.9, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
+  s.addText("predicate", { x: 3.72, y: 3.62, w: 1.1, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
+  s.addText("object", { x: 6.15, y: 4.58, w: 0.9, h: 0.22, fontFace: "Arial", fontSize: 9, color: C.muted, align: "center", margin: 0 });
+  notes(s, "Không có một định nghĩa duy nhất được mọi tài liệu dùng giống hệt nhau. Trong phạm vi này, Knowledge Graph là mô hình đồ thị của các thực thể có định danh, các quan hệ có ngữ nghĩa và schema đủ để máy diễn giải. Mệnh đề cơ bản có thể đọc theo subject–predicate–object.");
 }
 
-// 4 — RQ
+// 4 — Schema and instance
+{
+  const s = lightSlide("Schema nói điều gì được phép; instance nói điều gì đang đúng", "Tách lớp khái niệm khỏi dữ liệu cụ thể giúp kiểm tra tính nhất quán và tái sử dụng mô hình.", "Nền tảng");
+  s.addText("LỚP KHÁI NIỆM · TBOX / SCHEMA", { x: 0.75, y: 1.92, w: 4.2, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: C.purple, charSpacing: 1.1, margin: 0 });
+  card(s, 0.75, 2.35, 2.3, 1.25, "Person", "Một lớp thực thể", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple });
+  card(s, 4.0, 2.35, 2.3, 1.25, "Movie", "Một lớp thực thể", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal });
+  s.addShape(pptx.ShapeType.line, { x: 3.08, y: 2.98, w: 0.87, h: 0, line: { color: C.green, width: 2, endArrowType: "triangle" } });
+  s.addText("directed", { x: 3.08, y: 2.58, w: 0.87, h: 0.2, fontFace: "Arial", fontSize: 9, bold: true, color: C.green, align: "center", margin: 0 });
+  s.addText("Domain: Person · Range: Movie", { x: 1.55, y: 3.92, w: 3.9, h: 0.28, fontFace: "Calibri", fontSize: 13, bold: true, color: C.navy, align: "center", margin: 0 });
+  s.addShape(pptx.ShapeType.chevron, { x: 6.65, y: 2.25, w: 1.0, h: 2.05, fill: { color: C.amberBg }, line: { color: C.amber } });
+  s.addText("thể hiện", { x: 6.7, y: 3.02, w: 0.7, h: 0.25, fontFace: "Arial", fontSize: 9, bold: true, color: C.amber, align: "center", margin: 0, rotate: 90 });
+  s.addText("LỚP SỰ KIỆN · ABOX / INSTANCE", { x: 8.05, y: 1.92, w: 4.2, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: C.teal, charSpacing: 1.1, margin: 0 });
+  card(s, 8.05, 2.35, 2.05, 1.25, "Nolan", "instanceOf Person", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple });
+  card(s, 10.95, 2.35, 1.7, 1.25, "Inception", "instanceOf Movie", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 15 });
+  s.addShape(pptx.ShapeType.line, { x: 10.12, y: 2.98, w: 0.8, h: 0, line: { color: C.green, width: 2, endArrowType: "triangle" } });
+  s.addText("directed", { x: 10.12, y: 2.58, w: 0.8, h: 0.2, fontFace: "Arial", fontSize: 9, bold: true, color: C.green, align: "center", margin: 0 });
+  card(s, 1.1, 5.12, 3.35, 1.05, "Graph schema", "Định nghĩa label, thuộc tính, quan hệ, ràng buộc.", { badge: "1", shadow: false });
+  card(s, 5.0, 5.12, 3.35, 1.05, "Knowledge base", "Schema + tập instance/fact đang lưu.", { badge: "2", badgeColor: C.purple, shadow: false, fill: C.purpleBg });
+  card(s, 8.9, 5.12, 3.35, 1.05, "Knowledge Graph", "Knowledge base được tổ chức và truy vấn như đồ thị.", { badge: "3", badgeColor: C.green, shadow: false, fill: C.greenBg });
+  notes(s, "Schema mô tả label, loại quan hệ, thuộc tính và constraint chung. Instance chứa các node, edge và fact cụ thể, ví dụ Nolan DIRECTED Inception. Knowledge Graph kết hợp mô hình và dữ liệu thực tế để truy vấn.");
+}
+
+// 5 — Property Graph
+{
+  const s = lightSlide("Property Graph biểu diễn trực tiếp node, cạnh và thuộc tính", "Đây là mô hình graph duy nhất được triển khai trong project.", "Mô hình biểu diễn");
+  addImageContain(s, A("property_graph_schema"), 0.65, 1.92, 7.8, 4.65);
+  card(s, 8.8, 1.96, 3.82, 1.2, "Node", "Movie, Person, Genre, Keyword và Studio.", { badge: "N", fill: "EAF2F8", stroke: "BDD4E5" });
+  card(s, 8.8, 3.44, 3.82, 1.2, "Relationship", "ACTED_IN, DIRECTED, HAS_GENRE…", { badge: "E", badgeColor: C.green, fill: C.greenBg, stroke: "C4E2D1" });
+  card(s, 8.8, 4.92, 3.82, 1.2, "Property", "Node và cạnh đều mang dữ liệu; cạnh ACTED_IN giữ vai diễn và thứ tự cast.", { badge: "P", badgeColor: C.purple, fill: C.purpleBg, stroke: "D9CFE8", bodySize: 10.5 });
+  notes(s, "Project chọn Property Graph vì node và relationship đều có thể mang property. Điều này đặc biệt phù hợp với ACTED_IN, nơi character và cast_order thuộc về lần một người tham gia một phim, không thuộc riêng Person hay Movie.");
+}
+
+// 6 — Reasoning and Cypher
+{
+  const s = lightSlide("Cypher vừa truy vấn mẫu đường đi, vừa vật chất hóa luật nghiệp vụ", "Một ngôn ngữ thống nhất cho constraint, traversal, aggregation và derived relationship.", "Truy vấn và suy diễn");
+  card(s, 0.72, 1.95, 5.8, 4.55, "Truy vấn bằng pattern", "MATCH (p:Person)-[:DIRECTED]->(m:Movie)\nWHERE p.name = $name\nRETURN m.title\n\nPattern thể hiện trực tiếp node và cạnh cần tìm; giá trị người dùng được truyền bằng parameter.", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal, titleSize: 21, bodySize: 15 });
+  card(s, 6.82, 1.95, 5.8, 4.55, "Suy diễn bằng rule", "MATCH (a)-[:ACTED_IN]->(m)<-[:ACTED_IN]-(b)\nMERGE (a)-[:CO_STARRED_WITH]->(b)\n\nFact suy ra lưu movie_count, evidence_movie_ids và derived=true để kiểm chứng.", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 21, bodySize: 15 });
+  s.addText("Không có reasoner riêng: luật nghiệp vụ được khai báo và thực thi trực tiếp trong Neo4j.", { x: 1.3, y: 6.7, w: 10.7, h: 0.28, fontFace: "Calibri", fontSize: 13.5, bold: true, color: C.navy, align: "center", margin: 0 });
+  notes(s, "Cypher phục vụ cả truy vấn và materialization. Query catalog dùng pattern có parameter. Luật CO_STARRED_WITH được chạy sau import và lưu evidence. Đây là cơ chế suy diễn duy nhất của hệ thống.");
+}
+
+// 7 — Theory recap and transition
 {
   const s = darkSlide();
-  s.addText("CÂU HỎI NGHIÊN CỨU", { x: 0.75, y: 0.68, w: 3.5, h: 0.25, fontFace: "Arial", fontSize: 10, bold: true, color: "8FD0CC", charSpacing: 1.6, margin: 0 });
-  s.addText("Đồ thị tri thức có thể tích hợp dữ liệu phim đa nguồn, hỗ trợ truy vấn nhiều bước và tạo kết quả có bằng chứng như thế nào?", { x: 0.75, y: 1.25, w: 11.4, h: 1.6, fontFace: "Calibri", fontSize: 30, bold: true, color: C.white, margin: 0, fit: "shrink" });
-  const goals = [
-    ["01", "Quy trình TMDB + IMDb tái lập được"],
-    ["02", "Định danh ổn định và ràng buộc dữ liệu"],
-    ["03", "Cypher nhiều bước và đường đi ngắn nhất"],
-    ["04", "QA 9 ý định + gợi ý có lời giải thích"],
-    ["05", "Đánh giá chất lượng, suy diễn và hiệu năng"],
+  s.addText("TỪ LÝ THUYẾT ĐẾN NGHIÊN CỨU TÌNH HUỐNG", { x: 0.75, y: 0.68, w: 5.6, h: 0.28, fontFace: "Arial", fontSize: 10, bold: true, color: "8FD0CC", charSpacing: 1.5, margin: 0 });
+  s.addText("Movie Knowledge Graph là nơi các khái niệm được kiểm chứng", { x: 0.75, y: 1.28, w: 10.8, h: 0.82, fontFace: "Calibri", fontSize: 30, bold: true, color: C.white, margin: 0, fit: "shrink" });
+  const mapping = [
+    ["THỰC THỂ", "Movie · Person · Genre · Keyword · Studio"],
+    ["QUAN HỆ", "ACTED_IN · DIRECTED · HAS_GENRE…"],
+    ["ĐỊNH DANH", "Stable TMDB/IMDb IDs + provenance"],
+    ["SUY DIỄN", "CO_STARRED_WITH có bằng chứng"],
+    ["TRUY VẤN", "Cypher có tham số"],
   ];
-  goals.forEach((g, i) => {
+  mapping.forEach((d, i) => {
     const x = 0.75 + i * 2.48;
-    s.addText(g[0], { x, y: 4.25, w: 0.42, h: 0.3, fontFace: "Arial", fontSize: 12, bold: true, color: "8FD0CC", margin: 0 });
-    s.addText(g[1], { x, y: 4.72, w: 2.14, h: 1.0, fontFace: "Calibri", fontSize: 13.5, bold: true, color: C.white, margin: 0, fit: "shrink" });
+    s.addText(d[0], { x, y: 3.5, w: 2.15, h: 0.24, fontFace: "Arial", fontSize: 9, bold: true, color: i === 3 ? "D7C8F0" : "8FD0CC", charSpacing: 1.0, margin: 0 });
+    s.addText(d[1], { x, y: 4.02, w: 2.15, h: 1.1, fontFace: "Calibri", fontSize: 14, bold: true, color: C.white, margin: 0, fit: "shrink" });
   });
-  notes(s, "Câu hỏi nghiên cứu được cụ thể hóa thành năm mục tiêu đo được: tích hợp tái lập, mô hình có identity và constraint, truy vấn Cypher nhiều bước, hai ứng dụng có giải thích và một kế hoạch đánh giá có bằng chứng.");
-}
-
-// 5 — Scope
-{
-  const s = lightSlide("Phạm vi được khóa để bảo đảm tính kiểm chứng", "MVP tập trung vào đồ thị phim có thể chạy, đo và trình diễn; không mở rộng sang sinh Cypher tự do.", "Phạm vi");
-  metric(s, 0.65, 2.0, 2.35, "4.999", "Phim (Movie) hợp lệ", C.teal, "từ 5.000 bản ghi đầu vào");
-  metric(s, 3.25, 2.0, 2.35, "5 + 1", "Quan hệ gốc + suy diễn", C.purple, "CO_STARRED_WITH là cạnh suy ra");
-  metric(s, 5.85, 2.0, 2.35, "2 nguồn", "TMDB + IMDb", C.green, "IMDb chỉ enrich rating/votes");
-  card(s, 0.65, 3.75, 5.75, 2.2, "Trong phạm vi", "Movie · Person · Genre · Keyword · Studio\nNeo4j/Cypher · RDF/OWL/SPARQL\nQA 9 ý định · gợi ý IDF có bằng chứng", { fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, bodySize: 14 });
-  card(s, 6.75, 3.75, 5.9, 2.2, "Ngoài phạm vi", "Giải thưởng/Wikidata · LLM-to-Cypher tự do\nTìm kiếm véc-tơ · GraphRAG · đa phương thức\nĐánh giá người dùng quy mô lớn", { fill: C.redBg, stroke: "E9C3C6", titleColor: C.red, bodySize: 14 });
-  notes(s, "Phạm vi hiện tại là 4.999 phim hợp lệ, năm loại quan hệ gốc và một quan hệ suy diễn. TMDB là nguồn cấu trúc đồ thị; IMDb chỉ bổ sung rating bằng exact ID. Các hướng như LLM-to-Cypher, vector search và GraphRAG được loại khỏi MVP để tránh đánh đổi tính kiểm chứng.");
+  s.addText("Phần sau: bài toán → kiến trúc → dữ liệu → ứng dụng → bằng chứng thực nghiệm", { x: 0.75, y: 6.35, w: 10.0, h: 0.32, fontFace: "Calibri", fontSize: 15, color: "C9D8E4", margin: 0 });
+  notes(s, "Từ đây em chuyển sang nghiên cứu tình huống. Movie Knowledge Graph không phải định nghĩa của Knowledge Graph, mà là một miền đủ giàu để kiểm chứng cách mô hình thực thể, định danh, quan hệ, suy diễn và truy vấn hoạt động trong một hệ thống hoàn chỉnh.");
 }
 
 // 6 — Why graph
 {
-  const s = lightSlide("Neo4j và RDF/OWL đảm nhiệm hai vai trò bổ trợ", "Giá trị của đồ thị nằm ở mô hình quan hệ, đường đi bằng chứng và ngữ nghĩa — không phải luôn nhanh hơn SQL.", "Lựa chọn công nghệ");
+  const s = lightSlide("Neo4j được chọn vì phù hợp với quan hệ và traversal", "Giá trị của đồ thị nằm ở mô hình quan hệ và đường đi bằng chứng — không phải luôn nhanh hơn SQL.", "Lựa chọn công nghệ");
   const rows = [
     ["Yêu cầu", "Mô hình bảng", "Đồ thị thuộc tính"],
     ["Quan hệ nhiều–nhiều", "Bảng nối", "Cạnh trực tiếp"],
@@ -202,17 +252,32 @@ function lightSlide(title, kicker, section) {
   s.addText("Neo4j / Cypher", { x: 8.65, y: 2.35, w: 3.7, h: 0.35, fontFace: "Calibri", fontSize: 20, bold: true, color: C.navy, margin: 0 });
   s.addText("Kho vận hành cho duyệt đồ thị, hỏi–đáp và gợi ý.", { x: 8.65, y: 2.86, w: 3.45, h: 0.46, fontFace: "Calibri", fontSize: 13, color: C.ink, margin: 0, fit: "shrink" });
   s.addShape(pptx.ShapeType.roundRect, { x: 8.35, y: 4.15, w: 4.3, h: 1.72, rectRadius: 0.06, fill: { color: C.purpleBg }, line: { color: "D5C9E8" }, shadow: shadow() });
-  s.addText("RDF / OWL / SPARQL", { x: 8.65, y: 4.45, w: 3.7, h: 0.35, fontFace: "Calibri", fontSize: 20, bold: true, color: C.purple, margin: 0 });
-  s.addText("Lớp chuẩn trao đổi, ràng buộc và suy diễn ngữ nghĩa.", { x: 8.65, y: 4.96, w: 3.45, h: 0.46, fontFace: "Calibri", fontSize: 13, color: C.ink, margin: 0, fit: "shrink" });
-  notes(s, "Neo4j là kho vận hành vì thuận tiện cho traversal và ứng dụng. RDF/OWL là lớp chuẩn ngữ nghĩa và trao đổi. SQLite chỉ là mốc so sánh được kiểm soát. Em không kết luận đồ thị luôn nhanh hơn quan hệ; giá trị chính là mô hình và bằng chứng.");
+  s.addText("Property-rich relationships", { x: 8.65, y: 4.45, w: 3.7, h: 0.35, fontFace: "Calibri", fontSize: 20, bold: true, color: C.purple, margin: 0 });
+  s.addText("Cạnh ACTED_IN và CO_STARRED_WITH mang thuộc tính và bằng chứng trực tiếp.", { x: 8.65, y: 4.96, w: 3.45, h: 0.52, fontFace: "Calibri", fontSize: 13, color: C.ink, margin: 0, fit: "shrink" });
+  notes(s, "Neo4j là kho graph duy nhất vì thuận tiện cho traversal, relationship có property và ứng dụng. SQLite chỉ là mốc so sánh được kiểm soát. Em không kết luận đồ thị luôn nhanh hơn quan hệ; giá trị chính là mô hình và bằng chứng.");
 }
 
 // 7 — Architecture
 {
   const s = lightSlide("Kiến trúc đầu cuối: từ nguồn đến bằng chứng", "Sau khi import, đường chạy trình diễn không phụ thuộc Internet.", "Thiết kế hệ thống");
-  addImageContain(s, A("system_architecture"), 0.64, 1.88, 12.03, 4.72);
-  addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/system_architecture.drawio");
-  notes(s, "Luồng chính đi từ TMDB và IMDb qua cache bất biến, xử lý và chuẩn hóa sang Neo4j. Một nhánh xuất RDF/Turtle cho suy diễn ngữ nghĩa. FastAPI cung cấp QA và recommendation. Manifest, checksum và các phép kiểm tra bao quanh toàn bộ quy trình.");
+  const layers = [
+    ["TMDB + IMDb", "Nguồn dữ liệu", C.teal, "EAF2F8"],
+    ["Raw cache", "JSON · GZIP", C.amber, C.amberBg],
+    ["Processing", "Clean · exact join · CSV", C.green, C.greenBg],
+    ["Neo4j", "Constraint · import · reasoning", C.purple, C.purpleBg],
+    ["FastAPI", "QA · recommendation", C.red, C.redBg],
+    ["Web UI", "Answer · evidence", C.navy2, C.pale],
+  ];
+  layers.forEach((d, i) => {
+    const x = 0.55 + i * 2.12;
+    s.addShape(pptx.ShapeType.roundRect, { x, y: 2.35, w: 1.72, h: 2.25, rectRadius: 0.05, fill: { color: d[3] }, line: { color: d[2], width: 1.5 }, shadow: shadow() });
+    s.addText(d[0], { x: x + 0.18, y: 2.72, w: 1.36, h: 0.42, fontFace: "Calibri", fontSize: 17, bold: true, color: d[2], align: "center", margin: 0, fit: "shrink" });
+    s.addText(d[1], { x: x + 0.18, y: 3.5, w: 1.36, h: 0.58, fontFace: "Calibri", fontSize: 12, color: C.ink, align: "center", margin: 0, fit: "shrink" });
+    if (i < layers.length - 1) s.addShape(pptx.ShapeType.line, { x: x + 1.74, y: 3.48, w: 0.34, h: 0, line: { color: C.muted, width: 1.7, endArrowType: "triangle" } });
+  });
+  card(s, 2.1, 5.25, 3.65, 0.92, "Reproducibility", "Checksum + manifest quyết định import hay reuse.", { shadow: false, titleSize: 13, bodySize: 10, fill: C.amberBg });
+  card(s, 7.55, 5.25, 3.65, 0.92, "Explainability", "Entity link, graph row/path và shared feature.", { shadow: false, titleSize: 13, bodySize: 10, fill: C.greenBg });
+  notes(s, "Luồng chính đi từ TMDB và IMDb qua cache bất biến, xử lý và chuẩn hóa sang Neo4j. FastAPI cung cấp QA và recommendation. Manifest, checksum và các phép kiểm tra bao quanh toàn bộ quy trình.");
 }
 
 // 8 — Sources and IMDb
@@ -246,7 +311,14 @@ function lightSlide(title, kicker, section) {
 // 10 — ETL
 {
   const s = lightSlide("Quy trình dữ liệu có thể chạy lại và kiểm tra", "Raw cache bất biến → dữ liệu chuẩn hóa tất định → import idempotent → validation.", "Quy trình xử lý");
-  addImageContain(s, A("etl_pipeline"), 0.62, 1.92, 12.02, 3.9);
+  const steps = ["Collect", "Cache", "Clean", "IMDb join", "Normalize", "Neo4j load", "Reason", "Validate"];
+  steps.forEach((label, i) => {
+    const x = 0.5 + i * 1.57;
+    const color = i < 2 ? C.teal : (i < 5 ? C.amber : (i < 7 ? C.purple : C.green));
+    s.addShape(pptx.ShapeType.roundRect, { x, y: 2.4, w: 1.25, h: 1.0, rectRadius: 0.04, fill: { color: i % 2 ? C.white : C.pale }, line: { color, width: 1.4 }, shadow: shadow() });
+    s.addText(label, { x: x + 0.1, y: 2.74, w: 1.05, h: 0.28, fontFace: "Calibri", fontSize: 13, bold: true, color, align: "center", margin: 0, fit: "shrink" });
+    if (i < steps.length - 1) s.addShape(pptx.ShapeType.line, { x: x + 1.27, y: 2.9, w: 0.26, h: 0, line: { color: C.muted, width: 1.4, endArrowType: "triangle" } });
+  });
   const captions = [
     ["Cache", "Không tải lại nguồn khi xử lý lại"],
     ["Manifest", "Count + checksum + chất lượng"],
@@ -254,7 +326,6 @@ function lightSlide(title, kicker, section) {
     ["Gate", "Phát hiện orphan và khóa lỗi"],
   ];
   captions.forEach((d, i) => card(s, 0.68 + i * 3.03, 5.98, 2.72, 0.72, d[0], d[1], { shadow: false, titleSize: 12, bodySize: 9.5, fill: i % 2 ? "F0F6F8" : C.white }));
-  addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/etl_pipeline.drawio");
   notes(s, "Quy trình gồm collect, cache, clean, exact-ID enrich, normalize, load, reason và validate. Raw cache là bất biến; manifest ghi checksum và số lượng. Import dùng batch và MERGE nên có thể chạy lặp. Runtime chỉ import lại khi checksum processed hoặc số Movie thay đổi.");
 }
 
@@ -313,13 +384,13 @@ function lightSlide(title, kicker, section) {
 
 // 14 — reasoning
 {
-  const s = lightSlide("CO_STARRED_WITH là fact suy ra có thể kiểm chứng", "Không gọi đây là OWL reasoning: đây là phép vật chất hóa luật nghiệp vụ bằng Cypher.", "Suy diễn");
+  const s = lightSlide("CO_STARRED_WITH là fact suy ra có thể kiểm chứng", "Đây là phép vật chất hóa luật nghiệp vụ bằng Cypher.", "Suy diễn");
   addImageContain(s, A("costar_reasoning"), 0.65, 1.92, 8.0, 4.7);
   card(s, 8.98, 1.95, 3.7, 1.18, "Sự kiện được khẳng định", "ACTED_IN đến từ danh sách vai diễn của TMDB.", { fill: "EAF2F8", stroke: "BDD4E5", titleColor: C.teal });
   card(s, 8.98, 3.43, 3.7, 1.18, "Sự kiện suy ra", "CO_STARRED_WITH được tạo từ phim chung.", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple });
   card(s, 8.98, 4.91, 3.7, 1.4, "Bằng chứng", "movie_count · evidence_movie_ids · derived=true", { fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, bodySize: 12 });
   addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/costar_reasoning.drawio");
-  notes(s, "Từ hai cạnh ACTED_IN cùng đi vào một Movie, hệ thống vật chất hóa CO_STARRED_WITH. Cạnh suy ra lưu số phim chung và danh sách Movie hỗ trợ, nên có thể lần ngược. Đây là rule-based materialization bằng Cypher, tách biệt với OWL entailment.");
+  notes(s, "Từ hai cạnh ACTED_IN cùng đi vào một Movie, hệ thống vật chất hóa CO_STARRED_WITH. Cạnh suy ra lưu số phim chung và danh sách Movie hỗ trợ, nên có thể lần ngược. Đây là cơ chế suy diễn duy nhất của hệ thống.");
 }
 
 // 15 — QA
@@ -348,31 +419,6 @@ function lightSlide(title, kicker, section) {
   card(s, 8.72, 5.92, 3.9, 0.72, "Điểm được tính trong Neo4j", "Không tải toàn bộ graph về Python.", { shadow: false, titleSize: 12, bodySize: 9.5, fill: C.greenBg, stroke: "C4E2D1" });
   addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/recommendation_explanation.drawio");
   notes(s, "Ranker dùng IDF-weighted graph similarity. Đặc trưng chung hiếm đóng góp nhiều hơn đặc trưng phổ biến. Trọng số ưu tiên director và actor. Điểm và explanation đều được tính từ traversal trong Neo4j, không tải toàn graph về Python.");
-}
-
-// 17 — Semantic layer
-{
-  const s = lightSlide("RDF/OWL bổ sung lớp chuẩn ngữ nghĩa", "Cùng ảnh chụp dữ liệu được xuất sang Turtle với URI ổn định và truy vấn bằng SPARQL.", "Ngữ nghĩa");
-  addImageContain(s, A("ontology_diagram"), 0.62, 1.92, 7.75, 4.68);
-  card(s, 8.72, 1.94, 3.92, 1.1, "Khả năng liên thông", "URI ổn định và từ vựng chuẩn hóa.", { badge: "1", shadow: false, fill: C.purpleBg, stroke: "D9CFE8" });
-  card(s, 8.72, 3.28, 3.92, 1.1, "Ràng buộc", "Functional property · disjoint class · required title.", { badge: "2", badgeColor: C.purple, shadow: false, fill: C.purpleBg, stroke: "D9CFE8" });
-  card(s, 8.72, 4.62, 3.92, 1.1, "Suy diễn ngữ nghĩa", "miền/phạm vi · inverseOf · quan hệ đối xứng.", { badge: "3", badgeColor: C.purple, shadow: false, fill: C.purpleBg, stroke: "D9CFE8" });
-  card(s, 8.72, 5.96, 3.92, 0.65, "10/10 SPARQL", "RDFLib và Jena/Fuseki.", { shadow: false, titleSize: 12, bodySize: 9.5, fill: C.greenBg, stroke: "C4E2D1" });
-  addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/ontology_diagram.drawio");
-  notes(s, "RDF/OWL không thay Neo4j trong đường chạy ứng dụng. Nó cung cấp URI ổn định, vocabulary, ràng buộc và entailment. Cùng tập dữ liệu được kiểm tra bằng RDFLib và Jena/Fuseki; cả mười truy vấn SPARQL đều chạy thành công.");
-}
-
-// 18 — Semantic result
-{
-  const s = lightSlide("Suy diễn ngữ nghĩa đã chạy trên toàn ảnh chụp", "Kết quả chỉ đại diện cho RDFS/OWL-RL subset đã khai báo, không phải full OWL 2 DL.", "Ngữ nghĩa");
-  addImageContain(s, A("semantic_reasoning"), 0.65, 1.92, 7.25, 4.7);
-  metric(s, 8.25, 2.0, 2.05, "342.683", "Triple trước", C.teal);
-  metric(s, 10.55, 2.0, 2.05, "429.192", "Triple sau", C.purple);
-  metric(s, 8.25, 3.7, 2.05, "+86.509", "Triple suy ra", C.amber);
-  metric(s, 10.55, 3.7, 2.05, "0", "Vi phạm ngữ nghĩa", C.green);
-  card(s, 8.25, 5.45, 4.35, 1.0, "Hai loại suy diễn", "OWL entailment cho semantics; Cypher rule cho CO_STARRED_WITH.", { fill: C.purpleBg, stroke: "D9CFE8", titleSize: 14, bodySize: 10.5 });
-  addSource(s, "Nguồn: experiments/results/semantic/semantic_reasoning.json");
-  notes(s, "Materialization tăng từ 342.683 lên 429.192 triple, tức 86.509 triple suy ra và không có vi phạm trong tập luật khai báo. Em phân biệt rõ OWL entailment với luật nghiệp vụ CO_STARRED_WITH bằng Cypher.");
 }
 
 // 19 — Evaluation design
@@ -510,7 +556,7 @@ function lightSlide(title, kicker, section) {
   s.addText("Đồ thị tri thức tạo giá trị khi\nmỗi quan hệ đều có thể được kiểm chứng", { x: 0.75, y: 1.18, w: 9.2, h: 1.25, fontFace: "Calibri", fontSize: 31, bold: true, color: C.white, margin: 0, fit: "shrink" });
   const conclusions = [
     ["01", "Tích hợp đúng", "TMDB + IMDb, stable ID, provenance và quy trình tái lập."],
-    ["02", "Truy vấn được", "Cypher multi-hop, derived fact và semantic entailment."],
+    ["02", "Truy vấn được", "Cypher multi-hop và derived fact có bằng chứng."],
     ["03", "Giải thích được", "QA và gợi ý trả cả thực thể, path và đóng góp điểm."],
   ];
   conclusions.forEach((d, i) => {
@@ -520,38 +566,7 @@ function lightSlide(title, kicker, section) {
     s.addText(d[2], { x, y: 4.58, w: 3.25, h: 0.82, fontFace: "Calibri", fontSize: 13.5, color: "C9D8E4", margin: 0, fit: "shrink" });
   });
   s.addText("Xin cảm ơn thầy. Em xin lắng nghe câu hỏi và phản biện.", { x: 0.78, y: 6.5, w: 8.5, h: 0.4, fontFace: "Calibri", fontSize: 16, bold: true, color: "8FD0CC", margin: 0 });
-  notes(s, "Tóm lại, đề tài đã xây dựng được một quy trình tích hợp đa nguồn có stable identity và provenance; đồ thị hỗ trợ traversal, suy diễn và semantic validation; hai ứng dụng trả kết quả kèm bằng chứng. Em xin cảm ơn thầy và xin lắng nghe phản biện.");
-}
-
-// Appendix 1
-{
-  const s = lightSlide("Phụ lục · Chín ý định và nhóm Cypher", "Chỉ mở khi giảng viên hỏi sâu về phạm vi chatbot.", "Phản biện");
-  const intents = [
-    ["movies_by_director", "Lookup 1–2 hop"],
-    ["actors_in_movie", "Lookup 1 hop"],
-    ["common_movies", "Shared neighbor"],
-    ["movies_by_genre_rating", "Filter + traversal"],
-    ["co_stars", "Derived edge"],
-    ["directors_by_genre", "Aggregation 2 hop"],
-    ["shortest_path", "shortestPath([*..8])"],
-    ["similar_movies", "Graph similarity"],
-    ["movie_details", "Canonical lookup"],
-  ];
-  intents.forEach((d, i) => {
-    const col = i % 3, row = Math.floor(i / 3), x = 0.68 + col * 4.16, y = 1.95 + row * 1.43;
-    card(s, x, y, 3.82, 1.08, d[0], d[1], { badge: String(i + 1), shadow: false, titleSize: 13, bodySize: 10.5, fill: col === 2 ? C.purpleBg : C.white, stroke: col === 2 ? "D9CFE8" : C.line });
-  });
-  card(s, 0.68, 6.35, 12.02, 0.55, "Ranh giới an toàn", "Parser chỉ chọn intent và tham số; cấu trúc Cypher luôn lấy từ catalog cố định.", { shadow: false, titleSize: 11.5, bodySize: 9.5, fill: C.greenBg, stroke: "C4E2D1" });
-  notes(s, "Phụ lục này ánh xạ chín ý định sang nhóm truy vấn. Điểm cần nhấn mạnh là parser không viết Cypher; nó chỉ chọn intent và tham số cho catalog cố định.");
-}
-
-// Appendix 2
-{
-  const s = lightSlide("Phụ lục · Hai lớp suy diễn không bị đánh đồng", "OWL entailment phục vụ ngữ nghĩa; Cypher materialization phục vụ luật nghiệp vụ.", "Phản biện");
-  card(s, 0.72, 1.95, 5.75, 4.45, "RDFS / OWL-RL subset", "domain / range → suy ra kiểu\ninverseOf → actedIn ⇄ hasActor\nsymmetric property\nfunctional/disjoint validation\n\n342.683 → 429.192 triple\n+86.509 inferred · 0 violation", { fill: C.purpleBg, stroke: "D9CFE8", titleColor: C.purple, titleSize: 20, bodySize: 15 });
-  card(s, 6.85, 1.95, 5.75, 4.45, "Cypher rule nghiệp vụ", "Person A → Movie ← Person B\n\nVật chất hóa CO_STARRED_WITH\nmovie_count\nevidence_movie_ids\nderived=true\n\nPrecision silver: 1,00 / 50 fact", { fill: C.greenBg, stroke: "C4E2D1", titleColor: C.green, titleSize: 20, bodySize: 15 });
-  addSource(s, "Nguồn: semantic_reasoning.json · reasoning.json · costar_reasoning.drawio");
-  notes(s, "Nếu được hỏi về reasoning, cần phân biệt hai lớp. RDFS/OWL-RL subset suy ra các fact ngữ nghĩa theo ontology. CO_STARRED_WITH là luật nghiệp vụ được vật chất hóa bằng Cypher và lưu evidence.");
+  notes(s, "Tóm lại, đề tài đã xây dựng được một quy trình tích hợp đa nguồn có stable identity và provenance; Neo4j hỗ trợ traversal và suy diễn bằng Cypher; hai ứng dụng trả kết quả kèm bằng chứng. Em xin cảm ơn thầy và xin lắng nghe phản biện.");
 }
 
 pptx.writeFile({ fileName: OUT });
