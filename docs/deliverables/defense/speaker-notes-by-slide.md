@@ -431,26 +431,45 @@ mô hình đó hay không.”
 
 ## Slide 19 — Gợi ý phim có giải thích
 
-**Mục tiêu:** giải thích weighted graph similarity và IDF.
+**Mục tiêu:** trình bày đầy đủ các bước của thuật toán IDF-weighted graph
+similarity đang chạy trong Neo4j.
 
 **Có thể nói gần như nguyên văn:**
 
-> Candidate là các Movie chia sẻ director, actor, keyword, genre hoặc studio với
-> phim nguồn. Như vậy, ứng dụng bắt đầu từ neighborhood của phim đang xét, lấy
-> những phim có ít nhất một đặc trưng chung rồi mới tính điểm.
+> Thuật toán nhận đầu vào là một phim nguồn và số lượng kết quả Top-K. Bước đầu
+> tiên, Neo4j duyệt vùng lân cận của phim nguồn qua năm loại quan hệ: đạo diễn,
+> diễn viên, keyword, thể loại và studio. Một Movie khác trở thành candidate nếu
+> chia sẻ ít nhất một trong năm loại đặc trưng này. Phim nguồn bị loại khỏi tập
+> candidate.
 >
-> Mỗi shared feature đóng góp `type_weight` nhân với thành phần IDF. Trọng số
-> loại thể hiện ưu tiên của miền: đạo diễn và diễn viên đóng góp nhiều hơn thể
-> loại hoặc từ khóa. Thành phần IDF phụ thuộc vào document frequency: đặc trưng
-> xuất hiện ở quá nhiều phim có sức phân biệt thấp nên bị giảm ảnh hưởng; đặc
-> trưng hiếm đóng góp nhiều hơn.
+> Bước thứ hai là tính đóng góp của từng đặc trưng chung. Công thức trên slide
+> là `type_weight × (1 + ln((N + 1) / (df + 1)))`. Trong đó, `N` là tổng số
+> Movie trong graph; `df` là số Movie được nối với đặc trưng đang xét. Hai số
+> cộng một giúp công thức ổn định khi tính toán. Nếu một đặc trưng xuất hiện ở
+> rất nhiều phim, tỷ số tiến gần một và phần IDF nhỏ. Nếu đặc trưng hiếm, tỷ số
+> lớn hơn nên contribution tăng. Vì vậy, cùng thể loại Drama thường cung cấp ít
+> sức phân biệt hơn cùng một đạo diễn hoặc keyword hiếm.
 >
-> Tổng các contribution tạo thành điểm cuối. Neo4j trả lại cả điểm và danh sách
-> shared feature đã đóng góp. Do lời giải thích được tạo từ đúng các thành phần
-> dùng để xếp hạng, nó phản ánh cơ chế tính điểm chứ không phải một câu giải thích
-> được thêm vào sau.
+> Trọng số loại phản ánh mức ưu tiên được khai báo trong thuật toán: đạo diễn
+> là `3,0`, diễn viên `2,0`, keyword `1,5`, thể loại `1,0` và studio `0,75`.
+> Đây là các trọng số cố định của runtime; chúng không được học từ hành vi người
+> dùng.
+>
+> Bước thứ ba, điểm của một candidate bằng tổng contribution của tất cả đặc
+> trưng mà candidate chia sẻ với phim nguồn. Do đó, một phim có thể được điểm từ
+> nhiều diễn viên, nhiều keyword và nhiều loại quan hệ cùng lúc. Hệ thống không
+> dùng rating hay popularity để cộng thêm vào điểm.
+>
+> Cuối cùng, Neo4j sắp xếp candidate theo điểm giảm dần; nếu bằng điểm thì sắp
+> theo title, rồi lấy Top-K. Đồng thời query trả lại chính các shared feature đã
+> tạo điểm. Phần explanation được dựng từ danh sách này, nên lời giải thích phản
+> ánh trực tiếp cơ chế xếp hạng chứ không phải một câu được thêm vào sau.
+>
+> Tóm lại, đây là content-based recommendation trên cấu trúc graph có trọng số
+> IDF. Nó không phải collaborative filtering và cũng không sử dụng embedding.
 
-**Cần chỉ vào:** công thức, trọng số và shared feature.
+**Cần chỉ vào:** năm loại đặc trưng, công thức với `N` và `df`, năm trọng số,
+rồi khối “Tổng điểm → Top-K → giải thích”.
 
 **Chuyển ý:** “Để đọc kết quả đánh giá, cần hiểu từng metric đo điều gì.”
 

@@ -401,19 +401,19 @@ function lightSlide(title, kicker, section) {
 
 // 16 — Recommendation
 {
-  const s = lightSlide("Gợi ý giải thích được bằng đóng góp trên đồ thị", "IDF giảm ảnh hưởng của đặc trưng quá phổ biến; mỗi đề xuất kèm các đặc trưng chung tạo điểm.", "Ứng dụng gợi ý");
+  const s = lightSlide("Thuật toán gợi ý: tìm đặc trưng chung, tính IDF và xếp hạng", "Neo4j chỉ xét phim có chung ít nhất một đạo diễn, diễn viên, keyword, thể loại hoặc studio với phim nguồn.", "Ứng dụng gợi ý");
   addImageContain(s, A("recommendation_explanation"), 0.63, 1.92, 7.78, 4.7);
   s.addText("contribution = type_weight × (1 + ln((N+1)/(df+1)))", { x: 8.72, y: 2.02, w: 3.9, h: 0.62, fontFace: "Courier New", fontSize: 12.5, bold: true, color: C.navy, margin: 0, fit: "shrink" });
-  const weights = [["Đạo diễn", "3,0", C.purple], ["Diễn viên", "2,0", C.teal], ["Thể loại", "1,5", C.green], ["Từ khóa", "1,0", C.amber]];
+  const weights = [["Đạo diễn", "3,0", C.purple], ["Diễn viên", "2,0", C.teal], ["Keyword", "1,5", C.amber], ["Thể loại", "1,0", C.green], ["Studio", "0,75", C.navy2]];
   weights.forEach((d, i) => {
-    const y = 2.95 + i * 0.72;
+    const y = 2.85 + i * 0.54;
     s.addText(d[0], { x: 8.75, y, w: 1.25, h: 0.24, fontFace: "Calibri", fontSize: 12, bold: true, color: C.ink, margin: 0 });
     s.addShape(pptx.ShapeType.rect, { x: 10.08, y: y + 0.03, w: Number(d[1].replace(",", ".")) * 0.56, h: 0.18, fill: { color: d[2] }, line: { color: d[2] } });
     s.addText(d[1], { x: 11.9, y, w: 0.5, h: 0.24, fontFace: "Arial", fontSize: 11, bold: true, color: d[2], align: "right", margin: 0 });
   });
-  card(s, 8.72, 5.62, 3.9, 1.02, "Mỗi điểm số đều có lời giải thích", "Neo4j trả cả tổng điểm và các đặc trưng chung đã đóng góp vào điểm đó.", { shadow: false, titleSize: 12, bodySize: 9.2, fill: C.greenBg, stroke: "C4E2D1" });
+  card(s, 8.72, 5.72, 3.9, 0.92, "Tổng điểm → Top-K → giải thích", "Cộng mọi contribution, xếp điểm giảm dần và trả chính các shared feature đã tạo điểm.", { shadow: false, titleSize: 12, bodySize: 8.7, fill: C.greenBg, stroke: "C4E2D1" });
   addSource(s, "Nguồn chỉnh sửa: report_latex/images/sources/recommendation_explanation.drawio");
-  notes(s, "Ranker dùng IDF-weighted graph similarity. Đặc trưng chung hiếm đóng góp nhiều hơn đặc trưng phổ biến. Trọng số ưu tiên director và actor. Điểm và explanation đều được tính từ traversal trong Neo4j, không tải toàn graph về Python.");
+  notes(s, "Thuật toán bắt đầu từ phim nguồn và duyệt qua năm loại đặc trưng để tạo candidate: đạo diễn, diễn viên, keyword, thể loại và studio. Mỗi đặc trưng chung đóng góp type_weight nhân với 1 cộng log của (N+1)/(df+1), trong đó N là tổng số Movie và df là số Movie mang đặc trưng đó. Trọng số đúng trong runtime là director 3.0, actor 2.0, keyword 1.5, genre 1.0 và studio 0.75. Đặc trưng hiếm vì vậy đóng góp nhiều hơn đặc trưng phổ biến. Điểm candidate là tổng mọi contribution; Neo4j xếp điểm giảm dần, hòa điểm theo title và lấy Top-K. Explanation được tạo từ đúng các shared feature đã tạo điểm; thuật toán không dùng rating, popularity, hành vi người dùng hay embedding.");
 }
 
 // Evaluation metrics
