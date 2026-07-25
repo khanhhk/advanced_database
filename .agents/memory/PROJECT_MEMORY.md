@@ -211,17 +211,27 @@ documents and committed experiment artifacts are the verifiable project sources.
   are complete.
 - `docs/deliverables/slide/` stores the editable presentation workflow:
   `outline.md`, the PptxGenJS source `build.js`, high-resolution exports of the
-  report draw.io figures, the 25-slide defense deck,
+  report draw.io figures, the 31-slide defense deck,
   embedded speaker notes, and a PDF fallback. Text, shapes, tables and charts
   remain editable PowerPoint objects; complex diagrams retain their editable
   `.drawio` sources under `report_latex/images/sources/`. Rebuild with `npm ci`
   and `node docs/deliverables/slide/build.js`.
+  The defense deck was expanded on 2026-07-25 into a denser, 31-slide academic
+  narrative covering the concepts actually used by the project: identity,
+  schema/instance, Property Graph semantics, neighborhood/path/subgraph,
+  constraints and indexes, traversal vocabulary, entity resolution versus
+  entity linking, inference, provenance/lineage/evidence, graph similarity and
+  evaluation metrics. Movie QA and recommendation are a case study with one
+  consolidated evidence-path demo. Source-code and operations details remain
+  in the LaTeX report rather than the main slide narrative. The committed PDF
+  fallback is not automatically regenerated on every PPTX content revision.
 - `docs/deliverables/defense/speaker-notes-by-slide.md`,
   `docs/deliverables/defense/defense-script.md` and
-  `docs/deliverables/defense/defense-qa.md`: a detailed 25-slide speaking
-  script, timed presentation/demo sequence, fallback plan, rehearsal gate and
-  25 evidence-backed oral-defense questions. A rehearsal result must never be
-  claimed until a human completes it.
+  `docs/deliverables/defense/defense-qa.md`: slide-by-slide speaking notes are
+  synchronized with the 31-slide academic deck; the separate timed
+  presentation/demo script, fallback plan and rehearsal gate support delivery;
+  the QA document contains 25 evidence-backed oral-defense questions. A
+  rehearsal result must never be claimed until a human completes it.
 - Root `README.md`: current runnable interface and commands; prefer it over old
   planning prose when describing implemented behavior.
 - `docs/README.md`: top-level index and precedence guidance. Documentation is

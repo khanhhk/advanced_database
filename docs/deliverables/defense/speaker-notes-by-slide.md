@@ -1,59 +1,44 @@
 # Nội dung thuyết trình theo từng slide
 
-Tài liệu này bám theo bộ slide `movie_knowledge_graph_defense.pptx` gồm **25
-slide, không có phụ lục**. Phần trong mục **Có thể nói gần như nguyên văn** là
-kịch bản chính. Các mục **Cần chỉ vào** và **Chuyển ý** giúp thao tác tự nhiên,
-không phải đọc thành tiếng.
+Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **31 slide,
+không có phụ lục**. Phần **Có thể nói gần như nguyên văn** là kịch bản chính;
+**Cần chỉ vào** và **Chuyển ý** hỗ trợ thao tác trình bày.
 
-Tổng thời gian gợi ý:
+Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 8, 13,
+15, 24 và 27; không cần xóa chúng vì các slide này hữu ích khi phản biện.
 
-- Slide 1–6, nền tảng Knowledge Graph: khoảng 5 phút.
-- Slide 7–13, thiết kế và dữ liệu: khoảng 4–5 phút.
-- Slide 14–20, truy vấn, ứng dụng và đánh giá: khoảng 4–5 phút.
-- Slide 21–23, demo: khoảng 4 phút.
-- Slide 24–25, giới hạn và kết luận: khoảng 1 phút.
+## Slide 1 — Knowledge Graph: Nền tảng lý thuyết
 
-## Slide 1 — Knowledge Graph: Từ lý thuyết đến ứng dụng
-
-**Mục tiêu:** giới thiệu đề tài và cấu trúc bài nói.
+**Mục tiêu:** giới thiệu phạm vi bài nói.
 
 **Có thể nói gần như nguyên văn:**
 
-> Kính thưa thầy, đề tài của em là Knowledge Graph, hay đồ thị tri thức. Trong
-> phần đầu, em sẽ trình bày các kiến thức nền tảng gồm thực thể, quan hệ, schema,
-> Property Graph, suy diễn và ngôn ngữ Cypher. Trong phần sau, em sử dụng dữ liệu
-> phim như một nghiên cứu tình huống để minh họa cách các khái niệm này được
-> triển khai thành một hệ thống hỏi–đáp và gợi ý phim có giải thích. Điểm em muốn
-> nhấn mạnh là hệ thống không chỉ trả về kết quả, mà còn cho biết kết quả đó dựa
-> trên những thực thể và quan hệ nào trong đồ thị.
+> Kính thưa thầy, đề tài của em tập trung vào nền tảng Knowledge Graph theo mô
+> hình Property Graph. Em sẽ lần lượt trình bày thực thể, quan hệ, schema,
+> identity, traversal, truy vấn và suy diễn. Movie Knowledge Graph được dùng như
+> một nghiên cứu tình huống xuyên suốt để cho thấy các khái niệm đó được mô hình
+> hóa và kiểm chứng. Chi tiết source code, API và vận hành nằm trong báo cáo;
+> trên slide em tập trung vào khái niệm và bằng chứng.
 
-**Cần chỉ vào:** tiêu đề, sơ đồ Movie Knowledge Graph bên phải.
+**Cần chỉ vào:** tiêu đề và sơ đồ Movie Knowledge Graph.
 
-**Chuyển ý:** “Trước hết, em xin bắt đầu từ câu hỏi: khi nào dữ liệu trở thành
-tri thức?”
+**Chuyển ý:** “Trước hết, khi nào dữ liệu trở thành tri thức?”
 
-## Slide 2 — Từ dữ liệu đến tri thức có thể sử dụng
+## Slide 2 — Từ dữ liệu đến tri thức
 
-**Mục tiêu:** phân biệt dữ liệu, thông tin, tri thức và suy luận.
+**Mục tiêu:** phân biệt data, information, knowledge và inference.
 
 **Có thể nói gần như nguyên văn:**
 
-> Bốn bậc trên slide thể hiện quá trình từ dữ liệu đến tri thức. Ở mức dữ liệu,
-> chúng ta chỉ có những giá trị rời rạc như 2010, Inception và Nolan. Khi thêm
-> ngữ cảnh, ta có thông tin: Inception là một bộ phim phát hành năm 2010. Khi nối
-> các thực thể bằng một quan hệ có nghĩa, ta có tri thức: Christopher Nolan đạo
-> diễn Inception. Cuối cùng, khi có thêm schema và quy tắc, hệ thống có thể suy
-> ra một phát biểu mới, chẳng hạn Nolan là đạo diễn của một phim khoa học viễn
-> tưởng. Vì vậy, Knowledge Graph chủ yếu tạo giá trị ở hai tầng cuối: biểu diễn
-> tri thức và hỗ trợ suy luận.
+> Dữ liệu là các giá trị rời rạc như 2010, Inception và Nolan. Khi thêm ngữ
+> cảnh, ta có thông tin: Inception phát hành năm 2010. Khi nối các thực thể bằng
+> quan hệ có nghĩa, ta có tri thức: Nolan đạo diễn Inception. Khi có schema và
+> quy tắc, hệ thống có thể suy ra fact mới. Suy luận ở đây không phải tự hiểu vô
+> hạn; mọi kết luận đều phụ thuộc vào fact và luật đã khai báo.
 
-**Cần chỉ vào:** lần lượt bốn bậc từ trái sang phải.
+**Cần chỉ vào:** bốn bậc từ trái sang phải.
 
-**Lưu ý:** “Suy luận” không có nghĩa hệ thống tự hiểu mọi thứ; kết luận chỉ có
-thể được tạo ra từ những fact và quy tắc đã khai báo.
-
-**Chuyển ý:** “Vậy một Knowledge Graph cụ thể được cấu tạo từ những thành phần
-nào?”
+**Chuyển ý:** “Một Knowledge Graph cụ thể được cấu tạo như thế nào?”
 
 ## Slide 3 — Knowledge Graph là gì?
 
@@ -61,508 +46,486 @@ nào?”
 
 **Có thể nói gần như nguyên văn:**
 
-> Trong phạm vi đề tài, em hiểu Knowledge Graph là một mô hình đồ thị gồm các
-> thực thể có định danh, các quan hệ có ý nghĩa và một schema để máy có thể diễn
-> giải dữ liệu. Ví dụ trên slide có hai thực thể là Christopher Nolan và
-> Inception. Quan hệ DIRECTED cho biết Nolan đạo diễn bộ phim này. Ta có thể đọc
-> fact đó theo dạng chủ thể, quan hệ, đối tượng: Nolan, DIRECTED, Inception.
-> Ngoài node và cạnh, hệ thống còn lưu property như tên, ngày phát hành, rating,
-> vai diễn hoặc thứ tự diễn viên. Định danh rất quan trọng vì tên chỉ là thuộc
-> tính hiển thị; hai người có thể trùng tên và một phim có thể có nhiều tên gọi.
+> Trong phạm vi dự án, Knowledge Graph là một đồ thị gồm các thực thể có định
+> danh, các quan hệ mang ngữ nghĩa và schema để máy diễn giải. Ví dụ Nolan và
+> Inception là hai entity; DIRECTED là relationship. Property bổ sung mô tả như
+> tên, ngày phát hành hoặc rating. Identifier khác name: tên dùng để hiển thị,
+> còn identifier dùng để xác định identity. Hai người có thể trùng tên và một
+> phim có thể có nhiều cách viết.
 
-**Cần chỉ vào:** Nolan → DIRECTED → Inception, sau đó ba khối Entity,
-Relationship và Property.
+**Cần chỉ vào:** Nolan → DIRECTED → Inception và ba khối bên phải.
 
-**Chuyển ý:** “Để các fact không được tạo ra tùy ý, Knowledge Graph cần một lớp
-mô hình chung gọi là schema.”
+**Chuyển ý:** “Để fact không được tạo tùy ý, ta cần schema.”
 
 ## Slide 4 — Schema và instance
 
-**Mục tiêu:** phân biệt mô hình khái niệm với dữ liệu cụ thể.
+**Mục tiêu:** phân biệt lớp khái niệm và dữ liệu cụ thể.
 
 **Có thể nói gần như nguyên văn:**
 
-> Slide này tách hai lớp. Bên trái là schema, tức lớp khái niệm. Schema quy định
-> rằng Person và Movie là hai loại thực thể, và quan hệ DIRECTED đi từ Person
-> đến Movie. Bên phải là instance data, tức các sự kiện cụ thể đang tồn tại:
-> Nolan là một Person, Inception là một Movie, và Nolan DIRECTED Inception.
-> Nói ngắn gọn, schema trả lời “loại dữ liệu và quan hệ nào được phép tồn tại”,
-> còn instance trả lời “sự kiện cụ thể nào đang đúng trong tập dữ liệu”. Việc
-> tách hai lớp giúp kiểm tra tính nhất quán và tái sử dụng mô hình cho nhiều dữ
-> liệu khác nhau.
+> Schema, hay TBox theo cách gọi khái niệm, mô tả các lớp và loại quan hệ được
+> phép: Person có thể DIRECTED một Movie. Instance, hay ABox, chứa các cá thể và
+> fact cụ thể: Nolan là Person, Inception là Movie và Nolan DIRECTED Inception.
+> Schema trả lời dữ liệu có hình dạng nào; instance trả lời fact nào đang tồn
+> tại. Dự án không chạy hai hệ TBox/ABox riêng, đây là cách phân biệt mức mô
+> hình và mức dữ liệu.
 
-**Cần chỉ vào:** Schema ở trái, mũi tên “thể hiện”, Instance ở phải.
+**Cần chỉ vào:** schema bên trái, instance bên phải.
 
-**Nếu được hỏi TBox/ABox:** TBox là các khái niệm và quan hệ chung; ABox là các
-cá thể và fact cụ thể. Đây là cách giải thích khái niệm, không phải hai hệ quản
-trị riêng trong project.
-
-**Chuyển ý:** “Project hiện thực hóa hai lớp này bằng mô hình Property Graph.”
+**Chuyển ý:** “Project hiện thực hóa hai lớp này bằng Property Graph.”
 
 ## Slide 5 — Property Graph
 
-**Mục tiêu:** giải thích mô hình đồ thị duy nhất được dùng trong project.
+**Mục tiêu:** giải thích mô hình graph duy nhất của dự án.
 
 **Có thể nói gần như nguyên văn:**
 
-> Project chỉ triển khai một mô hình là Neo4j Property Graph. Trong mô hình này,
-> node có label và property; relationship có loại, hướng và cũng có thể mang
-> property. Hình trên slide chỉ là một ví dụ khái niệm tối giản gồm Person,
-> ACTED_IN và Movie, chưa phải toàn bộ schema của ứng dụng. Điểm hữu ích là
-> property có thể đặt ngay trên cạnh. Chẳng hạn character và cast_order mô tả
-> lần một Person tham gia một Movie, nên chúng thuộc cạnh ACTED_IN chứ không
-> thuộc riêng Person hoặc Movie. Schema Movie Knowledge Graph đầy đủ sẽ được
-> trình bày ở slide 10.
+> Neo4j Property Graph gồm node có label và property, relationship có loại,
+> hướng và cũng có property. Ví dụ ACTED_IN nối Person tới Movie và giữ
+> character, cast_order. Các thuộc tính này mô tả lần tham gia cụ thể nên đặt
+> trên cạnh hợp lý hơn đặt trên Person hoặc Movie. Project chỉ triển khai
+> Property Graph, không có nhánh RDF hay một graph engine thứ hai.
 
-**Cần chỉ vào:** một node Movie, một node Person và cạnh ACTED_IN trong sơ đồ.
+**Cần chỉ vào:** hai node và property trên cạnh ACTED_IN.
 
-**Lưu ý:** không nói project dùng thêm một mô hình RDF hay một graph thứ hai.
+**Chuyển ý:** “Từ node và cạnh, ta hình thành các cấu trúc lớn hơn.”
 
-**Chuyển ý:** “Sau khi đã có mô hình, ta cần một ngôn ngữ để tạo ràng buộc,
-truy vấn đường đi và áp dụng luật.”
+## Slide 6 — Neighborhood, path và subgraph
 
-## Slide 6 — Cypher cho truy vấn và suy diễn
+**Mục tiêu:** giới thiệu ba đơn vị cấu trúc của tư duy đồ thị.
+
+**Có thể nói gần như nguyên văn:**
+
+> Neighborhood là tập node lân cận một node qua các quan hệ được chọn. Path là
+> dãy node và cạnh nối hai thực thể; độ dài path được đo bằng số cạnh. Subgraph
+> là phần đồ thị liên quan được lấy ra theo một phạm vi nhất định. Trong dự án,
+> neighborhood hỗ trợ tìm phim tương tự, path hỗ trợ truy vấn nhiều bước và
+> subgraph giúp giữ đúng ngữ cảnh dùng làm evidence hoặc snapshot đánh giá.
+
+**Cần chỉ vào:** ba khối Neighborhood, Path, Subgraph.
+
+**Chuyển ý:** “Nhưng có graph chưa đủ để gọi là Knowledge Graph hữu dụng.”
+
+## Slide 7 — Bốn điều kiện của Knowledge Graph hữu dụng
+
+**Mục tiêu:** trình bày identity, schema, provenance và competency questions.
+
+**Có thể nói gần như nguyên văn:**
+
+> Một Knowledge Graph hữu dụng cần ít nhất bốn yếu tố. Identity giúp biết chính
+> xác đang nói về thực thể nào. Schema tạo ngôn ngữ chung cho fact. Provenance
+> cho biết fact đến từ nguồn hoặc luật nào. Competency question xác định graph
+> phải trả lời được câu hỏi gì. Nếu thiếu identity thì node dễ bị gộp sai; thiếu
+> schema thì quan hệ thiếu nhất quán; thiếu provenance thì không kiểm chứng
+> được; thiếu competency question thì có thể xây rất nhiều dữ liệu nhưng không
+> phục vụ mục tiêu.
+
+**Cần chỉ vào:** lần lượt bốn thẻ.
+
+**Chuyển ý:** “Một phần schema được bảo đảm trực tiếp bằng constraint và index.”
+
+## Slide 8 — Constraint, validation và index
+
+**Mục tiêu:** phân biệt ràng buộc đúng đắn với cơ chế tăng tốc.
+
+**Có thể nói gần như nguyên văn:**
+
+> Uniqueness constraint bảo đảm một stable ID không xuất hiện hai lần trong
+> cùng label. Validation kiểm tra các quy tắc rộng hơn như orphan Movie, thiếu
+> property hoặc cạnh sai đầu mút. Index tăng tốc lookup theo property; full-text
+> index tạo candidate theo tên cho entity linking. Điểm quan trọng là index
+> không làm graph đúng hơn và không thay đổi ngữ nghĩa; nó chỉ giúp tìm điểm bắt
+> đầu nhanh hơn. Constraint trong Neo4j và quality gate trong pipeline bổ sung
+> cho nhau.
+
+**Cần chỉ vào:** ba thẻ Uniqueness, Validation, Index.
+
+**Chuyển ý:** “Ngôn ngữ dùng để mô tả pattern và luật là Cypher.”
+
+## Slide 9 — Cypher cho truy vấn và suy diễn
 
 **Mục tiêu:** giải thích hai vai trò của Cypher.
 
 **Có thể nói gần như nguyên văn:**
 
-> Cypher là ngôn ngữ truy vấn của Neo4j. Vai trò thứ nhất là tìm các mẫu đường
-> đi trong graph. Ở ví dụ bên trái, query tìm một Person nối với Movie qua quan
-> hệ DIRECTED; tên người được truyền bằng parameter. Vai trò thứ hai là vật chất
-> hóa một luật nghiệp vụ. Nếu hai Person cùng có cạnh ACTED_IN tới một Movie, hệ
-> thống có thể tạo quan hệ CO_STARRED_WITH giữa họ. Cạnh suy ra này lưu số phim
-> chung, danh sách phim làm bằng chứng và cờ derived bằng true. Project không có
-> một reasoner tách biệt; cả truy vấn và luật suy diễn đều được khai báo bằng
-> Cypher và thực thi trong Neo4j.
+> Cypher biểu diễn truy vấn bằng pattern gần với hình dạng graph. Query bên trái
+> tìm Person nối tới Movie qua DIRECTED; tên được truyền bằng parameter. Khối
+> bên phải vật chất hóa luật: nếu hai Person cùng ACTED_IN một Movie thì tạo
+> CO_STARRED_WITH. Project không dùng reasoner tách biệt; Cypher vừa thực hiện
+> traversal, aggregation, vừa tạo derived relationship có evidence.
 
-**Cần chỉ vào:** khối `MATCH...RETURN` bên trái và `MATCH...MERGE` bên phải.
+**Cần chỉ vào:** MATCH–RETURN và MATCH–MERGE.
 
-**Chuyển ý:** “Sau phần nền tảng, em chuyển sang nghiên cứu tình huống và giải
-thích vì sao bài toán này chọn Neo4j.”
+**Chuyển ý:** “Để đọc các query này, ta cần một số thuật ngữ traversal.”
 
-## Slide 7 — Vì sao chọn Neo4j?
+## Slide 10 — Hop, degree, common neighbor và shortest path
 
-**Mục tiêu:** nêu lợi ích đúng mức, không tuyên bố graph luôn nhanh hơn SQL.
+**Mục tiêu:** giải thích từ vựng duyệt đồ thị.
 
 **Có thể nói gần như nguyên văn:**
 
-> Dữ liệu phim có nhiều quan hệ nhiều–nhiều: một phim có nhiều diễn viên, một
-> diễn viên tham gia nhiều phim, và phim còn nối với đạo diễn, thể loại, từ khóa
-> và hãng sản xuất. Mô hình bảng vẫn biểu diễn được bằng bảng nối và JOIN. Tuy
-> nhiên, Property Graph biểu diễn các mối quan hệ thành cạnh trực tiếp, nên các
-> câu hỏi nhiều bước và đường đi bằng chứng gần với cách mô tả nghiệp vụ hơn.
-> Neo4j được chọn vì hỗ trợ traversal và relationship có property thuận tiện.
-> Em không kết luận Neo4j luôn nhanh hơn cơ sở dữ liệu quan hệ; SQLite vẫn được
-> dùng ở phần đánh giá như một baseline có kiểm soát.
+> Hop là một lần đi qua cạnh. Degree là số cạnh kề một node. Common neighbor là
+> node được hai node cùng chia sẻ, ví dụ hai Person cùng nối tới một Movie.
+> Shortest path là đường có số cạnh nhỏ nhất trong phạm vi cho phép. Phim chung,
+> co-star và recommendation đều dựa vào neighborhood hoặc common neighbor.
+> Cũng cần lưu ý đường ít cạnh nhất chưa chắc có ý nghĩa nhất, nên kết quả phải
+> giữ cả loại relationship làm evidence.
 
-**Cần chỉ vào:** hàng “Truy vấn nhiều bước” và khối “Property-rich
-relationships”.
+**Cần chỉ vào:** bốn khái niệm và dòng liên hệ với project.
 
-**Chuyển ý:** “Sau đây là luồng đầy đủ từ dữ liệu nguồn đến giao diện người
-dùng.”
+**Chuyển ý:** “Đây là lý do mô hình đồ thị phù hợp với miền phim.”
 
-## Slide 8 — Kiến trúc đầu cuối
+## Slide 11 — Vì sao chọn Neo4j?
 
-**Mục tiêu:** giúp người nghe thấy rõ luồng dữ liệu và luồng chạy ứng dụng.
+**Mục tiêu:** nêu lợi ích đúng mức.
 
 **Có thể nói gần như nguyên văn:**
 
-> Hệ thống bắt đầu từ TMDB và IMDb. Dữ liệu nguồn được lưu vào raw cache để có
-> thể xử lý lại mà không phải gọi Internet. Bước processing làm sạch, ghép dữ
-> liệu theo ID và chuẩn hóa thành các bảng node, edge. Sau đó dữ liệu được nạp
-> vào Neo4j, tạo constraint và chạy luật CO_STARRED_WITH. FastAPI là lớp dịch vụ
-> cho hỏi–đáp và gợi ý; Web UI là giao diện người dùng. Manifest và checksum giúp
-> biết dữ liệu nào đã được xử lý và có cần import lại hay không. Sau khi đã nạp
-> graph, phần demo có thể chạy offline.
+> Miền phim có nhiều quan hệ nhiều–nhiều. Mô hình quan hệ vẫn biểu diễn được
+> bằng bảng nối và JOIN, nhưng Property Graph làm quan hệ trở thành cạnh trực
+> tiếp và cho phép cạnh mang property. Điều này thuận tiện cho traversal nhiều
+> bước và đường đi bằng chứng. Neo4j được chọn vì độ phù hợp mô hình và Cypher,
+> không phải vì graph luôn nhanh hơn SQL. Phần benchmark sau cho thấy SQLite
+> nhanh hơn trong các phép đo đã thực hiện.
 
-**Cần chỉ vào:** đọc chuỗi sáu khối từ trái sang phải.
+**Cần chỉ vào:** bảng so sánh và “Property-rich relationships”.
 
-**Chuyển ý:** “Trong hai nguồn dữ liệu, TMDB là nguồn graph chính, còn IMDb chỉ
-bổ sung rating theo một cách tiết kiệm lưu trữ.”
+**Chuyển ý:** “Tiếp theo là cách các khái niệm này đi vào kiến trúc dự án.”
 
-## Slide 9 — Tích hợp IMDb
+## Slide 12 — Kiến trúc đầu cuối
 
-**Mục tiêu:** giải thích exact join và chiến lược streaming.
+**Mục tiêu:** giải thích các lớp của hệ thống.
 
 **Có thể nói gần như nguyên văn:**
 
-> TMDB cung cấp phim, credits, thể loại, từ khóa và hãng sản xuất, nên đây là
-> nguồn chính tạo graph. IMDb chỉ được dùng để bổ sung `imdb_rating` và
-> `imdb_votes`. Hệ thống không tải toàn bộ IMDb vào Neo4j mà chỉ đọc tuần tự tệp
-> `title.ratings.tsv.gz` khi nó vẫn đang nén. Phép ghép sử dụng chính xác
-> `imdb_id` từ TMDB với `tconst` của IMDb, không ghép theo tên phim. Có 4.558
-> Movie mang IMDb ID và 4.351 Movie ghép được rating, tương đương 95,5 phần
-> trăm. Rating của TMDB và IMDb được giữ ở hai trường riêng để không làm mất
-> nguồn gốc.
+> Dữ liệu đi từ TMDB và IMDb vào raw cache bất biến, qua processing để làm sạch,
+> ghép ID và chuẩn hóa thành bảng node–edge. Neo4j tạo constraint, import và
+> reasoning. FastAPI cung cấp dịch vụ, Web UI hiển thị kết quả. Manifest và
+> checksum bao quanh pipeline để hỗ trợ tái lập; entity link, graph path và
+> shared feature tạo lớp explainability. Sau khi import, demo không phụ thuộc
+> Internet.
 
-**Cần chỉ vào:** luồng exact ID và ba con số 4.558, 4.351, 95,5%.
+**Cần chỉ vào:** sáu lớp từ trái sang phải.
 
-**Chuyển ý:** “Sau khi tích hợp nguồn, dữ liệu được tổ chức theo schema sau.”
+**Chuyển ý:** “Trong hai nguồn, IMDb được tích hợp theo một phạm vi rất hẹp.”
 
-## Slide 10 — Mô hình dữ liệu
+## Slide 13 — Tích hợp TMDB–IMDb
 
-**Mục tiêu:** giải thích node, edge, stable ID và vai trò trên cạnh.
+**Mục tiêu:** giải thích exact join và streaming.
 
 **Có thể nói gần như nguyên văn:**
 
-> Schema gồm năm loại node chính: Movie, Person, Genre, Keyword và Studio; cùng
-> năm loại quan hệ gốc. Project chỉ dùng một label Person vì một người có thể vừa
-> là diễn viên vừa là đạo diễn. Vai trò được thể hiện bằng quan hệ ACTED_IN hoặc
-> DIRECTED. Khóa của Person dựa trên stable source ID, ví dụ `tmdb:<id>`, chứ
-> không dựa trên tên. Cạnh ACTED_IN lưu character, cast_order và source.
-> Constraint và index được tạo trước khi import để chặn trùng ID và hỗ trợ truy
-> vấn.
+> TMDB là nguồn graph chính. IMDb chỉ bổ sung rating và vote. Hệ thống đọc trực
+> tiếp file ratings đang nén, chỉ giữ các dòng khớp tập IMDb ID của Movie. Phép
+> nối dùng exact `imdb_id = tconst`, không ghép theo title. Có 4.558 Movie mang
+> IMDb ID và 4.351 Movie ghép được rating, tương đương 95,5 phần trăm. Rating
+> TMDB và IMDb được giữ riêng để không làm mất ngữ nghĩa nguồn.
 
-**Cần chỉ vào:** Person, Movie, ACTED_IN và ba khối bên phải.
+**Cần chỉ vào:** exact ID và ba con số.
 
-**Chuyển ý:** “Để tạo được graph này một cách lặp lại, project sử dụng pipeline
-gồm tám bước.”
+**Chuyển ý:** “Dữ liệu sau tích hợp được tổ chức theo schema sau.”
 
-## Slide 11 — Pipeline dữ liệu
+## Slide 14 — Schema Movie Knowledge Graph
 
-**Mục tiêu:** giải thích khả năng tái lập và import idempotent.
+**Mục tiêu:** giải thích node, edge và stable ID.
 
 **Có thể nói gần như nguyên văn:**
 
-> Pipeline đi từ collect, cache, clean, ghép IMDb, normalize, nạp Neo4j, chạy
-> rule và cuối cùng là validate. Raw cache được xem là bất biến, nên có thể tái
-> hiện việc xử lý trên cùng một snapshot. Kết quả chuẩn hóa được lưu thành các
-> bảng node và edge cùng manifest về số lượng và checksum. Khi import, hệ thống
-> tạo node trước, edge sau và sử dụng MERGE theo batch. Vì vậy chạy lại cùng dữ
-> liệu không tạo bản ghi trùng; đây là tính idempotent. Runtime chỉ import lại
-> khi checksum của dữ liệu processed hoặc số lượng Movie trong graph thay đổi.
+> Schema có năm node chính: Movie, Person, Genre, Keyword và Studio; cùng năm
+> quan hệ gốc. Chỉ dùng một label Person vì một người có thể vừa diễn xuất vừa
+> đạo diễn; vai trò được biểu diễn bằng ACTED_IN hoặc DIRECTED. Stable source ID
+> là khóa, tên không phải khóa. ACTED_IN giữ character, cast_order và source
+> ngay trên cạnh.
 
-**Cần chỉ vào:** tám bước từ Collect đến Validate; bốn khối Cache, Manifest,
-MERGE, Gate.
+**Cần chỉ vào:** Person, Movie và năm quan hệ.
 
-**Chuyển ý:** “Kết quả của pipeline phải vượt qua quality gate trước khi được
-dùng cho ứng dụng.”
+**Chuyển ý:** “Schema này được tạo bởi pipeline có thể chạy lại.”
 
-## Slide 12 — Chất lượng graph
+## Slide 15 — Pipeline dữ liệu
 
-**Mục tiêu:** trình bày quy mô và các kiểm tra cấu trúc.
+**Mục tiêu:** giải thích reproducibility và idempotency.
 
 **Có thể nói gần như nguyên văn:**
 
-> Với 5.000 bản ghi đầu vào, một Movie không có bất kỳ quan hệ nào bị loại và
-> graph hợp lệ còn 4.999 Movie. Toàn graph có 76.612 node và 846.309
-> relationship. Các quality gate kiểm tra orphan Movie, stable ID trùng, thiếu
-> thuộc tính bắt buộc và cạnh sai kiểu hoặc sai đầu mút. Kết quả đều bằng không.
-> Điều này chứng minh snapshot đạt tính toàn vẹn cấu trúc theo các quy tắc đã
-> công bố; nó không có nghĩa dữ liệu nguồn ngoài đời hoàn hảo về mọi mặt.
+> Pipeline gồm collect, cache, clean, IMDb join, normalize, Neo4j load, reason
+> và validate. Raw cache bất biến cho phép xử lý lại cùng snapshot. Manifest ghi
+> checksum, số lượng và quality metrics. Import tạo node trước edge và dùng
+> MERGE theo stable ID, nên chạy lặp không nhân bản dữ liệu. Runtime chỉ import
+> lại khi checksum processed hoặc số Movie trong graph thay đổi.
 
-**Cần chỉ vào:** “0 vi phạm cấu trúc” và bốn dấu kiểm.
+**Cần chỉ vào:** tám bước và bốn khối Cache–Manifest–MERGE–Gate.
 
-**Chuyển ý:** “Một nguyên nhân quan trọng giúp tránh nối sai thực thể là chiến
-lược exact trước, fuzzy sau.”
+**Chuyển ý:** “Trước khi ứng dụng sử dụng graph, dữ liệu phải vượt quality gate.”
 
-## Slide 13 — Phân giải thực thể
+## Slide 16 — Chất lượng graph
 
-**Mục tiêu:** giải thích exact match, fuzzy fallback, confidence và abstention.
+**Mục tiêu:** trình bày quy mô và phạm vi của quality claim.
 
 **Có thể nói gần như nguyên văn:**
 
-> Phân giải thực thể là xác định hai bản ghi hoặc một cụm từ truy vấn đang nói
-> đến thực thể nào. Hệ thống ưu tiên exact ID. Với câu hỏi của người dùng, entity
-> linker ưu tiên exact và full-text candidate, sau đó mới fuzzy reranking. Nếu
-> kết quả không đủ chắc chắn hoặc bị hòa điểm, hệ thống có thể abstain, tức từ
-> chối liên kết thay vì đoán. Trên 100 cặp silver, precision đạt 1,000, recall
-> 0,933 và F1 0,966. Năm trường hợp bị bỏ sót là các lần abstain bảo thủ; không
-> có false positive trong tập đánh giá này.
+> Từ 5.000 record đầu vào, một Movie không có quan hệ bị loại, còn 4.999 Movie
+> hợp lệ. Graph có 76.612 node và 846.309 relationship. Quality gate không phát
+> hiện orphan Movie, stable ID trùng, thiếu property bắt buộc hoặc cạnh sai
+> kiểu. Đây là bằng chứng về tính toàn vẹn cấu trúc theo quy tắc công bố, không
+> có nghĩa dữ liệu ngoài đời hoàn hảo về mọi khía cạnh.
 
-**Cần chỉ vào:** luồng xử lý và ba metric bên phải.
+**Cần chỉ vào:** “0 vi phạm cấu trúc”.
 
-**Lưu ý:** silver corpus là tập đánh giá được sinh có kiểm soát, không phải
-ground truth độc lập từ người dùng.
+**Chuyển ý:** “Một bài toán trung tâm khi tích hợp là phân giải thực thể.”
 
-**Chuyển ý:** “Khi thực thể đã được xác định, câu hỏi quan hệ được chuyển thành
-một mẫu Cypher có tham số.”
+## Slide 17 — Entity resolution
 
-## Slide 14 — Cypher và pattern nhiều bước
-
-**Mục tiêu:** đọc được query và giải thích parameterization.
+**Mục tiêu:** giải thích exact, fuzzy, threshold và abstention.
 
 **Có thể nói gần như nguyên văn:**
 
-> Query minh họa bắt đầu từ một Person đóng vai trò đạo diễn, đi qua Movie và
-> sang Genre. Nó đếm số phim theo từng đạo diễn trong một thể loại, rồi sắp xếp
-> giảm dần. Điểm cần chú ý là `$genre` và `$limit` được truyền như parameter;
-> chuỗi người dùng không được ghép trực tiếp vào cấu trúc query. Catalog của hệ
-> thống có các nhóm lookup, aggregation, multi-hop, shortest path và similarity.
-> Vì pattern trong query gần với đường đi trong graph, ta có thể đọc tương đối
-> trực tiếp câu hỏi mà query đang trả lời.
+> Entity resolution quyết định hai record có mô tả cùng một thực thể hay không.
+> Project ưu tiên exact source ID; fuzzy chỉ là fallback có confidence và log.
+> Khi candidate mơ hồ hoặc dưới threshold, hệ thống abstain thay vì nối đoán.
+> Trên 100 cặp silver, precision là 1, recall 0,933 và F1 0,966. Năm false
+> negative là các trường hợp từ chối bảo thủ; tập này không có false positive.
 
-**Cần chỉ vào:** pattern `Person → Movie → Genre`, rồi `$genre` và `$limit`.
+**Cần chỉ vào:** flow exact → fuzzy → abstain và ba metric.
 
-**Chuyển ý:** “Ngoài việc đọc các cạnh gốc, Cypher còn tạo một loại cạnh suy ra
-có thể kiểm chứng.”
+**Chuyển ý:** “Entity linking liên quan đến identity nhưng xảy ra ở thời điểm khác.”
 
-## Slide 15 — Suy diễn CO_STARRED_WITH
+## Slide 18 — Entity resolution và entity linking
 
-**Mục tiêu:** phân biệt asserted fact và derived fact.
+**Mục tiêu:** phân biệt hai bài toán dễ bị gọi lẫn.
 
 **Có thể nói gần như nguyên văn:**
 
-> ACTED_IN là asserted fact, tức sự kiện được lấy trực tiếp từ credits của TMDB.
-> Nếu hai Person cùng tham gia một Movie, ta áp dụng luật để tạo
-> CO_STARRED_WITH; đây là derived fact, tức sự kiện suy ra. Cạnh mới không chỉ
-> ghi rằng hai người từng đóng chung, mà còn lưu `movie_count`,
-> `evidence_movie_ids` và `derived=true`. Nhờ đó ta có thể lần ngược từ kết luận
-> về những bộ phim làm bằng chứng. Đây là suy diễn minh bạch bằng một luật Cypher
-> cụ thể, không phải kết luận do mô hình AI tự tạo.
+> Entity resolution diễn ra lúc xây graph: nó hợp nhất hoặc giữ tách các record
+> nguồn và ảnh hưởng dữ liệu lâu dài. Entity linking diễn ra khi người dùng đặt
+> câu hỏi: nó nối chuỗi như “Cristopher Nolan” tới node canonical đã tồn tại.
+> Linker xác định loại slot, tìm candidate bằng full-text, fuzzy rerank rồi trả
+> stable ID, canonical name và confidence. Query sau đó dùng ID; không mở rộng
+> lại bằng so khớp tên.
 
-**Cần chỉ vào:** hai cạnh ACTED_IN hội tụ vào Movie, rồi cạnh
-CO_STARRED_WITH.
+**Cần chỉ vào:** hai cột và thời điểm xử lý.
 
-**Chuyển ý:** “Các query và fact này được đưa đến người dùng qua hai ứng dụng;
-đầu tiên là hỏi–đáp.”
+**Chuyển ý:** “Khi entity đã được liên kết, catalog chạy pattern Cypher.”
 
-## Slide 16 — Hệ hỏi–đáp
+## Slide 19 — Cypher và pattern nhiều bước
 
-**Mục tiêu:** giải thích Web UI không tự sinh Cypher.
+**Mục tiêu:** đọc query và giải thích parameterization.
 
 **Có thể nói gần như nguyên văn:**
 
-> Người dùng nhập câu hỏi tự nhiên trên Web UI. Backend nhận diện một trong chín
-> intent cố định và trích các slot như tên phim hoặc tên người. Entity linker
-> chuẩn hóa những tên này về đúng node trong graph và trả cả confidence. Sau đó
-> query catalog chọn một template Cypher cố định; Neo4j thực hiện traversal và
-> trả kết quả. Response gồm câu trả lời cùng intent, thực thể đã liên kết, bằng
-> chứng graph và độ trễ. Vì vậy chatbot chỉ điều phối một quy trình xác định; nó
-> không sinh Cypher tự do và không thay thế Neo4j.
+> Query ví dụ đi từ Person qua DIRECTED tới Movie, rồi qua HAS_GENRE tới Genre,
+> sau đó đếm Movie. Đây là traversal hai bước kết hợp aggregation. `$genre` và
+> `$limit` là parameter, nên dữ liệu người dùng không thay đổi cấu trúc Cypher.
+> Catalog gồm lookup, multi-hop, aggregation, shortest path và similarity. Việc
+> cố định cấu trúc query giúp execution surface nhỏ và có thể kiểm thử.
 
-**Cần chỉ vào:** trình tự Web UI → parser → entity linker → catalog → Neo4j.
+**Cần chỉ vào:** pattern và hai parameter.
 
-**Chuyển ý:** “Ứng dụng thứ hai cũng khai thác các đường nối trong graph, nhưng
-để xếp hạng phim tương tự.”
+**Chuyển ý:** “Ngoài đọc cạnh gốc, hệ thống còn tạo cạnh suy ra.”
 
-## Slide 17 — Gợi ý phim có giải thích
+## Slide 20 — Suy diễn CO_STARRED_WITH
 
-**Mục tiêu:** giải thích shared feature, type weight và IDF.
+**Mục tiêu:** phân biệt asserted và derived fact.
 
 **Có thể nói gần như nguyên văn:**
 
-> Hệ gợi ý tìm các phim có đặc trưng chung với phim nguồn qua đạo diễn, diễn
-> viên, thể loại, từ khóa và hãng sản xuất. Mỗi đặc trưng chung tạo một
-> contribution. `type_weight` cho phép ưu tiên loại quan hệ, ví dụ đạo diễn có
-> trọng số 3, diễn viên 2, thể loại 1,5 và từ khóa 1. Thành phần IDF làm giảm ảnh
-> hưởng của đặc trưng quá phổ biến và tăng giá trị của đặc trưng hiếm. Tổng các
-> contribution tạo thành điểm xếp hạng. Điểm và phần giải thích đều được tính từ
-> traversal trong Neo4j; ứng dụng không tải toàn bộ graph về Python.
+> ACTED_IN là asserted fact lấy từ credits TMDB. Khi hai Person cùng ACTED_IN
+> một Movie, luật tạo CO_STARRED_WITH. Cạnh suy ra lưu `movie_count`,
+> `evidence_movie_ids` và `derived=true`, nên có thể lần ngược về supporting
+> movies. Đây là suy diễn rule-based minh bạch, không phải kết luận do mô hình
+> ngôn ngữ tự tạo.
 
-**Cần chỉ vào:** công thức, bốn trọng số và khối “Điểm được tính trong Neo4j”.
+**Cần chỉ vào:** hai ACTED_IN và cạnh CO_STARRED_WITH.
 
-**Nếu được hỏi vì sao dùng IDF:** hai phim cùng một thể loại rất phổ biến chưa
-chắc giống nhau nhiều; cùng một đạo diễn hoặc một keyword hiếm thường mang nhiều
-thông tin hơn.
+**Chuyển ý:** “Để kiểm chứng đầy đủ, cần phân biệt ba lớp truy vết.”
 
-**Chuyển ý:** “Để biết các thành phần trên hoạt động đến đâu, mỗi tuyên bố được
-gắn với một phép đánh giá riêng.”
+## Slide 21 — Provenance, lineage và evidence
 
-## Slide 18 — Thiết kế đánh giá
-
-**Mục tiêu:** giải thích đánh giá theo claim và giới hạn của silver corpus.
+**Mục tiêu:** phân biệt ba khái niệm truy vết.
 
 **Có thể nói gần như nguyên văn:**
 
-> Project không dùng một con số duy nhất để kết luận toàn hệ thống tốt. Chất
-> lượng dữ liệu được đo trên toàn corpus. Entity resolution dùng 100 cặp silver.
-> Suy diễn co-star dùng 50 fact silver. QA dùng 20 câu smoke test có evidence.
-> Gợi ý dùng 20 case và đo P@10, NDCG@10. Hiệu năng được đo trên bốn quy mô và
-> bốn query, với một warm-up và 100 lần chạy. Silver corpus được sinh tất định,
-> có provenance và rubric công bố, nhưng không phải ground truth độc lập từ
-> người dùng. Vì vậy các kết luận chỉ có giá trị trong snapshot và protocol này.
+> Provenance trả lời fact đến từ nguồn nào, ví dụ `source=tmdb` hoặc checksum
+> IMDb. Lineage trả lời fact đã đi qua chuỗi biến đổi nào, từ raw cache qua
+> clean, CSV, import và rule. Evidence trả lời một kết quả cụ thể dựa trên node,
+> edge hoặc feature nào. Asserted fact cần provenance; derived fact cần cả luật
+> và supporting facts; kết quả giải thích được cần evidence đủ để kiểm tra
+> ngược.
 
-**Cần chỉ vào:** từng hàng trong bảng, sau đó ba cảnh báo bên phải.
+**Cần chỉ vào:** ba hàng trong bảng và ba thẻ cuối.
 
-**Chuyển ý:** “Với protocol đó, các kết quả chính như sau.”
+**Chuyển ý:** “Các graph pattern được đưa tới người dùng qua hai ứng dụng.”
 
-## Slide 19 — Kết quả chính
+## Slide 22 — Hỏi–đáp an toàn
 
-**Mục tiêu:** đọc đúng metric và không suy rộng.
-
-**Có thể nói gần như nguyên văn:**
-
-> QA smoke test đạt 20 trên 20 câu và mọi câu đều có evidence. Entity resolution
-> đạt F1 bằng 0,966. Suy diễn co-star đạt precision 1,00 trên 50 fact silver.
-> Hệ gợi ý đạt P@10 bằng 0,635 và NDCG@10 bằng 0,672 trên 20 case silver. Các con
-> số này cho thấy pipeline và ứng dụng hoạt động nhất quán theo tập kiểm thử đã
-> công bố. Tuy nhiên, chúng chưa thay thế đánh giá người dùng độc lập, đặc biệt
-> với chất lượng gợi ý. Điểm mạnh quan trọng là mọi output gợi ý đều có đường
-> giải thích.
-
-**Cần chỉ vào:** lần lượt 20/20, 0,966, 1,00, 0,635 và 0,672.
-
-**Chuyển ý:** “Kết quả benchmark cũng cho thấy cần trình bày lợi ích của graph
-một cách thận trọng.”
-
-## Slide 20 — Benchmark và sự đánh đổi
-
-**Mục tiêu:** nói rõ SQLite nhanh hơn và giá trị thật của graph.
+**Mục tiêu:** giải thích QA không sinh Cypher tự do.
 
 **Có thể nói gần như nguyên văn:**
 
-> Trong phép đo cùng snapshot, cùng máy, cùng warm-up và cùng 100 lần chạy,
-> SQLite nhanh hơn Neo4j ở tất cả các cặp query và quy mô đã đo. Biểu đồ bên trái
-> minh họa query common movies: khi quy mô tăng, độ trễ của cả hai hệ thống đều
-> tăng. Vì vậy, project không dùng tốc độ tuyệt đối làm lý do để chọn graph. Giá
-> trị của Neo4j ở đây là mô hình quan hệ, traversal và khả năng trả bằng chứng
-> trực tiếp. Biểu đồ bên phải là lịch sử thử các ranker; runtime hiện tại chỉ
-> dùng IDF-weighted graph similarity. Benchmark này chưa đo cold cache,
-> concurrency hoặc dữ liệu lớn hơn 4.999 phim.
+> Câu hỏi tiếng Việt được parser ánh xạ vào một trong chín intent và trích slot.
+> Entity linker nối slot tới stable ID. Catalog chọn template Cypher cố định có
+> parameter; Neo4j thực hiện traversal. Response giữ intent, entity confidence,
+> graph row hoặc path và latency. Vì vậy lớp hội thoại chỉ điều phối quy trình
+> xác định; nó không tự sinh arbitrary Cypher và không thay Neo4j.
 
-**Cần chỉ vào:** hai đường Neo4j/SQLite và ghi chú giới hạn dưới biểu đồ.
+**Cần chỉ vào:** Web UI → parser → linker → catalog → Neo4j.
 
-**Chuyển ý:** “Sau phần kết quả, em xin demo đúng luồng người dùng trước và kiểm
-chứng trực tiếp trên Neo4j ngay sau đó.”
+**Chuyển ý:** “Ứng dụng thứ hai dùng neighborhood để xếp hạng.”
 
-## Slide 21 — Demo QA lookup
+## Slide 23 — Gợi ý phim có giải thích
 
-**Mục tiêu:** chạy Web UI trước, Browser sau và đối chiếu cùng fact.
-
-**Nói trước khi thao tác:**
-
-> Ở ví dụ đầu tiên, em dùng Web UI để hỏi bằng ngôn ngữ tự nhiên, sau đó chạy
-> Cypher trên Neo4j Browser để kiểm chứng cùng một fact.
-
-**Thao tác và lời nói:**
-
-1. Mở `http://127.0.0.1:8000/`, dán:
-
-   ```text
-   Diễn viên nào đóng trong phim Inception?
-   ```
-
-2. Khi có kết quả, nói:
-
-   > UI đã liên kết “Inception” với một Movie cụ thể và trả danh sách diễn viên,
-   > vai diễn cùng evidence.
-
-3. Mở `http://127.0.0.1:7474/`, dán query trên slide và chạy.
-4. Chuyển sang bảng kết quả, nói:
-
-   > Browser truy vấn trực tiếp cùng graph Neo4j. Danh sách tên ở hai giao diện
-   > phải thống nhất; Web UI chỉ bổ sung bước hiểu câu hỏi và định dạng câu trả
-   > lời.
-
-**Nếu lỗi:** UI lỗi thì dùng Swagger; Browser lỗi thì giữ kết quả UI và nói rõ
-backend vẫn đang truy vấn Neo4j thật.
-
-**Chuyển ý:** “Ví dụ tiếp theo đi qua hai cạnh thay vì chỉ tra cứu một quan hệ.”
-
-## Slide 22 — Demo QA multi-hop
-
-**Mục tiêu:** minh họa shared-neighbor pattern.
-
-**Nói trước khi thao tác:**
-
-> Câu hỏi thứ hai yêu cầu tìm một Movie là hàng xóm chung của hai Person, nên đây
-> là truy vấn multi-hop.
-
-**Thao tác và lời nói:**
-
-1. Trên Web UI, dán:
-
-   ```text
-   Phim chung của Christian Bale và Tom Hardy?
-   ```
-
-2. Khi có kết quả, nói:
-
-   > Hệ thống liên kết hai tên người, chọn intent tìm phim chung và trả về The
-   > Dark Knight Rises cùng hai cạnh ACTED_IN làm evidence.
-
-3. Chạy query trên slide trong Neo4j Browser.
-4. Nếu muốn minh họa bằng graph, thay phần `RETURN` bằng:
-
-   ```cypher
-   RETURN a, m, b;
-   ```
-
-5. Nói:
-
-   > Pattern cần tìm là Person đi tới Movie và từ Movie đi ngược về Person còn
-   > lại. Đây chính là đường Person → Movie ← Person.
-
-**Chuyển ý:** “QA kiểm chứng kết quả trả lời; ví dụ cuối kiểm chứng phần giải
-thích của một kết quả gợi ý.”
-
-## Slide 23 — Demo gợi ý và kiểm chứng evidence
-
-**Mục tiêu:** phân biệt kiểm chứng evidence với tái tính toàn bộ ranking.
-
-**Nói trước khi thao tác:**
-
-> Với gợi ý phim, Web UI chịu trách nhiệm chạy query xếp hạng đầy đủ. Browser sẽ
-> được dùng để kiểm chứng các shared feature tạo phần giải thích.
-
-**Thao tác và lời nói:**
-
-1. Chuyển sang tab Gợi ý, nhập `Inception`, chọn phim năm 2010 và chạy Top 5.
-2. Ghi lại tên phim đứng đầu và mở phần giải thích.
-3. Trong Browser, đổi parameter thành đúng tên phim vừa nhận:
-
-   ```cypher
-   :param candidate_title => 'Interstellar';
-   ```
-
-4. Chạy query kiểm chứng trên slide.
-5. Đối chiếu `shared_features` với explanation trên Web UI và nói:
-
-   > Kết quả Browser cho biết hai phim có chung những node nào theo từng loại
-   > quan hệ. Các feature này phải xuất hiện trong phần giải thích của UI. Query
-   > rút gọn chỉ kiểm chứng evidence; điểm contribution và thứ hạng chính xác do
-   > query IDF đầy đủ của ứng dụng tính trong Neo4j.
-
-**Lưu ý:** nếu phim đứng đầu không phải Interstellar, phải thay parameter bằng
-đúng tên đang hiển thị trên Web UI.
-
-**Chuyển ý:** “Ba ví dụ vừa rồi cũng cho thấy ranh giới hiện tại của hệ thống.”
-
-## Slide 24 — Giới hạn và hướng phát triển
-
-**Mục tiêu:** chủ động nêu giới hạn và hướng xử lý tương ứng.
+**Mục tiêu:** giải thích weighted graph similarity và IDF.
 
 **Có thể nói gần như nguyên văn:**
 
-> Project có bốn giới hạn chính. Thứ nhất, QA chỉ hỗ trợ chín intent, chưa phải
-> open-domain QA; hướng phát triển là thu thập câu hỏi thực tế rồi mở rộng intent
-> theo nhu cầu. Thứ hai, phần lớn corpus đánh giá là silver, nên cần đánh giá
-> người dùng và người chấm độc lập. Thứ ba, quy mô hiện tại tối đa 4.999 Movie và
-> benchmark chưa đo concurrent hoặc cold cache; cần thử graph lớn hơn và tải
-> đồng thời. Thứ tư, dữ liệu credits chỉ lấy top 20 cast và IMDb mới enrich
-> Movie; tương lai có thể mở rộng credits và liên kết thêm nguồn cho Person.
+> Candidate là các Movie chia sẻ director, actor, keyword, genre hoặc studio với
+> phim nguồn. Mỗi shared feature đóng góp `type_weight` nhân với một thành phần
+> IDF. Feature phổ biến có document frequency lớn nên đóng góp thấp hơn; feature
+> hiếm có khả năng phân biệt tốt hơn. Tổng contribution tạo điểm. Explanation
+> trả lại chính các shared feature, nên lời giải thích gắn trực tiếp với cách
+> tính điểm.
 
-**Cần chỉ vào:** mỗi giới hạn bên trái và hướng phát triển tương ứng bên phải.
+**Cần chỉ vào:** công thức, trọng số và shared feature.
 
-**Chuyển ý:** “Từ phạm vi và bằng chứng hiện có, em rút ra ba kết luận.”
+**Chuyển ý:** “Để đọc kết quả đánh giá, cần hiểu từng metric đo điều gì.”
 
-## Slide 25 — Kết luận
+## Slide 24 — Các metric đánh giá
 
-**Mục tiêu:** trả lời ngắn gọn đề tài đã làm được gì.
+**Mục tiêu:** phân biệt P, R, F1, P@K và NDCG@K.
 
 **Có thể nói gần như nguyên văn:**
 
-> Tóm lại, đề tài đạt ba kết quả chính. Thứ nhất, hệ thống tích hợp TMDB và IMDb
-> bằng stable ID, giữ provenance và có quy trình chạy lại được. Thứ hai, dữ liệu
-> được mô hình hóa bằng Neo4j Property Graph, hỗ trợ Cypher multi-hop và fact suy
-> ra có bằng chứng. Thứ ba, hai ứng dụng hỏi–đáp và gợi ý đều trả kết quả kèm
-> thực thể, đường đi hoặc đóng góp điểm để người dùng kiểm chứng. Thông điệp cuối
-> cùng của đề tài là: đồ thị tri thức tạo giá trị không chỉ vì kết nối được dữ
-> liệu, mà vì mỗi kết luận có thể lần ngược về quan hệ và bằng chứng đã tạo ra
-> nó. Em xin cảm ơn thầy và xin lắng nghe câu hỏi, phản biện.
+> Precision hỏi trong các kết quả hệ thống chấp nhận, bao nhiêu là đúng. Recall
+> hỏi trong các trường hợp đúng cần tìm, hệ thống tìm được bao nhiêu. F1 là
+> trung bình điều hòa của hai giá trị. Với recommendation, Precision@K đo tỷ lệ
+> mục liên quan trong Top-K nhưng không quan tâm thứ tự. NDCG@K giảm trọng số ở
+> vị trí thấp, nên phản ánh chất lượng ranking. Metric chỉ có ý nghĩa khi đọc
+> cùng corpus, rubric và protocol.
 
-**Cần chỉ vào:** ba kết luận Tích hợp đúng, Truy vấn được, Giải thích được.
+**Cần chỉ vào:** ba công thức và hai khối ranking.
 
-## Cách sử dụng tài liệu khi thuyết trình
+**Chuyển ý:** “Vì vậy mỗi claim trong dự án có một phép đánh giá riêng.”
 
-- In hai mặt và đánh dấu màu các câu chuyển ý.
-- Không đọc tiêu đề slide rồi mới đọc lại toàn bộ chữ trên slide.
-- Với slide 13, 14, 19, 20 và 21, đọc đúng phạm vi của metric; không bỏ câu giới
-  hạn.
-- Với slide 21–23, mở sẵn Web UI và Neo4j Browser trước khi bắt đầu trình bày.
-- Nếu thiếu thời gian, rút ngắn slide 10–16, nhưng giữ phần lý thuyết 2–7, ba
-  slide demo và kết luận.
-- Trước ngày bảo vệ, kiểm tra lại các con số trong `experiments/results/` nếu
-  pipeline được chạy lại.
+## Slide 25 — Thiết kế evaluation
+
+**Mục tiêu:** nối claim với dataset và metric.
+
+**Có thể nói gần như nguyên văn:**
+
+> Chất lượng dữ liệu dùng toàn corpus và các tỷ lệ lỗi. Entity resolution dùng
+> 100 cặp silver với precision, recall, F1. Suy diễn dùng 50 fact co-star. QA
+> dùng 20 câu smoke có evidence. Recommendation dùng 20 case với P@10 và
+> NDCG@10. Hiệu năng dùng bốn query trên bốn quy mô. Silver corpus có protocol
+> và provenance nhưng không phải ground truth độc lập từ người dùng.
+
+**Cần chỉ vào:** từng hàng của bảng.
+
+**Chuyển ý:** “Kết quả chính trên snapshot hiện tại như sau.”
+
+## Slide 26 — Kết quả chính
+
+**Mục tiêu:** trình bày metric và giới hạn diễn giải.
+
+**Có thể nói gần như nguyên văn:**
+
+> QA smoke pass 20 trên 20; entity resolution F1 0,966; co-star precision 1;
+> recommendation đạt P@10 0,635 và NDCG@10 0,672. Entity precision cao một phần
+> nhờ abstention bảo thủ. Các metric recommendation thuộc 20 case silver, chưa
+> thay thế đánh giá người dùng. Điểm mạnh nhất là mọi kết quả QA và
+> recommendation đều có evidence.
+
+**Cần chỉ vào:** năm metric và khối “Cách đọc thận trọng”.
+
+**Chuyển ý:** “Phần benchmark cũng cần được đọc với cùng mức thận trọng.”
+
+## Slide 27 — Neo4j–SQLite và trade-off
+
+**Mục tiêu:** diễn giải benchmark không thiên lệch.
+
+**Có thể nói gần như nguyên văn:**
+
+> Trên cùng snapshot, máy, warm-up và 100 lần chạy, SQLite nhanh hơn ở toàn bộ
+> cặp query–quy mô đã đo. Vì vậy dự án không dùng tốc độ tuyệt đối để biện minh
+> cho Neo4j. Lợi ích của Neo4j là biểu diễn relationship, traversal và evidence
+> trực tiếp. Benchmark chưa đo concurrency, cold cache, tài nguyên khác nhau hay
+> quy mô lớn hơn, nên không được khái quát thành xếp hạng hai engine.
+
+**Cần chỉ vào:** hai đường latency và phần giới hạn.
+
+**Chuyển ý:** “Quay lại câu hỏi thiết kế: schema phải bắt đầu từ nhu cầu trả lời.”
+
+## Slide 28 — Competency question
+
+**Mục tiêu:** cho thấy câu hỏi dẫn dắt schema và query.
+
+**Có thể nói gần như nguyên văn:**
+
+> Câu hỏi “hai diễn viên có phim nào cùng tham gia” xác định ba thành phần tối
+> thiểu: Person, Movie và ACTED_IN. Nó ánh xạ thành shared-neighbor pattern
+> Person → Movie ← Person. Từ một competency question, ta kiểm tra ba điều:
+> schema có đủ khái niệm, query có trả lời được và kết quả có evidence hay
+> không. Đây là cách nối yêu cầu nghiệp vụ với thiết kế graph.
+
+**Cần chỉ vào:** câu hỏi, pattern và ba tiêu chí cuối.
+
+**Chuyển ý:** “Demo sau minh họa toàn bộ phép ánh xạ này.”
+
+## Slide 29 — Demo tổng hợp
+
+**Mục tiêu:** minh họa question → link → query → evidence.
+
+**Có thể nói gần như nguyên văn:**
+
+> Em dùng câu hỏi về phim chung của Christian Bale và Tom Hardy. Parser chọn
+> intent `common_movies`. Entity linker trả stable ID của hai Person. Catalog
+> chạy pattern có parameter và Neo4j trả Movie chung. Evidence path là
+> Christian Bale → The Dark Knight Rises ← Tom Hardy. Điều cần quan sát không
+> phải giao diện, mà là mỗi bước từ ngôn ngữ đến kết quả đều có một biểu diễn
+> xác định và có thể kiểm tra.
+
+**Cần chỉ vào:** intent, entity IDs, Cypher và evidence path.
+
+**Chuyển ý:** “Dù đạt mục tiêu, nghiên cứu vẫn có những giới hạn rõ ràng.”
+
+## Slide 30 — Giới hạn và hướng phát triển
+
+**Mục tiêu:** nêu phạm vi hiệu lực của kết luận.
+
+**Có thể nói gần như nguyên văn:**
+
+> QA hiện chỉ có chín intent, chưa phải open-domain. Corpus chủ yếu là silver và
+> chưa có đánh giá người dùng độc lập. Snapshot tối đa 4.999 Movie, chưa đo
+> concurrent load hay cold cache. Credits chỉ lấy top-20 cast và IMDb mới enrich
+> Movie. Hướng tiếp theo là thu thập câu hỏi thật, đánh giá nhiều người chấm,
+> benchmark tải đồng thời, mở rộng credits và liên kết thêm nguồn như Wikidata.
+
+**Cần chỉ vào:** từng cặp giới hạn → hướng phát triển.
+
+**Chuyển ý:** “Em xin kết luận bằng ba giá trị chính.”
+
+## Slide 31 — Kết luận
+
+**Mục tiêu:** khép lại bằng thông điệp lý thuyết.
+
+**Có thể nói gần như nguyên văn:**
+
+> Dự án cho thấy một Knowledge Graph có giá trị khi ba điều cùng tồn tại. Thứ
+> nhất, dữ liệu được tích hợp đúng bằng stable identity, schema và provenance.
+> Thứ hai, graph trả lời được competency questions qua traversal và derived fact
+> có bằng chứng. Thứ ba, lớp ứng dụng giữ được đường đi hoặc feature giải thích
+> thay vì chỉ trả một kết quả không thể kiểm tra. Em xin cảm ơn thầy và xin lắng
+> nghe câu hỏi, phản biện.
+
+**Cần chỉ vào:** ba kết luận Tích hợp đúng – Truy vấn được – Giải thích được.
+
+## Quy tắc dùng tài liệu khi thuyết trình
+
+- Không đọc toàn bộ chữ trên slide; dùng đoạn nói để diễn giải quan hệ giữa các
+  khối.
+- Khi bị giới hạn thời gian, nói một câu định nghĩa và một câu liên hệ dự án cho
+  mỗi slide khái niệm.
+- Không gọi entity linking và entity resolution là cùng một bước.
+- Không nói constraint và index có cùng chức năng.
+- Không nói Neo4j luôn nhanh hơn SQL.
+- Không khái quát metric silver thành độ chính xác production.
+- Khi được hỏi chi tiết implementation, dẫn sang Chương 4–5 và phụ lục tái lập
+  trong báo cáo.
