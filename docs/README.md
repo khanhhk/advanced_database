@@ -21,7 +21,9 @@ nộp/bảo vệ project **Advanced Database** về đồ thị tri thức phim.
    hiểu các nguồn đang chạy nói trên, không thay thế chúng.
 3. `report_latex/` là nguồn báo cáo chính thức để tải thủ công lên Overleaf.
 4. [Dàn ý trang chiếu](deliverables/slide/outline.md) là danh sách kiểm tra nội dung.
-5. [Hướng dẫn trình diễn](runbooks/demo.md) là tài liệu dùng trực tiếp khi trình bày.
+5. [Nội dung nói theo từng slide](deliverables/defense/speaker-notes-by-slide.md)
+   là tài liệu cầm tay khi thuyết trình.
+6. [Hướng dẫn trình diễn](runbooks/demo.md) là tài liệu dùng trực tiếp khi trình bày.
 
 ## Quy ước thuật ngữ
 

@@ -1,6 +1,6 @@
 # Dàn ý trang chiếu: Knowledge Graph từ lý thuyết đến ứng dụng
 
-Deck hiện có **24 trang chiếu, không kèm phụ lục**. Project chỉ trình bày và
+Deck hiện có **25 trang chiếu, không kèm phụ lục**. Project chỉ trình bày và
 triển khai một mô hình graph: Neo4j Property Graph.
 
 ## Phần I — Nền tảng Knowledge Graph
@@ -11,7 +11,6 @@ triển khai một mô hình graph: Neo4j Property Graph.
 4. Graph schema và instance data.
 5. Property Graph: node, relationship và property trên cạnh.
 6. Cypher cho pattern query và materialized business rule.
-7. Chuyển từ lý thuyết sang Movie Knowledge Graph.
 
 Thông điệp chính:
 
@@ -22,32 +21,34 @@ Thông điệp chính:
 
 ## Phần II — Movie Knowledge Graph
 
-8. Vì sao chọn Neo4j thay vì chỉ dùng mô hình bảng.
-9. Kiến trúc đầu cuối TMDB/IMDb → Neo4j → FastAPI/UI.
-10. Tích hợp IMDb theo exact ID và streaming gzip.
-11. Property Graph schema: Movie, Person, Genre, Keyword, Studio.
-12. Pipeline: collect, cache, clean, normalize, load, reason, validate.
-13. Quality gate và quy mô graph.
-14. Entity resolution, stable ID và provenance.
-15. Cypher catalog: lookup, multi-hop, aggregation, shortest path.
-16. Suy diễn `CO_STARRED_WITH` và evidence.
-17. Hệ hỏi–đáp chín intent.
-18. Gợi ý IDF-weighted có giải thích.
-19. Thiết kế đánh giá theo từng claim.
-20. Kết quả QA, entity resolution, reasoning và recommendation.
-21. Benchmark Neo4j–SQLite và trade-off.
-22. Kịch bản demo end-to-end.
-23. Giới hạn và hướng phát triển.
-24. Kết luận.
+7. Vì sao chọn Neo4j thay vì chỉ dùng mô hình bảng.
+8. Kiến trúc đầu cuối TMDB/IMDb → Neo4j → FastAPI/UI.
+9. Tích hợp IMDb theo exact ID và streaming gzip.
+10. Property Graph schema: Movie, Person, Genre, Keyword, Studio.
+11. Pipeline: collect, cache, clean, normalize, load, reason, validate.
+12. Quality gate và quy mô graph.
+13. Entity resolution, stable ID và provenance.
+14. Cypher catalog: lookup, multi-hop, aggregation, shortest path.
+15. Suy diễn `CO_STARRED_WITH` và evidence.
+16. Hệ hỏi–đáp chín intent.
+17. Gợi ý IDF-weighted có giải thích.
+18. Thiết kế đánh giá theo từng claim.
+19. Kết quả QA, entity resolution, reasoning và recommendation.
+20. Benchmark Neo4j–SQLite và trade-off.
+21. Demo QA lookup trên Web UI và Cypher kiểm chứng trong Neo4j Browser.
+22. Demo QA multi-hop trên Web UI và shared-neighbor query trong Browser.
+23. Demo gợi ý trên Web UI và query kiểm chứng shared features trong Browser.
+24. Giới hạn và hướng phát triển.
+25. Kết luận.
 
 ## Phân bổ thời gian đề xuất
 
 | Phần | Slide | Thời gian |
 |---|---:|---:|
-| Nền tảng Knowledge Graph | 1–7 | 5–6 phút |
-| Thiết kế và dữ liệu | 8–14 | 4–5 phút |
-| Truy vấn và ứng dụng | 15–18 | 3–4 phút |
-| Đánh giá, demo, kết luận | 19–24 | 4–5 phút |
+| Nền tảng Knowledge Graph | 1–6 | khoảng 5 phút |
+| Thiết kế và dữ liệu | 7–13 | 4–5 phút |
+| Truy vấn và ứng dụng | 14–17 | 3–4 phút |
+| Đánh giá, demo, kết luận | 18–25 | 4–5 phút |
 
 ## Kiểm tra trước khi trình bày
 

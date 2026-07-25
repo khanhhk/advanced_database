@@ -233,6 +233,32 @@ Với mỗi câu, chỉ vào bằng chứng và giải thích:
 3. backend chỉ chạy Cypher có tham số trong query catalog cố định;
 4. câu trả lời được dựng từ record/path Neo4j.
 
+#### 5.1. Kiểm chứng kết quả Web UI trong Neo4j Browser
+
+Sau câu hỏi về diễn viên của `Inception`, mở Neo4j Browser và chạy:
+
+```cypher
+MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
+WHERE toLower(m.title) = toLower('Inception')
+RETURN p.name AS actor, r.character AS character
+ORDER BY r.cast_order
+LIMIT 50;
+```
+
+Đối chiếu danh sách với Web UI. Sau câu hỏi về phim chung của Christian Bale và
+Tom Hardy, chạy:
+
+```cypher
+MATCH (a:Person)-[:ACTED_IN]->(m:Movie)<-[:ACTED_IN]-(b:Person)
+WHERE toLower(a.name) = toLower('Christian Bale')
+  AND toLower(b.name) = toLower('Tom Hardy')
+RETURN DISTINCT m.title AS common_movie;
+```
+
+Điểm phải nói: Web UI gửi câu tự nhiên qua FastAPI để chọn Cypher có tham số;
+Neo4j Browser nhận Cypher trực tiếp. Cả hai cùng đọc một graph nên tập fact phải
+thống nhất, dù cách trình bày kết quả khác nhau.
+
 ### Bước 6 — Trình bày gợi ý có giải thích
 
 Trong Web UI:
@@ -255,6 +281,46 @@ type_weight × (1 + ln((N + 1) / (df + 1)))
 - director, actor, keyword, genre và studio có trọng số khác nhau;
 - lời giải thích liệt kê đúng các feature đã đóng góp vào score;
 - đây là graph-native gợi ý chạy trực tiếp trong Neo4j.
+
+#### 6.1. Kiểm chứng bằng chứng gợi ý trong Neo4j Browser
+
+Ghi lại tên phim đứng đầu trên Web UI. Trong Neo4j Browser, thay `Interstellar`
+bằng đúng tên vừa nhận:
+
+```cypher
+:param candidate_title => 'Interstellar';
+```
+
+Sau đó chạy:
+
+```cypher
+MATCH (source:Movie {tmdb_id: 27205})
+MATCH (candidate:Movie {title: $candidate_title})
+CALL (source, candidate) {
+  MATCH (source)<-[:DIRECTED]-(f:Person)-[:DIRECTED]->(candidate)
+  RETURN 'director' AS kind, f.name AS feature
+  UNION
+  MATCH (source)<-[:ACTED_IN]-(f:Person)-[:ACTED_IN]->(candidate)
+  RETURN 'actor' AS kind, f.name AS feature
+  UNION
+  MATCH (source)-[:HAS_GENRE]->(f:Genre)<-[:HAS_GENRE]-(candidate)
+  RETURN 'genre' AS kind, f.name AS feature
+  UNION
+  MATCH (source)-[:HAS_KEYWORD]->(f:Keyword)<-[:HAS_KEYWORD]-(candidate)
+  RETURN 'keyword' AS kind, f.name AS feature
+  UNION
+  MATCH (source)-[:PRODUCED_BY]->(f:Studio)<-[:PRODUCED_BY]-(candidate)
+  RETURN 'studio' AS kind, f.name AS feature
+}
+RETURN candidate.title AS recommended_movie,
+       kind, collect(DISTINCT feature) AS shared_features;
+```
+
+Đối chiếu từng `shared_features` với phần giải thích của cùng phim trên Web UI.
+Đây là phép kiểm chứng trực tiếp các đường graph tạo ra lời giải thích. Muốn tái
+tạo chính xác điểm và thứ hạng, dùng query IDF đầy đủ trong
+`src/recommendation/neo4j_service.py`; không dùng query rút gọn bên trên để tuyên
+bố hai score bằng nhau.
 
 Nếu cần chứng minh bằng API, mở Swagger và chạy `POST /recommend` với:
 
