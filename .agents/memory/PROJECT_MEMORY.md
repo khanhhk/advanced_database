@@ -223,8 +223,11 @@ documents and committed experiment artifacts are the verifiable project sources.
   entity linking, inference, provenance/lineage/evidence, graph similarity and
   evaluation metrics. Movie QA and recommendation are a case study with one
   consolidated evidence-path demo. Source-code and operations details remain
-  in the LaTeX report rather than the main slide narrative. The committed PDF
-  fallback is not automatically regenerated on every PPTX content revision.
+  in the LaTeX report rather than the main slide narrative. On 2026-07-25, the
+  visible prose was revised again so that cards state complete claims in the
+  form definition → role → project example or consequence, instead of relying
+  on isolated English labels or keyword lists. The committed PDF fallback is
+  not automatically regenerated on every PPTX content revision.
 - `docs/deliverables/defense/speaker-notes-by-slide.md`,
   `docs/deliverables/defense/defense-script.md` and
   `docs/deliverables/defense/defense-qa.md`: slide-by-slide speaking notes are

@@ -4,6 +4,10 @@ Tài liệu này bám theo `movie_knowledge_graph_defense.pptx` gồm **31 slide
 không có phụ lục**. Phần **Có thể nói gần như nguyên văn** là kịch bản chính;
 **Cần chỉ vào** và **Chuyển ý** hỗ trợ thao tác trình bày.
 
+Nội dung nói không đọc lại nguyên văn các thẻ trên slide. Mỗi đoạn cần làm rõ
+ba ý theo đúng thứ tự: khái niệm là gì, vì sao dự án cần nó, và ví dụ nào trong
+Movie Knowledge Graph chứng minh vai trò đó.
+
 Tổng thời gian gợi ý: 21–27 phút. Nếu chỉ có 15–18 phút, nói ngắn slide 8, 13,
 15, 24 và 27; không cần xóa chúng vì các slide này hữu ích khi phản biện.
 
