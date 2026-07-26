@@ -1,0 +1,40 @@
+@prefix : <https://example.org/movie-kg/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MovieOntology a owl:Ontology ;
+  rdfs:label "Movie Knowledge Graph interoperability ontology"@en ;
+  rdfs:comment "OWL profile mapped from the operational Neo4j Property Graph."@en ;
+  owl:versionInfo "1.2.0" .
+
+:Movie a owl:Class ; owl:disjointWith :Person, :Genre, :Keyword, :Studio .
+:Person a owl:Class ; owl:disjointWith :Genre, :Keyword, :Studio .
+:Genre a owl:Class ; owl:disjointWith :Keyword, :Studio .
+:Keyword a owl:Class ; owl:disjointWith :Studio .
+:Studio a owl:Class .
+
+:actedIn a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Movie ;
+  owl:inverseOf :hasActor .
+:hasActor a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Person .
+:directed a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Movie ;
+  owl:inverseOf :directedBy .
+:directedBy a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Person .
+:hasGenre a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Genre .
+:hasKeyword a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Keyword .
+:producedBy a owl:ObjectProperty ; rdfs:domain :Movie ; rdfs:range :Studio .
+:coStarredWith a owl:ObjectProperty, owl:SymmetricProperty ;
+  rdfs:domain :Person ; rdfs:range :Person .
+
+:title a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:string .
+:rating a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:decimal .
+:imdbRating a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:decimal .
+:imdbVotes a owl:DatatypeProperty ; rdfs:domain :Movie ; rdfs:range xsd:integer .
+:tmdbId a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :Movie ; rdfs:range xsd:integer .
+:imdbId a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :Movie ; rdfs:range xsd:string .
+:name a owl:DatatypeProperty ; rdfs:range xsd:string .
+:source a owl:AnnotationProperty .
+:derived a owl:DatatypeProperty ; rdfs:range xsd:boolean .

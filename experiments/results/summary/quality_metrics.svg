@@ -1,30 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" viewBox="0 0 900 440">
 <rect width="100%" height="100%" fill="white"/>
 <style>text{font-family:Arial,sans-serif;fill:#172033}.label{font-size:12px}.value{font-size:13px;font-weight:bold}</style>
 <line x1="55" y1="20" x2="55" y2="350" stroke="#667085"/>
 <line x1="55" y1="350" x2="845" y2="350" stroke="#667085"/>
+<g aria-label="ER precision">
 <rect x="73.8" y="50.0" width="61.2" height="300.0" fill="#2563eb"/>
 <text class="value" x="104.4" y="43.0" text-anchor="middle">1.000</text>
-<text class="label" x="104.4" y="374" text-anchor="middle">ER precision</text>
+<text class="label" x="104.4" y="374" text-anchor="middle"><tspan x="104.4" dy="0">ER</tspan><tspan x="104.4" dy="16">precision</tspan></text>
+</g>
+<g aria-label="ER recall">
 <rect x="172.5" y="70.0" width="61.2" height="280.0" fill="#2563eb"/>
 <text class="value" x="203.1" y="63.0" text-anchor="middle">0.933</text>
-<text class="label" x="203.1" y="374" text-anchor="middle">ER recall</text>
+<text class="label" x="203.1" y="374" text-anchor="middle"><tspan x="203.1" dy="0">ER</tspan><tspan x="203.1" dy="16">recall</tspan></text>
+</g>
+<g aria-label="ER F1">
 <rect x="271.3" y="60.3" width="61.2" height="289.7" fill="#2563eb"/>
 <text class="value" x="301.9" y="53.3" text-anchor="middle">0.966</text>
-<text class="label" x="301.9" y="374" text-anchor="middle">ER F1</text>
+<text class="label" x="301.9" y="374" text-anchor="middle"><tspan x="301.9" dy="0">ER</tspan><tspan x="301.9" dy="16">F1</tspan></text>
+</g>
+<g aria-label="Co-star precision">
 <rect x="370.0" y="50.0" width="61.2" height="300.0" fill="#2563eb"/>
 <text class="value" x="400.6" y="43.0" text-anchor="middle">1.000</text>
-<text class="label" x="400.6" y="374" text-anchor="middle">Co-star precision</text>
+<text class="label" x="400.6" y="374" text-anchor="middle"><tspan x="400.6" dy="0">Co-star</tspan><tspan x="400.6" dy="16">precision</tspan></text>
+</g>
+<g aria-label="Rec. P@10">
 <rect x="468.8" y="159.5" width="61.2" height="190.5" fill="#2563eb"/>
 <text class="value" x="499.4" y="152.5" text-anchor="middle">0.635</text>
-<text class="label" x="499.4" y="374" text-anchor="middle">Rec. P@10</text>
+<text class="label" x="499.4" y="374" text-anchor="middle"><tspan x="499.4" dy="0">Rec.</tspan><tspan x="499.4" dy="16">P@10</tspan></text>
+</g>
+<g aria-label="Rec. NDCG@10">
 <rect x="567.5" y="148.3" width="61.2" height="201.7" fill="#2563eb"/>
 <text class="value" x="598.1" y="141.3" text-anchor="middle">0.672</text>
-<text class="label" x="598.1" y="374" text-anchor="middle">Rec. NDCG@10</text>
+<text class="label" x="598.1" y="374" text-anchor="middle"><tspan x="598.1" dy="0">Rec.</tspan><tspan x="598.1" dy="16">NDCG@10</tspan></text>
+</g>
+<g aria-label="QA smoke accuracy">
 <rect x="666.3" y="50.0" width="61.2" height="300.0" fill="#2563eb"/>
 <text class="value" x="696.9" y="43.0" text-anchor="middle">1.000</text>
-<text class="label" x="696.9" y="374" text-anchor="middle">QA smoke accuracy</text>
+<text class="label" x="696.9" y="374" text-anchor="middle"><tspan x="696.9" dy="0">QA smoke</tspan><tspan x="696.9" dy="16">accuracy</tspan></text>
+</g>
+<g aria-label="Neo4j structural validity">
 <rect x="765.0" y="50.0" width="61.2" height="300.0" fill="#2563eb"/>
 <text class="value" x="795.6" y="43.0" text-anchor="middle">1.000</text>
-<text class="label" x="795.6" y="374" text-anchor="middle">Neo4j structural validity</text>
+<text class="label" x="795.6" y="374" text-anchor="middle"><tspan x="795.6" dy="0">Neo4j</tspan><tspan x="795.6" dy="16">structural validity</tspan></text>
+</g>
 </svg>

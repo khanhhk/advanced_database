@@ -1,0 +1,62 @@
+PREFIX : <https://example.org/movie-kg/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Q1. Movies by director (parameter: ?name)
+SELECT ?movie ?title WHERE {
+  ?director :name ?directorName ; :directed ?movie .
+  ?movie :title ?title .
+  FILTER(CONTAINS(LCASE(STR(?directorName)), LCASE(?name)))
+}
+
+# Q2. Actors in a movie
+SELECT ?actor ?actorName WHERE {
+  ?actor :actedIn ?movie ; :name ?actorName .
+  ?movie :title ?title . FILTER(?title = ?movieTitle)
+}
+
+# Q3. Movies sharing a genre
+SELECT DISTINCT ?other ?title ?genre WHERE {
+  ?movie :tmdbId ?movieId ; :hasGenre ?genre .
+  ?other :hasGenre ?genre ; :title ?title . FILTER(?movie != ?other)
+}
+
+# Q4. Co-stars and their supporting movies (multi-hop)
+SELECT ?actorA ?actorB (COUNT(DISTINCT ?movie) AS ?movieCount) WHERE {
+  ?actorA :actedIn ?movie . ?actorB :actedIn ?movie .
+  FILTER(STR(?actorA) < STR(?actorB))
+} GROUP BY ?actorA ?actorB HAVING(COUNT(DISTINCT ?movie) >= 1)
+
+# Q5. Directors ranked within a genre (multi-hop + aggregation)
+SELECT ?director ?name (COUNT(DISTINCT ?movie) AS ?movieCount) WHERE {
+  ?director :directed ?movie ; :name ?name .
+  ?movie :hasGenre ?genre . ?genre :name ?genreName .
+  FILTER(LCASE(STR(?genreName)) = LCASE(?wantedGenre))
+} GROUP BY ?director ?name ORDER BY DESC(?movieCount)
+
+# Q6. Movies with optional IMDb enrichment
+SELECT ?movie ?title ?tmdbRating ?imdbRating ?imdbVotes WHERE {
+  ?movie a :Movie ; :title ?title .
+  OPTIONAL { ?movie :rating ?tmdbRating }
+  OPTIONAL { ?movie :imdbRating ?imdbRating ; :imdbVotes ?imdbVotes }
+}
+
+# Q7. Inference-enabled inverse relation; only present after materialization
+SELECT ?movie ?actor WHERE { ?movie :hasActor ?actor }
+
+# Q8. Semantic path director -> movie -> inferred actor
+SELECT DISTINCT ?directorName ?movieTitle ?actorName WHERE {
+  ?director :name ?directorName ; :directed ?movie .
+  ?movie :title ?movieTitle ; :hasActor ?actor .
+  ?actor :name ?actorName .
+}
+
+# Q9. ASK data-quality/coverage query
+ASK WHERE { ?movie a :Movie ; :tmdbId ?id ; :title ?title }
+
+# Q10. CONSTRUCT a portable recommendation-evidence subgraph
+CONSTRUCT { ?source :relatedBySharedGenre ?candidate . ?candidate :hasGenre ?genre }
+WHERE {
+  ?source :tmdbId ?movieId ; :hasGenre ?genre .
+  ?candidate :hasGenre ?genre . FILTER(?source != ?candidate)
+}

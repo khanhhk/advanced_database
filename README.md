@@ -5,6 +5,11 @@ chuẩn hóa, Neo4j Property Graph, suy diễn bằng Cypher, hỏi–đáp theo
 intent/template, gợi ý có giải thích, UI và evaluation. Ứng dụng chỉ chạy trên
 dữ liệu TMDB thật đã được thu thập và import vào Neo4j.
 
+Ngoài đường vận hành Neo4j, repository có semantic interoperability profile:
+OWL ontology, RDF/Turtle exporter, materializer/validator RDFS--OWL và catalog
+10 truy vấn SPARQL. Profile này kiểm chứng ngoại tuyến trên cùng normalized
+snapshot; nó không phải database runtime thứ hai.
+
 ## Mới tiếp cận repository?
 
 Nếu chưa biết Knowledge Graph, Neo4j hoặc chưa rõ các thư mục đang làm gì, hãy
@@ -98,6 +103,9 @@ RUN_NEO4J_TESTS=1 ALLOW_NEO4J_TEST_RESET=1 \
   ALLOW_MULTISCALE_BENCHMARK=1 NEO4J_URI=bolt://localhost:7688 \
   NEO4J_PASSWORD=test-password \
   .venv/bin/python -m experiments.benchmarks.benchmark_multiscale
+.venv/bin/python -m src.kg.export_rdf
+.venv/bin/python -m src.kg.semantic_reasoning
+.venv/bin/python -m src.kg.sparql_catalog
 ```
 
 CRUD hành chính có

@@ -38,7 +38,7 @@ def build(output_dir: Path = RESULTS / "summary") -> None:
     markdown += [f"| {name} | {value:.3f} | {kind} | {cases} |" for name, value, kind, cases in rows]
     (output_dir / "quality_metrics.md").write_text("\n".join(markdown) + "\n", encoding="utf-8")
 
-    width, height, margin = 900, 420, 55
+    width, height, margin = 900, 440, 55
     bar_width = (width - margin * 2) / len(rows) * .62
     gap = (width - margin * 2) / len(rows)
     svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
@@ -50,10 +50,25 @@ def build(output_dir: Path = RESULTS / "summary") -> None:
         x = margin + index * gap + (gap - bar_width) / 2
         bar_height = value * 300
         y = 350 - bar_height
-        short = name.replace("Entity resolution ", "ER ").replace("Recommendation ", "Rec. ")
-        svg += [f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_width:.1f}" height="{bar_height:.1f}" fill="#2563eb"/>',
+        labels = {
+            "Entity resolution precision": ("ER", "precision"),
+            "Entity resolution recall": ("ER", "recall"),
+            "Entity resolution F1": ("ER", "F1"),
+            "Co-star precision": ("Co-star", "precision"),
+            "Recommendation P@10": ("Rec.", "P@10"),
+            "Recommendation NDCG@10": ("Rec.", "NDCG@10"),
+            "QA smoke accuracy": ("QA smoke", "accuracy"),
+            "Neo4j structural validity": ("Neo4j", "structural validity"),
+        }
+        first_line, second_line = labels[name]
+        accessible_label = f"{first_line} {second_line}"
+        svg += [f'<g aria-label="{accessible_label}">',
+                f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_width:.1f}" height="{bar_height:.1f}" fill="#2563eb"/>',
                 f'<text class="value" x="{x+bar_width/2:.1f}" y="{y-7:.1f}" text-anchor="middle">{value:.3f}</text>',
-                f'<text class="label" x="{x+bar_width/2:.1f}" y="374" text-anchor="middle">{short}</text>']
+                f'<text class="label" x="{x+bar_width/2:.1f}" y="374" text-anchor="middle">'
+                f'<tspan x="{x+bar_width/2:.1f}" dy="0">{first_line}</tspan>'
+                f'<tspan x="{x+bar_width/2:.1f}" dy="16">{second_line}</tspan></text>',
+                '</g>']
     svg.append('</svg>')
     (output_dir / "quality_metrics.svg").write_text("\n".join(svg), encoding="utf-8")
 
